@@ -1,0 +1,1 @@
+{{ $data['amount_PLN_total'] }}
