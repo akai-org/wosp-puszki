@@ -293,6 +293,13 @@ class CharityBoxController extends Controller
         return view('liczymy.box.list')->with('boxes', $boxes);
     }
 
+    //Wyświeltl puszki, które nie zostały rozliczone (dla administratora)
+    public function getListAway(){
+        $boxes = CharityBox::with('collector')->where('is_counted', '=', 0)->get(); // remove n+1 problem
+
+        return view('liczymy.box.list')->with('boxes', $boxes);
+    }
+
     //Wyświetl zawartość pojedynczej puszki (dla administratora)
     public function display(Request $request, $boxNumber){
         $box = CharityBox::where('boxNumber', '=', $boxNumber)->first();

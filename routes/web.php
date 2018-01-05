@@ -19,6 +19,9 @@
 //TODO
 Route::get('/', ['uses' => 'AmountDisplayController@display']);
 
+//Strona główna, wyświetla tylko liczbę hajsu (Sama cyfra, bez bajerów)
+Route::get('/raw', ['as' => 'display.raw','uses' => 'AmountDisplayController@getTotalRaw']);
+
 //Interfejsy admina i superadmina, pod adresem /liczymy
 Route::prefix('liczymy')->group(function () {
 
@@ -78,7 +81,7 @@ Route::prefix('liczymy')->group(function () {
         //Potwierdź
         Route::post('findConfirm', function (){
             return redirect('/liczymy/box/count/'.request()->input('boxNumber'));
-        })->name('box.findConfirm');
+        })->name('box.findConfirm')->middleware('auth');
         //Przelicz pieniądze i wprowadź
         Route::get('count/{boxNumber}', ['as' => 'box.count', 'uses' => 'CharityBoxController@getCount']);
         //SilentAlarm TODO
@@ -90,6 +93,10 @@ Route::prefix('liczymy')->group(function () {
         //Zatwierdzenie puszki (przez administratora)
         //Lista puszek do zatwierdzenia
         Route::get('verify/list', ['as' => 'box.verify.list', 'uses' => 'CharityBoxController@getVerifyList'])->middleware('admin');
+
+        //Lista nierozliczonych puszek
+        //getListAway
+        Route::get('list/away', ['as' => 'box.list.away', 'uses' => 'CharityBoxController@getListAway'])->middleware('admin');
 
         //Zatwierdzenie puszki
         //Podgląd
@@ -126,4 +133,3 @@ Route::prefix('liczymy')->group(function () {
 
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
