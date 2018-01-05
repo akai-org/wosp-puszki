@@ -107,7 +107,7 @@ Route::prefix('liczymy')->group(function () {
         //Lista puszek dla administratora
         Route::get('list', ['as' => 'box.list', 'uses' => 'CharityBoxController@getList'])->middleware('admin');
 
-        //Wyświetl pojedynczą puszkę dla administratora (TODO)
+        //Wyświetl pojedynczą puszkę dla administratora
         Route::get('display/{boxNumber}', ['as' => 'box.display', 'uses' => 'CharityBoxController@display'])->middleware('admin');
 
 

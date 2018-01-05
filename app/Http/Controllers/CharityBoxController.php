@@ -10,6 +10,7 @@ use Money\Money;
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 use Money\Formatter\DecimalMoneyFormatter;
+use Illuminate\Support\Facades\Log;
 
 class CharityBoxController extends Controller
 {
@@ -28,7 +29,10 @@ class CharityBoxController extends Controller
     public function postCreate(Request $request){
         $error = '';
         //Sprawdź poprawność danych (id/puszka)
-        //TODO walidator
+        $request->validate([
+            'boxNumber' => 'required|integer',
+            'collectorIdentifier' => 'required|between:1,255'
+        ]);
 
         $collector = Collector::where('identifier', '=', $request->input('collectorIdentifier'));
         //Sprawdź czy wolontariusz istnieje
@@ -51,6 +55,9 @@ class CharityBoxController extends Controller
             $box->is_given_to_collector = true;
             $box->given_to_collector_user_id = Auth::user()->id;
             $box->save();
+
+            Log::info(Auth::user()->name . " dodał/a puszkę o numerze (wolontariusz): " . trim($request->input('boxNumber')) .
+             " (" . $box->collectorIdentifier . ")");
 
             //Redirect do dodawania kolejnej puszki
             return view('liczymy.box.create')->with('message',
@@ -95,6 +102,9 @@ class CharityBoxController extends Controller
     public function getCount(Request $request, $boxNumber){
         //Sprawdź czy nie jest rozliczona
         $box = CharityBox::where('boxNumber', '=', $boxNumber)->first();
+
+        Log::info(Auth::user()->name . " rozpoczął/ęła rozliczanie puszki : " . $box->boxNumber .
+            "/" . $box->collectorIdentifier);
 
         if(!$box->isCounted) {
             return view('liczymy.box.count')->with('box', $box);
@@ -183,8 +193,14 @@ class CharityBoxController extends Controller
             'amount_PLN' => $totalFormatted
         ];
 
+        Log::info(Auth::user()->name . " zakończył/a rozliczanie puszki: " . $boxNumber . " " . json_encode($data));
+
         //Zapisujemy dane w sesji
         session(['boxData' => $data]);
+
+        // Flash input in case user wants to go back
+        $request->flash();
+
         //Przedstawiamy do weryfikacji
         return view('liczymy.box.confirm')->with('data', $data);
 
@@ -221,9 +237,11 @@ class CharityBoxController extends Controller
         $box->comment = $data['comment'];
 
         $box->save();
-        //Wyczyść sesję
-        \Session::remove('data');
 
+        //Wyczyść sesję
+        \Session::remove('boxData');
+
+        Log::info(Auth::user()->name . " przekazał/a puszkę: " . $boxNumber . " do zatwierdzenia");
         //Zwróć info że puszka zapisana
         return redirect()->route('main')
             ->with('message', 'Puszka '. $box->boxNumber . ' została przesłana do zatwierdzenia. ('.$box->amount_PLN.'zł)');
@@ -261,6 +279,7 @@ class CharityBoxController extends Controller
 
         //Drukuj potwierdzenie?
         //TODO
+        Log::info(Auth::user()->name . " zatwierdził/a puszkę: " . $boxNumber);
 
         return redirect()->route('box.verify.list')->with(
             'message', 'Puszka nr ' . $box->boxNumber . ' potwierdzona ('.$box->amount_PLN.'zł)'
