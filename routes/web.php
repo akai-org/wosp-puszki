@@ -36,10 +36,17 @@ Route::prefix('liczymy')->group(function () {
 
 
     //Dodawanie użytkowników (dla adminów i superadminów)
-    //TODO
-
     //Edycja użytkowników(dla adminów i superadminów)
     //Zmiana hasła(dla adminów i superadminów)
+    Route::prefix('user')->middleware('admin')->group(function () {
+       Route::get('create', ['as' => 'user.create', 'uses' => 'UserController@getCreate']);
+       Route::post('create', ['as' => 'user.create.post', 'uses' => 'UserController@postCreate']);
+
+       Route::get('password/{user}', ['as' => 'user.password', 'uses' => 'UserController@getPassword']);
+       Route::post('password/{user}', ['as' => 'user.password.post', 'uses' => 'UserController@postPassword']);
+
+       Route::get('list', ['as' => 'user.list', 'uses' => 'UserController@getList']);
+    });
 
     //Zbieracze (collector)
     Route::prefix('collector')->group(function (){

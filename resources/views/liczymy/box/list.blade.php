@@ -1,18 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
-    <table>
+    <legend>Lista puszek</legend>
+    <table class="table table-striped table-hover">
         <thead>
-        <td>Puszka</td>
-        <td>Wolontariusz</td>
-        <td>Kwota PLN</td>
-        <td>Kwota EUR</td>
-        <td>Kwota GBP</td>
-        <td>Kwota USD</td>
-        <td>Komentarz</td>
-        <td>Status</td>
-        <td>Podgląd</td>
+            <tr>
+                <th>Puszka</th>
+                <th>Wolontariusz</th>
+                <th>Kwota PLN</th>
+                <th>Kwota EUR</th>
+                <th>Kwota GBP</th>
+                <th>Kwota USD</th>
+                <th>Komentarz</th>
+                <th>Status</th>
+                <th>Podgląd</th>
+            </tr>
         </thead>
+        <tbody>
         @foreach($boxes as $box)
             <tr>
                 <td>{{ $box->boxNumber }}</td>
@@ -32,6 +36,7 @@
                 <td><a href="{{route('box.display',['boxNumber' => $box->boxNumber])}}"> Podgląd</a></td>
             </tr>
         @endforeach
+        </tbody>
     </table>
 
 @endsection

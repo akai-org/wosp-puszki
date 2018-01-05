@@ -1,16 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-    <table>
+    <legend>Lista puszek do zatwierdzenia</legend>
+    <table class="table table-striped table-hover">
         <thead>
-        <td>Puszka</td>
-        <td>Wolontariusz</td>
-        <td>Kwota PLN</td>
-        <td>Kwota EUR</td>
-        <td>Kwota GBP</td>
-        <td>Kwota USD</td>
-        <td>Komentarz</td>
-        <td>Przejdź do zatwierdzenia</td>
+            <tr>
+                <th>Puszka</th>
+                <th>Wolontariusz</th>
+                <th>Kwota PLN</th>
+                <th>Kwota EUR</th>
+                <th>Kwota GBP</th>
+                <th>Kwota USD</th>
+                <th>Komentarz</th>
+                <th>Przejdź do zatwierdzenia</th>
+            </tr>
         </thead>
         @foreach($boxes as $box)
             <tr>

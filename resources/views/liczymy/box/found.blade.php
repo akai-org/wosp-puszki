@@ -1,18 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
+    <h4>Znaleziono puszkę {{ $box->boxNumber }}</h4>
+    <table class="table table-striped table-hover">
+        <tbody>
+            <tr>
+                <td>Wolontariusz</td>
+                <td>{{ $collector->firstName }} {{ $collector->lastName }}</td>
+            </tr>
+            <tr>
+                <td>Numer identyfikatora</td>
+                <td>{{ $collector->identifier }}</td>
+            </tr>
+            <tr>
+                <td>Numer na puszce</td>
+                <td>{{ $box->boxNumber }}/{{ $collector->identifier }}</td>
+            </tr>
+        </tbody>
+    </table>
     <p>
-        Znaleziono puszkę {{ $box->boxNumber }}
-
-        <br>
-        Wolontariusz {{ $collector->firstName }} {{ $collector->lastName }}
-        <br>
-        Numer identyfikatora: {{ $collector->identifier }}
-
-        <br>
-
-        Numer na puszce: {{ $box->boxNumber }}/{{ $collector->identifier }}
-
         Potwierdź że dane z puszki i identyfikatora są zgodne z powyższymi.
         Potwierdź że puszka nie nosi znaków uszkodzeń.
 
