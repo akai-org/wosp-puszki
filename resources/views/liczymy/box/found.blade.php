@@ -14,14 +14,14 @@
             </tr>
             <tr>
                 <td>Numer na puszce</td>
-                <td>{{ $box->boxNumber }}/{{ $collector->identifier }}</td>
+                <td>{{ $box->boxNumber }} <b>/</b> {{ $collector->identifier }}</td>
             </tr>
         </tbody>
     </table>
-    <ul>
-        <li>Potwierdź że dane z puszki i identyfikatora są zgodne z powyższymi.</li>
-        <li>Potwierdź że puszka nie nosi znaków uszkodzeń.</li>
-        <li>Nie wydawaj puszki wolontariuszowi.</li>
+    <ul style="text-align: center; font-size: 2em;list-style-type: none;">
+        <li>Potwierdź że dane z puszki i identyfikatora są zgodne z wyświetlonymi.</li>
+        <li>Potwierdź że puszka nie nosi śladów uszkodzeń.</li>
+        <li>Nie wydawaj rozliczonej puszki wolontariuszowi.</li>
     </ul>
     <form class="form-horizontal" method="POST" action="{{ route('box.findConfirm') }}">
         <fieldset>

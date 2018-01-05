@@ -79,13 +79,16 @@
         <div id="total">
             {{ $data['amount_total_in_PLN'] }}zł
         </div>
+        <div>
+            Wolontariuszy na mieście: {{ $data['collectors_in_city'] }}
+        </div>
     </div>
     <div id="latawiec">
         <img id="latawiec-image" src="latawiec.png">
     </div>
 </div>
 <footer>
-    &copy 2017-{{ date('Y') }} <a href="http://wosp.put.poznan.pl/">Sztab WOŚP przy Politechnice Poznańskiej</a> i <a href="http://akai.org.pl">AKAI</a> <br>
+{{--    &copy 2017-{{ date('Y') }} <a href="http://wosp.put.poznan.pl/">Sztab WOŚP przy Politechnice Poznańskiej</a> i <a href="http://akai.org.pl">AKAI</a> <br>--}}
     Kursy: 1€->{{ $data['rates']['EUR'] }}zł
     1$->{{ $data['rates']['USD'] }}zł
     1£->{{ $data['rates']['GBP'] }}zł

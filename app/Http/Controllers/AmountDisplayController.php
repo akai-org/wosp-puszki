@@ -35,6 +35,8 @@ class AmountDisplayController extends Controller
             ]
         );
 
+        $collectors_in_city = CharityBox::where('is_counted', '=', 0)->count();
+
         $data = [
             'amount_PLN' => $amount_PLN,
             'amount_PLN_unconfirmed' => $amount_PLN_unconfirmed-$amount_PLN,
@@ -42,7 +44,8 @@ class AmountDisplayController extends Controller
             'amount_GBP' => $amount_GBP,
             'amount_USD' => $amount_USD,
             'rates' => $rates,
-            'amount_total_in_PLN' => $total_PLN
+            'amount_total_in_PLN' => $total_PLN,
+            'collectors_in_city' => $collectors_in_city
         ];
 
         return $data;
