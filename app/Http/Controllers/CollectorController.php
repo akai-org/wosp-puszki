@@ -21,7 +21,7 @@ class CollectorController extends Controller
     //Dodawanie zbieracza
     public function postCreate(Request $request){
         //Walidacja danych
-        //TODO może więcej walidacji?
+
         $request->validate([
             'collectorIdentifier' => 'required|alpha_num|between:1,255',
             'firstName' => 'required|alpha|between:1,255',

@@ -97,18 +97,15 @@
                 </tr>
                 </tbody>
             </table>
-
+            <h4 class="text-right"><strong>Nie wydawaj puszki wolontariuszowi.</strong></h4>
             <!-- Button -->
             <div class="form-group">
                 <label class="col-md-4 control-label" for="singlebutton">Potwierdź puszkę</label>
                 <div class="col-md-4">
                     <button id="singlebutton" name="singlebutton" class="btn btn-success">Potwierdź puszkę</button>
+                    <a href="{{ url()->previous() }}" class="btn btn-default">Wróć do poprzedniej strony</a>
                 </div>
             </div>
-
-            {{-- TODO przycisk cofnij !!! --}}
-
-
         </fieldset>
     </form>
 

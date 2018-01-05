@@ -28,7 +28,10 @@ class CharityBoxController extends Controller
     public function postCreate(Request $request){
         $error = '';
         //Sprawdź poprawność danych (id/puszka)
-        //TODO walidator
+        $request->validate([
+            'boxNumber' => 'required|integer',
+            'collectorIdentifier' => 'required|between:1,255'
+        ]);
 
         $collector = Collector::where('identifier', '=', $request->input('collectorIdentifier'));
         //Sprawdź czy wolontariusz istnieje
@@ -185,6 +188,10 @@ class CharityBoxController extends Controller
 
         //Zapisujemy dane w sesji
         session(['boxData' => $data]);
+
+        // Flash input in case user wants to go back
+        $request->flash();
+
         //Przedstawiamy do weryfikacji
         return view('liczymy.box.confirm')->with('data', $data);
 
@@ -221,8 +228,10 @@ class CharityBoxController extends Controller
         $box->comment = $data['comment'];
 
         $box->save();
+
         //Wyczyść sesję
-        \Session::remove('data');
+        \Session::remove('boxData');
+
 
         //Zwróć info że puszka zapisana
         return redirect()->route('main')

@@ -18,13 +18,11 @@
             </tr>
         </tbody>
     </table>
-    <p>
-        Potwierdź że dane z puszki i identyfikatora są zgodne z powyższymi.
-        Potwierdź że puszka nie nosi znaków uszkodzeń.
-
-         TODO Checkboxy tutaj do powyższych, więcej tekstu
-        {{-- TODO --}}
-    </p>
+    <ul>
+        <li>Potwierdź że dane z puszki i identyfikatora są zgodne z powyższymi.</li>
+        <li>Potwierdź że puszka nie nosi znaków uszkodzeń.</li>
+        <li>Nie wydawaj puszki wolontariuszowi.</li>
+    </ul>
     <form class="form-horizontal" method="POST" action="{{ route('box.findConfirm') }}">
         <fieldset>
 
