@@ -94,6 +94,10 @@ Route::prefix('liczymy')->group(function () {
         //Lista puszek do zatwierdzenia
         Route::get('verify/list', ['as' => 'box.verify.list', 'uses' => 'CharityBoxController@getVerifyList'])->middleware('admin');
 
+        //Lista nierozliczonych puszek
+        //getListAway
+        Route::get('list/away', ['as' => 'box.list.away', 'uses' => 'CharityBoxController@getListAway'])->middleware('admin');
+
         //Zatwierdzenie puszki
         //Podgląd
         Route::get('verify/{boxNumber}', ['as' => 'box.verify', 'uses' => 'CharityBoxController@getVerify'])->middleware('admin');

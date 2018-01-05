@@ -45,8 +45,14 @@
                         @guest
                             <li><a href="{{ route('login') }}">Logowanie</a></li>
                         @else
-                            {{-- Użytkownicy --}}
+
                             @if(Auth::user()->hasAnyRole(['admin', 'superadmin']))
+                            <li>
+                                <a href="{{ route('box.verify.list') }}">
+                                    <b>Lista puszek do zatwierdzenia</b>
+                                </a>
+                            </li>
+                            {{-- Użytkownicy --}}
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
                                     Użytkownicy(SZTAB) <span class="caret"></span>
@@ -71,7 +77,7 @@
                             {{-- Wolontariusze --}}
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                    Wolontariusze <span style="color: red;">(Z PUSZKAMI)</span><span class="caret"></span>
+                                    Wolontariusze <span style="color: red;font-weight: bold">(Z PUSZKAMI)</span><span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu">
@@ -115,6 +121,9 @@
                                             <a href="{{ route('box.list') }}">
                                                 Lista puszek
                                             </a>
+                                            <a href="{{ route('box.list.away') }}">
+                                                Lista puszek <b>nierozliczonych</b>
+                                            </a>
                                         @endif
 
                                     </li>
@@ -123,7 +132,7 @@
                             {{-- Logowanie --}}
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    Użytkownik: {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu">
@@ -131,7 +140,7 @@
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                            Wyloguj
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

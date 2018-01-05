@@ -94,6 +94,6 @@ class AmountDisplayController extends Controller
 
     function getTotalRaw() {
         $data = $this->calculateMoney();
-        return $data['amount_total_in_PLN'];
+        return $data['amount_total_in_PLN'].'zł';
     }
 }
