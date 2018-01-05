@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Collector;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class CollectorController extends Controller
 {
@@ -38,6 +40,9 @@ class CollectorController extends Controller
         $collector->firstName = $request->input('firstName');
         $collector->lastName = $request->input('lastName');
         $collector->save();
+
+        Log::info(Auth::user()->name . " dodał/a wolontariusza: " . $collector->firstName . " " . $collector->lastName . " ("
+            . $collector->identifier . ")");
 
         return redirect()->route('collector.create')->with('message',
             'Dodano wolontariusza ' . $collector->show());

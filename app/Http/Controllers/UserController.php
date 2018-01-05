@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+
 
 class UserController extends Controller
 {
@@ -32,6 +35,8 @@ class UserController extends Controller
 
         $role = Role::where('name', '=', $request->input('role'))->first();
         $user->roles()->attach($role);
+
+        Log::info(Auth::user()->name . " utworzył/a użytkownika: " . $user->name);
 
         return redirect()->route('user.create')->with('message',
             'Dodano użytkownika ' . $user->name);
