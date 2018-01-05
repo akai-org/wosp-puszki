@@ -14,6 +14,7 @@
 
 //TODO
 //Dodać log wszystkich akcji użytkowników, jakby się coś spierdoliło
+
 //Strona główna, wyświetla tylko liczbę hajsu
 //TODO
 Route::get('/', ['uses' => 'AmountDisplayController@display']);
@@ -29,6 +30,10 @@ Route::prefix('liczymy')->group(function () {
 
     //Panel główny
     Route::get('/', ['as' => 'main', 'uses' => 'MainController@index']);
+
+    //Pobieranie kursu z NBP (Do wklejenia w .env)
+    Route::get('rates', ['as' => 'rates', 'uses' => 'AmountDisplayController@getRates'])->middleware('admin');
+
 
     //Dodawanie użytkowników (dla adminów i superadminów)
     //TODO

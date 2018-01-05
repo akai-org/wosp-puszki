@@ -8,7 +8,7 @@
 
 
         <!-- Form Name -->
-            <legend>Dodawanie wolontariusza</legend>
+            <legend>Dodawanie wolontariusza <span style="color: red">(tego z PUSZKĄ)</span></legend>
 
             <!-- Text input-->
             <div class="form-group">
