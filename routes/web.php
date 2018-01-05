@@ -81,7 +81,7 @@ Route::prefix('liczymy')->group(function () {
         //Potwierdź
         Route::post('findConfirm', function (){
             return redirect('/liczymy/box/count/'.request()->input('boxNumber'));
-        })->name('box.findConfirm');
+        })->name('box.findConfirm')->middleware('auth');
         //Przelicz pieniądze i wprowadź
         Route::get('count/{boxNumber}', ['as' => 'box.count', 'uses' => 'CharityBoxController@getCount']);
         //SilentAlarm TODO
