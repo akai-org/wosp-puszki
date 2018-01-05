@@ -231,7 +231,8 @@ class CharityBoxController extends Controller
 
     //Potwierdź puszkę (dla administratora)
     public function getVerifyList(){
-        $boxesToConfirm = CharityBox::where('is_given_to_collector', '=', true)
+        $boxesToConfirm = CharityBox::with('collector')   // remove n+1 problem
+            ->where('is_given_to_collector', '=', true)
             ->where('is_counted', '=', true)
             ->where('is_confirmed', '=', false)
             ->get();
@@ -268,14 +269,14 @@ class CharityBoxController extends Controller
 
     //Wyświeltl wszystkie puszki (dla administratora)
     public function getList(){
-        $boxes = CharityBox::get();
+        $boxes = CharityBox::with('collector')->get(); // remove n+1 problem
 
         return view('liczymy.box.list')->with('boxes', $boxes);
     }
 
     //Wyświetl zawartość pojedynczej puszki (dla administratora)
     public function display(Request $request, $boxNumber){
-        $box = CharityBox::where('boxNumber', '=', $boxNumber)->get();
+        $box = CharityBox::where('boxNumber', '=', $boxNumber)->first();
 
         return view('liczymy.box.display')->with('box', $box);
     }

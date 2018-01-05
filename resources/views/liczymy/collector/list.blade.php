@@ -1,12 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-    <table>
+    <table class="table table-striped table-hover">
         <thead>
-        <td>Imię</td>
-        <td>Nazwisko</td>
-        <td>Numer</td>
+        <tr>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Numer</th>
+        </tr>
         </thead>
+        <tbody>
         @foreach($collectors as $collector)
         <tr>
             <td>{{ $collector->firstName }}</td>
@@ -14,5 +17,6 @@
             <td>{{ $collector->identifier }}</td>
         </tr>
         @endforeach
+        </tbody>
     </table>
 @endsection
