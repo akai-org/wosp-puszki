@@ -14,6 +14,12 @@ composer install --no-dev
 
 php artisan key:generate
 
+//Tworzymy strukturę bazy
+//Czysta baza
+php artisan migrate --seed
+
+//Baza testowa (z wolo, adminem i superadminem)
+php artisan migrate --seed
 
 ```
 
