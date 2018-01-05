@@ -29,7 +29,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/liczymy') }}">
-                        {{ config('app.name', 'Wosp') }}
+                        {{ config('app.name', 'WOŚP') }}
                     </a>
                 </div>
 
@@ -49,7 +49,7 @@
                             @if(Auth::user()->hasAnyRole(['admin', 'superadmin']))
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                    Użytkownicy <span class="caret"></span>
+                                    Użytkownicy(SZTAB) <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu">
@@ -71,7 +71,7 @@
                             {{-- Wolontariusze --}}
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                    Wolontariusze <span class="caret"></span>
+                                    Wolontariusze <span style="color: red;">(Z PUSZKAMI)</span><span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu">

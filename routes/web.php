@@ -19,6 +19,9 @@
 //TODO
 Route::get('/', ['uses' => 'AmountDisplayController@display']);
 
+//Strona główna, wyświetla tylko liczbę hajsu (Sama cyfra, bez bajerów)
+Route::get('/raw', ['as' => 'display.raw','uses' => 'AmountDisplayController@getTotalRaw']);
+
 //Interfejsy admina i superadmina, pod adresem /liczymy
 Route::prefix('liczymy')->group(function () {
 
