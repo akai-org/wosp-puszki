@@ -64,15 +64,15 @@ class AmountDisplayController extends Controller
             //Pobieramy kurs z tabeli A Narodowego Banku Polskiego
             //Jest to średni kurs z godziny 11:00
             //EUR
-            $array_EUR = json_decode(file_get_contents('http://api.nbp.pl/api/exchangerates/rates/A/EUR/?format=json'), true);
+            $array_EUR = json_decode(file_get_contents('https://api.nbp.pl/api/exchangerates/rates/A/EUR/?format=json'), true);
             $rates['EUR'] = $array_EUR['rates'][0]['mid'];
             //USD
             //http://api.nbp.pl/api/exchangerates/rates/A/USD/?format=json
-            $array_USD = json_decode(file_get_contents('http://api.nbp.pl/api/exchangerates/rates/A/USD/?format=json'), true);
+            $array_USD = json_decode(file_get_contents('https://api.nbp.pl/api/exchangerates/rates/A/USD/?format=json'), true);
             $rates['USD'] = $array_USD['rates'][0]['mid'];
             //GBP
             //http://api.nbp.pl/api/exchangerates/rates/A/GBP/?format=json
-            $array_GBP = json_decode(file_get_contents('http://api.nbp.pl/api/exchangerates/rates/A/GBP/?format=json'), true);
+            $array_GBP = json_decode(file_get_contents('https://api.nbp.pl/api/exchangerates/rates/A/GBP/?format=json'), true);
             $rates['GBP'] = $array_GBP['rates'][0]['mid'];
         }
 
