@@ -61,23 +61,23 @@
         <h1>Zebraliśmy:</h1>
         <div id="waluty">
             <div class="waluta">
-                <p>{{ $data['amount_PLN'] }}zł</p>
+                <p>{{ number_format($data['amount_PLN'], 2, ',', ' ') }}zł</p>
             </div>
             <div class="waluta">
-                <p>{{ $data['amount_EUR'] }}€</p>
+                <p>{{ number_format($data['amount_EUR'], 2, ',', ' ') }}€</p>
             </div>
             <div class="waluta">
-                <p>{{ $data['amount_GBP'] }}£</p>
+                <p>{{ number_format($data['amount_GBP'], 2, ',', ' ') }}£</p>
             </div>
             <div class="waluta">
-                <p>{{ $data['amount_USD'] }}$</p>
+                <p>{{ number_format($data['amount_USD'], 2, ',', ' ') }}$</p>
             </div>
         </div>
 
         <h1>W sumie (wg. aktualnego kursu NBP) około:</h1>
 
         <div id="total">
-            {{ $data['amount_total_in_PLN'] }}zł
+            {{ number_format($data['amount_total_in_PLN'], 2, ',', ' ') }}zł
         </div>
         <div>
             Wolontariuszy na mieście: {{ $data['collectors_in_city'] }}
