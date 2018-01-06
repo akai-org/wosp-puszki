@@ -6,7 +6,9 @@
         <tr>
             <th>Nazwa użytkownika</th>
             <th>Rola</th>
-            <th>Zmień hasło</th>
+            @if(Auth::user()->hasAnyRole(['superadmin']))
+                <th>Zmień hasło</th>
+            @endif
         </tr>
         </thead>
         <tbody>
@@ -14,7 +16,9 @@
             <tr>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->roles->first()['description'] }}</td>
-                <td><a href="{{ route('user.password', ['user' => $user]) }}">Zmień hasło</a></td>
+                @if(Auth::user()->hasAnyRole(['superadmin']))
+                    <td><a href="{{ route('user.password', ['user' => $user]) }}">Zmień hasło</a></td>
+                @endif
             </tr>
         @endforeach
         </tbody>

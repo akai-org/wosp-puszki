@@ -45,8 +45,8 @@ Route::prefix('liczymy')->group(function () {
        Route::get('create', ['as' => 'user.create', 'uses' => 'UserController@getCreate']);
        Route::post('create', ['as' => 'user.create.post', 'uses' => 'UserController@postCreate']);
 
-       Route::get('password/{user}', ['as' => 'user.password', 'uses' => 'UserController@getPassword']);
-       Route::post('password/{user}', ['as' => 'user.password.post', 'uses' => 'UserController@postPassword']);
+       Route::get('password/{user}', ['as' => 'user.password', 'uses' => 'UserController@getPassword'])->middleware('superadmin');
+       Route::post('password/{user}', ['as' => 'user.password.post', 'uses' => 'UserController@postPassword'])->middleware('superadmin');
 
        Route::get('list', ['as' => 'user.list', 'uses' => 'UserController@getList']);
     });
