@@ -112,9 +112,8 @@
 
         <!-- Button -->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="confirm">Potwierdź puszkę</label>
             <div class="col-md-4">
-                <button id="confirm" name="confirm" class="btn btn-success">Potwierdź puszkę</button>
+                <button id="confirm" name="confirm" class="btn btn-success btn-lg">Potwierdź puszkę</button>
             </div>
         </div>
 
