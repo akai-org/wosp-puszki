@@ -112,11 +112,10 @@
 
         <!-- Button -->
         <div class="form-group">
-            <div class="col-md-4">
+            <div class="col-md-4 col-lg-offset-3">
                 <button id="confirm" name="confirm" class="btn btn-success btn-lg">Potwierdź puszkę</button>
             </div>
         </div>
-
     </fieldset>
 </form>
 @endsection
