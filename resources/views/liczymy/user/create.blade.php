@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <form class="form-horizontal" method="POST" action="{{ route('user.create.post') }}">
+    <form class="form-horizontal" method="POST" action="{{ route('user.create.post') }}" autocomplete="off">
         <fieldset>
 
         {{ csrf_field() }}

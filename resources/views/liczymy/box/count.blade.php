@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <form class="form-horizontal" method="POST" action="{{ route('box.count.post', ['boxNumber' => $box->boxNumber]) }}">
+    <form class="form-horizontal" method="POST" action="{{ route('box.count.post', ['boxNumber' => $box->boxNumber]) }}" autocomplete="off">
         <fieldset>
 
         {{ csrf_field() }}

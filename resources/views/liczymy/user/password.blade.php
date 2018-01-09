@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <form class="form-horizontal" method="POST" action="{{ route('user.password.post', ['user' => $user]) }}">
+    <form class="form-horizontal" method="POST" action="{{ route('user.password.post', ['user' => $user]) }}" autocomplete="off">
         <fieldset>
 
         {{ csrf_field() }}
