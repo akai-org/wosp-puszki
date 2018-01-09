@@ -52,6 +52,7 @@ Route::prefix('liczymy')->group(function () {
     });
 
     //Zbieracze (collector)
+    //Dla administratorów
     Route::prefix('collector')->group(function (){
         //Dodawanie wolontariusza
         //Formularz
@@ -60,8 +61,7 @@ Route::prefix('liczymy')->group(function () {
         Route::post('create', ['as' => 'collector.create.post', 'uses' => 'CollectorController@postCreate']);
 
         //Lista wolontariuszy (dla administratorów)
-        Route::get('list', ['as' => 'collector.list', 'uses' => 'CollectorController@getList'])
-            ->middleware('admin');
+        Route::get('list', ['as' => 'collector.list', 'uses' => 'CollectorController@getList']);
 
     });
     //Puszki

@@ -13,6 +13,8 @@ class CollectorController extends Controller
     {
         //Zabezpieczamy autoryzacją (każdy zalogowany użytkownik ma dostęp)
         $this->middleware('auth');
+        //Tylko admini dodają zbieraczy (a lista powinna być zaimportowana wcześniej, żeby nie napierdalać tego ręcznie)
+        $this->middleware('admin');
     }
 
     //Dodawanie zbieracza (formularz)

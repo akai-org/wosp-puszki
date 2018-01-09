@@ -79,7 +79,9 @@
                             </li>
                             @endif
 
-                            {{-- Wolontariusze --}}
+                            @if(Auth::user()->hasAnyRole(['admin', 'superadmin']))
+
+                                {{-- Wolontariusze --}}
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
                                     Wolontariusze <span style="color: red;font-weight: bold">(Z PUSZKAMI)</span><span class="caret"></span>
@@ -93,17 +95,16 @@
 
                                     </li>
                                     {{-- Dla adminów --}}
-                                    @if(Auth::user()->hasAnyRole(['admin', 'superadmin']))
                                         <li>
                                             <a href="{{ route('collector.list') }}">
                                                 Lista wolontariuszy
                                             </a>
 
                                         </li>
-                                    @endif
                                 </ul>
 
                             </li>
+                            @endif
                             {{-- Puszki --}}
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
