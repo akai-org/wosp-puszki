@@ -243,7 +243,7 @@ class CharityBoxController extends Controller
 
         Log::info(Auth::user()->name . " przekazał/a puszkę: " . $boxNumber . " do zatwierdzenia");
         //Zwróć info że puszka zapisana
-        return redirect()->route('main')
+        return redirect()->route('box.find')
             ->with('message', 'Puszka '. $box->boxNumber . ' została przesłana do zatwierdzenia. ('.$box->amount_PLN.'zł)');
     }
 
