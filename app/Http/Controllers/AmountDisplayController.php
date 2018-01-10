@@ -11,8 +11,8 @@ class AmountDisplayController extends Controller
     //Przelicz ilość pieniędzy z puszek (łącznie z kursem obcych walut)
     function calculateMoney() {
         //Zliczamy rozliczone PLN z puszek
-        $amount_PLN = CharityBox::where('is_confirmed', '=', 1)->sum('amount_PLN');
-        $amount_PLN_unconfirmed = CharityBox::all()->sum('amount_PLN');
+        $amount_PLN = round(CharityBox::where('is_confirmed', '=', 1)->sum('amount_PLN'), 2);
+        $amount_PLN_unconfirmed = round(CharityBox::all()->sum('amount_PLN'),2);
 
         //Zliczamy Inne waluty
         //EUR
@@ -28,7 +28,7 @@ class AmountDisplayController extends Controller
         //Policzenie sumy całości
         $total_PLN = array_sum(
             [
-                $amount_PLN,
+                round($amount_PLN, 2),
                 round($amount_USD*$rates['USD'], 2),
                 round($amount_EUR*$rates['EUR'], 2),
                 round($amount_GBP*$rates['GBP'], 2)
@@ -98,5 +98,10 @@ class AmountDisplayController extends Controller
     function getTotalRaw() {
         $data = $this->calculateMoney();
         return $data['amount_total_in_PLN'].'zł';
+    }
+
+    function displayRawJson() {
+        $data = $this->calculateMoney();
+        return response()->json($data);
     }
 }
