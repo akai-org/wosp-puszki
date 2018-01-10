@@ -11,9 +11,9 @@
 
         <!-- Text input-->
         <div class="form-group">
-            <label class="col-md-4 control-label" for="boxNumber">Numer puszki</label>
+            <label class="col-md-4 control-label" for="collectorIdentifier">Numer wolontariusza</label>
             <div class="col-md-4">
-                <input id="boxNumber" name="boxNumber" type="text" placeholder="Np. 235" class="form-control input-md" required="">
+                <input id="collectorIdentifier" name="collectorIdentifier" type="text" placeholder="Np. 235" class="form-control input-md" required="">
                 <span class="help-block">Z puszki (przed ukośnikiem)</span>
             </div>
         </div>

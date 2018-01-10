@@ -11,19 +11,10 @@
 
             <!-- Text input-->
             <div class="form-group">
-                <label class="col-md-4 control-label" for="boxNumber">Numer puszki</label>
-                <div class="col-md-4">
-                    <input id="boxNumber" name="boxNumber" type="text" placeholder="Np. 343" class="form-control input-md" required="" value="{{  old('boxNumber') }}">
-                    <span class="help-block">Numer kolejny puszki (to przed ukośnikiem)</span>
-                </div>
-            </div>
-
-            <!-- Text input-->
-            <div class="form-group">
                 <label class="col-md-4 control-label" for="collectorIdentifier">Numer wolontariusza</label>
                 <div class="col-md-4">
-                    <input id="collectorIdentifier" name="collectorIdentifier" type="text" placeholder="Np. AWS4562" class="form-control input-md" required="" value="{{  old('collectorIdentifier') }}">
-                    <span class="help-block">Z identyfikatora (Na puszce po ukośniku)</span>
+                    <input id="collectorIdentifier" name="collectorIdentifier" type="text" placeholder="Np. 345" class="form-control input-md" required="" value="{{  old('collectorIdentifier') }}">
+                    <span class="help-block">Z identyfikatora (Na puszce <b>przed ukośnikiem</b>)</span>
                 </div>
             </div>
 

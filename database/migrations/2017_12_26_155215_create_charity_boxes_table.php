@@ -16,7 +16,9 @@ class CreateCharityBoxesTable extends Migration
         Schema::create('charity_boxes', function (Blueprint $table) {
             $table->increments('id');
             //Numer kolejny puszki
-            $table->integer('boxNumber');
+            //$table->integer('boxNumber');
+            //Numer puszki ma format numer wolontariusza/numer sztabu
+            //Więc boxNumber nie jets potrzebny
             //Identyfikator wolontariusza
             $table->string('collectorIdentifier');
             //ID wolontariusza w bazie

@@ -30,7 +30,6 @@ class CharityBoxController extends Controller
         $error = '';
         //Sprawdź poprawność danych (id/puszka)
         $request->validate([
-            'boxNumber' => 'required|integer',
             'collectorIdentifier' => 'required|between:1,255'
         ]);
 
@@ -39,29 +38,25 @@ class CharityBoxController extends Controller
         if(!$collector->exists()){
             $error = 'Brak wolontariusza o takim identyfikatorze.';
         }
-        //Sprawdź czy nie ma puszki z takim numerem
-        if(CharityBox::where('boxNumber', '=', $request->input('boxNumber'))->exists()){
-            $error = 'Istnieje już puszka o takim numerze';
-        }
+
         //Dodaj puszkę
         if(empty($error)) {
             $collector = Collector::where('identifier', '=', $request->input('collectorIdentifier'))->first();
 
             //Brak błędów
             $box = new CharityBox();
-            $box->boxNumber = trim($request->input('boxNumber'));
             $box->collectorIdentifier = trim($request->input('collectorIdentifier'));
             $box->collector_id = $collector->id;
             $box->is_given_to_collector = true;
             $box->given_to_collector_user_id = Auth::user()->id;
             $box->save();
 
-            Log::info(Auth::user()->name . " dodał/a puszkę o numerze (wolontariusz): " . trim($request->input('boxNumber')) .
+            Log::info(Auth::user()->name . " dodał/a puszkę o numerze (wolontariusz): " . $box->id .
              " (" . $box->collectorIdentifier . ")");
 
             //Redirect do dodawania kolejnej puszki
             return view('liczymy.box.create')->with('message',
-                'Dodano puszkę ' . $box->boxNumber . ' wolontariusza ' .
+                'Dodano puszkę wolontariusza ' .
                 $collector->firstName . ' ' . $collector->lastName);
 
         } else {
@@ -78,44 +73,47 @@ class CharityBoxController extends Controller
 
     //Znajdź puszkę (formularz)
     public function postFind(Request $request) {
-        //Walidacja numeru puszki
-        //Sprawdź czy puszka istnieje w systemie (exists:charity_boxes)
+        //Wyszukujemy użytkownika
+        //Podajemy dane do sprawdzenia
         $request->validate([
-            'boxNumber' => 'required|exists:charity_boxes|alpha_num|between:1,255'
+            'collectorIdentifier' => 'required|exists:collectors,identifier|alpha_num|between:1,255'
         ]);
-        //Sprawdź czy puszka nie jest rozliczona
-        $box = CharityBox::where('boxNumber', '=', $request->input('boxNumber'))->first();
+        $collector = Collector::where('identifier', '=', $request->input('collectorIdentifier'))->first();
 
-        if ($box->is_counted) {
-            return redirect()->route('box.find')
-                ->with('error', 'Puszka została już rozliczona, numer: ' . $request->input('boxNumber'));
+        //Puszki zbieracza
+        $boxes = $collector->boxes()->get();
+
+        //Sprawdź czy wolontariusz ma nierozliczoną puszkę
+        //iteracja po wszystkich puszkach TODO
+        foreach ($boxes as $box) {
+            if (!$box->is_counted) {
+                return view('liczymy.box.found')->with('box', $box)->with('collector', $collector);
+            }
         }
 
-        //Podajemy dane do sprawdzenia
-        $collector = Collector::where('identifier', '=', $box->collectorIdentifier)->first();
-
-        return view('liczymy.box.found')->with('box', $box)->with('collector', $collector);
+        return redirect()->route('box.find')
+            ->with('error', 'Wszystkie puszki wolontariusza: ' . $request->input('collectorIdentifier') . 'są rozliczone.');
 
     }
 
     //Rozlicz puszkę (formularz)
-    public function getCount(Request $request, $boxNumber){
+    public function getCount(Request $request, $boxID){
         //Sprawdź czy nie jest rozliczona
-        $box = CharityBox::where('boxNumber', '=', $boxNumber)->first();
+        $box = CharityBox::where('id', '=', $boxID)->first();
 
-        Log::info(Auth::user()->name . " rozpoczął/ęła rozliczanie puszki : " . $box->boxNumber .
+        Log::info(Auth::user()->name . " rozpoczął/ęła rozliczanie puszki : " . $box->id .
             "/" . $box->collectorIdentifier);
 
         if(!$box->isCounted) {
             return view('liczymy.box.count')->with('box', $box);
         } else {
             return redirect()->route('box.find')
-                ->with('error', 'Puszka została już rozliczona, numer: ' . $box->$boxNumber);
+                ->with('error', 'Puszka została już rozliczona, numer puszki: ' . $box->id . 'Wolontariusz: '. $box->collectorIdentifier);
         }
     }
 
     //Rozlicz puszkę
-    public function postCount(Request $request, $boxNumber){
+    public function postCount(Request $request, $boxID){
         //Sprawdzamy czy pola są wypełnione, i czy poprawnie?
         $request->validate([
             //PLN
@@ -169,7 +167,7 @@ class CharityBoxController extends Controller
 
         //Kompilujemy dane
         $data = [
-            'boxNumber' => $boxNumber,
+            'boxID' => $boxID,
             'count_1gr' => $request->input('count_1gr'),
             'count_2gr' => $request->input('count_2gr'),
             'count_5gr' => $request->input('count_5gr'),
@@ -193,7 +191,7 @@ class CharityBoxController extends Controller
             'amount_PLN' => $totalFormatted
         ];
 
-        Log::info(Auth::user()->name . " zakończył/a rozliczanie puszki: " . $boxNumber . " " . json_encode($data));
+        Log::info(Auth::user()->name . " zakończył/a rozliczanie puszki: " . $boxID . " " . json_encode($data));
 
         //Zapisujemy dane w sesji
         session(['boxData' => $data]);
@@ -207,9 +205,9 @@ class CharityBoxController extends Controller
     }
 
     //Potwierdź puszkę (dla wolontariusza)
-    public function confirm(Request $request, $boxNumber){
+    public function confirm(Request $request, $boxID){
         //Zapisz puszkę do bazy
-        $box = CharityBox::where('boxNumber', '=', $boxNumber)->first();
+        $box = CharityBox::where('id', '=', $boxID)->first();
 
         $box->is_counted=true;
         $box->counting_user_id = Auth::user()->id;
@@ -241,10 +239,10 @@ class CharityBoxController extends Controller
         //Wyczyść sesję
         \Session::remove('boxData');
 
-        Log::info(Auth::user()->name . " przekazał/a puszkę: " . $boxNumber . " do zatwierdzenia");
+        Log::info(Auth::user()->name . " przekazał/a puszkę: " . $boxID . " do zatwierdzenia");
         //Zwróć info że puszka zapisana
         return redirect()->route('box.find')
-            ->with('message', 'Puszka '. $box->boxNumber . ' została przesłana do zatwierdzenia. ('.$box->amount_PLN.'zł)');
+            ->with('message', 'Puszka '. $box->id . ' została przesłana do zatwierdzenia. ('.$box->amount_PLN.'zł)');
     }
 
     //Potwierdź puszkę (dla administratora)
@@ -259,8 +257,8 @@ class CharityBoxController extends Controller
     }
 
     //Potwierdź puszkę (dla administratora)
-    public function getVerify(Request $request, $boxNumber){
-        $box = CharityBox::where('boxNumber', '=', $boxNumber)->first();
+    public function getVerify(Request $request, $boxID){
+        $box = CharityBox::where('id', '=', $boxID)->first();
 
         //Sprawdź czy puszka jest przeliczona
         if($box->is_given_to_collector && $box->is_counted && !$box->is_confirmed){
@@ -271,18 +269,18 @@ class CharityBoxController extends Controller
     }
 
     //Potwierdź puszkę (dla administratora)
-    public function postVerify(Request $request, $boxNumber){
-        $box = CharityBox::where('boxNumber', '=', $boxNumber)->first();
+    public function postVerify(Request $request, $boxID){
+        $box = CharityBox::where('id', '=', $boxID)->first();
         $box->is_confirmed=true;
         $box->user_confirmed_id=Auth::user()->id;
         $box->save();
 
         //Drukuj potwierdzenie?
         //TODO
-        Log::info(Auth::user()->name . " zatwierdził/a puszkę: " . $boxNumber);
+        Log::info(Auth::user()->name . " zatwierdził/a puszkę: " . $box->id);
 
         return redirect()->route('box.verify.list')->with(
-            'message', 'Puszka nr ' . $box->boxNumber . ' potwierdzona ('.$box->amount_PLN.'zł)'
+            'message', 'Puszka nr ' . $box->id . ' potwierdzona ('.$box->amount_PLN.'zł)'
         );
     }
 
@@ -301,8 +299,8 @@ class CharityBoxController extends Controller
     }
 
     //Wyświetl zawartość pojedynczej puszki (dla administratora)
-    public function display(Request $request, $boxNumber){
-        $box = CharityBox::where('boxNumber', '=', $boxNumber)->first();
+    public function display(Request $request, $boxID){
+        $box = CharityBox::where('id', '=', $boxID)->first();
 
         return view('liczymy.box.display')->with('box', $box);
     }

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h4>Znaleziono puszkę {{ $box->boxNumber }}</h4>
+    <h4>Znaleziono puszkę {{ $box->id }}</h4>
     <table class="table table-striped table-hover">
         <tbody>
             <tr>
@@ -9,12 +9,8 @@
                 <td>{{ $collector->firstName }} {{ $collector->lastName }}</td>
             </tr>
             <tr>
-                <td>Numer identyfikatora</td>
+                <td>Numer identyfikatora i na puszce</td>
                 <td>{{ $collector->identifier }}</td>
-            </tr>
-            <tr>
-                <td>Numer na puszce</td>
-                <td>{{ $box->boxNumber }} <b>/</b> {{ $collector->identifier }}</td>
             </tr>
         </tbody>
     </table>
@@ -28,8 +24,8 @@
 
         {{ csrf_field() }}
 
-        {{-- Przekazujemy numer puszki --}}
-        <input type="hidden" value="{{ $box->boxNumber }}" name="boxNumber">
+        {{-- Przekazujemy ID puszki --}}
+        <input type="hidden" value="{{ $box->id }}" name="boxID">
         <!-- Button -->
         <div class="form-group">
             <label class="col-md-4 control-label" for="singlebutton">Zgodność z danymi rzeczywistymi</label>

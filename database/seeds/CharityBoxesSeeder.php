@@ -21,7 +21,6 @@ class CharityBoxesSeeder extends Seeder
         //Dodajemy 2000 losowych puszek, do testowania
         for($i=0;$i<2000;$i++) {
             $charityBox = new CharityBox();
-            $charityBox->boxNumber = $i+33;
             $collector = Collector::inRandomOrder()->first();
             $charityBox->collectorIdentifier = $collector->identifier;
             $charityBox->collector_id = $collector->id;

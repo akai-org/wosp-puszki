@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <form class="form-horizontal" method="POST" action="{{ route('box.count.post', ['boxNumber' => $box->boxNumber]) }}" autocomplete="off">
+    <form class="form-horizontal" method="POST" action="{{ route('box.count.post', ['boxID' => $box->id]) }}" autocomplete="off">
         <fieldset>
 
         {{ csrf_field() }}
 
         <!-- Form Name -->
-            <legend>Rozliczenie puszki {{ $box->boxNumber }}</legend>
+            <legend>Rozliczenie puszki {{ $box->collector->identifier }}</legend>
 
             {{-- Ilości monet --}}
             <!-- Text input-->

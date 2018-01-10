@@ -85,15 +85,15 @@ Route::prefix('liczymy')->group(function () {
         Route::post('find', ['as' => 'box.find.post', 'uses' => 'CharityBoxController@postFind']);
         //Potwierdź
         Route::post('findConfirm', function (){
-            return redirect('/liczymy/box/count/'.request()->input('boxNumber'));
+            return redirect('/liczymy/box/count/'.request()->input('boxID'));
         })->name('box.findConfirm')->middleware('auth');
         //Przelicz pieniądze i wprowadź
         Route::get('count/{boxNumber}', ['as' => 'box.count', 'uses' => 'CharityBoxController@getCount']);
         //SilentAlarm TODO
         //Wyślij (tutaj przedstawiamy do sprawdzenia)
-        Route::post('count/{boxNumber}', ['as' => 'box.count.post', 'uses' => 'CharityBoxController@postCount']);
+        Route::post('count/{boxID}', ['as' => 'box.count.post', 'uses' => 'CharityBoxController@postCount']);
         //Potwierdź (wyślij puszkę do Admina)
-        Route::post('count/{boxNumber}/confirm', ['as' => 'box.count.confirm', 'uses' => 'CharityBoxController@confirm']);
+        Route::post('count/{boxID}/confirm', ['as' => 'box.count.confirm', 'uses' => 'CharityBoxController@confirm']);
 
         //Zatwierdzenie puszki (przez administratora)
         //Lista puszek do zatwierdzenia

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <form class="form-horizontal" method="POST" action="{{ route('box.count.confirm', ['boxNumber' => $data['boxNumber']]) }}">
+    <form class="form-horizontal" method="POST" action="{{ route('box.count.confirm', ['boxID' => $data['boxID']]) }}">
         <fieldset>
 
         {{ csrf_field() }}
@@ -13,7 +13,7 @@
                 <tbody>
                 <tr>
                     <td>Numer puszki</td>
-                    <td>{{ $data["boxNumber"] }}</td>
+                    <td>{{ $data["boxID"] }}</td>
                 </tr>
                 <tr>
                     <td>Ilość monet 1gr</td>

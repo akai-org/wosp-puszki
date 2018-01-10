@@ -17,8 +17,8 @@
         </thead>
         @foreach($boxes as $box)
             <tr>
-                <td>{{ $box->boxNumber }}</td>
-                <td>{{$box->collector->firstName}} {{$box->collector->lastName}} ({{ $box->collectorIdentifier }})</td>
+                <td>{{ $box->collector->identifier }}</td>
+                <td>{{$box->collector->firstName}} {{$box->collector->lastName}}</td>
                 <td>{{ $box->amount_PLN }}</td>
                 <td>{{ $box->amount_EUR }}</td>
                 <td>{{ $box->amount_GBP }}</td>

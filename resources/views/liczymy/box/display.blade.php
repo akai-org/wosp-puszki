@@ -16,7 +16,7 @@
     </tr>
     <tr>
         <td>Numer na puszce</td>
-        <td>{{ $box->boxNumber }}/{{ $box->collectorIdentifier }}</td>
+        <td>{{ $box->collectorIdentifier }}</td>
     </tr>
     <tr>
         <td>Status</td>
