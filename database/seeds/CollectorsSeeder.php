@@ -21,7 +21,7 @@ class CollectorsSeeder extends Seeder
             $collector = new Collector();
             $collector->firstName = $faker->firstName;
             $collector->lastName = $faker->lastName;
-            $collector->identifier = $faker->unique()->ean13;
+            $collector->identifier = $faker->unique()->numberBetween(1,900) . '/3658'; //nr wolontariusza/numer sztabu
             $collector->save();
         }
 
