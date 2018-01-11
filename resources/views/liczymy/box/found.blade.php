@@ -12,6 +12,10 @@
                 <td>Numer identyfikatora i na puszce</td>
                 <td>{{ $collector->identifier }}</td>
             </tr>
+        <tr>
+            <td>ID puszki w bazie</td>
+            <td>{{ $box->id }}</td>
+        </tr>
         </tbody>
     </table>
     <ul style="text-align: center; font-size: 2em;list-style-type: none;">
