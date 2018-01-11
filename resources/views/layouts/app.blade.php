@@ -16,6 +16,9 @@
         body {
             font-family: sans-serif;
         }
+        .navbar {
+            margin-bottom: 0;
+        }
     </style>
 </head>
 <body>
@@ -190,7 +193,7 @@
         </div>
         <br>
 
-        <div class="container" id="content">
+        <div class="container-fluid" id="content">
             @yield('content')
         </div>
     </div>

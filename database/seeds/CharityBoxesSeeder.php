@@ -19,15 +19,16 @@ class CharityBoxesSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
 
+        $boxCount = 20;
         //Dodajemy 2000 losowych puszek, do testowania
-        for($i=0;$i<2000;$i++) {
+        for($i=0;$i<$boxCount;$i++) {
             $charityBox = new CharityBox();
             $collector = Collector::inRandomOrder()->first();
             $charityBox->collectorIdentifier = $collector->identifier;
             $charityBox->collector_id = $collector->id;
             $charityBox->is_given_to_collector = true;
             $charityBox->given_to_collector_user_id = 1;
-            $charityBox->time_given = Carbon::now();
+            $charityBox->time_given = Carbon::parse($faker->dateTimeBetween('-1 day', 'now')->format('Y-m-d H:i:s'));
 
             $rand = rand(0,100);
 
@@ -38,6 +39,7 @@ class CharityBoxesSeeder extends Seeder
                 // 70% pełnych
                 $charityBox->is_counted = true;
                 $charityBox->counting_user_id = 2;
+                $charityBox->time_counted = Carbon::parse($faker->dateTimeBetween('-1 day', 'now')->format('Y-m-d H:i:s'));
                 if($rand >= 50) {
                     //20% pełnych puszek, niepotwierdzonych
                     $charityBox->is_confirmed = false;
@@ -45,6 +47,7 @@ class CharityBoxesSeeder extends Seeder
                     //Reszta (50%) pełna i potwierdzona
                     $charityBox->is_confirmed = true;
                     $charityBox->user_confirmed_id = 1;
+                    $charityBox->time_confirmed = Carbon::parse($faker->dateTimeBetween('-1 day', 'now')->format('Y-m-d H:i:s'));
                 }
 
                 //Wypełniamy hajsem

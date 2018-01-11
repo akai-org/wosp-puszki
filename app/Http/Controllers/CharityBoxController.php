@@ -255,6 +255,7 @@ class CharityBoxController extends Controller
             ->where('is_given_to_collector', '=', true)
             ->where('is_counted', '=', true)
             ->where('is_confirmed', '=', false)
+            ->orderBy('time_counted', 'desc')
             ->get();
 
         return view('liczymy.box.verifyList')->with('boxes', $boxesToConfirm);
