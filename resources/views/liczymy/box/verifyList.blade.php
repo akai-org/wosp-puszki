@@ -38,7 +38,7 @@
                 @if($box->is_confirmed)
                     {{-- Wyświetlamy ptaszka jeżeli potwierdzona puszka --}}
                 @endif
-                <td><a href="{{ route('box.verify', ['boxID' => $box->id]) }}">Zatwierdź</a></td>
+                <td>{{--}}<a href="{{ route('box.verify', ['boxID' => $box->id]) }}">Zatwierdź</a>--}}</td>
                 <td><a href="{{route('box.display',['boxID' => $box->id])}}">Podgląd</a></td>
                 <td><a href="{{ route('box.modify', ['boxID' => $box->id]) }}">Modyfikuj</a></td>
                 <td>{{ $box->time_counted }}</td>
