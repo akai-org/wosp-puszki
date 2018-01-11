@@ -84,12 +84,22 @@ Route::prefix('liczymy')->group(function () {
         //Sprawdź z identyfikatorem
         Route::post('find', ['as' => 'box.find.post', 'uses' => 'CharityBoxController@postFind']);
         //Potwierdź
-        Route::post('findConfirm', function (){
-            return redirect('/liczymy/box/count/'.request()->input('boxID'));
+        Route::post('findConfirm', function (\Illuminate\Http\Request $request){
+            //SilentAlarm
+            //Sprawdzamy czy checkbox jest wciśnięty
+            if($request->has('silentalarm')) {
+                //Jeżeli tak, generujemy alarm
+                //TODO powiadomić kogoś
+                //I 404 żeby nie wzbudzać podejrzeń
+                return abort(500);
+            } else {
+                //Jeżeli nie ma alarmu to przechodzimy do rozliczenia
+                return redirect()->route('box.count', ['boxID' => request()->input('boxID')]);
+            }
         })->name('box.findConfirm')->middleware('auth');
         //Przelicz pieniądze i wprowadź
-        Route::get('count/{boxNumber}', ['as' => 'box.count', 'uses' => 'CharityBoxController@getCount']);
-        //SilentAlarm TODO
+        Route::get('count/{boxID}', ['as' => 'box.count', 'uses' => 'CharityBoxController@getCount']);
+
         //Wyślij (tutaj przedstawiamy do sprawdzenia)
         Route::post('count/{boxID}', ['as' => 'box.count.post', 'uses' => 'CharityBoxController@postCount']);
         //Potwierdź (wyślij puszkę do Admina)
