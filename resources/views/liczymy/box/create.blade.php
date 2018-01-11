@@ -7,13 +7,14 @@
             {{ csrf_field() }}
 
             <!-- Form Name -->
-            <legend>Dodawanie puszki</legend>
+            <legend>Wydawanie puszki</legend>
 
             <!-- Text input-->
             <div class="form-group">
                 <label class="col-md-4 control-label" for="collectorIdentifier">Numer wolontariusza</label>
                 <div class="col-md-4">
-                    <input id="collectorIdentifier" name="collectorIdentifier" type="text" placeholder="Np. 345" class="form-control input-md" required="" value="{{  old('collectorIdentifier') }}">
+                    {{-- https://developer.mozilla.org/en-US/docs/Web/Security/Securing_your_site/Turning_off_form_autocompletion --}}
+                    <input id="collectorIdentifier" name="collectorIdentifier" type="text" placeholder="Np. 345" class="form-control input-md" required="" value="{{  old('collectorIdentifier') }}" autocomplete="nope">
                     <span class="help-block">Z identyfikatora (Na puszce <b>przed ukośnikiem</b>)</span>
                 </div>
             </div>
