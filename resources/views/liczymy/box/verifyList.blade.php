@@ -1,6 +1,14 @@
 @extends('layouts.app')
+@section('styles')
+    <style>
 
+    </style>
+@endsection
 @section('content')
+    <script type="text/javascript">
+        {{-- Skrypt do wysłania potwierdzenia bez przeładowania strony --}}
+
+    </script>
     <legend>Lista puszek do zatwierdzenia</legend>
     <table class="table table-striped table-hover">
         <thead>
@@ -19,7 +27,7 @@
             </tr>
         </thead>
         @foreach($boxes as $box)
-            <tr>
+            <tr @if($box->is_confirmed)class="confirmed"@endif>
                 <td>{{ $box->collector->identifier }}</td>
                 <td>{{$box->collector->firstName}} {{$box->collector->lastName}}</td>
                 <td>{{ $box->amount_EUR }}€</td>
@@ -27,9 +35,12 @@
                 <td>{{ $box->amount_USD }}$</td>
                 <td>{{ $box->amount_PLN }}zł</td>
                 <td>{{ $box->comment}}</td>
-                <td>Ticzek</td>
-                <td><a href="{{route('box.verify',['boxNumber' => $box->boxNumber])}}"> Podgląd</a></td>
-                <td>Modyfikuj</td>
+                @if($box->is_confirmed)
+                    {{-- Wyświetlamy ptaszka jeżeli potwierdzona puszka --}}
+                @endif
+                <td><a href="{{ route('box.verify', ['boxID' => $box->id]) }}">Zatwierdź</a></td>
+                <td><a href="{{route('box.display',['boxID' => $box->id])}}">Podgląd</a></td>
+                <td><a href="{{ route('box.modify', ['boxID' => $box->id]) }}">Modyfikuj</a></td>
                 <td>{{ $box->time_counted }}</td>
             </tr>
         @endforeach

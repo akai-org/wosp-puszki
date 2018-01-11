@@ -20,6 +20,7 @@
             margin-bottom: 0;
         }
     </style>
+    @yield('styles')
 </head>
 <body>
     <div id="app">

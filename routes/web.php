@@ -105,17 +105,20 @@ Route::prefix('liczymy')->group(function () {
 
         //Zatwierdzenie puszki
         //Podgląd
-        Route::get('verify/{boxNumber}', ['as' => 'box.verify', 'uses' => 'CharityBoxController@getVerify'])->middleware('admin');
+        //Route::get('verify/{boxNumber}', ['as' => 'box.verify', 'uses' => 'CharityBoxController@getVerify'])->middleware('admin');
         //POST
-        Route::post('verify/{boxNumber}', ['as' => 'box.verify.post', 'uses' => 'CharityBoxController@postVerify'])->middleware('admin');
+        Route::post('verify/{boxID', ['as' => 'box.verify.post', 'uses' => 'CharityBoxController@postVerify'])->middleware('admin');
 
         //Lista puszek dla administratora
         Route::get('list', ['as' => 'box.list', 'uses' => 'CharityBoxController@getList'])->middleware('admin');
 
         //Wyświetl pojedynczą puszkę dla administratora
-        Route::get('display/{boxNumber}', ['as' => 'box.display', 'uses' => 'CharityBoxController@display'])->middleware('admin');
+        Route::get('display/{boxID}', ['as' => 'box.display', 'uses' => 'CharityBoxController@getDisplay'])->middleware('admin');
 
-
+        //Modyikuj puszkę (dla administratora)
+        Route::get('modify/{boxID}', ['as' => 'box.modify', 'uses' => 'CharityBoxController@getModify'])->middleware('admin');
+        //Modyikuj puszkę (dla administratora)
+        Route::post('modify/{boxID}', ['as' => 'box.modify.post', 'uses' => 'CharityBoxController@postModify'])->middleware('admin');
 
         //Drukowanie
         //TODO

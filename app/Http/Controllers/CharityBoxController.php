@@ -114,9 +114,8 @@ class CharityBoxController extends Controller
         }
     }
 
-    //Rozlicz puszkę
-    public function postCount(Request $request, $boxID){
-        //Sprawdzamy czy pola są wypełnione, i czy poprawnie?
+    //Weryfikator przysłanych puszek
+    public function validateBox(Request $request) {
         $request->validate([
             //PLN
             'count_1gr' => 'required|integer|between:0,10000',
@@ -140,9 +139,9 @@ class CharityBoxController extends Controller
             'amount_GBP' => 'required|numeric|between:0,10000',
             'comment' => ''
         ]);
+    }
 
-        //Przeliczamy sumę hajsu
-        //Ilości są w groszach
+    public function getTotalPLN(Request $request) {
         $total = Money::PLN(0);
         $total = $total->add(Money::PLN($request->input('count_1gr')));
         $total = $total->add(Money::PLN($request->input('count_2gr') * 2));
@@ -160,12 +159,28 @@ class CharityBoxController extends Controller
         $total = $total->add(Money::PLN($request->input('count_200zl') * 20000));
         $total = $total->add(Money::PLN($request->input('count_500zl') * 50000));
 
+        return $total;
+    }
+
+    public function formatMoney(Money $money) {
         //Formatowanie
         $currencies = new ISOCurrencies();
 
         $moneyFormatter = new DecimalMoneyFormatter($currencies);
 
-        $totalFormatted = $moneyFormatter->format($total); // outputs 1.00 (decimal)
+        return $moneyFormatter->format($money); // outputs 1.00 (decimal)
+    }
+
+    //Rozlicz puszkę
+    public function postCount(Request $request, $boxID){
+        //Sprawdzamy czy pola są wypełnione, i czy poprawnie?
+        $this->validateBox($request);
+
+        //Przeliczamy sumę hajsu
+        //Ilości są w groszach
+        $total = $this->getTotalPLN($request);
+
+        $totalFormatted = $this->formatMoney($total);
 
         //Kompilujemy dane
         $data = [
@@ -249,7 +264,7 @@ class CharityBoxController extends Controller
             ->with('message', 'Puszka '. $box->id . ' została przesłana do zatwierdzenia. ('.$box->amount_PLN.'zł)');
     }
 
-    //Potwierdź puszkę (dla administratora)
+    //Lista puszek do potwierdzenia (dla administratora)
     public function getVerifyList(){
         $boxesToConfirm = CharityBox::with('collector')   // remove n+1 problem
             ->where('is_given_to_collector', '=', true)
@@ -259,6 +274,13 @@ class CharityBoxController extends Controller
             ->get();
 
         return view('liczymy.box.verifyList')->with('boxes', $boxesToConfirm);
+    }
+
+    //Wyświetl pojedynczą puszkę
+    public function getDisplay(Request $request, $boxID) {
+        $box = CharityBox::where('id', '=', $boxID)->first();
+
+        return view('liczymy.box.display')->with('box', $box);
     }
 
     //Potwierdź puszkę (dla administratora)
@@ -285,8 +307,11 @@ class CharityBoxController extends Controller
         //TODO
         Log::info(Auth::user()->name . " zatwierdził/a puszkę: " . $box->id);
 
-        return redirect()->route('box.verify.list')->with(
-            'message', 'Puszka nr ' . $box->id . ' potwierdzona ('.$box->amount_PLN.'zł)'
+        return json_encode(
+            [
+                'message' => 'Puszka nr ' . $box->id . ' potwierdzona ('.$box->amount_PLN.'zł)',
+                'status' => 'success'
+            ]
         );
     }
 
@@ -304,10 +329,50 @@ class CharityBoxController extends Controller
         return view('liczymy.box.list')->with('boxes', $boxes);
     }
 
-    //Wyświetl zawartość pojedynczej puszki (dla administratora)
-    public function display(Request $request, $boxID){
+    //Modyfikuj puszkę (dla administratora)
+    public function getModify($boxID) {
         $box = CharityBox::where('id', '=', $boxID)->first();
 
-        return view('liczymy.box.display')->with('box', $box);
+        return view('liczymy.box.modify')->with('box', $box);
+    }
+
+    //Modyfikuj puszkę (dla administratora)
+    public function postModify(Request $request, $boxID) {
+        //Sprawdzamy czy pola są wypełnione, i czy poprawnie?
+        $this->validateBox($request);
+
+        //Przeliczamy sumę hajsu
+        //Ilości są w groszach
+        $total = $this->getTotalPLN($request);
+
+        //Zapisz puszkę do bazy
+        $box = CharityBox::where('id', '=', $boxID)->first();
+
+        $box->count_1gr = $request->input('count_1gr');
+        $box->count_2gr = $request->input('count_2gr');
+        $box->count_5gr = $request->input('count_5gr');
+        $box->count_10gr = $request->input('count_10gr');
+        $box->count_20gr = $request->input('count_20gr');
+        $box->count_50gr = $request->input('count_50gr');
+        $box->count_1zl = $request->input('count_1zl');
+        $box->count_2zl = $request->input('count_2zl');
+        $box->count_5zl = $request->input('count_5zl');
+        $box->count_10zl = $request->input('count_10zl');
+        $box->count_20zl = $request->input('count_20zl');
+        $box->count_50zl = $request->input('count_50zl');
+        $box->count_100zl = $request->input('count_100zl');
+        $box->count_200zl = $request->input('count_200zl');
+        $box->count_500zl = $request->input('count_500zl');
+        $box->amount_PLN = $this->formatMoney($total);
+        $box->amount_EUR = $request->input('amount_EUR');
+        $box->amount_USD = $request->input('amount_USD');
+        $box->amount_GBP = $request->input('amount_GBP');
+        $box->comment = $request->input('comment');
+
+        $box->save();
+
+        //Todo logging
+
+        return redirect()->route('box.verify.list')->with('message', 'Zapisano puszkę ' . $box->id . '(' . $box->amount_PLN  . ')');
     }
 }
