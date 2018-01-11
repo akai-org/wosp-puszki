@@ -31,11 +31,15 @@ class UserTableSeeder extends Seeder
         $admin->save();
         $admin->roles()->attach($roleAdmin);
         //Dodawanie użytkownika
-        $volounteer = new User();
-        $volounteer->name = 'wosp01';
-        $volounteer->password = bcrypt('zaq12wsx');
-        $volounteer->save();
-        $volounteer->roles()->attach($roleVolounteer);
+        //Generowanie 30 użytkowników
+        for($i=1;$i<=30;$i++) {
+            $volounteer = new User();
+            $number = str_pad($i, 2, 0, STR_PAD_LEFT);
+            $volounteer->name = 'wosp' . $number;
+            $volounteer->password = bcrypt('teamMarta' . $number);
+            $volounteer->save();
+            $volounteer->roles()->attach($roleVolounteer);
+        }
 
     }
 }
