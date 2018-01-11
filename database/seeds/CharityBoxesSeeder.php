@@ -6,6 +6,7 @@ use App\Collector;
 use Money\Money;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
+use Carbon\Carbon;
 
 class CharityBoxesSeeder extends Seeder
 {
@@ -26,6 +27,7 @@ class CharityBoxesSeeder extends Seeder
             $charityBox->collector_id = $collector->id;
             $charityBox->is_given_to_collector = true;
             $charityBox->given_to_collector_user_id = 1;
+            $charityBox->time_given = Carbon::now();
 
             $rand = rand(0,100);
 

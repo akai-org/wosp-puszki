@@ -28,14 +28,20 @@ class CreateCharityBoxesTable extends Migration
             $table->boolean('is_given_to_collector')->default(false);
             //Kto wydał puszkę
             $table->integer('given_to_collector_user_id');
+            //Data i godzina wydania puszki
+            $table->dateTime('time_given');
             //Czy puszka została policzona
             $table->boolean('is_counted')->default(false);
             //Użytkownik rozliczający puszkę
             $table->integer('counting_user_id')->nullable();
+            //Data i godzina przeliczenia puszki
+            $table->dateTime('time_counted')->nullable();
             //Czy puszka została zatwierdzona
             $table->boolean('is_confirmed')->default(false);
             //Kto zatwierdził
             $table->integer('user_confirmed_id')->nullable();
+            //Czas zatwierdzenia puszki
+            $table->dateTime('time_confirmed')->nullable();
             //Ilość monet 1gr
             $table->integer('count_1gr')->default(0);
             //Ilość monet 2gr

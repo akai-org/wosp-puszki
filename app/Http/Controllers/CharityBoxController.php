@@ -11,6 +11,7 @@ use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 use Money\Formatter\DecimalMoneyFormatter;
 use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 
 class CharityBoxController extends Controller
 {
@@ -49,6 +50,7 @@ class CharityBoxController extends Controller
             $box->collector_id = $collector->id;
             $box->is_given_to_collector = true;
             $box->given_to_collector_user_id = Auth::user()->id;
+            $box->time_given = Carbon::now();
             $box->save();
 
             Log::info(Auth::user()->name . " dodał/a puszkę o numerze (wolontariusz): " . $box->id .
@@ -234,6 +236,8 @@ class CharityBoxController extends Controller
         $box->amount_GBP = $data['amount_GBP'];
         $box->comment = $data['comment'];
 
+        $box->time_counted = Carbon::now();
+
         $box->save();
 
         //Wyczyść sesję
@@ -271,8 +275,9 @@ class CharityBoxController extends Controller
     //Potwierdź puszkę (dla administratora)
     public function postVerify(Request $request, $boxID){
         $box = CharityBox::where('id', '=', $boxID)->first();
-        $box->is_confirmed=true;
-        $box->user_confirmed_id=Auth::user()->id;
+        $box->is_confirmed = true;
+        $box->user_confirmed_id = Auth::user()->id;
+        $box->time_confirmed = Carbon::now();
         $box->save();
 
         //Drukuj potwierdzenie?
