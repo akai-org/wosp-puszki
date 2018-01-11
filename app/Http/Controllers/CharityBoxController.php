@@ -56,10 +56,12 @@ class CharityBoxController extends Controller
             Log::info(Auth::user()->name . " dodał/a puszkę o numerze (wolontariusz): " . $box->id .
              " (" . $box->collectorIdentifier . ")");
 
+            //TODO log do bazy
+
             //Redirect do dodawania kolejnej puszki
             return view('liczymy.box.create')->with('message',
                 'Dodano puszkę wolontariusza ' .
-                $collector->firstName . ' ' . $collector->lastName);
+                $collector->firstName . ' ' . $collector->lastName . '(ID puszki w bazie: ' . $box->id . ')');
 
         } else {
             //Zwracamy błąd
