@@ -184,8 +184,20 @@ class CharityBoxController extends Controller
 
         $totalFormatted = $this->formatMoney($total);
 
+        $totalWithForeign =  number_format(
+            array_sum(
+                array(
+                    $totalFormatted,
+                    $request->input('amount_EUR') * env('RATE_EUR'),
+                    $request->input('amount_USD') * env('RATE_USD'),
+                    $request->input('amount_GBP') * env('RATE_GBP')
+                )
+            ), 2, '.', ' ');
+
+        $box = CharityBox::where('id', '=', $boxID)->first();
         //Kompilujemy dane
         $data = [
+            'collectorIdentifier' => $box->collector->identifier,
             'boxID' => $boxID,
             'count_1gr' => $request->input('count_1gr'),
             'count_2gr' => $request->input('count_2gr'),
@@ -207,7 +219,8 @@ class CharityBoxController extends Controller
             'amount_USD' => $request->input('amount_USD'),
             'amount_GBP' => $request->input('amount_GBP'),
             'comment' => $request->input('comment'),
-            'amount_PLN' => $totalFormatted
+            'amount_PLN' => $totalFormatted,
+            'amount_PLN_with_foreign' => $totalWithForeign
         ];
 
         Log::info(Auth::user()->name . " zakończył/a rozliczanie puszki: " . $boxID . " " . json_encode($data));

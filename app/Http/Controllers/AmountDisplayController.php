@@ -59,9 +59,9 @@ class AmountDisplayController extends Controller
         // żeby nie obciążać się zapytaniami do NBP
         if (env('STATIC_RATES')) {
             $rates = [
-                'USD' => env('USD_RATE'),
-                'EUR' => env('EUR_RATE'),
-                'GBP' => env('GBP_RATE')
+                'USD' => env('RATE_USD'),
+                'EUR' => env('RATE_EUR'),
+                'GBP' => env('RATE_GBP')
             ];
         } else {
             //Pobieramy kurs z tabeli A Narodowego Banku Polskiego
