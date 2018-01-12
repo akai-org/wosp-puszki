@@ -10,6 +10,7 @@
 
     <title>{{ config('app.name', 'Wosp') }}</title>
 
+    <script type="text/javascript" src="{{ asset('js\jquery-3.2.1.min.js') }}"></script>
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>

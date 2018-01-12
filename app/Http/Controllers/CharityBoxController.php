@@ -281,14 +281,8 @@ class CharityBoxController extends Controller
 
     //Lista puszek do potwierdzenia (dla administratora)
     public function getVerifyList(){
-        $boxesToConfirm = CharityBox::with('collector')   // remove n+1 problem
-            ->where('is_given_to_collector', '=', true)
-            ->where('is_counted', '=', true)
-            ->where('is_confirmed', '=', false)
-            ->orderBy('time_counted', 'desc')
-            ->get();
-
-        return view('liczymy.box.verifyList')->with('boxes', $boxesToConfirm);
+        //Używa API w CharityBoxApiController
+        return view('liczymy.box.verifyList');
     }
 
     //Wyświetl pojedynczą puszkę
@@ -311,16 +305,17 @@ class CharityBoxController extends Controller
     }
 
     //Potwierdź puszkę (dla administratora)
-    public function postVerify(Request $request, $boxID){
-        $box = CharityBox::where('id', '=', $boxID)->first();
+    public function postVerify(Request $request){
+//        return $request->all();
+        $box = CharityBox::where('id', '=', $request->boxID)->first();
         $box->is_confirmed = true;
-        $box->user_confirmed_id = Auth::user()->id;
+        $box->user_confirmed_id = $request->user()->id;
         $box->time_confirmed = Carbon::now();
         $box->save();
 
         //Drukuj potwierdzenie?
         //TODO
-        Log::info(Auth::user()->name . " zatwierdził/a puszkę: " . $box->id);
+        Log::info($request->user()->id . " zatwierdził/a puszkę: " . $box->id);
 
         return json_encode(
             [
@@ -346,6 +341,7 @@ class CharityBoxController extends Controller
 
     //Modyfikuj puszkę (dla administratora)
     public function getModify($boxID) {
+        //TODO zabezpieczenie że zatwierdzonej puszki nie można modyfikować
         $box = CharityBox::where('id', '=', $boxID)->first();
 
         return view('liczymy.box.modify')->with('box', $box);
@@ -353,6 +349,7 @@ class CharityBoxController extends Controller
 
     //Modyfikuj puszkę (dla administratora)
     public function postModify(Request $request, $boxID) {
+        //TODO zabezpieczenie że zatwierdzonej puszki nie można modyfikować
         //Sprawdzamy czy pola są wypełnione, i czy poprawnie?
         $this->validateBox($request);
 

@@ -71,6 +71,8 @@ Route::prefix('liczymy')->group(function () {
     });
     //Puszki
     Route::prefix('box')->group(function (){
+
+
         //Dodawanie puszki
         //Formularz
         Route::get('create', ['as' => 'box.create', 'uses' => 'CharityBoxController@getCreate']);
@@ -117,7 +119,7 @@ Route::prefix('liczymy')->group(function () {
         //Podgląd
         //Route::get('verify/{boxNumber}', ['as' => 'box.verify', 'uses' => 'CharityBoxController@getVerify'])->middleware('admin');
         //POST
-        Route::post('verify/{boxID', ['as' => 'box.verify.post', 'uses' => 'CharityBoxController@postVerify'])->middleware('admin');
+        Route::post('verify', ['as' => 'box.verify.post', 'uses' => 'CharityBoxController@postVerify'])->middleware('admin');
 
         //Lista puszek dla administratora
         Route::get('list', ['as' => 'box.list', 'uses' => 'CharityBoxController@getList'])->middleware('admin');
@@ -133,6 +135,23 @@ Route::prefix('liczymy')->group(function () {
         //Drukowanie
         //TODO
     });
+
+
+    //API
+    Route::prefix('api')->group(function (){
+        Route::prefix('box')->group(function (){
+            //Lista puszek do potwierdzenia
+            Route::get('verify/list', ['as' => 'api.box.verify.list', 'uses' => 'CharityBoxApiController@getVerifyList'])->middleware('admin');
+
+            //Lista puszek zatwierdzonych
+            Route::get('verified', ['as' => 'api.box.verified', 'uses' => 'CharityBoxApiController@getVerifiedBoxes'])->middleware('admin');
+
+            //Anulowanie zatwierdzenia puszek
+            Route::post('unverify', ['as' => 'api.box.unverify', 'uses' => 'CharityBoxApiController@postUnVerify'])->middleware('admin');
+
+        });
+    });
+
 
     //Podgląd puszek na żywo
     //TODO
