@@ -13,4 +13,14 @@ class CharityBox extends Model
     {
         return $this->belongsTo('App\Collector');
     }
+
+    public function getTotalWithForeignAttribute() {
+        $totalWithForeign = array_sum([
+                $this->amount_PLN,
+                $this->amount_EUR * env('RATE_EUR'),
+                $this->amount_GBP * env('RATE_GBP'),
+                $this->amount_USD * env('RATE_USD')
+        ]);
+        return number_format($totalWithForeign, 2, ',', ' ');
+    }
 }
