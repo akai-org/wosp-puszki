@@ -118,7 +118,7 @@
                                 <ul class="dropdown-menu">
                                     <li>
                                         <a href="{{ route('box.create') }}">
-                                           Dodaj puszkę
+                                           Wydaj puszkę
                                         </a>
                                         <a href="{{ route('box.find') }}">
                                             Rozlicz puszkę
