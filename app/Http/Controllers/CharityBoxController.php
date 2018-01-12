@@ -341,8 +341,13 @@ class CharityBoxController extends Controller
 
     //Modyfikuj puszkę (dla administratora)
     public function getModify($boxID) {
-        //TODO zabezpieczenie że zatwierdzonej puszki nie można modyfikować
         $box = CharityBox::where('id', '=', $boxID)->first();
+
+        //TODO fix this nicer
+        //abezpieczenie że zatwierdzonej puszki nie można modyfikować
+        if($box->is_confirmed) {
+            abort('404', 'Nie można modyfikować zatwierdzonej puszki.');
+        }
 
         return view('liczymy.box.modify')->with('box', $box);
     }
@@ -359,6 +364,12 @@ class CharityBoxController extends Controller
 
         //Zapisz puszkę do bazy
         $box = CharityBox::where('id', '=', $boxID)->first();
+
+        //TODO fix this nicer
+        //abezpieczenie że zatwierdzonej puszki nie można modyfikować
+        if($box->is_confirmed) {
+            abort('404', 'Nie można modyfikować zatwierdzonej puszki.');
+        }
 
         $box->count_1gr = $request->input('count_1gr');
         $box->count_2gr = $request->input('count_2gr');

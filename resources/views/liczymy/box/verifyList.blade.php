@@ -62,7 +62,6 @@
                                     'boxID': box.id,
                                 },
                                 success: function (data) {
-//                                    console.log('confirmed' + box.id);
                                     //Zwrócić sukces TODO
                                     reloadBoxesToVerify();
                                     reloadVerifiedBoxes();
@@ -90,7 +89,6 @@
                 type: "GET",
                 success: function (data) {
                     $.each(data, function (index, box) {
-                        console.log(box);
                         $('#confirmed-table').append(
                             '<tr>' +
                             '<td>'+box.collectorIdentifier+'</td>' +
@@ -104,7 +102,7 @@
                             '<form id="un-confirm-form-'+box.id+'" method="post" onsubmit="">' +
                             '{{ csrf_field() }}' +
                             '<input type="hidden" name="boxID" value="'+box.id+'">' +
-                            '<input class="unconfirm btn btn-error" type="button" name="unconfirm" value="Cofnij zatwierdzenie"/>' +
+                            '<input class="unconfirm btn btn-danger" type="button" name="unconfirm" value="Cofnij zatwierdzenie"/>' +
                             '</form>' +
                             '</td>' +
                             '<td><a href="'+
@@ -126,9 +124,6 @@
                                     'boxID': box.id,
                                 },
                                 success: function (data) {
-//                                    console.log(box.id);
-//                                    console.log('UNconfirmed' + box.id);
-
                                     //Zwrócić sukces TODO
                                     reloadVerifiedBoxes();
                                     reloadBoxesToVerify();
@@ -156,6 +151,12 @@
             //Przeładowujemy puszki do zatwierdzenia
             reloadBoxesToVerify();
             reloadVerifiedBoxes();
+
+            //Przeładowanie co 10 sekund
+            setInterval(function () {
+                console.log('reloaded');
+                reloadBoxesToVerify();
+            }, 10000);
 
         });
     </script>
