@@ -276,7 +276,7 @@ class CharityBoxController extends Controller
         Log::info(Auth::user()->name . " przekazał/a puszkę: " . $boxID . " do zatwierdzenia");
         //Zwróć info że puszka zapisana
         return redirect()->route('box.find')
-            ->with('message', 'Puszka '. $box->id . ' została przesłana do zatwierdzenia. ('.$box->amount_PLN.'zł)');
+            ->with('message', 'Puszka o ID '. $box->id . ' została przesłana do zatwierdzenia. (' . $box->collector->firstName . ' ' . $box->collector->lastName . ', ' . $box->collector->identifier . ', '  .$box->amount_PLN.'zł)');
     }
 
     //Lista puszek do potwierdzenia (dla administratora)
