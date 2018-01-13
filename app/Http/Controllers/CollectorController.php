@@ -52,8 +52,40 @@ class CollectorController extends Controller
 
     //Wyświetlanie wszystkich wolontariuszy (dla Adminów i superadminów)
     public function getList(){
-        $collectors = Collector::all();
-        return view('liczymy.collector.list')->with('collectors', $collectors);
+        $collectors = Collector::with('boxes')->get();
+
+        //Wnioskowanie statusu
+        $status = [];
+
+        foreach ($collectors as $collector) {
+            $boxesGiven = $collector->boxes()->count();
+
+            $boxesCounted = $collector->boxes()->where('is_counted', '=', 1)->count();
+
+            $boxesConfirmed = $collector->boxes()->where('is_confirmed', '=', 1)->count();
+
+            if ($boxesGiven === 0) {
+                //Brak puszek
+                $status[$collector->identifier]['color'] = '#FFFFFF';
+                $status[$collector->identifier]['message'] = 'Brak puszek';
+            } else if ($boxesGiven == $boxesConfirmed) {
+                //Wszystko rozliczone
+                $status[$collector->identifier]['color'] = '#82CA9D';
+                $status[$collector->identifier]['message'] = 'Rozliczony';
+            } else if ($boxesGiven == $boxesCounted){
+                //Oczekuje na zatwierdzenie
+                $status[$collector->identifier]['color'] = '#FF8400';
+                $status[$collector->identifier]['message'] = 'Oczekuje na zatwierdzenie';
+            } else {
+                $status[$collector->identifier]['color'] = '#bae1ff';
+                $status[$collector->identifier]['message'] = 'Kwestuje';
+            }
+
+        }
+
+        return view('liczymy.collector.list')
+            ->with('collectors', $collectors)
+            ->with('status', $status);
     }
 
 }
