@@ -3,9 +3,9 @@
     <meta http-equiv="refresh" content="30" />
     <style>
         body{
-            background-color: #0a0806ff;
+            background-color: #000000;
             /*overflow-y:hidden;*/
-            color: #fff;
+            color: #000000;
             font-family: lato, sans-serif;
         }
         p {
