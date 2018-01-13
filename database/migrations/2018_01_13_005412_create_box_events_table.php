@@ -18,7 +18,7 @@ class CreateBoxEventsTable extends Migration
             $table->string('type');
             $table->integer('box_id');
             $table->integer('user_id');
-            $table->string('comment');
+            $table->longText('comment');
             $table->timestamps();
         });
     }

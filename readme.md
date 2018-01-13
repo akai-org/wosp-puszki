@@ -51,3 +51,39 @@ Make sure that the “Clear saved Autofill form data” option is checked.
 Click Clear browsing data.
 ```
 src: https://support.iclasspro.com/hc/en-us/articles/218569268-How-to-Disable-and-Clear-AutoFill-Info-in-your-Browser
+
+
+### Wydarzenia zapisywane do bazy (BoxEvent)
+```
+$table->string('type');
+$table->integer('box_id');
+$table->integer('user_id');
+$table->string('comment');
+```
+
+give - wydanie puszki wolontariuszowi
+found - znalezienie puszki
+startedCounting - rozpoczął rozliczenie puszki
+endedCounting - zakończył liczenie (nie potwierdził jeszcze)
+confirmed - puszka została przeliczona i wysłana do potwierdzenia
+//pRZECHODZIMY do admina
+verified - administrator zatwierdził
+modified - administrator zmodyfikował
+unverified - administrator od-zatwierdził
+
+
+//USER
+alreadyCounted - event usera
+
+
+
+//Zapisujemy event do bazy
+
+$event = new BoxEvent();
+$event->type = 'give';
+$event->box_id = $box->id;
+$event->user_id = $request->user()->id;
+$event->comment = 'Collector: ' . $collector->display;
+$event->save();
+
+$collector->display . $box->display_id

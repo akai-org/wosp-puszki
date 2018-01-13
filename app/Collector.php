@@ -18,4 +18,11 @@ class Collector extends Model
     {
         return $this->hasMany('App\CharityBox');
     }
+
+    public function getDisplayAttribute() {
+        $formatted = $this->firstName . ' ';
+        $formatted .= $this->lastName . ' ';
+        $formatted .= "($this->identifier)";
+        return $formatted;
+    }
 }

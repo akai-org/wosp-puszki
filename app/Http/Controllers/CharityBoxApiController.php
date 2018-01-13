@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\CharityBox;
 use Illuminate\Support\Facades\Log;
+use App\BoxEvent;
 
 use Illuminate\Http\Request;
 
@@ -54,7 +55,12 @@ class CharityBoxApiController extends Controller
         $box->save();
 
         //TODO
-        Log::info($request->user()->id . " ODzatwierdził/a puszkę: " . $box->id);
+        $event = new BoxEvent();
+        $event->type = 'unverified';
+        $event->box_id = $box->id;
+        $event->user_id = $request->user()->id;
+        $event->comment = '';
+        $event->save();
 
         return json_encode(
             [

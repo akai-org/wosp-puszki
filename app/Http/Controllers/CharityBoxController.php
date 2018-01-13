@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\BoxEvent;
 use App\CharityBox;
 use App\Collector;
 use Auth;
@@ -12,6 +13,7 @@ use Money\Currency;
 use Money\Formatter\DecimalMoneyFormatter;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
 
 class CharityBoxController extends Controller
 {
@@ -53,15 +55,19 @@ class CharityBoxController extends Controller
             $box->time_given = Carbon::now();
             $box->save();
 
-            Log::info(Auth::user()->name . " dodał/a puszkę o numerze (wolontariusz): " . $box->id .
-             " (" . $box->collectorIdentifier . ")");
+            //Zapisujemy event do bazy
 
-            //TODO log do bazy
+            $event = new BoxEvent();
+            $event->type = 'give';
+            $event->box_id = $box->id;
+            $event->user_id = $request->user()->id;
+            $event->comment = 'Collector: ' . $collector->display;
+            $event->save();
 
             //Redirect do dodawania kolejnej puszki
             return view('liczymy.box.create')->with('message',
-                'Dodano puszkę wolontariusza ' .
-                $collector->firstName . ' ' . $collector->lastName . '(ID puszki w bazie: ' . $box->id . ')');
+                'Wydano puszkę wolontariuszowi ' .
+                $collector->display . $box->display_id);
 
         } else {
             //Zwracamy błąd
@@ -79,9 +85,13 @@ class CharityBoxController extends Controller
     public function postFind(Request $request) {
         //Wyszukujemy użytkownika
         //Podajemy dane do sprawdzenia
-        $request->validate([
+        Validator::make($request->all(), [
             'collectorIdentifier' => 'required|exists:collectors,identifier|alpha_num|between:1,255'
-        ]);
+        ],
+        [
+            'collectorIdentifier.exists' => 'Wolontariusz o takim ID nie istnieje.'
+        ])->validate();
+
         $collector = Collector::where('identifier', '=', $request->input('collectorIdentifier'))->first();
 
         //Puszki zbieracza
@@ -91,12 +101,23 @@ class CharityBoxController extends Controller
         //iteracja po wszystkich puszkach TODO
         foreach ($boxes as $box) {
             if (!$box->is_counted) {
+                //Zapisujemy event do bazy
+
+                $event = new BoxEvent();
+                $event->type = 'found';
+                $event->box_id = $box->id;
+                $event->user_id = $request->user()->id;
+                $event->comment = 'Collector: ' . $collector->display;
+                $event->save();
+
                 return view('liczymy.box.found')->with('box', $box)->with('collector', $collector);
             }
         }
 
+        //TODO log alreadyCounted  usera
+
         return redirect()->route('box.find')
-            ->with('error', 'Wszystkie puszki wolontariusza: ' . $request->input('collectorIdentifier') . 'są rozliczone.');
+            ->with('error', 'Wszystkie puszki wolontariusza ' . $collector->display . ' są rozliczone.');
 
     }
 
@@ -109,6 +130,13 @@ class CharityBoxController extends Controller
             "/" . $box->collectorIdentifier);
 
         if(!$box->isCounted) {
+            $event = new BoxEvent();
+            $event->type = 'startedCounting';
+            $event->box_id = $box->id;
+            $event->user_id = $request->user()->id;
+            $event->comment = 'Collector: ' . $box->collector->display;
+            $event->save();
+
             return view('liczymy.box.count')->with('box', $box);
         } else {
             return redirect()->route('box.find')
@@ -143,6 +171,7 @@ class CharityBoxController extends Controller
         ]);
     }
 
+    //Zlicz całość puszki
     public function getTotalPLN(Request $request) {
         $total = Money::PLN(0);
         $total = $total->add(Money::PLN($request->input('count_1gr')));
@@ -164,6 +193,7 @@ class CharityBoxController extends Controller
         return $total;
     }
 
+//    Sformatuj obiekt Money do wyświetlenia
     public function formatMoney(Money $money) {
         //Formatowanie
         $currencies = new ISOCurrencies();
@@ -223,7 +253,12 @@ class CharityBoxController extends Controller
             'amount_PLN_with_foreign' => $totalWithForeign
         ];
 
-        Log::info(Auth::user()->name . " zakończył/a rozliczanie puszki: " . $boxID . " " . json_encode($data));
+        $event = new BoxEvent();
+        $event->type = 'endedCounting';
+        $event->box_id = $box->id;
+        $event->user_id = $request->user()->id;
+        $event->comment = 'box: ' . json_encode($data);
+        $event->save();
 
         //Zapisujemy dane w sesji
         session(['boxData' => $data]);
@@ -273,10 +308,16 @@ class CharityBoxController extends Controller
         //Wyczyść sesję
         \Session::remove('boxData');
 
-        Log::info(Auth::user()->name . " przekazał/a puszkę: " . $boxID . " do zatwierdzenia");
+        $event = new BoxEvent();
+        $event->type = 'confirmed';
+        $event->box_id = $box->id;
+        $event->user_id = $request->user()->id;
+        $event->comment = '';
+        $event->save();
+
         //Zwróć info że puszka zapisana
         return redirect()->route('box.find')
-            ->with('message', 'Puszka o ID '. $box->id . ' została przesłana do zatwierdzenia. (' . $box->collector->firstName . ' ' . $box->collector->lastName . ', ' . $box->collector->identifier . ', '  .$box->amount_PLN.'zł)');
+            ->with('message', 'Puszka wolontariusza ' . $box->collector->display . ' została przesłana do zatwierdzenia.' . $box->displayID  . ' ('  .$box->amount_PLN.'zł)');
     }
 
     //Lista puszek do potwierdzenia (dla administratora)
@@ -306,7 +347,6 @@ class CharityBoxController extends Controller
 
     //Potwierdź puszkę (dla administratora)
     public function postVerify(Request $request){
-//        return $request->all();
         $box = CharityBox::where('id', '=', $request->boxID)->first();
         $box->is_confirmed = true;
         $box->user_confirmed_id = $request->user()->id;
@@ -315,7 +355,15 @@ class CharityBoxController extends Controller
 
         //Drukuj potwierdzenie?
         //TODO
-        Log::info($request->user()->id . " zatwierdził/a puszkę: " . $box->id);
+        //Zapisujemy event do bazy
+
+        $event = new BoxEvent();
+        $event->type = 'verified';
+        $event->box_id = $box->id;
+        $event->user_id = $request->user()->id;
+        $event->comment = '';
+        $event->save();
+
 
         return json_encode(
             [
@@ -395,6 +443,12 @@ class CharityBoxController extends Controller
         $box->save();
 
         //Todo logging
+        $event = new BoxEvent();
+        $event->type = 'modified';
+        $event->box_id = $box->id;
+        $event->user_id = $request->user()->id;
+        $event->comment = 'box:' . $box->toJson();
+        $event->save();
 
         return redirect()->route('box.verify.list')->with('message', 'Zapisano puszkę wolontariusza ' . $box->collectorIdentifier . ', ID w bazie:' . $box->id . ' (' . $box->amount_PLN  . 'zł)');
     }

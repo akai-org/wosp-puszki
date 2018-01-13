@@ -23,4 +23,8 @@ class CharityBox extends Model
         ]);
         return number_format($totalWithForeign, 2, ',', ' ');
     }
+
+    public function getDisplayIdAttribute() {
+        return ' (ID puszki w bazie: ' . $this->id . ')';
+    }
 }
