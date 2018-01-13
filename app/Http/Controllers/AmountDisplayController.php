@@ -95,9 +95,12 @@ class AmountDisplayController extends Controller
         return view('amount')->with('data', $data);
     }
 
-    function getTotalRaw() {
-        $data = $this->calculateMoney();
-        return $data['amount_total_in_PLN'];
+    function getTotalRawPln() {
+        return \App\totalCollected();
+    }
+
+    function getTotalRawWithForeign() {
+        return \App\totalCollectedWithForeign();
     }
 
     function displayRawJson() {

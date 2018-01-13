@@ -4,11 +4,16 @@
 <div class="container">
     <div class="row">
         <h1 style="text-align: center;font-size: 3em">
-            Zebraliśmy (razem z walutami obcymi):<br>
+            Zebraliśmy:<br>
             <span style="">{{ \App\totalCollected() }}zł</span>
         </h1>
         <br>
+        <h1 style="text-align: center;font-size: 3em">
+            Razem z walutami obcymi:<br>
+            <span style="">{{ \App\totalCollectedWithForeign() }}zł</span>
+        </h1>
     </div>
+    <br>
     <div class="row">
         <div class="col-sm-6" id="puszka-daj">
             {{-- Przycisk "Wydaj puszkę" --}}

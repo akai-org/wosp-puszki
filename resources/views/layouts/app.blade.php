@@ -39,7 +39,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/liczymy') }}">
-                        {{ config('app.name', 'WOŚP') }}
+                        <img src="{{ asset('serce.png') }}" height="30px">
                     </a>
                 </div>
 
@@ -51,6 +51,8 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{{ route('main') }}">Strona główna</a></li>
+
                         <!-- Authentication Links -->
                         @guest
                             <li><a href="{{ route('login') }}">Logowanie</a></li>
@@ -87,9 +89,6 @@
                                     </li>
                                 </ul>
                             </li>
-                            @endif
-
-                            @if(Auth::user()->hasAnyRole(['admin', 'superadmin']))
 
                                 {{-- Wolontariusze --}}
                             <li class="dropdown">
@@ -135,7 +134,7 @@
                                                 Lista puszek do zatwierdzenia
                                             </a>
                                             <a href="{{ route('box.list') }}">
-                                                Lista puszek
+                                                Wszystkie puszki
                                             </a>
                                             <a href="{{ route('box.list.away') }}">
                                                 Lista puszek <b>nierozliczonych</b>

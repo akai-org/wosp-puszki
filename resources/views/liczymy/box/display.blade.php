@@ -16,7 +16,7 @@
         {{ csrf_field() }}
 
         <!-- Form Name -->
-            <legend>Podgląd puszki o ID: {{ $box->id }}<a href="{{ url()->previous() }}" class="btn btn-default pull-right">Wróć do poprzedniej strony</a></legend>
+            <legend>Dane puszki o ID: {{ $box->id }}<a href="{{ url()->previous() }}" class="btn btn-default pull-right">Wróć do poprzedniej strony</a></legend>
 
             <div class="col-md-3">
                 <table class="table table-striped table-hover">

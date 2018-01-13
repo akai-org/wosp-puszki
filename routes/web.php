@@ -20,7 +20,10 @@
 Route::get('/', ['uses' => 'AmountDisplayController@display']);
 
 //Strona główna, wyświetla tylko liczbę hajsu (Sama cyfra, bez bajerów)
-Route::get('/raw', ['as' => 'display.raw','uses' => 'AmountDisplayController@getTotalRaw']);
+Route::get('/raw', ['as' => 'display.raw','uses' => 'AmountDisplayController@getTotalRawWithForeign']);
+Route::get('/raw/pln', ['as' => 'display.raw.pln', 'uses' => 'AmountDisplayController@getTotalRawPln']);
+Route::get('/raw/all', ['as' => 'display.raw.all', 'uses' => 'AmountDisplayController@getTotalRawWithForeign']);
+
 
 //API
 //Zwracamy dane z głównej strony w formie JSON
