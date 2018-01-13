@@ -78,9 +78,9 @@ Route::prefix('liczymy')->group(function () {
 
         //Dodawanie puszki
         //Formularz
-        Route::get('create', ['as' => 'box.create', 'uses' => 'CharityBoxController@getCreate']);
+        Route::get('create', ['as' => 'box.create', 'uses' => 'CharityBoxController@getCreate'])->middleware('admin');
         //Dodanie do bazy
-        Route::post('create', ['as' => 'box.create.post', 'uses' => 'CharityBoxController@postCreate']);
+        Route::post('create', ['as' => 'box.create.post', 'uses' => 'CharityBoxController@postCreate'])->middleware('admin');
 
 
         //Przeliczenie puszki

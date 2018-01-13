@@ -15,6 +15,7 @@
     </div>
     <br>
     <div class="row">
+        @if(Auth::user()->hasAnyRole(['admin', 'superadmin']))
         <div class="col-sm-6" id="puszka-daj">
             {{-- Przycisk "Wydaj puszkę" --}}
             <a class="btn btn-success btn-lg btn-block" href="{{ route('box.create') }}">
@@ -27,6 +28,15 @@
                 Rozlicz puszkę
             </a>
         </div>
+        @else
+            <div class="col-sm-12" id="puszka-rozlicz">
+                {{-- Przycisk "Rozlicz puszkę" --}}
+                <a class="btn btn-info btn-lg btn-block" href="{{ route('box.find') }}">
+                    Rozlicz puszkę
+                </a>
+            </div>
+        @endif
+
     </div>
 </div>
 @endsection

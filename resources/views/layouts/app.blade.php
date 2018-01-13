@@ -120,26 +120,32 @@
                                     Puszki <span class="caret"></span>
                                 </a>
 
-                                <ul class="dropdown-menu">
+                                @if(Auth::user()->hasAnyRole(['admin', 'superadmin']))
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="{{ route('box.create') }}">
+                                                Wydaj puszkę
+                                            </a>
+                                            <a href="{{ route('box.find') }}">
+                                                Rozlicz puszkę
+                                            </a>
+                                                {{-- Dla adminów --}}
+                                                <a href="{{ route('box.list') }}">
+                                                    Wszystkie puszki
+                                                </a>
+                                                <a href="{{ route('box.list.away') }}">
+                                                    Lista puszek <b>nierozliczonych</b>
+                                                </a>
+                                        </li>
+                                    </ul>
+                                @else
                                     <li>
-                                        <a href="{{ route('box.create') }}">
-                                           Wydaj puszkę
-                                        </a>
                                         <a href="{{ route('box.find') }}">
                                             Rozlicz puszkę
                                         </a>
-                                        @if(Auth::user()->hasAnyRole(['admin', 'superadmin']))
-                                            {{-- Dla adminów --}}
-                                            <a href="{{ route('box.list') }}">
-                                                Wszystkie puszki
-                                            </a>
-                                            <a href="{{ route('box.list.away') }}">
-                                                Lista puszek <b>nierozliczonych</b>
-                                            </a>
-                                        @endif
-
                                     </li>
-                                </ul>
+                                @endif
+
                             </li>
                             {{-- Logowanie --}}
                             <li class="dropdown">
