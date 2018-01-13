@@ -61,7 +61,7 @@
                             @if(Auth::user()->hasAnyRole(['admin', 'superadmin']))
                             <li>
                                 <a href="{{ route('box.verify.list') }}">
-                                    <b>Lista puszek do zatwierdzenia</b>
+                                    <b>Rozliczone puszek</b>
                                 </a>
                             </li>
                             {{-- Użytkownicy --}}

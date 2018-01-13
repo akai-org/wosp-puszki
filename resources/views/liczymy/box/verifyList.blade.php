@@ -199,7 +199,7 @@
             <th>GBP</th>
             <th>USD</th>
             <th>PLN</th>
-            <th>Komentarz</th>
+            <th>Inne</th>
             <th>Cofnij zatwierdzenie</th> {{-- Ticzek zatwierdzający --}}
             <th>Podgląd</th>
             <th>Modyfikuj</th>
