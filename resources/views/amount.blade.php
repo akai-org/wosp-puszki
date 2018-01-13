@@ -3,7 +3,7 @@
     <meta http-equiv="refresh" content="30" />
     <style>
         body{
-            background: #0a0806ff;
+            background-color: #0a0806ff;
             /*overflow-y:hidden;*/
             color: #fff;
             font-family: lato, sans-serif;
