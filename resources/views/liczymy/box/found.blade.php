@@ -36,31 +36,34 @@
         <li>Potwierdź że puszka nie nosi śladów uszkodzeń.</li>
         <li>Nie oddawaj rozliczonej puszki wolontariuszowi.</li>
     </ul>
-    <div class="center-block">
-        <form class="form-horizontal" method="POST" action="{{ route('box.findConfirm') }}">
-            <fieldset>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4 text-center">
+            <form class="form-horizontal" method="POST" action="{{ route('box.findConfirm') }}">
+                <fieldset>
 
-                {{ csrf_field() }}
+                    {{ csrf_field() }}
 
-                {{-- Cichy alarm --}}
-                <div class="form-group center-block">
-                    <label class="control-label" for="silent-alarm">PU</label>
-                    <input type="checkbox" id="silentalarm" name="silentalarm" @if(old('silentalarm')) checked @endif>
-                </div>
-                {{-- Przekazujemy ID puszki --}}
-                <input type="hidden" value="{{ $box->id }}" name="boxID">
-                <!-- Button -->
-                <div class="form-group center-block">
-                    <label class="control-label" for="singlebutton">Zgodność z danymi rzeczywistymi</label><br>
-                    <div class="">
-                        <button id="singlebutton" name="singlebutton" class="btn btn-success btn-lg">Potwierdzam</button>
+                    {{-- Cichy alarm --}}
+                    <div class="form-group">
+                        <label class="control-label" for="silent-alarm">PU</label>
+                        <input type="checkbox" id="silentalarm" name="silentalarm" @if(old('silentalarm')) checked @endif>
                     </div>
-                </div>
+                    {{-- Przekazujemy ID puszki --}}
+                    <input type="hidden" value="{{ $box->id }}" name="boxID">
+                    <!-- Button -->
+                    <div class="form-group">
+                        <label class="control-label" for="singlebutton">Zgodność z danymi rzeczywistymi</label><br>
+                        <div class="">
+                            <button id="singlebutton" name="singlebutton" class="btn btn-success btn-lg">Potwierdzam</button>
+                        </div>
+                    </div>
 
 
-            </fieldset>
-        </form>
+                </fieldset>
+            </form>
+        </div>
     </div>
+
 
 
 @endsection

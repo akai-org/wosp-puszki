@@ -15,7 +15,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label" for="collectorIdentifier">Numer identyfikatora</label>
             <div class="col-md-4">
-                <input readonly onfocus="this.removeAttribute('readonly');"  id="collectorIdentifier" name="collectorIdentifier" type="text" placeholder="Np. 235" class="form-control input-md" required="" autocomplete="new-password">
+                <input id="collectorIdentifier" name="collectorIdentifier" type="text" placeholder="Np. 235" class="form-control input-md" required="" autocomplete="new-password">
                 <span class="help-block">Z puszki (przed ukośnikiem)</span>
             </div>
         </div>
