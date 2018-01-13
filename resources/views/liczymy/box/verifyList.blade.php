@@ -40,7 +40,7 @@
                             '<form id="confirm-form-'+box.id+'" method="post" onsubmit="">' +
                             '{{ csrf_field() }}' +
                             '<input type="hidden" name="boxID" value="'+box.id+'">' +
-                            '<input class="confirm btn btn-success" type="button"  name="confirm" value="Zatwierdź"/>' +
+                            '<input class="confirm btn btn-success btn-sm" type="button"  name="confirm" value="Zatwierdź"/>' +
                             '</form>' +
                             '</td>' +
                             '<td><a href="'+
@@ -102,7 +102,7 @@
                             '<form id="un-confirm-form-'+box.id+'" method="post" onsubmit="">' +
                             '{{ csrf_field() }}' +
                             '<input type="hidden" name="boxID" value="'+box.id+'">' +
-                            '<input class="unconfirm btn btn-danger" type="button" name="unconfirm" value="Cofnij zatwierdzenie"/>' +
+                            '<input class="unconfirm btn btn-danger btn-sm" type="button" name="unconfirm" value="Cofnij zatwierdzenie"/>' +
                             '</form>' +
                             '</td>' +
                             '<td><a href="'+
@@ -168,7 +168,7 @@
     </script>
     {{-- Lista puszek do zatwierdzenia --}}
     <legend>Lista puszek do zatwierdzenia</legend>
-    <table class="table table-striped table-hover" id="toconfirm-table">
+    <table class="table table-striped table-hover table-condensed" id="toconfirm-table">
         <thead>
         <tr>
             <th>Numer ID</th>
@@ -190,7 +190,7 @@
 
     {{-- Lista puszek zatwierdzonych --}}
     <legend>Lista puszek zatwierdzonych</legend>
-    <table class="table table-striped table-hover" id="confirmed-table">
+    <table class="table table-striped table-hover table-condensed" id="confirmed-table">
         <thead>
         <tr>
             <th>Numer ID</th>
