@@ -44,10 +44,10 @@
                     {{ csrf_field() }}
 
                     {{-- Cichy alarm --}}
-                    <div class="form-group">
-                        <label class="control-label" for="silent-alarm">PU</label>
-                        <input type="checkbox" id="silentalarm" name="silentalarm" @if(old('silentalarm')) checked @endif>
-                    </div>
+                    {{--<div class="form-group">--}}
+                        {{--<label class="control-label" for="silent-alarm">PU</label>--}}
+                        {{--<input type="checkbox" id="silentalarm" name="silentalarm" @if(old('silentalarm')) checked @endif>--}}
+                    {{--</div>--}}
                     {{-- Przekazujemy ID puszki --}}
                     <input type="hidden" value="{{ $box->id }}" name="boxID">
                     <!-- Button -->
