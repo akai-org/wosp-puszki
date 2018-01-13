@@ -5,7 +5,7 @@
         body{
             background-color: #000000;
             /*overflow-y:hidden;*/
-            color: #000000;
+            color: #fff;
             font-family: lato, sans-serif;
         }
         p {
