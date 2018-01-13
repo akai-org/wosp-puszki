@@ -156,7 +156,7 @@
             setInterval(function () {
                 console.log('reloaded');
                 reloadBoxesToVerify();
-            }, 10000);
+            }, 60000);
 
         });
     </script>
