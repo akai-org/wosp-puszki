@@ -14,6 +14,10 @@ class CharityBox extends Model
         return $this->belongsTo('App\Collector');
     }
 
+    public function events() {
+        return $this->hasMany('App\BoxEvent');
+    }
+
     public function getTotalWithForeignAttribute() {
         $totalWithForeign = array_sum([
                 $this->amount_PLN,

@@ -134,8 +134,19 @@ Route::prefix('liczymy')->group(function () {
 
         //Drukowanie
         //TODO
+
+
+
+
     });
 
+    //Logi
+    Route::prefix('logs')->group(function (){
+        Route::get('all', ['as' => 'logs.all', 'uses' => 'LogsController@getAll']);
+
+        Route::get('box/{boxID}', ['as' => 'logs.box', 'uses' => 'LogsController@getBox']);
+
+    });
 
     //API
     Route::prefix('api')->group(function (){
@@ -149,6 +160,11 @@ Route::prefix('liczymy')->group(function () {
             //Anulowanie zatwierdzenia puszek
             Route::post('unverify', ['as' => 'api.box.unverify', 'uses' => 'CharityBoxApiController@postUnVerify'])->middleware('admin');
 
+        });
+
+        Route::prefix('logs')->group(function (){
+            Route::get('all', ['as' => 'api.logs.all', 'uses' => 'LogsApiController@getAll']);
+            Route::get('box/{boxID}', ['as' => 'api.logs.box', 'uses' => 'LogsApiController@getBox']);
         });
     });
 
