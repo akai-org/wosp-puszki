@@ -65,7 +65,7 @@
                             {{-- Użytkownicy --}}
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                    Użytkownicy(SZTAB) <span class="caret"></span>
+                                    Administracja <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu">
@@ -80,6 +80,11 @@
                                             Lista użytkowników
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="{{ route('logs.all') }}">
+                                            Logi
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                             @endif
@@ -89,7 +94,7 @@
                                 {{-- Wolontariusze --}}
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                    Wolontariusze <span style="color: red;font-weight: bold">(Z PUSZKAMI)</span><span class="caret"></span>
+                                    Wolontariusze<span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu">

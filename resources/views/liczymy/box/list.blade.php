@@ -28,7 +28,7 @@
                 @if($box->is_confirmed)
                     <td>Rozliczona</td>
                 @elseif($box->is_counted)
-                    <td>Oczekuje na potwierdzenie</td>
+                    <td>Oczekuje na zatwierdzenie</td>
                 @elseif($box->is_given_to_collector)
                     <td>Wydana wolontariuszowi</td>
                 @endif
