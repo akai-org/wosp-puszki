@@ -177,7 +177,7 @@
             <th>GBP</th>
             <th>USD</th>
             <th>PLN</th>
-            <th>Komentarz</th>
+            <th>Inne</th>
             <th>Zatwierdź</th> {{-- Ticzek zatwierdzający --}}
             <th>Podgląd</th>
             <th>Modyfikuj</th>

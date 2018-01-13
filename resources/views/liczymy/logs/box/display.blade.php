@@ -121,7 +121,7 @@
                 Akcja
             </th>
             <th>
-                Komentarz
+                Inne
             </th>
             <th>
                 Czas
