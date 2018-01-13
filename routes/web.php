@@ -93,6 +93,14 @@ Route::prefix('liczymy')->group(function () {
             //SilentAlarm
             //Sprawdzamy czy checkbox jest wciśnięty
             if($request->has('silentalarm')) {
+                //Zapisujemy do logów
+
+                $event = new \App\BoxEvent();
+                $event->type = 'alarm';
+                $event->box_id = request()->input('boxID');
+                $event->user_id = $request->user()->id;
+                $event->comment = '';
+                $event->save();
                 //Jeżeli tak, generujemy alarm
                 //TODO powiadomić kogoś
                 //I 404 żeby nie wzbudzać podejrzeń

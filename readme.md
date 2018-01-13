@@ -71,6 +71,9 @@ verified - administrator zatwierdził
 modified - administrator zmodyfikował
 unverified - administrator od-zatwierdził
 
+alarm- uruchomiony silent alarm
+
+
 
 //USER
 alreadyCounted - event usera
