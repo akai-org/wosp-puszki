@@ -11,7 +11,7 @@
 
             <!-- Text input-->
             <div class="form-group">
-                <label class="col-md-4 control-label" for="collectorIdentifier">Numer wolontariusza</label>
+                <label class="col-md-4 control-label" for="collectorIdentifier">Numer identyfikatora</label>
                 <div class="col-md-4">
                     {{-- https://developer.mozilla.org/en-US/docs/Web/Security/Securing_your_site/Turning_off_form_autocompletion --}}
                     <input id="collectorIdentifier" name="collectorIdentifier" type="text" placeholder="Np. 345" class="form-control input-md" required="" value="{{  old('collectorIdentifier') }}" autocomplete="nope">
