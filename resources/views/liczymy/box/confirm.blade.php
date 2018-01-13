@@ -278,7 +278,7 @@
                 <div class="col-md-12 text-center">
                     <h4 class="text-center"><strong>Nie wydawaj puszki wolontariuszowi.</strong></h4>
 
-                    <label><input type="checkbox" name="prevent-enter" required value="xxxx"> Potwierdzam poprawność danych</label><br>
+                    {{--<label><input type="checkbox" name="prevent-enter" required value="xxxx"> Potwierdzam poprawność danych</label><br>--}}
                     <div>
                     <button id="singlebutton" name="singlebutton" class="btn btn-success btn-lg">Potwierdź rozliczenie puszki</button>
                     </div>
