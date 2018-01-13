@@ -16,7 +16,7 @@
                 <th>GBP</th>
                 <th>USD</th>
                 <th>Status</th>
-                <th>Komentarz</th>
+                <th>Inne</th>
                 <th>Podgląd</th>
             </tr>
         </thead>
