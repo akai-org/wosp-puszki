@@ -396,6 +396,6 @@ class CharityBoxController extends Controller
 
         //Todo logging
 
-        return redirect()->route('box.verify.list')->with('message', 'Zapisano puszkę ' . $box->id . '(' . $box->amount_PLN  . ')');
+        return redirect()->route('box.verify.list')->with('message', 'Zapisano puszkę wolontariusza ' . $box->collectorIdentifier . ', ID w bazie:' . $box->id . ' (' . $box->amount_PLN  . 'zł)');
     }
 }
