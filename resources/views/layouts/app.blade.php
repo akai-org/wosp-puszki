@@ -115,12 +115,13 @@
                             </li>
                             @endif
                             {{-- Puszki --}}
-                            <li class="dropdown">
+                                @if(Auth::user()->hasAnyRole(['admin', 'superadmin']))
+
+                                <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
                                     Puszki <span class="caret"></span>
                                 </a>
 
-                                @if(Auth::user()->hasAnyRole(['admin', 'superadmin']))
                                     <ul class="dropdown-menu">
                                         <li>
                                             <a href="{{ route('box.create') }}">
@@ -129,13 +130,13 @@
                                             <a href="{{ route('box.find') }}">
                                                 Rozlicz puszkę
                                             </a>
-                                                {{-- Dla adminów --}}
-                                                <a href="{{ route('box.list') }}">
-                                                    Wszystkie puszki
-                                                </a>
-                                                <a href="{{ route('box.list.away') }}">
-                                                    Lista puszek <b>nierozliczonych</b>
-                                                </a>
+                                            {{-- Dla adminów --}}
+                                            <a href="{{ route('box.list') }}">
+                                                Wszystkie puszki
+                                            </a>
+                                            <a href="{{ route('box.list.away') }}">
+                                                Lista puszek <b>nierozliczonych</b>
+                                            </a>
                                         </li>
                                     </ul>
                                 @else
