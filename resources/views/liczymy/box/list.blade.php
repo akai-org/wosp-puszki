@@ -9,6 +9,7 @@
         <thead>
             <tr>
                 <th>Puszka</th>
+                <th>Numer ID wolontariusza</th>
                 <th>Wolontariusz</th>
                 <th>PLN</th>
                 <th>EUR</th>
@@ -23,7 +24,8 @@
         @foreach($boxes as $box)
             <tr>
                 <td>{{ $box->id }}</td>
-                <td>{{$box->collector->firstName}} {{$box->collector->lastName}} ({{ $box->collectorIdentifier }})</td>
+                <td>{{ $box->collectorIdentifier }}</td>
+                <td>{{$box->collector->firstName}} {{$box->collector->lastName}}</td>
                 <td>{{ $box->amount_PLN }}</td>
                 <td>{{ $box->amount_EUR }}</td>
                 <td>{{ $box->amount_GBP }}</td>
