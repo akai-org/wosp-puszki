@@ -23,9 +23,11 @@
                 <td>Numer identyfikatora i na puszce</td>
                 <td>{{ $collector->identifier }}</td>
             </tr>
-        <tr>
+            @if(Auth::user()->hasAnyRole(['admin', 'superadmin']))
+                <tr>
             <td>ID puszki w bazie</td>
             <td>{{ $box->id }}</td>
+                @endif
         </tr>
         </tbody>
     </table>

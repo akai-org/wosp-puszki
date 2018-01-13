@@ -14,8 +14,8 @@
                 <th>EUR</th>
                 <th>GBP</th>
                 <th>USD</th>
-                <th>Komentarz</th>
                 <th>Status</th>
+                <th>Komentarz</th>
                 <th>Podgląd</th>
             </tr>
         </thead>
@@ -36,7 +36,7 @@
                     <td style="background-color:#bae1ff;">Wydana wolontariuszowi</td>
                 @endif
                 <td>{{ $box->comment}}</td>
-                <td><a href="{{route('box.display',['boxNumber' => $box->boxNumber])}}"> Podgląd</a></td>
+                <td><a href="{{route('box.display',['boxID' => $box->id])}}"> Podgląd</a></td>
             </tr>
         @endforeach
         </tbody>
