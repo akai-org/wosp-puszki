@@ -45,8 +45,8 @@ class CharityBoxController extends Controller
             $latestGiven = Collector::with('boxes')->where('identifier', '=', $request->input('collectorIdentifier'))->first()->boxes()->orderBy('time_given', 'desc')->first(['time_given']);
             $latestTimeGiven = $latestGiven->time_given;
             $carbon = Carbon::parse($latestTimeGiven);
-            if($carbon->diffInSeconds(Carbon::now()) <=20 ){
-                $error = 'Limit wydawania puszek - jedna na 20 sekund na wolontariusza';
+            if($carbon->diffInSeconds(Carbon::now()) <= 3600 ){
+                $error = 'Limit wydawania puszek - jedna na godzinę na wolontariusza';
             }
         }
 
