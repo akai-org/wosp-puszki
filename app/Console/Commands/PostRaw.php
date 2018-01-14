@@ -39,8 +39,8 @@ class PostRaw extends Command
     public function handle()
     {
         $url = env('RAW_POST_URL');
-        $total = \App\totalCollectedReal();
-
+        $totalArr = \App\totalCollectedReal();
+        $total = $totalArr['amount_total_in_PLN'];
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_URL,$url);
