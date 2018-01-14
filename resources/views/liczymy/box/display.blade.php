@@ -29,10 +29,10 @@
                         <td>Numer identyfikatora</td>
                         <td>{{ $box->collectorIdentifier }}</td>
                     </tr>
-                    {{--<tr>--}}
-                        {{--<td>Numer puszki w bazie</td>--}}
-                        {{--<td>{{ $box->id }}</td>--}}
-                    {{--</tr>--}}
+                    <tr>
+                        <td>Numer puszki w bazie</td>
+                        <td>{{ $box->id }}</td>
+                    </tr>
                     <tr>
                         <td>Status</td>
                         @if($box->is_confirmed)

@@ -16,7 +16,11 @@
         {{ csrf_field() }}
 
         <!-- Form Name -->
-            <legend>Potwierdzenie rozliczenia puszki wolontariusza {{ $data['collectorIdentifier'] }} (ID puszki w bazie: {{ $data["boxID"] }})</legend>
+            <legend>Potwierdzenie rozliczenia puszki wolontariusza {{ $data['collectorIdentifier'] }}
+                @if(Auth::user()->hasAnyRole(['admin', 'superadmin']))
+                    (ID puszki w bazie: {{ $data["boxID"] }})
+                @endif
+            </legend>
 
             {{-- Tabelka dla łatwiejszego podziału wizualnego--}}
             <div class="col-md-3">
