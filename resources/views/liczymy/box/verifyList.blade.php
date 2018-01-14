@@ -96,7 +96,7 @@
                             '<td>'+box.amount_EUR+'€</td>' +
                             '<td>'+box.amount_GBP+'£</td>' +
                             '<td>'+box.amount_USD +'$</td>' +
-                            '<td>'+box.amount_PLN+'zł</td>\n' +
+                            '<td><b>'+box.amount_PLN+'zł</b></td>\n' +
                             '<td>'+box.comment+'</td>' +
                             '<td>' +
                             '<form id="un-confirm-form-'+box.id+'" method="post" onsubmit="">' +
