@@ -90,7 +90,7 @@ class AmountDisplayController extends Controller
     //Wyświetl zliczoną ilość pieniędzy
     function display() {
 
-        $data = $this->calculateMoney();
+        $data = \App\totalCollectedReal();
 
         return view('amount')->with('data', $data);
     }
