@@ -32,7 +32,7 @@ function totalCollectedReal() {
             round($amount_USD*$rates['USD'], 2),
             round($amount_EUR*$rates['EUR'], 2),
             round($amount_GBP*$rates['GBP'], 2),
-            21530.42
+            21641.42
         ]
     );
 
