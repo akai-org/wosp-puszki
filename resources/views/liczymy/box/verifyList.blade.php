@@ -35,6 +35,8 @@
                             '<td>'+box.amount_GBP+'£</td>' +
                             '<td>'+box.amount_USD +'$</td>' +
                             '<td style="font-weight:bold;">'+box.amount_PLN+'zł</td>\n' +
+                            //TODO fix this
+                            '<td>'+(box.counting_user_id-2)+'</td>'+
                             '<td>'+box.comment+'</td>' +
                             '<td>' +
                             '<form id="confirm-form-'+box.id+'" method="post" onsubmit="">' +
@@ -97,6 +99,8 @@
                             '<td>'+box.amount_GBP+'£</td>' +
                             '<td>'+box.amount_USD +'$</td>' +
                             '<td style="font-weight:bold;">'+box.amount_PLN+'zł</td>\n' +
+                            //TODO fix this
+                            '<td>'+(box.counting_user_id-2)+'</td>'+
                             '<td>'+box.comment+'</td>' +
                             '<td>' +
                             '<form id="un-confirm-form-'+box.id+'" method="post" onsubmit="">' +
@@ -177,6 +181,7 @@
             <th>GBP</th>
             <th>USD</th>
             <th>PLN</th>
+            <th>Stanowisko</th>
             <th>Inne</th>
             <th>Zatwierdź</th> {{-- Ticzek zatwierdzający --}}
             <th>Podgląd</th>
@@ -199,6 +204,7 @@
             <th>GBP</th>
             <th>USD</th>
             <th>PLN</th>
+            <th>Stanowisko</th>
             <th>Inne</th>
             <th>Cofnij zatwierdzenie</th> {{-- Ticzek zatwierdzający --}}
             <th>Podgląd</th>
