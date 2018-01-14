@@ -1,6 +1,11 @@
 <head>
     {{-- TODO Ajax zamiast reloadu, ale raczej nie będzie bolało --}}
     <meta http-equiv="refresh" content="30" />
+    <script>
+        setTimeout(function(){
+            window.location.reload(1);
+        }, 15000);
+    </script>
     <style>
         body{
             background-color: #000000;
