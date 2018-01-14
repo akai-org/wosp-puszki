@@ -82,7 +82,7 @@
         <h1>W sumie (wg. aktualnego kursu NBP) około:</h1>
 
         <div id="total">
-            {{ number_format($data['amount_total_in_PLN']+21530.42, 2, ',', ' ') }}zł
+            {{ number_format($data['amount_total_in_PLN'], 2, ',', ' ') }}zł
         </div>
         <div>
             Wolontariuszy na mieście: {{ $data['collectors_in_city'] }}
