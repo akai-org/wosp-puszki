@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <form class="form-horizontal" method="POST" action="{{ route('box.create.post') }}" autocomplete="off">
+    <form class="form-horizontal" method="POST" action="{{ route('box.create.post') }}" autocomplete="off" onsubmit="singlebutton.disabled = true; return true;">
         <fieldset>
 
             {{ csrf_field() }}
