@@ -39,7 +39,7 @@ class PostRaw extends Command
     public function handle()
     {
         $url = env('RAW_POST_URL');
-        $total = \App\totalCollectedWithForeign();
+        $total = \App\totalCollectedReal();
 
         $ch = curl_init();
 
