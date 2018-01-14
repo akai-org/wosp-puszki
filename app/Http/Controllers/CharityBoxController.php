@@ -40,6 +40,14 @@ class CharityBoxController extends Controller
         //Sprawdź czy wolontariusz istnieje
         if(!$collector->exists()){
             $error = 'Brak wolontariusza o takim identyfikatorze.';
+        } else if ($collector->first()->boxes()->count() != 0) {
+            //Sprawdź czy w ciągu ostatnich 30 sekund nie wydano puszki temu wolontariuszowi
+            $latestGiven = Collector::with('boxes')->where('identifier', '=', $request->input('collectorIdentifier'))->first()->boxes()->orderBy('time_given', 'desc')->first(['time_given']);
+            $latestTimeGiven = $latestGiven->time_given;
+            $carbon = Carbon::parse($latestTimeGiven);
+            if($carbon->diffInSeconds(Carbon::now()) <=20 ){
+                $error = 'Limit wydawania puszek - jedna na 20 sekund na wolontariusza';
+            }
         }
 
         //Dodaj puszkę
