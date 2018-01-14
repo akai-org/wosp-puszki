@@ -157,8 +157,8 @@ class CharityBoxController extends Controller
     public function validateBox(Request $request) {
         $request->validate([
             //PLN
-            'count_1gr' => 'required|integer|between:0,10000',
-            'count_2gr' => 'required|integer|between:0,10000',
+            'count_1gr' => 'required|integer|between:0,15000',
+            'count_2gr' => 'required|integer|between:0,15000',
             'count_5gr' => 'required|integer|between:0,10000',
             'count_10gr' => 'required|integer|between:0,10000',
             'count_20gr' => 'required|integer|between:0,10000',
