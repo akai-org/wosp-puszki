@@ -269,9 +269,9 @@
                         {{--<td>--}}
                             {{--<span class="total">Suma z walutami obcymi</span>--}}
                         {{--</td>--}}
-                        <td>
-                            <span class="total">{{ $data['amount_PLN_with_foreign'] }} zł</span>
-                        </td>
+                        {{--<td>--}}
+                            {{--<span class="total">{{ $data['amount_PLN_with_foreign'] }} zł</span>--}}
+                        {{--</td>--}}
                     </tr>
                     </tbody>
                 </table>
