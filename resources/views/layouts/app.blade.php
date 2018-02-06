@@ -87,31 +87,20 @@
                                             Logi
                                         </a>
                                     </li>
-                                </ul>
-                            </li>
-
-                                {{-- Wolontariusze --}}
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                    Wolontariusze<span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu">
+                                    <li class="divider"></li>
+                                    {{-- Wolontariusze --}}
+                                    <li>
+                                        <a href="{{ route('collector.list') }}">
+                                            Lista wolontariuszy
+                                        </a>
+                                    </li>
                                     <li>
                                         <a href="{{ route('collector.create') }}">
                                             Dodaj wolontariusza
                                         </a>
-
                                     </li>
-                                    {{-- Dla adminów --}}
-                                        <li>
-                                            <a href="{{ route('collector.list') }}">
-                                                Lista wolontariuszy
-                                            </a>
 
-                                        </li>
                                 </ul>
-
                             </li>
                             @endif
                             {{-- Puszki --}}
