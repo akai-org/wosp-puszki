@@ -13,7 +13,7 @@ class UserController extends Controller
 {
     public function __construct() {
         //Zabezpieczamy autoryzacją (każdy zalogowany użytkownik ma dostęp)
-        $this->middleware('admin');
+        $this->middleware('superadmin');
     }
 
     public function getCreate() {

@@ -71,17 +71,19 @@
                                 </a>
 
                                 <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="{{ route('user.create') }}">
-                                            Dodaj użytkownika
-                                        </a>
+                                    @if(Auth::user()->hasAnyRole(['superadmin']))
+                                        <li>
+                                            <a href="{{ route('user.create') }}">
+                                                Dodaj użytkownika
+                                            </a>
 
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('user.list') }}">
-                                            Lista użytkowników
-                                        </a>
-                                    </li>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('user.list') }}">
+                                                Lista użytkowników
+                                            </a>
+                                        </li>
+                                    @endif
                                     <li>
                                         <a href="{{ route('logs.all') }}">
                                             Logi
