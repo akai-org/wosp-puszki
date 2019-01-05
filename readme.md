@@ -21,6 +21,9 @@ php artisan migrate
 //Baza testowa (z wolo, adminem i superadminem)
 php artisan migrate --seed
 
+//Permissiony do storage
+sudo chmod -R 755 storage/
+
 
 Usupełniamy kursy walut w pliku .env, odwiedzając
 http://localhost:8000/liczymy/rates i wklejając poniżej
