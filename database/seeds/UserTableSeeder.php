@@ -32,11 +32,11 @@ class UserTableSeeder extends Seeder
         $admin->roles()->attach($roleAdmin);
         //Dodawanie użytkownika
         //Generowanie 30 użytkowników
-        for($i=1;$i<=30;$i++) {
+        for($i=1;$i<=50;$i++) {
             $volounteer = new User();
             $number = str_pad($i, 2, 0, STR_PAD_LEFT);
             $volounteer->name = 'wosp' . $number;
-            $volounteer->password = bcrypt('teamMarta' . $number);
+            $volounteer->password = bcrypt('teamMery' . $number);
             $volounteer->save();
             $volounteer->roles()->attach($roleVolounteer);
         }
