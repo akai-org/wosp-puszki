@@ -96,12 +96,13 @@
                                             Lista wolontariuszy
                                         </a>
                                     </li>
+                                    @if(Auth::user()->hasAnyRole(['superadmin']))
                                     <li>
                                         <a href="{{ route('collector.create') }}">
                                             Dodaj wolontariusza
                                         </a>
                                     </li>
-
+                                    @endif
                                 </ul>
                             </li>
                             @endif
