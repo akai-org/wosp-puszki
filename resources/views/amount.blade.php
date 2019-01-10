@@ -16,15 +16,24 @@
         p {
             color: #fff;
         }
-        #latawiec-image {
-            height: 90%;
-            display: block;
+        .image-top {
+            max-width: 100%;
+            max-height: 45vh;
+        }
+
+        .image-bottom {
+            max-width: 100%;
+            max-height: 45vh;
         }
 
         #wrapper {
             display: flex;
         }
         #latawiec {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
             flex: 1;
         }
         #hajs {
@@ -89,7 +98,8 @@
         </div>
     </div>
     <div id="latawiec">
-        <img id="latawiec-image" src="latawiec.png">
+        <img class="image-top" src="baczki.png">
+        <img class="image-bottom" src="18_27Final_WOSP_motyl_podglad.jpg">
     </div>
 </div>
 <footer>
