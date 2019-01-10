@@ -32,8 +32,8 @@
         </tbody>
     </table>
     <ul style="text-align: center; font-size: 2em;list-style-type: none;">
-        <li>Potwierdź że dane z puszki i identyfikatora są zgodne z wyświetlonymi.</li>
-        <li>Potwierdź że puszka nie nosi śladów uszkodzeń.</li>
+        <li>Potwierdź, że dane z puszki i identyfikatora są zgodne z wyświetlonymi.</li>
+        <li>Potwierdź, że puszka nie nosi śladów uszkodzeń.</li>
         <li>Nie oddawaj rozliczonej puszki wolontariuszowi.</li>
     </ul>
     <div class="row">
