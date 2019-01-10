@@ -382,7 +382,7 @@ class CharityBoxController extends Controller
         );
     }
 
-    //Wyświeltl wszystkie puszki (dla administratora)
+    //Wyświetl wszystkie puszki (dla administratora)
     public function getList(){
         $boxes = CharityBox::with('collector')->get(); // remove n+1 problem
 

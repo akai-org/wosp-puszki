@@ -17,6 +17,9 @@
                 <th>USD</th>
                 <th>Status</th>
                 <th>Inne</th>
+                @if(request()->route()->getName() == 'box.list.away')
+                    <th>Wydano o</th>
+                @endif
                 <th>Podgląd</th>
             </tr>
         </thead>
@@ -37,7 +40,10 @@
                 @elseif($box->is_given_to_collector)
                     <td style="background-color:#bae1ff;">Wydana wolontariuszowi</td>
                 @endif
-                <td>{{ $box->comment}}</td>
+                <td>{{ $box->comment }}</td>
+                @if(request()->route()->getName() == 'box.list.away')
+                    <th>{{ $box->time_given }}</th>
+                @endif
                 <td><a href="{{route('box.display',['boxID' => $box->id])}}"> Podgląd</a></td>
             </tr>
         @endforeach
