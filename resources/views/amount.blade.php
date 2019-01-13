@@ -99,7 +99,7 @@
     </div>
     <div id="latawiec">
         <img class="image-top" src="baczki.png">
-        <img class="image-bottom" src="18_27Final_WOSP_motyl_podglad.jpg">
+        <img class="image-bottom" src="18_27Final_WOSP_motyl_podglad.png">
     </div>
 </div>
 <footer>
