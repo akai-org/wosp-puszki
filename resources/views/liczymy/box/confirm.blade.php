@@ -6,6 +6,14 @@
             font-weight: bold;
             color: #2ab27b;
         }
+        .total-big {
+            font-size: 30px;
+            text-align: center;
+            height: 80vh;
+            line-height: 80vh;
+            font-weight: bold;
+            color: #2ab27b;
+        }
     </style>
 @endsection
 
@@ -290,6 +298,12 @@
                     <div>
                         <a href="{{ url()->previous() }}" class="btn btn-default btn-lg">Wróć do poprzedniej strony</a>
                     </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="total-big">
+                    Suma (bez walut obcych): {{ $data["amount_PLN"] }} zł
                 </div>
             </div>
         </fieldset>
