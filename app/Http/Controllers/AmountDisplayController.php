@@ -95,6 +95,13 @@ class AmountDisplayController extends Controller
         return view('amount')->with('data', $data);
     }
 
+    function displayApi() {
+
+        $data = \App\totalCollectedReal();
+
+        return response()->json($data);
+    }
+
     function getTotalRawPln() {
         return \App\totalCollected();
     }
