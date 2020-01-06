@@ -38,7 +38,11 @@
                 @elseif($box->is_counted)
                     <td style="background-color:#FF8400;">Oczekuje na zatwierdzenie</td>
                 @elseif($box->is_given_to_collector)
-                    <td style="background-color:#bae1ff;">Wydana wolontariuszowi</td>
+                    @if($box->is_special_box)
+                        <td style="background-color:#FFAAEE;">Wydana wolontariuszowi (specjalna)</td>
+                    @else
+                        <td style="background-color:#bae1ff;">Wydana wolontariuszowi</td>
+                    @endif
                 @endif
                 <td>{{ $box->comment }}</td>
                 @if(request()->route()->getName() == 'box.list.away')
