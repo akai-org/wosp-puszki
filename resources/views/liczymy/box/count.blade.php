@@ -424,6 +424,24 @@
                             <p class="help-block">Suma wartości, bez podziału na monety i banknoty</p>
                         </td>
                     </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-md-3">
+                <table class="table table-striped table-condensed">
+                    {{-- Waluty obce --}}
+                    <thead>
+                    <tr>
+                        <th>
+                            Waluta
+                        </th>
+                        <th>
+                            Ilość
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
                     <tr>
                         {{-- Pole komentarza --}}
                         <td>
@@ -442,6 +460,7 @@
                     <button id="singlebutton" name="singlebutton" class="btn btn-success btn-lg">Rozlicz puszkę</button>
                 </div>
             </div>
+
 
 
         </fieldset>
