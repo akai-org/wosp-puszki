@@ -270,6 +270,26 @@
                             <span id="5zl" class="sum">0</span> zł
                         </td>
                     </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-md-3">
+                <table class="table table-striped table-condensed table-responsive">
+                    <thead>
+                    <tr>
+                        <th>
+                            Nominał
+                        </th>
+                        <th>
+                            Ilość
+                        </th>
+                        <th>
+                            Wartość
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
                     {{-- Bamknoty --}}
                     <tr>
                         <td>
