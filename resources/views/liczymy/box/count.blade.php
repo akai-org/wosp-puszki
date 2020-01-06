@@ -147,7 +147,7 @@
         {{ csrf_field() }}
 
         <!-- Form Name -->
-            <legend>Rozliczenie puszki wolontariusza {{ $box->collector->identifier }}
+            <legend>Rozliczenie puszki wolontariusza {{ $box->collector->firstName }} {{ $box->collector->lastName }} ({{ $box->collector->identifier }})
                 @if(Auth::user()->hasAnyRole(['admin', 'superadmin']))
                     (ID puszki w bazie: {{ $box->id }})
                 @endif
