@@ -36,7 +36,9 @@ class UserTableSeeder extends Seeder
             $volounteer = new User();
             $number = str_pad($i, 2, 0, STR_PAD_LEFT);
             $volounteer->name = 'wosp' . $number;
-            $volounteer->password = bcrypt('teamMery' . $number);
+            $password = 'teamAsia' . $number;
+            $volounteer->password = bcrypt($password);
+            echo $volounteer->name . ':' . $password . PHP_EOL;
             $volounteer->save();
             $volounteer->roles()->attach($roleVolounteer);
         }
