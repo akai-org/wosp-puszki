@@ -134,7 +134,7 @@ Route::prefix('liczymy')->group(function () {
         Route::post('verify', ['as' => 'box.verify.post', 'uses' => 'CharityBoxController@postVerify'])->middleware('admin');
 
         //Lista puszek dla administratora
-        Route::get('list', ['as' => 'box.list', 'uses' => 'CharityBoxController@getList'])->middleware('admin');
+        Route::get('list', ['as' => 'box.list', 'uses' => 'CharityBoxController@getList'])->middleware('collectorcoordinator');
 
         //Wyświetl pojedynczą puszkę dla administratora
         Route::get('display/{boxID}', ['as' => 'box.display', 'uses' => 'CharityBoxController@getDisplay'])->middleware('admin');
