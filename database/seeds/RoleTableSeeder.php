@@ -23,6 +23,11 @@ class RoleTableSeeder extends Seeder
         $roleAdmin->name = 'admin';
         $roleAdmin->description = 'Administrator';
         $roleAdmin->save();
+        //Collector Coordinator - koordynator wolontariuszy, wydawanie puszek, lista wolontariuszy
+        $roleCollectorCoordinator  = new Role();
+        $roleCollectorCoordinator->name = 'collectorcoordinator';
+        $roleCollectorCoordinator->description = 'Koordynator wolontariuszy';
+        $roleCollectorCoordinator->save();
         //Wolontariusz liczący/skrzat (NIE WOLONTARIUSZ Z PUSZKĄ!)
         $roleVolounteer = new Role();
         $roleVolounteer->name = 'volounteer';

@@ -56,6 +56,7 @@ class Kernel extends HttpKernel
         //Middleware na admina i superadmina
         'admin' => Middleware\IsAdmin::class,
         'superadmin' => Middleware\IsSuperAdmin::class,
+        'collectorcoordinator' => Middleware\IsCollectorCoordinator::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,

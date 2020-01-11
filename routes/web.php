@@ -65,12 +65,12 @@ Route::prefix('liczymy')->group(function () {
     Route::prefix('collector')->group(function (){
         //Dodawanie wolontariusza
         //Formularz
-        Route::get('create', ['as' => 'collector.create', 'uses' => 'CollectorController@getCreate']);
+        Route::get('create', ['as' => 'collector.create', 'uses' => 'CollectorController@getCreate'])->middleware('admin');
         //Dodawanie do bazy
-        Route::post('create', ['as' => 'collector.create.post', 'uses' => 'CollectorController@postCreate']);
+        Route::post('create', ['as' => 'collector.create.post', 'uses' => 'CollectorController@postCreate'])->middleware('admin');
 
         //Lista wolontariuszy (dla administratorów)
-        Route::get('list', ['as' => 'collector.list', 'uses' => 'CollectorController@getList']);
+        Route::get('list', ['as' => 'collector.list', 'uses' => 'CollectorController@getList'])->middleware('collectorcoordinator');
 
     });
     //Puszki
@@ -79,9 +79,9 @@ Route::prefix('liczymy')->group(function () {
 
         //Dodawanie puszki
         //Formularz
-        Route::get('create', ['as' => 'box.create', 'uses' => 'CharityBoxController@getCreate'])->middleware('admin');
+        Route::get('create', ['as' => 'box.create', 'uses' => 'CharityBoxController@getCreate'])->middleware('collectorcoordinator');
         //Dodanie do bazy
-        Route::post('create', ['as' => 'box.create.post', 'uses' => 'CharityBoxController@postCreate'])->middleware('admin');
+        Route::post('create', ['as' => 'box.create.post', 'uses' => 'CharityBoxController@postCreate'])->middleware('collectorcoordinator');
 
 
         //Przeliczenie puszki
@@ -125,7 +125,7 @@ Route::prefix('liczymy')->group(function () {
 
         //Lista nierozliczonych puszek
         //getListAway
-        Route::get('list/away', ['as' => 'box.list.away', 'uses' => 'CharityBoxController@getListAway'])->middleware('admin');
+        Route::get('list/away', ['as' => 'box.list.away', 'uses' => 'CharityBoxController@getListAway'])->middleware('collectorcoordinator');
 
         //Zatwierdzenie puszki
         //Podgląd
