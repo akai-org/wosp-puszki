@@ -64,6 +64,8 @@
                                         <b>Przeliczone puszki</b>
                                     </a>
                                 </li>
+                            @endif
+                            @if(Auth::user()->hasAnyRole(['collectorcoordinator', 'admin', 'superadmin']))
 
                                 {{-- Użytkownicy --}}
                                 <li class="dropdown">
