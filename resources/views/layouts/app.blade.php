@@ -58,53 +58,54 @@
                             <li><a href="{{ route('login') }}">Logowanie</a></li>
                         @else
 
-                            @if(Auth::user()->hasAnyRole(['collectorcoordinator', 'admin', 'superadmin']))
-                            <li>
-                                <a href="{{ route('box.verify.list') }}">
-                                    <b>Przeliczone puszki</b>
-                                </a>
-                            </li>
-                            {{-- Użytkownicy --}}
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                    Administracja <span class="caret"></span>
-                                </a>
+                            @if(Auth::user()->hasAnyRole(['admin', 'superadmin']))
+                                <li>
+                                    <a href="{{ route('box.verify.list') }}">
+                                        <b>Przeliczone puszki</b>
+                                    </a>
+                                </li>
 
-                                <ul class="dropdown-menu">
-                                    @if(Auth::user()->hasAnyRole(['superadmin']))
-                                        <li>
-                                            <a href="{{ route('user.create') }}">
-                                                Dodaj użytkownika
-                                            </a>
+                                {{-- Użytkownicy --}}
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
+                                        Administracja <span class="caret"></span>
+                                    </a>
 
-                                        </li>
+                                    <ul class="dropdown-menu">
+                                        @if(Auth::user()->hasAnyRole(['superadmin']))
+                                            <li>
+                                                <a href="{{ route('user.create') }}">
+                                                    Dodaj użytkownika
+                                                </a>
+
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('user.list') }}">
+                                                    Lista użytkowników
+                                                </a>
+                                            </li>
+                                        @endif
                                         <li>
-                                            <a href="{{ route('user.list') }}">
-                                                Lista użytkowników
+                                            <a href="{{ route('logs.all') }}">
+                                                Logi
                                             </a>
                                         </li>
-                                    @endif
-                                    <li>
-                                        <a href="{{ route('logs.all') }}">
-                                            Logi
-                                        </a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    {{-- Wolontariusze --}}
-                                    <li>
-                                        <a href="{{ route('collector.list') }}">
-                                            Lista wolontariuszy
-                                        </a>
-                                    </li>
-                                    @if(Auth::user()->hasAnyRole(['superadmin']))
-                                    <li>
-                                        <a href="{{ route('collector.create') }}">
-                                            Dodaj wolontariusza
-                                        </a>
-                                    </li>
-                                    @endif
-                                </ul>
-                            </li>
+                                        <li class="divider"></li>
+                                        {{-- Wolontariusze --}}
+                                        <li>
+                                            <a href="{{ route('collector.list') }}">
+                                                Lista wolontariuszy
+                                            </a>
+                                        </li>
+                                        @if(Auth::user()->hasAnyRole(['superadmin']))
+                                        <li>
+                                            <a href="{{ route('collector.create') }}">
+                                                Dodaj wolontariusza
+                                            </a>
+                                        </li>
+                                        @endif
+                                    </ul>
+                                </li>
                             @endif
                             {{-- Puszki --}}
                                 @if(Auth::user()->hasAnyRole(['collectorcoordinator', 'admin', 'superadmin']))
