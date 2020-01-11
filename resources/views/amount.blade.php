@@ -18,7 +18,7 @@
         }
         .image-top {
             max-width: 100%;
-            max-height: 45vh;
+            max-height: 90vh;
         }
 
         .image-bottom {
@@ -98,12 +98,12 @@
         </div>
     </div>
     <div id="latawiec">
-        <img class="image-top" src="baczki.png">
-        <img class="image-bottom" src="18_27Final_WOSP_motyl_podglad.png">
+        <img class="image-top" src="5_28FinalWOSP2020_statek_logo.png">
+{{--        <img class="image-bottom" src="18_27Final_WOSP_motyl_podglad.png">--}}
     </div>
 </div>
 <footer>
-{{--    &copy 2017-{{ date('Y') }} <a href="http://wosp.put.poznan.pl/">Sztab WOŚP przy Politechnice Poznańskiej</a> i <a href="http://akai.org.pl">AKAI</a> <br>--}}
+    &copy 2017-{{ date('Y') }} <a href="http://wosp.put.poznan.pl/">Sztab WOŚP przy Politechnice Poznańskiej</a> i <a href="http://akai.org.pl">AKAI</a> <br>
     Kursy: 1€->{{ $data['rates']['EUR'] }}zł
     1$->{{ $data['rates']['USD'] }}zł
     1£->{{ $data['rates']['GBP'] }}zł
