@@ -13,17 +13,18 @@ class CollectorController extends Controller
     {
         //Zabezpieczamy autoryzacją (każdy zalogowany użytkownik ma dostęp)
         $this->middleware('auth');
-        //Tylko admini dodają zbieraczy (a lista powinna być zaimportowana wcześniej, żeby nie napierdalać tego ręcznie)
-        $this->middleware('admin');
+        $this->middleware('collectorcoordinator');
     }
 
     //Dodawanie zbieracza (formularz)
     public function getCreate(){
+        $this->middleware('admin');
         return view('liczymy.collector.create');
     }
 
     //Dodawanie zbieracza
     public function postCreate(Request $request){
+        $this->middleware('admin');
         //Walidacja danych
 
         $request->validate([
@@ -52,6 +53,7 @@ class CollectorController extends Controller
 
     //Wyświetlanie wszystkich wolontariuszy (dla Adminów i superadminów)
     public function getList(){
+        $this->middleware('collectorcoordinator');
         $collectors = Collector::with('boxes')->get();
 
         //Wnioskowanie statusu
