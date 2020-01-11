@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\User;
 use App\Role;
+use Illuminate\Support\Facades\Hash;
 
 class UserTableSeeder extends Seeder
 {
@@ -21,13 +22,13 @@ class UserTableSeeder extends Seeder
         //Dodawanie superadministratora
         $superadmin = new User();
         $superadmin->name = 'superadmin';
-        $superadmin->password = bcrypt('zaq12wsx');
+        $superadmin->password = Hash::make('zaq12wsx');
         $superadmin->save();
         $superadmin->roles()->attach($roleSuperadmin);
         //Dodawanie administratora
         $admin = new User();
         $admin->name = 'admin';
-        $admin->password = bcrypt('zaq12wsx');
+        $admin->password = Hash::make('zaq12wsx');
         $admin->save();
         $admin->roles()->attach($roleAdmin);
         //Dodawanie użytkownika
@@ -37,7 +38,7 @@ class UserTableSeeder extends Seeder
             $number = str_pad($i, 2, 0, STR_PAD_LEFT);
             $volounteer->name = 'wosp' . $number;
             $password = 'teamAsia' . $number;
-            $volounteer->password = bcrypt($password);
+            $volounteer->password = Hash::make($password);
             echo $volounteer->name . ':' . $password . PHP_EOL;
             $volounteer->save();
             $volounteer->roles()->attach($roleVolounteer);
