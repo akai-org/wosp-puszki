@@ -36,7 +36,7 @@
                             '<td>'+box.amount_USD +'$</td>' +
                             '<td style="font-weight:bold;">'+box.amount_PLN+'zł</td>\n' +
                             //TODO fix this
-                            '<td>'+(box.counting_user_id-2)+'</td>'+
+                            '<td>'+(box.counting_user_id-3)+'</td>'+
                             '<td>'+box.comment+'</td>' +
                             '<td>' +
                             '<form id="confirm-form-'+box.id+'" method="post" onsubmit="">' +
