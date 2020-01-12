@@ -59,6 +59,8 @@
             font-size: 2em;
         }
         footer {
+            position: absolute;
+            bottom: 10px;
             text-align: center;
         }
         h1 {
@@ -104,9 +106,9 @@
 </div>
 <footer>
     &copy 2017-{{ date('Y') }} <a href="http://wosp.put.poznan.pl/">Sztab WOŚP przy Politechnice Poznańskiej</a> i <a href="http://akai.org.pl">AKAI</a> <br>
-    Kursy: 1€->{{ $data['rates']['EUR'] }}zł
-    1$->{{ $data['rates']['USD'] }}zł
-    1£->{{ $data['rates']['GBP'] }}zł
+    Kursy: 1€→{{ $data['rates']['EUR'] }}zł
+    1$→{{ $data['rates']['USD'] }}zł
+    1£→{{ $data['rates']['GBP'] }}zł
 </footer>
 
 </body>
