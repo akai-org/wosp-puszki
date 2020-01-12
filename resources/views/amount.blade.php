@@ -12,6 +12,7 @@
             /*overflow-y:hidden;*/
             color: #fff;
             font-family: lato, sans-serif;
+            margin:0;
         }
         p {
             color: #fff;
