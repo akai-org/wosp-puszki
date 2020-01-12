@@ -62,6 +62,7 @@
             position: absolute;
             bottom: 10px;
             text-align: center;
+            width: 100%;
         }
         h1 {
             margin-bottom: 0;
