@@ -18,7 +18,7 @@
         }
         .image-top {
             max-width: 100%;
-            max-height: 100vh;
+            max-height: 90vh;
         }
 
         .image-bottom {
