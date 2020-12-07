@@ -15,7 +15,7 @@ class CreateCollectorsTable extends Migration
     public function up()
     {
         Schema::create('collectors', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             //Identifier to identyfikator wolontariusza (ten z ajdika)
             $table->string('identifier');
             //Imię

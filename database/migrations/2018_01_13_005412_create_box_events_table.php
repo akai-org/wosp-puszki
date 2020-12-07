@@ -14,10 +14,10 @@ class CreateBoxEventsTable extends Migration
     public function up()
     {
         Schema::create('box_events', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('type');
-            $table->integer('box_id');
-            $table->integer('user_id');
+            $table->bigInteger('box_id');
+            $table->bigInteger('user_id');
             $table->longText('comment');
             $table->timestamps();
         });
