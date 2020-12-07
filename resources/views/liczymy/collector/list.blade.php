@@ -8,11 +8,13 @@
 
 @section('content')
 
+    @if(auth()->user()->hasAnyRole(['collectorcoordinator', 'superadmin']))
     <div class="text-right" style="margin-right: 15px;">
         <a class="btn btn-success btn-lg" href="{{ route('collector.create') }}">
             Dodaj wolontariusza
         </a>
     </div>
+    @endif
 
     <table id="volounteers" class="sortable table table-striped table-hover">
         <thead>
