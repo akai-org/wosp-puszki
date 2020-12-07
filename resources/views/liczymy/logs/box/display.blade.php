@@ -94,7 +94,7 @@
         @if($enableRefresh)
         setInterval(function () {
             refreshLogs();
-        }, {{ $interval or 10000 }});
+        }, {{ $interval ?? 10000 }});
         @endif
     });
 

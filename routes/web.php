@@ -175,8 +175,8 @@ Route::prefix('liczymy')->group(function () {
         });
 
         Route::prefix('logs')->group(function (){
-            Route::get('all', ['as' => 'api.logs.all', 'uses' => 'LogsApiController@getAll']);
-            Route::get('box/{boxID}', ['as' => 'api.logs.box', 'uses' => 'LogsApiController@getBox']);
+            Route::get('all', ['as' => 'api.logs.all', 'uses' => 'LogsApiController@getAll'])->middleware('admin');
+            Route::get('box/{boxID}', ['as' => 'api.logs.box', 'uses' => 'LogsApiController@getBox'])->middleware('admin');
         });
     });
 
