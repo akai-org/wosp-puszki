@@ -43,6 +43,10 @@
                             <td>Wydana wolontariuszowi</td>
                         @endif
                     </tr>
+                    <tr>
+                        <td>Osoba zatwierdzająca</td>
+                        <td>{{$box->personConfirming ? $box->personConfirming->name : 'brak'}}</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>

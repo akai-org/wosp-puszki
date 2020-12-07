@@ -14,6 +14,11 @@ class CharityBox extends Model
         return $this->belongsTo('App\Collector');
     }
 
+    public function personConfirming()
+    {
+        return $this->belongsTo('App\User','user_confirmed_id','id');
+    }
+
     public function events() {
         return $this->hasMany('App\BoxEvent');
     }
