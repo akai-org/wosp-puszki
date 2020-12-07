@@ -1,5 +1,9 @@
 # wosp-puszki
 
+
+### wymagania
+ - PHP 7.3
+
 ### instalacja
 
 ```
