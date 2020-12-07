@@ -97,3 +97,9 @@ $event->comment = 'Collector: ' . $collector->display;
 $event->save();
 
 $collector->display . $box->display_id
+
+
+
+### Import wolontariuszy
+
+Należy pobrać plik `wolontariusze.csv` z systemu fundacji, a następnie zaimpoerować komendą `php artisan import:collectors`
