@@ -17,11 +17,13 @@
 
 //Strona główna, wyświetla tylko liczbę hajsu
 //TODO
+use App\Http\Controllers\AmountDisplayController;
+
 Route::get('/', ['uses' => 'AmountDisplayController@display']);
 Route::get('api', ['uses' => 'AmountDisplayController@displayApi']);
 
 //Strona główna, wyświetla tylko liczbę hajsu (Sama cyfra, bez bajerów)
-Route::get('/raw', ['as' => 'display.raw','uses' => 'AmountDisplayController@getTotalRawWithForeign']);
+Route::get('/raw', [AmountDisplayController::class, 'getTotalRawWithForeign'])->name('display.raw');
 Route::get('/raw/pln', ['as' => 'display.raw.pln', 'uses' => 'AmountDisplayController@getTotalRawPln']);
 Route::get('/raw/all', ['as' => 'display.raw.all', 'uses' => 'AmountDisplayController@getTotalRawWithForeign']);
 
