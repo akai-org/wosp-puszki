@@ -98,7 +98,7 @@
             {{ number_format($data['amount_total_in_PLN'], 2, ',', ' ') }}zł
         </div>
         <div>
-            Wolontariuszy na mieście: {{ $data['collectors_in_city'] }}
+            Wolontariusze z puszkami na mieście: {{ $data['collectors_in_city'] }}
         </div>
     </div>
     <div id="latawiec">
