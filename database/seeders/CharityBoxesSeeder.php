@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Faker\Factory;
 use Illuminate\Database\Seeder;
 use App\CharityBox;
 use App\Collector;
@@ -19,7 +20,7 @@ class CharityBoxesSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker\Factory::create();
+        $faker = Factory::create();
 
         $boxCount = 20;
         //Dodajemy 2000 losowych puszek, do testowania
