@@ -12,7 +12,12 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
+    .js('resources/js/home_page.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
-    .options({
-    })
+    .sass('resources/sass/home_page.scss', 'public/css')
+    // .options({
+    //     postCss: [
+    //         require(('postcss-import'))
+    //     ]
+    // })
     .webpackConfig(require('./webpack.config'));

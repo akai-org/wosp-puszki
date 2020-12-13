@@ -13,14 +13,6 @@
     <script type="text/javascript" src="{{ asset('js\jquery-3.2.1.min.js') }}"></script>
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <style>
-        body {
-            font-family: sans-serif;
-        }
-        .navbar {
-            margin-bottom: 0;
-        }
-    </style>
     @yield('styles')
 </head>
 <body>
@@ -39,7 +31,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/liczymy') }}">
-                        <img src="{{ asset('serce.png') }}" height="30px">
+                        <img src="{{ asset('images/logo_wosp.png') }}" height="30px">
                     </a>
                 </div>
 
@@ -205,5 +197,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    @stack('scripts')
 </body>
 </html>

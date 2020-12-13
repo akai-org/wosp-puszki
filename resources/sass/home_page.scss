@@ -1,0 +1,31 @@
+
+// Fonts
+@import "fonts";
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+@import "colors";
+
+@import "reset";
+
+@import "mixins";
+
+@import "sites/amount";
+
+body {
+  color: #fff;
+  font-family: Oswald, sans-serif;
+  margin:0;
+  width: 100vw!important;
+  height: 100vh!important;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;}
+
+p {
+  color: #fff;
+}
+
+

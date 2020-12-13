@@ -1,145 +1,4 @@
 @extends('layouts.app')
-
-@section('styles')
-    <style>
-        .input-xs {
-            height: 22px;
-            padding: 2px 5px;
-            font-size: 12px;
-            line-height: 1.5; /* If Placeholder of the input is moved up, rem/modify this. */
-            border-radius: 3px;
-        }
-        .input-group-addon {
-            height: 18px;
-            padding: 2px 5px;
-            font-size: 12px;
-            line-height: 1.5; /* If Placeholder of the input is moved up, rem/modify this. */
-            border-radius: 3px;
-        }
-        .total {
-            font-weight: bold;
-            color: #2ab27b;
-        }
-    </style>
-    <script type="text/javascript">
-        {{-- Skrypt przeliczający na żywo wartości hajsu --}}
-        {{-- Nie jestem mistrzem JS, jest brzydko --}}
-        {{-- Liczenie hajsu na floatach to ZUOOOO --}}
-
-        /* event listeners */
-        window.onload = function () {
-            element_1gr = document.getElementById('count_1gr');
-            element_1gr.addEventListener("input", function (e) {
-                recalculate('1gr', this.value, 0.01);
-            });
-            recalculate('1gr', element_1gr.value, 0.01);
-
-
-            element_2gr = document.getElementById('count_2gr');
-            element_2gr.addEventListener("input", function (e) {
-                recalculate('2gr', this.value, 0.02);
-            });
-            recalculate('2gr', element_2gr.value, 0.02);
-
-
-            element_5gr = document.getElementById('count_5gr');
-            element_5gr.addEventListener("input", function (e) {
-                recalculate('5gr', this.value, 0.05);
-            });
-            recalculate('5gr', element_5gr.value, 0.05);
-
-            element_10gr = document.getElementById('count_10gr');
-            element_10gr.addEventListener("input", function (e) {
-                recalculate('10gr', this.value, 0.1);
-            });
-            recalculate('10gr', element_10gr.value, 0.1);
-
-
-            element_20gr = document.getElementById('count_20gr');
-            element_20gr.addEventListener("input", function (e) {
-                recalculate('20gr', this.value, 0.2);
-            });
-            recalculate('20gr', element_20gr.value, 0.2);
-
-            element_50gr = document.getElementById('count_50gr');
-            element_50gr.addEventListener("input", function (e) {
-                recalculate('50gr', this.value, 0.5);
-            });
-            recalculate('50gr', element_50gr.value, 0.5);
-
-            element_1zl = document.getElementById('count_1zl');
-            element_1zl.addEventListener("input", function (e) {
-                recalculate('1zl', this.value, 1);
-            });
-            recalculate('1zl', element_1zl.value, 1);
-
-            element_2zl = document.getElementById('count_2zl');
-            element_2zl.addEventListener("input", function (e) {
-                recalculate('2zl', this.value, 2);
-            });
-            recalculate('2zl', element_2zl.value, 2);
-
-            element_5zl = document.getElementById('count_5zl');
-            element_5zl.addEventListener("input", function (e) {
-                recalculate('5zl', this.value, 5);
-            });
-            recalculate('5zl', element_5zl.value, 5);
-
-            element_10zl = document.getElementById('count_10zl');
-            element_10zl.addEventListener("input", function (e) {
-                recalculate('10zl', this.value, 10);
-            });
-            recalculate('10zl', element_10zl.value, 10);
-
-            element_20zl = document.getElementById('count_20zl');
-            element_20zl.addEventListener("input", function (e) {
-                recalculate('20zl', this.value, 20);
-            });
-            recalculate('20zl', element_20zl.value, 20);
-
-            element_50zl = document.getElementById('count_50zl');
-            element_50zl.addEventListener("input", function (e) {
-                recalculate('50zl', this.value, 50);
-            });
-            recalculate('50zl', element_50zl.value, 50);
-
-            element_100zl = document.getElementById('count_100zl');
-            element_100zl.addEventListener("input", function (e) {
-                recalculate('100zl', this.value, 100);
-            });
-            recalculate('100zl', element_100zl.value, 100);
-
-            element_200zl = document.getElementById('count_200zl');
-            element_200zl.addEventListener("input", function (e) {
-                recalculate('200zl', this.value, 200);
-            });
-            recalculate('200zl', element_200zl.value, 200);
-
-            element_500zl = document.getElementById('count_500zl');
-            element_500zl.addEventListener("input", function (e) {
-                recalculate('500zl', this.value, 500);
-            });
-            recalculate('500zl', element_500zl.value, 500);
-
-        }
-
-        function recalculate(value, count, multiplier) {
-            result = +(count*multiplier).toFixed(2);
-            document.getElementById(value).textContent = result;
-
-            //Robimy update sumy
-            var sum = 0;
-            $('.sum').each(function() {
-                sum += +$(this).text()||0;
-            });
-            $("#total").text(sum.toFixed(2));
-
-        }
-        {{-- skrypt zapobiegający enterom --}}
-        {{-- Enterom zapobiega wymagany checkbox --}}
-
-    </script>
-@endsection
 @section('content')
     <form class="form-horizontal" method="POST" action="{{ route('box.modify.post', ['boxID' => $box->id]) }}" autocomplete="off">
         <fieldset>
@@ -428,3 +287,124 @@
     </form>
 
 @endsection
+
+@push('scripts')
+    <script type="text/javascript">
+        {{-- Skrypt przeliczający na żywo wartości hajsu --}}
+        {{-- Nie jestem mistrzem JS, jest brzydko --}}
+        {{-- Liczenie hajsu na floatach to ZUOOOO --}}
+
+        /* event listeners */
+        window.onload = function () {
+            element_1gr = document.getElementById('count_1gr');
+            element_1gr.addEventListener("input", function (e) {
+                recalculate('1gr', this.value, 0.01);
+            });
+            recalculate('1gr', element_1gr.value, 0.01);
+
+
+            element_2gr = document.getElementById('count_2gr');
+            element_2gr.addEventListener("input", function (e) {
+                recalculate('2gr', this.value, 0.02);
+            });
+            recalculate('2gr', element_2gr.value, 0.02);
+
+
+            element_5gr = document.getElementById('count_5gr');
+            element_5gr.addEventListener("input", function (e) {
+                recalculate('5gr', this.value, 0.05);
+            });
+            recalculate('5gr', element_5gr.value, 0.05);
+
+            element_10gr = document.getElementById('count_10gr');
+            element_10gr.addEventListener("input", function (e) {
+                recalculate('10gr', this.value, 0.1);
+            });
+            recalculate('10gr', element_10gr.value, 0.1);
+
+
+            element_20gr = document.getElementById('count_20gr');
+            element_20gr.addEventListener("input", function (e) {
+                recalculate('20gr', this.value, 0.2);
+            });
+            recalculate('20gr', element_20gr.value, 0.2);
+
+            element_50gr = document.getElementById('count_50gr');
+            element_50gr.addEventListener("input", function (e) {
+                recalculate('50gr', this.value, 0.5);
+            });
+            recalculate('50gr', element_50gr.value, 0.5);
+
+            element_1zl = document.getElementById('count_1zl');
+            element_1zl.addEventListener("input", function (e) {
+                recalculate('1zl', this.value, 1);
+            });
+            recalculate('1zl', element_1zl.value, 1);
+
+            element_2zl = document.getElementById('count_2zl');
+            element_2zl.addEventListener("input", function (e) {
+                recalculate('2zl', this.value, 2);
+            });
+            recalculate('2zl', element_2zl.value, 2);
+
+            element_5zl = document.getElementById('count_5zl');
+            element_5zl.addEventListener("input", function (e) {
+                recalculate('5zl', this.value, 5);
+            });
+            recalculate('5zl', element_5zl.value, 5);
+
+            element_10zl = document.getElementById('count_10zl');
+            element_10zl.addEventListener("input", function (e) {
+                recalculate('10zl', this.value, 10);
+            });
+            recalculate('10zl', element_10zl.value, 10);
+
+            element_20zl = document.getElementById('count_20zl');
+            element_20zl.addEventListener("input", function (e) {
+                recalculate('20zl', this.value, 20);
+            });
+            recalculate('20zl', element_20zl.value, 20);
+
+            element_50zl = document.getElementById('count_50zl');
+            element_50zl.addEventListener("input", function (e) {
+                recalculate('50zl', this.value, 50);
+            });
+            recalculate('50zl', element_50zl.value, 50);
+
+            element_100zl = document.getElementById('count_100zl');
+            element_100zl.addEventListener("input", function (e) {
+                recalculate('100zl', this.value, 100);
+            });
+            recalculate('100zl', element_100zl.value, 100);
+
+            element_200zl = document.getElementById('count_200zl');
+            element_200zl.addEventListener("input", function (e) {
+                recalculate('200zl', this.value, 200);
+            });
+            recalculate('200zl', element_200zl.value, 200);
+
+            element_500zl = document.getElementById('count_500zl');
+            element_500zl.addEventListener("input", function (e) {
+                recalculate('500zl', this.value, 500);
+            });
+            recalculate('500zl', element_500zl.value, 500);
+
+        }
+
+        function recalculate(value, count, multiplier) {
+            result = +(count*multiplier).toFixed(2);
+            document.getElementById(value).textContent = result;
+
+            //Robimy update sumy
+            var sum = 0;
+            $('.sum').each(function() {
+                sum += +$(this).text()||0;
+            });
+            $("#total").text(sum.toFixed(2));
+
+        }
+        {{-- skrypt zapobiegający enterom --}}
+        {{-- Enterom zapobiega wymagany checkbox --}}
+
+    </script>
+@endpush

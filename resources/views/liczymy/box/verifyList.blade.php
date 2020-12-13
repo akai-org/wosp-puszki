@@ -1,11 +1,6 @@
 @extends('layouts.app')
 @section('styles')
-    <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
-        #confirmed-table tr {
-
-        }
-
         legend {
             margin-bottom: 0 !important;
         }
@@ -14,8 +9,61 @@
             background-color: #2ab27b !important;
         }
     </style>
-    <script>
+@endsection
+@section('content')
+    <script type="text/javascript">
+        {{-- Skrypt do wysłania potwierdzenia bez przeładowania strony --}}
 
+    </script>
+    {{-- Lista puszek do zatwierdzenia --}}
+    <legend>Lista puszek do zatwierdzenia</legend>
+    <table class="table table-striped table-hover table-condensed" id="toconfirm-table">
+        <thead>
+        <tr>
+            <th>Numer ID</th>
+            <th>Wolontariusz</th>
+            <th>EUR</th>
+            <th>GBP</th>
+            <th>USD</th>
+            <th>PLN</th>
+            <th>Stanowisko</th>
+            <th>Inne</th>
+            <th>Zatwierdź</th> {{-- Ticzek zatwierdzający --}}
+            <th>Podgląd</th>
+            <th>Modyfikuj</th>
+            <th>Godzina przeliczenia</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    {{-- Lista puszek zatwierdzonych --}}
+    <legend>Lista puszek zatwierdzonych</legend>
+    <table class="table table-striped table-hover table-condensed" id="confirmed-table">
+        <thead>
+        <tr>
+            <th>Numer ID</th>
+            <th>Wolontariusz</th>
+            <th>EUR</th>
+            <th>GBP</th>
+            <th>USD</th>
+            <th>PLN</th>
+            <th>Stanowisko</th>
+            <th>Inne</th>
+            <th>Cofnij zatwierdzenie</th> {{-- Ticzek zatwierdzający --}}
+            <th>Podgląd</th>
+            <th>Modyfikuj</th>
+            <th>Godzina zatwierdzenia</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+@endsection
+
+@push('scripts')
+    <script>
         function reloadBoxesToVerify(){
             //ładowanie listy puszek
             //Czyścimy listę puszek
@@ -164,55 +212,4 @@
 
         });
     </script>
-@endsection
-@section('content')
-    <script type="text/javascript">
-        {{-- Skrypt do wysłania potwierdzenia bez przeładowania strony --}}
-
-    </script>
-    {{-- Lista puszek do zatwierdzenia --}}
-    <legend>Lista puszek do zatwierdzenia</legend>
-    <table class="table table-striped table-hover table-condensed" id="toconfirm-table">
-        <thead>
-        <tr>
-            <th>Numer ID</th>
-            <th>Wolontariusz</th>
-            <th>EUR</th>
-            <th>GBP</th>
-            <th>USD</th>
-            <th>PLN</th>
-            <th>Stanowisko</th>
-            <th>Inne</th>
-            <th>Zatwierdź</th> {{-- Ticzek zatwierdzający --}}
-            <th>Podgląd</th>
-            <th>Modyfikuj</th>
-            <th>Godzina przeliczenia</th>
-        </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-
-    {{-- Lista puszek zatwierdzonych --}}
-    <legend>Lista puszek zatwierdzonych</legend>
-    <table class="table table-striped table-hover table-condensed" id="confirmed-table">
-        <thead>
-        <tr>
-            <th>Numer ID</th>
-            <th>Wolontariusz</th>
-            <th>EUR</th>
-            <th>GBP</th>
-            <th>USD</th>
-            <th>PLN</th>
-            <th>Stanowisko</th>
-            <th>Inne</th>
-            <th>Cofnij zatwierdzenie</th> {{-- Ticzek zatwierdzający --}}
-            <th>Podgląd</th>
-            <th>Modyfikuj</th>
-            <th>Godzina zatwierdzenia</th>
-        </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-@endsection
+@endpush
