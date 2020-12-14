@@ -88,6 +88,7 @@
       @include stroke(3, #e12013);
       text-transform: uppercase;
       margin-top: -30px;
+      flex-wrap: wrap;
       .extras-field {
         padding: 0 30px;
         background-size: contain;
@@ -113,9 +114,6 @@
 
   }
 
-
-
-
 }
 
 footer {
@@ -128,5 +126,152 @@ footer {
   font-size: 2rem;
   a, a:hover {
     color: white;
+  }
+}
+
+@media (max-height: 850px) {
+  .collected_site--full {
+    .main {
+      height: 52%;
+      justify-content: space-evenly;
+      .final-logo {
+        img {
+          max-width: 350px;
+          margin-left: 10px;
+        }
+      }
+
+      h2 {
+        font-size: 4rem;
+        margin: -20px 0;
+        @include stroke(8, rgba(0, 0, 0, 0.3));
+      }
+
+      .total {
+        font-size: 10rem;
+        margin: 10px 0;
+        @include stroke(10, rgba(0, 0, 0, 0.3));
+      }
+    }
+
+    .details {
+      height: 48%;
+      justify-content: space-evenly;
+      margin-top: -30px;
+
+      &:before {
+        height: 1700px;
+        top: -30px;
+      }
+
+      .currencies {
+        font-size: 2em;
+        margin-top: 30px;
+
+        .currency {
+          @include stroke(4, rgba(0, 0, 0, 0.3));
+          padding: 0 30px;
+        }
+      }
+
+      .extras {
+        @include stroke(3, #e12013);
+        margin-top: -30px;
+
+        .extras-field {
+          padding: 0 15px;
+
+          .extras-field-description {
+            font-size: 1.8rem;
+            line-height: 1.5;
+          }
+
+          .extras-field-value {
+            margin: -5px auto;
+            font-size: 2.4rem;
+            width: 100px;
+            height: 100px;
+            padding: 38px 0;
+          }
+        }
+
+      }
+    }
+  }
+  footer {
+    bottom: 10px;
+    @include stroke(2, #e12013);
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .collected_site--full {
+    .main {
+      h2 {
+        font-size: 4rem;
+        @include stroke(3, rgba(0, 0, 0, 0.3));
+
+      }
+      .total {
+        font-size: 10rem;
+        @include stroke(6, rgba(0, 0, 0, 0.3));
+
+      }
+    }
+    .details {
+      .currencies {
+        font-size: 2em;
+
+        .currency {
+          padding: 0 30px;
+        }
+      }
+
+      .extras {
+
+        .extras-field {
+          padding: 0 15px;
+
+          .extras-field-description {
+            font-size: 1.8rem;
+            line-height: 1.5;
+          }
+
+          .extras-field-value {
+            margin: -5px auto;
+            font-size: 2.4rem;
+            width: 100px;
+            height: 100px;
+            padding: 38px 0;
+          }
+        }
+
+      }
+    }
+  }
+  footer {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .collected_site--full {
+    .main {
+      .final-logo {
+        img {
+          max-width: 250px;
+          margin-left: 10px;
+        }
+      }
+
+      h2 {
+        font-size: 3rem;
+      }
+
+      .total {
+        font-size: 5rem;
+      }
+    }
   }
 }

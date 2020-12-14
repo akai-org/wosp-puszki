@@ -13,3 +13,6 @@ yarn-error.log
 package-lock.json
 /public/css/app.css
 /public/js/app.js
+
+public/css/home_page.css
+public/css/home_page.js
