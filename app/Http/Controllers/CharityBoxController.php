@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\BoxEvent;
 use App\CharityBox;
 use App\Collector;
+use App\Events\BoxConfirmed;
 use Auth;
 use Illuminate\Http\Request;
 use Money\Money;
@@ -373,6 +374,7 @@ class CharityBoxController extends Controller
         $event->comment = '';
         $event->save();
 
+        BoxConfirmed::dispatch();
 
         return json_encode(
             [

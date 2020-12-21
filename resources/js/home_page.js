@@ -13,11 +13,21 @@ require('./bootstrap');
  * allows your team to easily build robust real-time web applications.
  */
 
-// import Echo from 'laravel-echo'
+const amount_total_in_PLN = document.querySelector("#amount_total_in_PLN")
+const amount_PLN = document.querySelector("#amount_PLN")
+const amount_USD = document.querySelector("#amount_USD")
+const amount_GBP = document.querySelector("#amount_GBP")
+const amount_EUR = document.querySelector("#amount_EUR")
+const collectors_in_city = document.querySelector("#collectors_in_city")
 
-// window.Pusher = require('pusher-js');
 
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: 'your-pusher-key'
-// });
+window.Echo.channel(`box-confirmations`)
+    .listen('BoxConfirmed', (e) => {
+        const total = e.total
+            if (amount_total_in_PLN) amount_total_in_PLN.textContent = total.amount_total_in_PLN
+            if (amount_PLN) amount_PLN.textContent = total.amount_PLN
+            if (amount_USD) amount_USD.textContent = total.amount_USD
+            if (amount_GBP) amount_GBP.textContent = total.amount_GBP
+            if (amount_EUR) amount_EUR.textContent = total.amount_EUR
+            if (collectors_in_city) collectors_in_city.textContent = total.collectors_in_city
+});

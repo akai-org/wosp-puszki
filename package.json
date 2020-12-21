@@ -25,5 +25,7 @@
         "sass-loader": "^8.0.2",
         "vue-template-compiler": "^2.6.12"
     },
-    "dependencies": {}
+    "dependencies": {
+        "pusher-js": "^7.0.2"
+    }
 }

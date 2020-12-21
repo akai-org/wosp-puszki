@@ -8,48 +8,10 @@ use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 class AmountDisplayController extends Controller
 {
-    //Przelicz ilość pieniędzy z puszek (łącznie z kursem obcych walut)
-    function calculateMoney() {
-        //Zliczamy rozliczone PLN z puszek
-        $amount_PLN = round(CharityBox::where('is_confirmed', '=', 1)->sum('amount_PLN'), 2);
-        $amount_PLN_unconfirmed = round(CharityBox::all()->sum('amount_PLN'),2);
-
-        //Zliczamy Inne waluty
-        //EUR
-        $amount_EUR = CharityBox::where('is_confirmed', '=', 1)->sum('amount_EUR');
-        //USD
-        $amount_USD = CharityBox::where('is_confirmed', '=', 1)->sum('amount_USD');
-        //GBP
-        $amount_GBP = CharityBox::where('is_confirmed', '=', 1)->sum('amount_GBP');
-
-        //Pobieranie kursu
-        $rates = $this->getRatesArray();
-
-        //Policzenie sumy całości
-        $total_PLN = array_sum(
-            [
-                round($amount_PLN, 2),
-                round($amount_USD*$rates['USD'], 2),
-                round($amount_EUR*$rates['EUR'], 2),
-                round($amount_GBP*$rates['GBP'], 2)
-            ]
-        );
-
-        $collectors_in_city = CharityBox::where('is_counted', '=', 0)->count();
-
-        $data = [
-            'amount_PLN' => $amount_PLN,
-            'amount_PLN_unconfirmed' => $amount_PLN_unconfirmed-$amount_PLN,
-            'amount_EUR' => $amount_EUR,
-            'amount_GBP' => $amount_GBP,
-            'amount_USD' => $amount_USD,
-            'rates' => $rates,
-            'amount_total_in_PLN' => $total_PLN,
-            'collectors_in_city' => $collectors_in_city
-        ];
-
-        return $data;
-    }
+//    //Przelicz ilość pieniędzy z puszek (łącznie z kursem obcych walut)
+//    function calculateMoney() {
+//
+//    }
 
     function getRatesArray() {
         //Pobiera kursy z NBP, albo zwraca zacache'owane
@@ -111,7 +73,7 @@ class AmountDisplayController extends Controller
     }
 
     function displayRawJson() {
-        $data = $this->calculateMoney();
+        $data = \App\totalCollectedArray();
         return response()->json($data);
     }
 }
