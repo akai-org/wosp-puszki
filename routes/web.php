@@ -18,6 +18,14 @@
 //Strona główna, wyświetla tylko liczbę hajsu
 //TODO
 use App\Http\Controllers\AmountDisplayController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CharityBoxApiController;
+use App\Http\Controllers\CharityBoxController;
+use App\Http\Controllers\CollectorController;
+use App\Http\Controllers\LogsApiController;
+use App\Http\Controllers\LogsController;
+use App\Http\Controllers\MainController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', ['uses' => 'AmountDisplayController@display']);
 Route::get('api', ['uses' => 'AmountDisplayController@displayApi']);
@@ -38,28 +46,38 @@ Route::prefix('liczymy')->group(function () {
 
     //Logowanie
 
-    Route::get('login', ['as' => 'login', 'uses' => 'Auth\LoginController@showLoginForm']);
-    Route::post('login', ['as' => 'login.post', 'uses' => 'Auth\LoginController@login']);
-    Route::post('logout', ['as' => 'logout', 'uses' => 'Auth\LoginController@logout']);
+    Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('login', [LoginController::class, 'login'])->name('login.post');
+    Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
 
     //Panel główny
-    Route::get('/', ['as' => 'main', 'uses' => 'MainController@index']);
+    Route::get('/', [MainController::class, 'index'])->name('main');
 
-    //Pobieranie kursu z NBP (Do wklejenia w .env)
-    Route::get('rates', ['as' => 'rates', 'uses' => 'AmountDisplayController@getRates'])->middleware('admin');
+    Route::middleware('admin')->group(function(){
+        //Pobieranie kursu z NBP (Do wklejenia w .env)
+        Route::get('rates', [AmountDisplayController::class, 'getRates'])->middleware('admin')->name('rates');
+
+        //Dodawanie użytkowników (dla adminów i superadminów)
+        //Edycja użytkowników(dla adminów i superadminów)
+        //Zmiana hasła(dla adminów i superadminów)
+        Route::prefix('user')->group(function () {
+            Route::get('create', [UserController::class, 'getCreate'])->name('user.create');
+            Route::post('create', [UserController::class, 'postCreate'])->name('user.create.post');
+
+            Route::get('list', [UserController::class, 'getList'])->name('user.list');
 
 
-    //Dodawanie użytkowników (dla adminów i superadminów)
-    //Edycja użytkowników(dla adminów i superadminów)
-    //Zmiana hasła(dla adminów i superadminów)
-    Route::prefix('user')->middleware('admin')->group(function () {
-       Route::get('create', ['as' => 'user.create', 'uses' => 'UserController@getCreate']);
-       Route::post('create', ['as' => 'user.create.post', 'uses' => 'UserController@postCreate']);
+            Route::middleware('superadmin')->group(function(){
+                Route::get('password/{user}', [UserController::class, 'getPassword'])->name('user.password');
 
-       Route::get('password/{user}', ['as' => 'user.password', 'uses' => 'UserController@getPassword'])->middleware('superadmin');
-       Route::post('password/{user}', ['as' => 'user.password.post', 'uses' => 'UserController@postPassword'])->middleware('superadmin');
+                Route::post('password\{user}', [UserController::class, 'postPassword'])->name('user.password.post');
 
-       Route::get('list', ['as' => 'user.list', 'uses' => 'UserController@getList']);
+            });
+
+
+        });
+
     });
 
     //Zbieracze (collector)
@@ -67,87 +85,83 @@ Route::prefix('liczymy')->group(function () {
     Route::prefix('collector')->group(function (){
         //Dodawanie wolontariusza
         //Formularz
-        Route::get('create', ['as' => 'collector.create', 'uses' => 'CollectorController@getCreate'])->middleware('admin');
-        //Dodawanie do bazy
-        Route::post('create', ['as' => 'collector.create.post', 'uses' => 'CollectorController@postCreate'])->middleware('admin');
+        Route::middleware('admin')->group(function(){
+            Route::get('create', [CollectorController::class, 'getCreate'])->name('collector.create');
+            //Dodawanie do bazy
+            Route::post('create', [CollectorController::class, 'postCreate'])->name('collector.create.post');
+        });
+
 
         //Lista wolontariuszy (dla administratorów)
-        Route::get('list', ['as' => 'collector.list', 'uses' => 'CollectorController@getList'])->middleware('collectorcoordinator');
+        Route::get('list', [CollectorController::class, 'getList'])->name('collector.list')->middleware('collectorcoordinator');
 
     });
     //Puszki
     Route::prefix('box')->group(function (){
 
-
         //Dodawanie puszki
         //Formularz
-        Route::get('create', ['as' => 'box.create', 'uses' => 'CharityBoxController@getCreate'])->middleware('collectorcoordinator');
-        //Dodanie do bazy
-        Route::post('create', ['as' => 'box.create.post', 'uses' => 'CharityBoxController@postCreate'])->middleware('collectorcoordinator');
+        Route::middleware('collectorcoordinator')->group(function(){
+            Route::get('create', [CharityBoxController::class, 'getCreate'])->name('box.create');
+
+            //Dodanie do bazy
+            Route::post('create', [CharityBoxController::class, 'postCreate'])->name('box.create.post');
+
+        });
 
 
         //Przeliczenie puszki
         //Znajdź puszkę
-        Route::get('find', ['as' => 'box.find', 'uses' => 'CharityBoxController@getFind']);
+        Route::get('find', [CharityBoxController::class, 'getFind'])->name('box.find');
         //Sprawdź z identyfikatorem
-        Route::post('find', ['as' => 'box.find.post', 'uses' => 'CharityBoxController@postFind']);
+        Route::post('find', [CharityBoxController::class, 'postFind'])->name('box.find.post');
         //Potwierdź
-        Route::post('findConfirm', function (\Illuminate\Http\Request $request){
-            //SilentAlarm
-            //Sprawdzamy czy checkbox jest wciśnięty
-            if($request->has('silentalarm')) {
-                //Zapisujemy do logów
 
-                $event = new \App\BoxEvent();
-                $event->type = 'alarm';
-                $event->box_id = request()->input('boxID');
-                $event->user_id = $request->user()->id;
-                $event->comment = '';
-                $event->save();
-                //Jeżeli tak, generujemy alarm
-                //TODO powiadomić kogoś
-                //I 404 żeby nie wzbudzać podejrzeń
-                return abort(500);
-            } else {
-                //Jeżeli nie ma alarmu to przechodzimy do rozliczenia
-                return redirect()->route('box.count', ['boxID' => request()->input('boxID')]);
-            }
+        //TODO przerobić
+        Route::post('findConfirm', function (\Illuminate\Http\Request $request){
+            return redirect()->route('box.count', ['boxID' => request()->input('boxID')]);
+
         })->name('box.findConfirm')->middleware('auth');
+
         //Przelicz pieniądze i wprowadź
-        Route::get('count/{boxID}', ['as' => 'box.count', 'uses' => 'CharityBoxController@getCount']);
+        Route::get('count/{boxID}', [CharityBoxController::class, 'getCount'])->name('box.count');
 
         //Wyślij (tutaj przedstawiamy do sprawdzenia)
-        Route::post('count/{boxID}', ['as' => 'box.count.post', 'uses' => 'CharityBoxController@postCount']);
+        Route::post('count/{boxID}', [CharityBoxController::class, 'postCount'])->name('box.count.post');
         //Potwierdź (wyślij puszkę do Admina)
-        Route::post('count/{boxID}/confirm', ['as' => 'box.count.confirm', 'uses' => 'CharityBoxController@confirm']);
+        Route::post('count/{boxID}/confirm', [CharityBoxController::class, 'confirm'])->name('box.count.confirm');
 
-        //Zatwierdzenie puszki (przez administratora)
-        //Lista puszek do zatwierdzenia
-        Route::get('verify/list', ['as' => 'box.verify.list', 'uses' => 'CharityBoxController@getVerifyList'])->middleware('admin');
 
         //Lista nierozliczonych puszek
         //getListAway
-        Route::get('list/away', ['as' => 'box.list.away', 'uses' => 'CharityBoxController@getListAway'])->middleware('collectorcoordinator');
+        Route::get('list/away', [CharityBoxController::class, 'getListAway'])->name('box.list.away')->middleware('collectorcoordinator');
 
-        //Zatwierdzenie puszki
-        //Podgląd
-        //Route::get('verify/{boxNumber}', ['as' => 'box.verify', 'uses' => 'CharityBoxController@getVerify'])->middleware('admin');
-        //POST
-        Route::post('verify', ['as' => 'box.verify.post', 'uses' => 'CharityBoxController@postVerify'])->middleware('admin');
+
 
         //Lista puszek dla administratora
-        Route::get('list', ['as' => 'box.list', 'uses' => 'CharityBoxController@getList'])->middleware('collectorcoordinator');
+        Route::get('list', [CharityBoxController::class, 'getList'])->name('box.list')->middleware('collectorcoordinator');
 
-        //Wyświetl pojedynczą puszkę dla administratora
-        Route::get('display/{boxID}', ['as' => 'box.display', 'uses' => 'CharityBoxController@getDisplay'])->middleware('admin');
+        Route::middleware('admin')->group(function(){
 
-        //Modyikuj puszkę (dla administratora)
-        Route::get('modify/{boxID}', ['as' => 'box.modify', 'uses' => 'CharityBoxController@getModify'])->middleware('admin');
-        //Modyikuj puszkę (dla administratora)
-        Route::post('modify/{boxID}', ['as' => 'box.modify.post', 'uses' => 'CharityBoxController@postModify'])->middleware('admin');
+            //Zatwierdzenie puszki (przez administratora)
+            //Lista puszek do zatwierdzenia
+            Route::get('verify/list', [CharityBoxController::class, 'getVerifyList'])->name('box.verify.list')->middleware('admin');
+            //Zatwierdzenie puszki
+            //Podgląd
+            //Route::get('verify/{boxNumber}', ['as' => 'box.verify', 'uses' => 'CharityBoxController@getVerify'])->middleware('admin');
+            //POST
+            Route::post('verify', [CharityBoxController::class, 'postVerify'])->name('box.verify.post');
 
-        //Drukowanie
-        //TODO
+            //Wyświetl pojedynczą puszkę dla administratora
+            Route::get('display/{boxID}', [CharityBoxController::class, 'getDisplay'])->name('box.display');
+            //Modyikuj puszkę (dla administratora)
+            Route::get('modify/{boxID}', [CharityBoxController::class, 'getModify'])->name('box.modify');
+
+            //Modyikuj puszkę (dla administratora)
+            Route::post('modify/{boxID}', [CharityBoxController::class, 'postModify'])->name('box.modify.post');
+
+        });
+
 
 
 
@@ -155,48 +169,35 @@ Route::prefix('liczymy')->group(function () {
     });
 
     //Logi
-    Route::prefix('logs')->group(function (){
-        Route::get('all', ['as' => 'logs.all', 'uses' => 'LogsController@getAll']);
+    Route::prefix('logs')->middleware('admin')->group(function (){
+        Route::get('all', [LogsController::class, 'getAll'])->name('logs.all');
 
-        Route::get('box/{boxID}', ['as' => 'logs.box', 'uses' => 'LogsController@getBox']);
+        Route::get('box/{boxID}', [LogsController::class, 'getBox'])->name('logs.box');
 
     });
 
     //API
-    Route::prefix('api')->group(function (){
+    Route::prefix('api')->middleware('admin')->group(function (){
         Route::prefix('box')->group(function (){
             //Lista puszek do potwierdzenia
-            Route::get('verify/list', ['as' => 'api.box.verify.list', 'uses' => 'CharityBoxApiController@getVerifyList'])->middleware('admin');
+            Route::get('verify/list', [CharityBoxApiController::class, 'getVerifyList'])->name('api.box.verify.list');
 
             //Lista puszek zatwierdzonych
-            Route::get('verified', ['as' => 'api.box.verified', 'uses' => 'CharityBoxApiController@getVerifiedBoxes'])->middleware('admin');
-
+            Route::get('verified', [CharityBoxApiController::class, 'getVerifiedBoxes'])->name('api.box.verified');
             //Anulowanie zatwierdzenia puszek
-            Route::post('unverify', ['as' => 'api.box.unverify', 'uses' => 'CharityBoxApiController@postUnVerify'])->middleware('admin');
+            Route::post('unverify', [CharityBoxApiController::class, 'postUnVerify'])->name('api.box.unverify');
 
         });
 
         Route::prefix('logs')->group(function (){
-            Route::get('all', ['as' => 'api.logs.all', 'uses' => 'LogsApiController@getAll'])->middleware('admin');
-            Route::get('box/{boxID}', ['as' => 'api.logs.box', 'uses' => 'LogsApiController@getBox'])->middleware('admin');
+            Route::get('all', [LogsApiController::class, 'getAll'])->name('api.logs.all');
+            Route::get('box/{boxID}', [LogsApiController::class, 'getBox'])->name('api.logs.box');
         });
     });
 
 
-    //Podgląd puszek na żywo
-    //TODO
-    //Stream eventów
 
 
-    //Testowe
-    Route::prefix('test')->group(function() {
-        Route::get('admin', function (){
-            echo 'Admin';
-        })->middleware('auth', 'admin');
-        Route::get('superadmin', function (){
-            echo 'SuperAdmin';
-        })->middleware('auth', 'superadmin');
-    });
 
 });
 
