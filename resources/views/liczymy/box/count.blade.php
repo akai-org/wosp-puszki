@@ -369,8 +369,8 @@
             result = +(count*multiplier).toFixed(2);
 
             //sprawdzamy czy jest liczbą
-            if(isNaN(result)){
-                document.getElementById(value).textContent = "Błąd!";
+            if(count === ""){
+                document.getElementById(value).innerHTML = '<span style="color:red;font-weight: bold;">--</span>';
             }else {
                 document.getElementById(value).textContent = result;
             }
