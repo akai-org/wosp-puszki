@@ -1,79 +1,5 @@
 @extends('layouts.app')
 
-@section('styles')
-    <style>
-        .input-xs {
-            height: 22px;
-            padding: 2px 5px;
-            font-size: 12px;
-            line-height: 1.5; /* If Placeholder of the input is moved up, rem/modify this. */
-            border-radius: 3px;
-        }
-        .input-group-addon {
-            height: 18px;
-            padding: 2px 5px;
-            font-size: 12px;
-            line-height: 1.5; /* If Placeholder of the input is moved up, rem/modify this. */
-            border-radius: 3px;
-        }
-        .total {
-            font-weight: bold;
-            color: #2ab27b;
-        }
-    </style>
-    <script type="text/javascript">
-        {{-- Skrypt przeliczający na żywo wartości hajsu --}}
-        {{-- Nie jestem mistrzem JS, jest brzydko --}}
-        {{-- Liczenie hajsu na floatach to ZUOOOO --}}
-
-        /* event listeners */
-        window.onload = function () {
-            const PLN = {
-                '1gr': 0.01,
-                '2gr': 0.02,
-                '5gr': 0.05,
-                '10gr': 0.10,
-                '20gr': 0.20,
-                '50gr': 0.50,
-                '1zl': 1,
-                '2zl': 2,
-                '5zl': 5,
-                '10zl': 10,
-                '20zl': 20,
-                '50zl': 50,
-                '100zl': 100,
-                '200zl': 200,
-                '500zl': 500
-            }
-            var elementy=[];
-            for (const napis in PLN){
-                elementy[PLN[napis]] = document.getElementById('count_' + napis );
-                elementy[PLN[napis]].addEventListener("input", function(e){
-
-                    recalculate(napis, this.value, PLN[napis]);
-                });
-                recalculate(napis, elementy[PLN[napis]].value, PLN[napis] );
-            }
-
-        }
-
-        function recalculate(value, count, multiplier) {
-            result = +(count*multiplier).toFixed(2);
-            document.getElementById(value).textContent = result;
-
-            //Robimy update sumy
-            var sum = 0;
-            $('.sum').each(function() {
-                sum += +$(this).text()||0;
-            });
-            $("#total").text(sum.toFixed(2));
-
-        }
-        {{-- skrypt zapobiegający enterom --}}
-        {{-- Enterom zapobiega wymagany checkbox --}}
-
-    </script>
-@endsection
 @section('content')
     <form class="form-horizontal" method="POST" action="{{ route('box.count.post', ['boxID' => $box->id]) }}" autocomplete="off">
         <fieldset>
@@ -401,3 +327,63 @@
     </form>
 
 @endsection
+
+@push('scripts')
+    <script type="text/javascript">
+        {{-- Skrypt przeliczający na żywo wartości hajsu --}}
+        {{-- Nie jestem mistrzem JS, jest brzydko --}}
+        {{-- Liczenie hajsu na floatach to ZUOOOO --}}
+
+        /* event listeners */
+        window.onload = function () {
+            const PLN = {
+                '1gr': 0.01,
+                '2gr': 0.02,
+                '5gr': 0.05,
+                '10gr': 0.10,
+                '20gr': 0.20,
+                '50gr': 0.50,
+                '1zl': 1,
+                '2zl': 2,
+                '5zl': 5,
+                '10zl': 10,
+                '20zl': 20,
+                '50zl': 50,
+                '100zl': 100,
+                '200zl': 200,
+                '500zl': 500
+            }
+            var elementy=[];
+            for (const napis in PLN){
+                elementy[PLN[napis]] = document.getElementById('count_' + napis );
+                elementy[PLN[napis]].addEventListener("input", function(e){
+
+                    recalculate(napis, this.value, PLN[napis]);
+                });
+                recalculate(napis, elementy[PLN[napis]].value, PLN[napis] );
+            }
+
+        }
+
+        function recalculate(value, count, multiplier) {
+            result = +(count*multiplier).toFixed(2);
+
+            //sprawdzamy czy jest liczbą
+            if(isNaN(result)){
+                document.getElementById(value).textContent = "Błąd!";
+            }else {
+                document.getElementById(value).textContent = result;
+            }
+            //Robimy update sumy
+            var sum = 0;
+            $('.sum').each(function() {
+                sum += +$(this).text()||0;
+            });
+            $("#total").text(sum.toFixed(2));
+
+        }
+        {{-- skrypt zapobiegający enterom --}}
+        {{-- Enterom zapobiega wymagany checkbox --}}
+
+    </script>
+@endpush
