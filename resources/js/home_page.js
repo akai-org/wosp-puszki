@@ -6,6 +6,7 @@
  */
 
 require('./bootstrap');
+require('./pusher_setup');
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
