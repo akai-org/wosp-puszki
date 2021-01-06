@@ -10,7 +10,7 @@
             <h2>Zebraliśmy</h2>
             <h1 class="total">
                 <span id="amount_total_in_PLN">
-                    {{ number_format($data['amount_total_in_PLN'], 2, ',', ' ') }}
+                    {{ $data['amount_total_in_PLN'] }}
                 </span>
                 zł
             </h1>
@@ -20,7 +20,7 @@
                 <div class="currency">
                     <p>
                         <span id="amount_PLN">
-                            {{ number_format($data['amount_PLN'], 2, ',', ' ') }}
+                            {{ $data['amount_PLN'] }}
                         </span>
                         zł
                     </p>
@@ -28,21 +28,21 @@
                 <div class="currency">
                     <p>
                         <span id="amount_EUR">
-                            {{ number_format($data['amount_EUR'], 2, ',', ' ') }}
+                            {{ $data['amount_EUR'] }}
                         </span>
                         €</p>
                 </div>
                 <div class="currency">
                     <p>
                         <span id="amount_GBP">
-                            {{ number_format($data['amount_GBP'], 2, ',', ' ') }}
+                            {{ $data['amount_GBP'] }}
                         </span>
                         £</p>
                 </div>
                 <div class="currency">
                     <p>
                         <span id="amount_USD">
-                            {{ number_format($data['amount_USD'], 2, ',', ' ') }}
+                            {{ $data['amount_USD'] }}
                         </span>
                         $</p>
                 </div>
