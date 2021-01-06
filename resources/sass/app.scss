@@ -31,4 +31,11 @@
   color: #2ab27b;
 }
 
+.statusButtons {
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  max-width: 60%
+}
+
 @import "sites/sites";

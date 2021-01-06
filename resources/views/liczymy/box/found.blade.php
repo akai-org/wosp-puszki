@@ -67,3 +67,9 @@
 
 
 @endsection
+
+@push('scripts')
+    <script defer type="text/javascript">
+        Echo.join(`station-status.busy`);
+    </script>
+@endpush
