@@ -32,3 +32,4 @@ window.Echo.channel(`box-confirmations`)
             if (amount_EUR) amount_EUR.textContent = total.amount_EUR
             if (collectors_in_city) collectors_in_city.textContent = total.collectors_in_city
 });
+

@@ -141,14 +141,14 @@
                     <g
                             id="g1641"
                             transform="matrix(1.2250852,0,0,1.1796943,-33.480337,-67.745906)"
-                            style="fill:#000000;fill-opacity:0.47978438;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none">
+                            style="fill:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none">
                         <rect
                                 y="200.51569"
                                 x="52.652096"
                                 height="28.33057"
                                 width="19.777945"
-                                id="rect4518"
-                                style="fill:#000000;fill-opacity:0.47978438;fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                                id="station01"
+                                style="fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                                 transform="translate(0,303.00001)"
                                 inkscape:label="station01" />
                         <text
@@ -166,14 +166,14 @@
                     <g
                             id="g1647"
                             transform="matrix(1.2250852,0,0,1.1796943,-33.480337,-67.745906)"
-                            style="fill:#000000;fill-opacity:0.47843137;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none">
+                            style="stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none">
                         <rect
                                 y="165.77066"
                                 x="52.652096"
                                 height="28.33057"
                                 width="19.777945"
-                                id="rect4518-5"
-                                style="fill:#000000;fill-opacity:0.47843137;fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                                id="station02"
+                                style="fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                                 transform="translate(0,303.00001)"
                                 inkscape:label="station02" />
                         <text
@@ -197,8 +197,8 @@
                                 x="52.384827"
                                 height="28.33057"
                                 width="19.777945"
-                                id="rect4518-7"
-                                style="fill:#000000;fill-opacity:0.47843137;fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                                id="station03"
+                                style="fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                                 transform="translate(0,303.00001)"
                                 inkscape:label="station03" />
                         <text
@@ -222,8 +222,8 @@
                                 x="52.384827"
                                 height="28.33057"
                                 width="19.777945"
-                                id="rect4518-5-3"
-                                style="fill:#000000;fill-opacity:0.47843137;fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                                id="station04"
+                                style="fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                                 transform="translate(0,303.00001)"
                                 inkscape:label="station04" />
                         <text
@@ -247,8 +247,8 @@
                                 x="51.983921"
                                 height="28.33057"
                                 width="19.777945"
-                                id="rect4518-76"
-                                style="fill:#000000;fill-opacity:0.47843137;fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                                id="station05"
+                                style="fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                                 transform="translate(0,303.00001)"
                                 inkscape:label="station05" />
                         <text
@@ -272,8 +272,8 @@
                                 x="51.983921"
                                 height="28.33057"
                                 width="19.777945"
-                                id="rect4518-5-1"
-                                style="fill:#000000;fill-opacity:0.47843137;fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                                id="station06"
+                                style="fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                                 transform="translate(0,303.00001)"
                                 inkscape:label="station06" />
                         <text
@@ -297,8 +297,8 @@
                                 x="51.716652"
                                 height="28.33057"
                                 width="19.777945"
-                                id="rect4518-7-8"
-                                style="fill:#000000;fill-opacity:0.47843137;fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                                id="station07"
+                                style="fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                                 transform="translate(0,303.00001)"
                                 inkscape:label="station07" />
                         <text
@@ -322,8 +322,8 @@
                                 x="51.716652"
                                 height="28.33057"
                                 width="19.777945"
-                                id="rect4518-5-3-1"
-                                style="fill:#000000;fill-opacity:0.47843137;fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                                id="station08"
+                                style="fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                                 transform="translate(0,303.00001)"
                                 inkscape:label="station08" />
                         <text
@@ -347,8 +347,8 @@
                                 x="51.716652"
                                 height="28.33057"
                                 width="19.777945"
-                                id="rect4518-76-9"
-                                style="fill:#000000;fill-opacity:0.47843137;fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                                id="station09"
+                                style="fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                                 transform="translate(0,303.00001)"
                                 inkscape:label="station09" />
                         <text
@@ -372,8 +372,8 @@
                                 x="51.716652"
                                 height="28.33057"
                                 width="19.777945"
-                                id="rect4518-5-1-1"
-                                style="fill:#000000;fill-opacity:0.47843137;fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                                id="station10"
+                                style="fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                                 transform="translate(0,303.00001)"
                                 inkscape:label="station10" />
                         <text
@@ -397,8 +397,8 @@
                                 x="51.449383"
                                 height="28.33057"
                                 width="19.777945"
-                                id="rect4518-7-8-5"
-                                style="fill:#000000;fill-opacity:0.47843137;fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                                id="station11"
+                                style="fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                                 transform="translate(0,303.00001)"
                                 inkscape:label="station11" />
                         <text
@@ -422,8 +422,8 @@
                                 x="51.449383"
                                 height="28.33057"
                                 width="19.777945"
-                                id="rect4518-5-3-1-3"
-                                style="fill:#000000;fill-opacity:0.47843137;fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                                id="station12"
+                                style="fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                                 transform="translate(0,303.00001)"
                                 inkscape:label="station12" />
                         <text
@@ -448,8 +448,8 @@
                                 x="202.88844"
                                 height="28.33057"
                                 width="19.777945"
-                                id="rect4518-5-3-1-3-0"
-                                style="fill:#000000;fill-opacity:0.47843137;fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter9402)"
+                                id="station13"
+                                style="fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter9402)"
                                 inkscape:label="station13" />
                         <text
                                 id="text852-6-3-7-4-6-5-7-4"
@@ -473,8 +473,8 @@
                                 x="203.1062"
                                 height="28.33057"
                                 width="19.777945"
-                                id="rect4518-7-8-5-5"
-                                style="fill:#000000;fill-opacity:0.47843137;fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                                id="station14"
+                                style="fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                                 inkscape:label="station14" />
                         <text
                                 id="text852-6-3-7-4-6-5-7-4-6"
@@ -498,8 +498,8 @@
                                 x="202.77235"
                                 height="28.33057"
                                 width="19.777945"
-                                id="rect4518-76-9-6"
-                                style="fill:#000000;fill-opacity:0.47843137;fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                                id="station16"
+                                style="fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                                 inkscape:label="station16" />
                         <text
                                 id="text852-6-3-7-4-6-5-7-4-6-5-3"
@@ -523,8 +523,8 @@
                                 x="203.24004"
                                 height="28.33057"
                                 width="19.777945"
-                                id="rect4518-5-3-1-24"
-                                style="fill:#000000;fill-opacity:0.47843137;fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                                id="station17"
+                                style="fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                                 inkscape:label="station17" />
                         <text
                                 id="text852-6-3-7-4-6-5-7-4-6-5-3-3"
@@ -548,8 +548,8 @@
                                 x="203.1064"
                                 height="28.33057"
                                 width="19.777945"
-                                id="rect4518-7-8-43"
-                                style="fill:#000000;fill-opacity:0.47843137;fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                                id="station18"
+                                style="fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                                 inkscape:label="station18" />
                         <text
                                 id="text852-6-3-7-4-6-5-7-4-6-5-3-3-8"
@@ -573,8 +573,8 @@
                                 x="335.89099"
                                 height="28.33057"
                                 width="19.777945"
-                                id="rect4518-5-3-1-3-8"
-                                style="fill:#000000;fill-opacity:0.47843137;fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                                id="station19"
+                                style="fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                                 transform="translate(0,303.00001)"
                                 inkscape:label="station19" />
                         <text
@@ -598,8 +598,8 @@
                                 x="335.89099"
                                 height="28.33057"
                                 width="19.777945"
-                                id="rect4518-7-8-5-9"
-                                style="fill:#000000;fill-opacity:0.47843137;fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                                id="station20"
+                                style="fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                                 transform="translate(0,303.00001)"
                                 inkscape:label="station20" />
                         <text
@@ -623,8 +623,8 @@
                                 x="336.15826"
                                 height="28.33057"
                                 width="19.777945"
-                                id="rect4518-5-1-1-9"
-                                style="fill:#000000;fill-opacity:0.47843137;fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                                id="station21"
+                                style="fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                                 transform="translate(0,303.00001)"
                                 inkscape:label="station21" />
                         <text
@@ -648,8 +648,8 @@
                                 x="336.15826"
                                 height="28.33057"
                                 width="19.777945"
-                                id="rect4518-76-9-1"
-                                style="fill:#000000;fill-opacity:0.47843137;fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                                id="station22"
+                                style="fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                                 transform="translate(0,303.00001)"
                                 inkscape:label="station22" />
                         <text
@@ -673,8 +673,8 @@
                                 x="336.15826"
                                 height="28.33057"
                                 width="19.777945"
-                                id="rect4518-5-3-1-2"
-                                style="fill:#000000;fill-opacity:0.47843137;fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                                id="station23"
+                                style="fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                                 transform="translate(0,303.00001)"
                                 inkscape:label="station23" />
                         <text
@@ -699,8 +699,8 @@
                                 x="336.15826"
                                 height="28.33057"
                                 width="19.777945"
-                                id="rect4518-7-8-4"
-                                style="fill:#000000;fill-opacity:0.47843137;fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                                id="station24"
+                                style="fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                                 transform="translate(0,303.00001)"
                                 inkscape:label="station24" />
                         <text
@@ -724,8 +724,8 @@
                                 x="336.42554"
                                 height="28.33057"
                                 width="19.777945"
-                                id="rect4518-5-1-3"
-                                style="fill:#000000;fill-opacity:0.47843137;fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                                id="station25"
+                                style="fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                                 transform="translate(0,303.00001)"
                                 inkscape:label="station25" />
                         <text
@@ -749,8 +749,8 @@
                                 x="336.42554"
                                 height="28.33057"
                                 width="19.777945"
-                                id="rect4518-76-6"
-                                style="fill:#000000;fill-opacity:0.47843137;fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                                id="station26"
+                                style="fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                                 transform="translate(0,303.00001)"
                                 inkscape:label="station26" />
                         <text
@@ -774,8 +774,8 @@
                                 x="336.82645"
                                 height="28.33057"
                                 width="19.777945"
-                                id="rect4518-5-3-5"
-                                style="fill:#000000;fill-opacity:0.47843137;fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                                id="station27"
+                                style="fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                                 transform="translate(0,303.00001)"
                                 inkscape:label="station27" />
                         <text
@@ -799,8 +799,8 @@
                                 x="336.82645"
                                 height="28.33057"
                                 width="19.777945"
-                                id="rect4518-7-7"
-                                style="fill:#000000;fill-opacity:0.47843137;fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                                id="station28"
+                                style="fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                                 transform="translate(0,303.00001)"
                                 inkscape:label="station28" />
                         <text
@@ -823,8 +823,8 @@
                                 x="337.09372"
                                 height="28.33057"
                                 width="19.777945"
-                                id="rect4518-5-6"
-                                style="fill:#000000;fill-opacity:0.47843137;fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                                id="station29"
+                                style="fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                                 transform="translate(0,303.00001)"
                                 inkscape:label="station29" />
                         <text
@@ -847,8 +847,8 @@
                                 x="337.09372"
                                 height="28.33057"
                                 width="19.777945"
-                                id="rect4518-4"
-                                style="fill:#000000;fill-opacity:0.47843137;fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+                                id="station30"
+                                style="fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
                                 transform="translate(0,303.00001)"
                                 inkscape:label="station30" />
                         <text
@@ -1336,7 +1336,7 @@
                                 height="28.33057"
                                 width="19.777945"
                                 id="rect4518-5-1-1-8"
-                                style="fill:#000000;fill-opacity:0.47843137;fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                                style="fill-rule:nonzero;stroke:#000000;stroke-width:0.34770298;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                                 inkscape:label="station15" />
                         <text
                                 id="text852-6-3-7-4-6-5-7-4-6-5"
@@ -1728,3 +1728,50 @@
     1$→{{ $data['rates']['USD'] }}zł
     1£→{{ $data['rates']['GBP'] }}zł
 @endsection
+
+@push('scripts')
+    <script defer type="text/javascript">
+        const svg_map = document.querySelector(".map_site > svg");
+        const station_prefix = "station";
+
+
+        const get_station_number = username => username.match(/[\d]{2}$/);
+
+        const fill_station = (station_no, color) => {
+            const station = svg_map.getElementById(station_prefix+station_no)
+            station.setAttribute("fill", color);
+            station.style.fill = color;
+        }
+
+        const process_station_status = (username, status) => {
+            let color;
+            switch (status) {
+                case 'busy':
+                    color = "red";
+                    break;
+                case 'ready':
+                    color = "green";
+                    break;
+                default:
+                    color = "gray";
+            }
+
+            const station_no = get_station_number(username);
+            if (station_no != null)
+                fill_station(station_no, color);
+        }
+
+        process_station_status("TeamAsia05", "ready");
+
+        Echo.join(`station-status.busy`)
+            .here(users => users.forEach(user => process_station_status(user.username, "busy")))
+            .joining(user => process_station_status(user.username, "busy"))
+            .leaving(user => process_station_status(user.username, "inactive"));
+
+        Echo.join(`station-status.ready`)
+            .here(users => users.forEach(user => process_station_status(user.username, "ready")))
+            .joining(user => process_station_status(user.username, "ready"))
+            .leaving(user => process_station_status(user.username, "inactive"));
+
+    </script>
+@endpush
