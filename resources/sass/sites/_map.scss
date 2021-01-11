@@ -1,0 +1,12 @@
+.map_site{
+  float: right;
+  &--full {
+    width: 100%;
+  }
+  &--split {
+    width: 40%;
+  }
+  svg {
+    width: 100%;
+  }
+}
