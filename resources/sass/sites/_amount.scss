@@ -135,6 +135,14 @@ footer {
   }
 }
 
+@media (max-width: 1300px) {
+  .collected_site {
+    &--full {
+      width: 100%;
+    }
+  }
+}
+
 @media (max-height: 850px) {
   .collected_site--full {
     .main {
