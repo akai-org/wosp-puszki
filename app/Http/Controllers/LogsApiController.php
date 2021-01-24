@@ -23,7 +23,7 @@ class LogsApiController extends Controller
             ->orderBy('created_at', 'desc')
             ->get([
                 'type', 'comment', 'created_at', 'user_id', 'box_id'
-            ]);
+            ])->take(300);
 
         return response()->json($logs);
     }
