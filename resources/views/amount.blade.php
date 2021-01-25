@@ -84,11 +84,15 @@
         const svg_map = document.querySelector(".map_site > svg");
         const station_prefix = "station";
         const booked_stations = 5;
+        const webSocket = new WebSocket('ws://localhost:6001/ws/queue');
+        const STATUS_UNKNOWN = 0;
+        const STATUS_READY = 1;
+        const STATUS_BUSY = 2;
 
         const get_station_number = username => username.match(/[\d]{2}$/);
 
         const fill_station = (station_no, color) => {
-            if (parseInt(station_no) >= 30 - booked_stations) {
+            if (parseInt(station_no) > 30 - booked_stations) {
                 color = "blue";
             }
 
@@ -102,15 +106,16 @@
         const process_station_status = (username, status) => {
             let color;
             switch (status) {
-                case 'busy':
+                case STATUS_BUSY:
                     color = "red";
                     break;
-                case 'ready':
+                case STATUS_READY:
                     color = "green";
                     break;
                 case 'booksy':
                     color = "blue";
                     break;
+                case STATUS_UNKNOWN:
                 default:
                     color = "black";
             }
@@ -118,22 +123,28 @@
             const station_no = get_station_number(username);
             if (station_no != null)
                 fill_station(station_no, color);
+
+            console.log(username, status)
         }
 
-        process_station_status("TeamAsia05", "ready");
+        webSocket.onmessage = function (message) {
+            console.log(message);
+            // let stationsStatus = JSON.parse(message);
+            for (const [key, value] of Object.entries(JSON.parse(message.data))) {
+                process_station_status(key, value.st);
+            }
+        }
 
-        Echo.join(`station-status.busy`)
-            .here(users => users.forEach(user => process_station_status(user.username, "busy")))
-            .joining(user => process_station_status(user.username, "busy"))
-            .leaving(user => process_station_status(user.username, "inactive"));
+        let intervalId = window.setInterval(function(){
+            webSocket.send(JSON.stringify({
+                s: "STATUS",
+                st: "guest",
+                t: Date.now()
+            }));
+        }, 1500);
 
-        Echo.join(`station-status.ready`)
-            .here(users => users.forEach(user => process_station_status(user.username, "ready")))
-            .joining(user => process_station_status(user.username, "ready"))
-            .leaving(user => process_station_status(user.username, "inactive"));
-
-        for (let i = 0; i < 5; i++) {
-            process_station_status("TeamAsia05" + (30-i), "booksy");
+        for (let i = 0; i < booked_stations; i++) {
+            process_station_status("booksy"+(30-i), "booksy");
         }
 
     </script>

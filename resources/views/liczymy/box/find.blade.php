@@ -50,19 +50,20 @@
             const joinButton = document.querySelector('#join');
             const leaveButton = document.querySelector('#leave');
             const collectorIdentifierForm = document.querySelector('#collectorIdentifierForm');
+            const webSocket = new WebSocket('ws://localhost:6001/ws/queue');
 
             joinButton.addEventListener('click', function (e) {
                 joinButton.classList.add('hidden');
                 leaveButton.classList.remove('hidden');
                 collectorIdentifierForm.classList.remove('hidden');
-                Echo.join(`station-status.ready`);
+                webSocket.send(window.encodeQueueStatusUpdate("READY", "{{ auth()->user()->name }}"));
             });
 
             leaveButton.addEventListener('click', function () {
                 joinButton.classList.remove('hidden');
                 leaveButton.classList.add('hidden');
                 collectorIdentifierForm.classList.add('hidden');
-                Echo.leave(`station-status.ready`);
+                webSocket.send(window.encodeQueueStatusUpdate("BUSY", "{{ auth()->user()->name }}"));
             });
         </script>
 @endpush

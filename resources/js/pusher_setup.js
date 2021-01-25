@@ -8,7 +8,7 @@ window.Echo = new Echo({
     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
     wsHost: process.env.MIX_PUSHER_WS_HOST,
     wsPort: process.env.MIX_PUSHER_WS_PORT,
-    forceTLS: true,
+    forceTLS: false,
     encrypted: false,
     enabledTransports: ['ws', 'wss'],
 });

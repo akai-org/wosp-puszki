@@ -26,6 +26,7 @@ use App\Http\Controllers\LogsApiController;
 use App\Http\Controllers\LogsController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
+use BeyondCode\LaravelWebSockets\Facades\WebSocketsRouter;
 
 Route::get('/', ['uses' => 'AmountDisplayController@display']);
 Route::get('api', ['uses' => 'AmountDisplayController@displayApi']);
@@ -200,4 +201,7 @@ Route::prefix('liczymy')->group(function () {
 
 
 });
+
+//Websockets
+WebSocketsRouter::webSocket('/ws/queue', \App\Websockets\QueueSystemWebsocketsHandler::class);
 
