@@ -98,6 +98,16 @@ $event->save();
 
 $collector->display . $box->display_id
 
+### Websockets
+
+https://github.com/beyondcode/laravel-websockets/issues/102
+https://github.com/beyondcode/laravel-websockets/issues/266
+https://alex.bouma.dev/posts/installing-laravel-websockets-on-forge/
+https://github.com/beyondcode/laravel-websockets/issues/92#issuecomment-455192084
+https://beyondco.de/docs/laravel-websockets/basic-usage/starting
+https://github.com/beyondcode/laravel-websockets/issues/148
+https://laracasts.com/discuss/channels/laravel/laravel-nuxt-nginx-websocket-is-closed-before-the-connection-is-established
+
 
 
 ### Import wolontariuszy
