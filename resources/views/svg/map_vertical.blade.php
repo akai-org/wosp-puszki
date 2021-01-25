@@ -1282,14 +1282,14 @@
                     id="g1593_2_"
                     transform="matrix(1.2250852,0,0,1.1796943,-33.480333,-58.658737)">
                 <rect
-                        id="rect4518-5-1-1-9_2_"
+                        id="station21"
                         x="787.06403"
                         y="441"
                         class="st12"
                         width="59.135975"
                         height="65"
                         style="stroke:#000000;stroke-width:0.39682829"
-                        inkscape:label="station22">
+                        inkscape:label="station21">
                 </rect>
 
                 <text
