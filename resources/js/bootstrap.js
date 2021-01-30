@@ -37,4 +37,10 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
-
+window.encodeQueueStatusUpdate = (status, station) => {
+    return JSON.stringify({
+        s: status,
+        st: station,
+        t: Math.floor(Date.now() / 1000)
+    })
+}
