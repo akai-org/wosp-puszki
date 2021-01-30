@@ -84,7 +84,7 @@
         const svg_map = document.querySelector(".map_site > svg");
         const station_prefix = "station";
         const booked_stations = 5;
-        const webSocket = new WebSocket('ws://localhost:6001/ws/queue');
+        const webSocket = new WebSocket('ws://' + window.location.host + ':6001/ws/queue');
         const STATUS_UNKNOWN = 0;
         const STATUS_READY = 1;
         const STATUS_BUSY = 2;

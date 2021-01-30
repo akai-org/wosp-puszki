@@ -50,7 +50,7 @@
             const joinButton = document.querySelector('#join');
             const leaveButton = document.querySelector('#leave');
             const collectorIdentifierForm = document.querySelector('#collectorIdentifierForm');
-            const webSocket = new WebSocket('ws://localhost:6001/ws/queue');
+            const webSocket = new WebSocket('ws://' + window.location.host + ':6001/ws/queue');
 
             joinButton.addEventListener('click', function (e) {
                 joinButton.classList.add('hidden');
