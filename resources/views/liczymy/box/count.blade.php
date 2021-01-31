@@ -393,7 +393,7 @@
         document.addEventListener("DOMContentLoaded", function() {
             const webSocket = new WebSocket('ws://' + window.location.host + ':6001/ws/queue');
             let intervalId = window.setInterval(function(){
-                webSocket.send(encodeQueueStatusUpdate("BUSY", {{ auth()->user()->name }}));
+                webSocket.send(encodeQueueStatusUpdate("BUSY", '{{ auth()->user()->name }}'));
             }, 1500);
         });
     </script>

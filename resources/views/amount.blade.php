@@ -83,7 +83,6 @@
     <script defer type="text/javascript">
         const svg_map = document.querySelector(".map_site > svg");
         const station_prefix = "station";
-        const booked_stations = 3;
         const webSocket = new WebSocket('ws://' + window.location.host + ':6001/ws/queue');
         const STATUS_UNKNOWN = 0;
         const STATUS_READY = 1;
@@ -92,10 +91,6 @@
         const get_station_number = username => username.match(/[\d]{2}$/);
 
         const fill_station = (station_no, color) => {
-            if (parseInt(station_no) > 30 - booked_stations) {
-                color = "blue";
-            }
-
             const station = svg_map.getElementById(station_prefix + station_no)
             if (station != null) {
                 station.setAttribute("fill", color);
@@ -112,9 +107,6 @@
                 case STATUS_READY:
                     color = "green";
                     break;
-                case 'booksy':
-                    color = "blue";
-                    break;
                 case STATUS_UNKNOWN:
                 default:
                     color = "black";
@@ -123,12 +115,9 @@
             const station_no = get_station_number(username);
             if (station_no != null)
                 fill_station(station_no, color);
-
-            console.log(username, status)
         }
 
         webSocket.onmessage = function (message) {
-            console.log(message);
             // let stationsStatus = JSON.parse(message);
             for (const [key, value] of Object.entries(JSON.parse(message.data))) {
                 process_station_status(key, value.st);
@@ -167,9 +156,6 @@
             loadDoc()
         }, 5000);
 
-        for (let i = 0; i < booked_stations; i++) {
-            process_station_status("booksy"+(30-i), "booksy");
-        }
 
     </script>
 @endpush
