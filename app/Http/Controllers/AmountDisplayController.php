@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\CharityBox;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 class AmountDisplayController extends Controller
@@ -55,6 +56,14 @@ class AmountDisplayController extends Controller
         $data = \App\totalCollectedReal();
 
         return view('amount')->with('data', $data);
+    }
+
+    //Wyświetl zliczoną ilość pieniędzy - przesłaną z zewnątrz
+    function displayFromStoredJson() {
+
+        $data = json_decode(Storage::get('raw2.txt'), true);
+
+        return view('amount_simplest')->with('data', $data);
     }
 
     function displayApi() {
