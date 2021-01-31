@@ -29,7 +29,9 @@ use App\Http\Controllers\UserController;
 use BeyondCode\LaravelWebSockets\Facades\WebSocketsRouter;
 
 Route::get('/', ['uses' => 'AmountDisplayController@display']);
-Route::get('/outside', ['uses' => 'AmountDisplayController@displayFromStoredJson']);
+Route::get('/outside', ['uses' => 'AmountDisplayController@displayFromStoredJsonGreen']);
+Route::get('/outside/green', ['uses' => 'AmountDisplayController@displayFromStoredJsonGreen']);
+Route::get('/outside/normal', ['uses' => 'AmountDisplayController@displayFromStoredJson']);
 Route::get('api', ['uses' => 'AmountDisplayController@displayApi']);
 
 //Strona główna, wyświetla tylko liczbę hajsu (Sama cyfra, bez bajerów)

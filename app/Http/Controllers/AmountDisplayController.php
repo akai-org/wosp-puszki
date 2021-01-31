@@ -66,6 +66,14 @@ class AmountDisplayController extends Controller
         return view('amount_simplest')->with('data', $data);
     }
 
+    //Wyświetl zliczoną ilość pieniędzy - przesłaną z zewnątrz
+    function displayFromStoredJsonGreen() {
+
+        $data = json_decode(Storage::get('raw2.txt'), true);
+
+        return view('amount_simplest_green')->with('data', $data);
+    }
+
     function displayApi() {
 
         $data = \App\totalCollectedReal();
