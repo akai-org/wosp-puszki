@@ -83,7 +83,7 @@
     <script defer type="text/javascript">
         const svg_map = document.querySelector(".map_site > svg");
         const station_prefix = "station";
-        const booked_stations = 5;
+        const booked_stations = 3;
         const webSocket = new WebSocket('ws://' + window.location.host + ':6001/ws/queue');
         const STATUS_UNKNOWN = 0;
         const STATUS_READY = 1;
@@ -142,6 +142,30 @@
                 t: Date.now()
             }));
         }, 1500);
+
+        function loadDoc() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    let json = JSON.parse(this.responseText);
+                    document.getElementById("amount_PLN").textContent = json.amount_PLN;
+                    document.getElementById("amount_EUR").textContent = json.amount_EUR;
+                    document.getElementById("amount_GBP").textContent = json.amount_GBP;
+                    document.getElementById("amount_USD").textContent = json.amount_USD;
+                    document.getElementById("amount_total_in_PLN").textContent = json.amount_total_in_PLN;
+                    document.getElementById("collectors_in_city").textContent = json.collectors_in_city;
+                    // document.getElementById("demo").innerHTML =
+                    //     this.responseText;
+                    console.log(this.responseText)
+                }
+            };
+            xhttp.open("GET",'http://' + window.location.host + '/api', true);
+            xhttp.send();
+        }
+
+        let intervalId2 = window.setInterval(function(){
+            loadDoc()
+        }, 5000);
 
         for (let i = 0; i < booked_stations; i++) {
             process_station_status("booksy"+(30-i), "booksy");
