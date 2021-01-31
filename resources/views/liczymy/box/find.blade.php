@@ -55,8 +55,8 @@
 
             let intervalLoop;
 
-            const sendReadyMsg = webSocket.send(window.encodeQueueStatusUpdate("READY", "{{ auth()->user()->name }}"));
-            const sendBusyMsg = webSocket.send(window.encodeQueueStatusUpdate("BUSY", "{{ auth()->user()->name }}"));
+            const sendReadyMsg = () => webSocket.send(window.encodeQueueStatusUpdate("READY", "{{ auth()->user()->name }}"));
+            const sendBusyMsg = () => webSocket.send(window.encodeQueueStatusUpdate("BUSY", "{{ auth()->user()->name }}"));
 
             joinButton.addEventListener('click', function (e) {
                 clearInterval(timeOutLoop);
