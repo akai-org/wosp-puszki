@@ -10,7 +10,7 @@
             window.location.reload();
         }, 30000);
     </script>
-    <div style="width: 100vw; height: 100vh; overflow-x: hidden; background-color: green;">
+    <div style="width: 100vw; height: 100vh; overflow-x: hidden; background-color: green !important;">
         <div class="collected_site collected_site--full row">
             <section class="main">
                 <div class="final-logo">
