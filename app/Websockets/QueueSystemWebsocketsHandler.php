@@ -13,7 +13,7 @@ class QueueSystemWebsocketsHandler implements MessageComponentInterface
     const STATUS_UNKNOWN = 0;
     const STATUS_READY = 1;
     const STATUS_BUSY = 2;
-    const STALE_TIMEOUT_IN_SECONDS = 20;
+    const STALE_TIMEOUT_IN_SECONDS = 300;
 
     protected $clients;
     private $stations = [];
