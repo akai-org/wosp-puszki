@@ -47,23 +47,31 @@
 
 @push('scripts')
         <script defer type="text/javascript">
+
             const joinButton = document.querySelector('#join');
             const leaveButton = document.querySelector('#leave');
             const collectorIdentifierForm = document.querySelector('#collectorIdentifierForm');
             const webSocket = new WebSocket('ws://' + window.location.host + ':6001/ws/queue');
 
+            let intervalLoop;
+
+            const sendReadyMsg = webSocket.send(window.encodeQueueStatusUpdate("READY", "{{ auth()->user()->name }}"));
+            const sendBusyMsg = webSocket.send(window.encodeQueueStatusUpdate("BUSY", "{{ auth()->user()->name }}"));
+
             joinButton.addEventListener('click', function (e) {
+                clearInterval(timeOutLoop);
                 joinButton.classList.add('hidden');
                 leaveButton.classList.remove('hidden');
                 collectorIdentifierForm.classList.remove('hidden');
-                webSocket.send(window.encodeQueueStatusUpdate("READY", "{{ auth()->user()->name }}"));
+                intervalLoop = setInterval(sendReadyMsg, 1500);
             });
 
             leaveButton.addEventListener('click', function () {
+                clearInterval(timeOutLoop);
                 joinButton.classList.remove('hidden');
                 leaveButton.classList.add('hidden');
                 collectorIdentifierForm.classList.add('hidden');
-                webSocket.send(window.encodeQueueStatusUpdate("BUSY", "{{ auth()->user()->name }}"));
+                intervalLoop = setInterval(sendBusyMsg, 1500);
             });
         </script>
 @endpush
