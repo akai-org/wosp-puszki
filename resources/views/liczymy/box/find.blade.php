@@ -59,7 +59,7 @@
             const sendBusyMsg = () => webSocket.send(window.encodeQueueStatusUpdate("BUSY", "{{ auth()->user()->name }}"));
 
             joinButton.addEventListener('click', function (e) {
-                clearInterval(timeOutLoop);
+                clearInterval(intervalLoop);
                 joinButton.classList.add('hidden');
                 leaveButton.classList.remove('hidden');
                 collectorIdentifierForm.classList.remove('hidden');
@@ -67,7 +67,7 @@
             });
 
             leaveButton.addEventListener('click', function () {
-                clearInterval(timeOutLoop);
+                clearInterval(intervalLoop);
                 joinButton.classList.remove('hidden');
                 leaveButton.classList.add('hidden');
                 collectorIdentifierForm.classList.add('hidden');
