@@ -123,7 +123,7 @@
 @push('scripts')
     <script defer type="text/javascript">
         document.addEventListener("DOMContentLoaded", function() {
-            const webSocket = new WebSocket('ws://' + window.location.host + ':6001/ws/queue');
+            const webSocket = new WebSocket('ws://' + window.location.hostname + ':6001/ws/queue');
             let intervalId = window.setInterval(function(){
                 webSocket.send(encodeQueueStatusUpdate("BUSY", {{ auth()->user()->name }}));
             }, 1500);

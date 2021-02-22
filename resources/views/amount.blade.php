@@ -83,7 +83,7 @@
     <script defer type="text/javascript">
         const svg_map = document.querySelector(".map_site > svg");
         const station_prefix = "station";
-        const webSocket = new WebSocket('ws://' + window.location.host + ':6001/ws/queue');
+        const webSocket = new WebSocket('ws://' + window.location.hostname + ':6001/ws/queue');
         const STATUS_UNKNOWN = 0;
         const STATUS_READY = 1;
         const STATUS_BUSY = 2;
@@ -148,7 +148,7 @@
                     console.log(this.responseText)
                 }
             };
-            xhttp.open("GET",'http://' + window.location.host + '/api', true);
+            xhttp.open("GET",'http://' + window.location.hostname + '/api', true);
             xhttp.send();
         }
 

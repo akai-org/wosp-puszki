@@ -51,7 +51,7 @@
             const joinButton = document.querySelector('#join');
             const leaveButton = document.querySelector('#leave');
             const collectorIdentifierForm = document.querySelector('#collectorIdentifierForm');
-            const webSocket = new WebSocket('ws://' + window.location.host + ':6001/ws/queue');
+            const webSocket = new WebSocket('ws://' + window.location.hostname + ':6001/ws/queue');
 
             let intervalLoop;
 
