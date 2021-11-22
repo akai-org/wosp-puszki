@@ -4,8 +4,8 @@ namespace Database\Seeders;
 
 use Faker\Factory;
 use Illuminate\Database\Seeder;
-use App\CharityBox;
-use App\Collector;
+use App\Models\CharityBox;
+use App\Models\Collector;
 use Money\Money;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;

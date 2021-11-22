@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use function App\totalCollectedWithForeign;
+use App\Helpers\AmountHelpers;
 use Illuminate\Console\Command;
 
 class PostRaw extends Command
@@ -39,7 +39,7 @@ class PostRaw extends Command
     public function handle()
     {
         $url = env('RAW_POST_URL');
-        $totalArr = \App\totalCollectedReal();
+        $totalArr = AmountHelpers::totalCollectedReal();
         $total = $totalArr['amount_total_in_PLN'];
         $ch = curl_init();
 

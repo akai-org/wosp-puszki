@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Collector;
+use App\Models\Collector;
 
 class CollectorsSeeder extends Seeder
 {

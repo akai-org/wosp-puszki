@@ -2,7 +2,7 @@
 
 
 ### wymagania
- - PHP 7.3
+- PHP 7.3
 
 ### instalacja
 
@@ -113,3 +113,7 @@ https://laracasts.com/discuss/channels/laravel/laravel-nuxt-nginx-websocket-is-c
 ### Import wolontariuszy
 
 Należy pobrać plik `wolontariusze.csv` z systemu fundacji, a następnie zaimpoerować komendą `php artisan import:collectors`
+
+
+### Docker 
+```./vendor/bin/sail up```

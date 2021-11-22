@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\CharityBox;
+use App\Models\CharityBox;
 use Illuminate\Support\Facades\Log;
-use App\BoxEvent;
+use App\Models\BoxEvent;
 
 use Illuminate\Http\Request;
 

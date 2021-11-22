@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\BoxEvent;
-use App\CharityBox;
-use App\Collector;
+use App\Models\BoxEvent;
+use App\Models\CharityBox;
+use App\Models\Collector;
 use App\Events\BoxConfirmed;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Money\Money;
 use Money\Currencies\ISOCurrencies;

@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use function App\totalCollectedWithForeign;
+use App\Helpers\AmountHelpers;
 use Illuminate\Console\Command;
 use GuzzleHttp\Client;
 
@@ -40,7 +40,7 @@ class PostJson extends Command
     public function handle()
     {
         $url = env('JSON_POST_URL');
-        $totalArr = \App\totalCollectedReal();
+        $totalArr = AmountHelpers::totalCollectedReal();
         $ch = curl_init();
         $client = new Client();
 

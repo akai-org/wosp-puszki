@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\CharityBox;
+use App\Helpers\AmountHelpers;
+use App\Models\CharityBox;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 class AmountDisplayController extends Controller
 {
-//    //Przelicz ilość pieniędzy z puszek (łącznie z kursem obcych walut)
-//    function calculateMoney() {
-//
-//    }
 
     function getRatesArray() {
         //Pobiera kursy z NBP, albo zwraca zacache'owane
@@ -53,7 +50,7 @@ class AmountDisplayController extends Controller
     //Wyświetl zliczoną ilość pieniędzy
     function display() {
 
-        $data = \App\totalCollectedReal();
+        $data = AmountHelpers::totalCollectedReal();
 
         return view('amount')->with('data', $data);
     }
@@ -76,21 +73,24 @@ class AmountDisplayController extends Controller
 
     function displayApi() {
 
-        $data = \App\totalCollectedReal();
+        $data = AmountHelpers::totalCollectedReal();
 
         return response()->json($data);
     }
 
-    function getTotalRawPln() {
-        return \App\totalCollected();
+    function getTotalRawPln(): string
+    {
+        return AmountHelpers::totalCollected();
     }
 
-    function getTotalRawWithForeign() {
-        return \App\totalCollectedWithForeign();
+    function getTotalRawWithForeign(): string
+    {
+        return AmountHelpers::totalCollectedWithForeign();
     }
 
-    function displayRawJson() {
-        $data = \App\totalCollectedArray();
+    function displayRawJson(): \Illuminate\Http\JsonResponse
+    {
+        $data = AmountHelpers::totalCollectedArray();
         return response()->json($data);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\BoxEvent;
+use App\Models\BoxEvent;
 use Illuminate\Http\Request;
 
 class LogsApiController extends Controller
