@@ -16,7 +16,7 @@ class Collector extends Model
 
     public function boxes()
     {
-        return $this->hasMany('App\CharityBox');
+        return $this->hasMany('App\Models\CharityBox');
     }
 
     public function getDisplayAttribute() {

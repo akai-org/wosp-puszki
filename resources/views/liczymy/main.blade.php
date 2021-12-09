@@ -5,12 +5,12 @@
     <div class="row">
         <h1 style="text-align: center;font-size: 3em">
             Zebraliśmy:<br>
-            <span style="">{{ \App\totalCollected() }}zł</span>
+            <span style="">{{ \App\Helpers\AmountHelpers::totalCollected() }}zł</span>
         </h1>
         <br>
         <h1 style="text-align: center;font-size: 3em">
             Razem z walutami obcymi:<br>
-            <span style="">{{ \App\totalCollectedWithForeign() }}zł</span>
+            <span style="">{{ \App\Helpers\AmountHelpers::totalCollectedWithForeign() }}zł</span>
         </h1>
     </div>
     <br>
