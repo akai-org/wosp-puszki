@@ -119,7 +119,9 @@ class CharityBoxController extends Controller
                 $event->user_id = $request->user()->id;
                 $event->comment = 'Collector: ' . $collector->display;
                 $event->save();
-
+                return inertia('Box/Found', [
+                    "box" => $box, "collector" => $collector
+                ]);
                 return view('liczymy.box.found')->with('box', $box)->with('collector', $collector);
             }
         }

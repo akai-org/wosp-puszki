@@ -11,16 +11,16 @@ class CharityBox extends Model
      */
     public function collector()
     {
-        return $this->belongsTo('App\Collector');
+        return $this->belongsTo('App\Models\Collector');
     }
 
     public function personConfirming()
     {
-        return $this->belongsTo('App\User','user_confirmed_id','id');
+        return $this->belongsTo('App\Models\User','user_confirmed_id','id');
     }
 
     public function events() {
-        return $this->hasMany('App\BoxEvent');
+        return $this->hasMany('App\Models\BoxEvent');
     }
 
     public function getTotalWithForeignAttribute() {
