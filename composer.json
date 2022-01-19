@@ -23,6 +23,8 @@
     },
     "require-dev": {
         "mockery/mockery": "~1.0",
+        "pestphp/pest": "^1.21",
+        "pestphp/pest-plugin-laravel": "^1.2",
         "phpunit/phpunit": "^9.0"
     },
     "autoload": {
