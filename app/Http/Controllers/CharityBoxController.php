@@ -327,7 +327,7 @@ class CharityBoxController extends Controller
 
         //Zwróć info że puszka zapisana
         return redirect()->route('box.find')
-            ->with('message', 'Puszka wolontariusza ' . $box->collector->display . ' została przesłana do zatwierdzenia.' . '('  .$box->amount_PLN.'zł)');
+            ->with('message', 'Puszka wolontariusza ' . $box->collector->display . ' została przesłana do zatwierdzenia. (' . $box->amount_PLN . 'zł)');
     }
 
     //Lista puszek do potwierdzenia (dla administratora)
