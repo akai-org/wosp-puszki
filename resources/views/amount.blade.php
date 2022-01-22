@@ -22,8 +22,6 @@
                 </span>
                     zł
                 </h1>
-            </section>
-            <section class="details">
                 <div class="currencies">
                     <div class="currency">
                         <p>
@@ -55,6 +53,9 @@
                             $</p>
                     </div>
                 </div>
+            </section>
+            <section class="details">
+
                 <div class="extras">
                     <div class="extras-field">
                         <div class="extras-field-value" id="collectors_in_city">

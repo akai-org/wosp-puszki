@@ -1,5 +1,9 @@
 .map_site{
-  float: right;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
   &--full {
     max-width: 100%;
   }
@@ -10,8 +14,8 @@
   }
   max-height: 100vh;
   svg {
-    max-width: 100%;
-    max-height: 100vh;
+    max-width: calc(100% - 80px);
+    max-height: calc(100vh - 80px);
     rect {
       transition: fill 0.1s ease-in 0.1s ;
     }
