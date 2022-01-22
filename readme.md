@@ -12,7 +12,7 @@
 
 //instalujemy zależności
 
-composer install --no-dev
+composer install
 
 //generujemy nowy klucz, jeżeli to świeża instalacja
 
@@ -33,6 +33,9 @@ Usupełniamy kursy walut w pliku .env, odwiedzając
 http://localhost:8000/liczymy/rates i wklejając poniżej
 UWAGA, jeżeli nie są ustawione kursy, to STATIC_RATES musi być false
 ```
+
+## Testy
+`php artisan test`
 
 ### Wyłączanie autofill formularza w chrome
 ```

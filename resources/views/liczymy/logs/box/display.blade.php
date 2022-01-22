@@ -61,7 +61,7 @@
                     return 'Cofnięcie zatwierdzenia przez administratora';
                     break;
                 default:
-                    return 'Nieznany typ wydarzenia ' + type;
+                    return 'Nieznany typ wydarzenia: ' + type;
             }
         }
 
@@ -94,8 +94,7 @@
         $(document).ready(function () {
             refreshLogs();
 
-
-            //Przeładowanie co x sekund
+            //Przeładowanie co 10 sekund
             @if($enableRefresh)
             setInterval(function () {
                 refreshLogs();
