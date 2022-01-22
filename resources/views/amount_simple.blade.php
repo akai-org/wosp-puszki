@@ -4,7 +4,7 @@
     <div class="collected_site--full row"
          style="background-image: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.3) 0%), url('{{ asset('images/background.svg') }}')">
         <section class="main">
-            <div class="final-logo">
+            <div class="logos-container">
                 <img src="{{ asset('images/logo_final.svg') }}">
             </div>
             <h2>Zebraliśmy</h2>

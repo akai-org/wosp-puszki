@@ -1,16 +1,21 @@
 @extends('layouts.home_page')
 
 @section('content')
-    <div style="width: 100vw; height: 100vh; overflow-x: hidden; background-image: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.3) 0%), url('{{ asset('images/background.svg') }}');   background-repeat: no-repeat;
+    <div class="waves"></div>
+    <div style="width: 100vw; height: 100vh; overflow-x: hidden; background-image: url('{{ asset('images/background.svg') }}');   background-repeat: no-repeat;
             background-position: top center;
             background-size: cover;
-            background-color: #1b2748;">
+            position: absolute;
+            z-index: 1">
         <div class="collected_site collected_site--split row">
             <section class="main">
-                <div class="final-logo">
-                    <img src="{{ asset('images/logo_final.svg') }}">
+                <div class="logos-container">
+                    <img class="logos-container__img" src="{{ asset('images/su.svg') }}">
+                    <img class="logos-container__img--main logos-container__img"
+                         src="{{ asset('images/logo_final.png') }}">
+                    <img class="logos-container__img" src="{{ asset('images/akai.svg') }}">
                 </div>
-                <h2>Zebraliśmy</h2>
+                <img class="collected-label" src="{{asset('images/zebralismy.svg')}}">
                 <h1 class="total">
                 <span id="amount_total_in_PLN">
                     {{ $data['amount_total_in_PLN'] }}
@@ -52,15 +57,22 @@
                 </div>
                 <div class="extras">
                     <div class="extras-field">
+                        <div class="extras-field-value" id="collectors_in_city">
+                            {{ $data['collectors_in_city'] }}
+                        </div>
                         <div class="extras-field-description">
                             Wolontariuszy
                         </div>
-                        <div class="extras-field-description">
-                            na mieście
-                        </div>
-
+                    </div>
+                    <div class="extras-field">
                         <div class="extras-field-value" id="collectors_in_city">
                             {{ $data['collectors_in_city'] }}
+                        </div>
+                        <div class="extras-field-description">
+                            Czynnych
+                        </div>
+                        <div class="extras-field-description">
+                            Stanowisk
                         </div>
                     </div>
                 </div>
@@ -73,15 +85,17 @@
 @endsection
 @section('footer')
     &copy 2017-{{ date('Y') }} <a href="http://wosp.put.poznan.pl/">Sztab WOŚP przy Politechnice Poznańskiej</a> i <a
-            href="http://akai.org.pl" class="footer-akai"><span style="color: #FAA21B">A</span>KAI</a> <br>
-    Kursy: 1€→{{ $data['rates']['EUR'] }}zł
-    1$→{{ $data['rates']['USD'] }}zł
-    1£→{{ $data['rates']['GBP'] }}zł
+            href="http://akai.org.pl" class="footer-akai">AKAI</a> <br>
+    <div class="footer__currency">
+        Kursy: 1€ → {{ $data['rates']['EUR'] }}zł |
+        1$ → {{ $data['rates']['USD'] }}zł |
+        1£ → {{ $data['rates']['GBP'] }}zł |
+    </div>
 @endsection
 
 @push('scripts')
     <script defer type="text/javascript">
-        const svg_map = document.querySelector(".map_site > svg");
+        const svgz_map = document.querySelector(".map_site > svg");
         const station_prefix = "station";
         const webSocket = new WebSocket('ws://' + window.location.hostname + ':6001/ws/queue');
         const STATUS_UNKNOWN = 0;
@@ -124,7 +138,7 @@
             }
         }
 
-        let intervalId = window.setInterval(function(){
+        let intervalId = window.setInterval(function () {
             webSocket.send(JSON.stringify({
                 s: "STATUS",
                 st: "guest",
@@ -134,7 +148,7 @@
 
         function loadDoc() {
             var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function() {
+            xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     let json = JSON.parse(this.responseText);
                     document.getElementById("amount_PLN").textContent = json.amount_PLN;
@@ -148,11 +162,11 @@
                     console.log(this.responseText)
                 }
             };
-            xhttp.open("GET",'http://' + window.location.hostname + '/api', true);
+            xhttp.open("GET", 'http://' + window.location.hostname + '/api', true);
             xhttp.send();
         }
 
-        let intervalId2 = window.setInterval(function(){
+        let intervalId2 = window.setInterval(function () {
             loadDoc()
         }, 5000);
 

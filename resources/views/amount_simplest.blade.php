@@ -7,7 +7,7 @@
             background-color: #1b2748;">
         <div class="collected_site collected_site--full row">
             <section class="main">
-                <div class="final-logo">
+                <div class="logos-container">
                     <img src="{{ asset('images/logo_final.svg') }}">
                 </div>
                 <h2>Zebraliśmy</h2>
