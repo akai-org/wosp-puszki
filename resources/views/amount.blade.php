@@ -90,7 +90,7 @@
     <div class="footer__currency">
         Kursy: 1€ → {{ $data['rates']['EUR'] }}zł |
         1$ → {{ $data['rates']['USD'] }}zł |
-        1£ → {{ $data['rates']['GBP'] }}zł |
+        1£ → {{ $data['rates']['GBP'] }}zł
     </div>
 @endsection
 
