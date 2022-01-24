@@ -75,7 +75,7 @@
       text-align: center;
       margin: 10px 0;
       font-weight: bold;
-      @include doubleStroke(7);
+      @include stroke(7, black);
     }
 
     .currencies {
@@ -87,7 +87,7 @@
       margin-top: 30px;
 
       .currency {
-        @include doubleStroke(2);
+        @include stroke(2, black);
         padding: 0 30px;
         font-style: italic;
       }
@@ -219,7 +219,7 @@ footer {
           font-size: 2em;
 
           .currency {
-            @include doubleStroke(4);
+            @include stroke(4, black);
             padding: 0 30px;
           }
         }
@@ -267,7 +267,7 @@ footer {
 
         .total {
           font-size: 10rem;
-          @include doubleStroke(6);
+          @include stroke(6, black);
 
         }
       }
