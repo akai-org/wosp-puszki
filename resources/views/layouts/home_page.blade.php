@@ -13,6 +13,9 @@
     <script type="text/javascript" src="{{ asset('js\jquery-3.2.1.min.js') }}"></script>
     <!-- Styles -->
     <link href="{{ asset('css/home_page.css') }}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet">
     @yield('styles')
 </head>
 <body>

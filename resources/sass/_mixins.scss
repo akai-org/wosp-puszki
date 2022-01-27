@@ -9,6 +9,10 @@
   @return $shadow;
 }
 
+@mixin doubleStroke($stroke) {
+  text-shadow: stroke($stroke, black), stroke(2*$stroke, white);
+}
+
 @mixin stroke($stroke, $color) {
   text-shadow: stroke($stroke, $color);
 }

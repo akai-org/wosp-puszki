@@ -1,0 +1,24 @@
+version: '3.1'
+
+services:
+
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: haslo
+      MYSQL_USER: mateusz
+      MYSQL_PASSWORD: haslo123
+      MYSQL_DATABASE: homestead
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+
+  redis:
+    image: redis

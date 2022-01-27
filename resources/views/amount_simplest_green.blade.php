@@ -13,7 +13,7 @@
     <div style="width: 100vw; height: 100vh; overflow-x: hidden; background-color: green !important;">
         <div class="collected_site collected_site--full row" style="background-color: green !important;">
             <section class="main">
-                <div class="final-logo">
+                <div class="logos-container">
                     <img src="{{ asset('images/logo_final.svg') }}">
                 </div>
                 <h2>Zebraliśmy</h2>
