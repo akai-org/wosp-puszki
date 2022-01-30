@@ -66,7 +66,7 @@
                         </div>
                     </div>
                     <div class="extras-field">
-                        <div class="extras-field-value" id="collectors_in_city">
+                        <div class="extras-field-value" id="open_counting_stations">
                             0
                         </div>
                         <div class="extras-field-description">
@@ -103,7 +103,7 @@
         const STATUS_READY = 1;
         const STATUS_BUSY = 2;
 
-	const collectors_in_city = document.querySelector("#collectors_in_city");
+	const open_counting_stations = document.querySelector("#open_counting_stations");
         const get_station_number = username => username.match(/[\d]{2}$/);
 
         const fill_station = (station_no, color) => {
@@ -136,6 +136,15 @@
 
         webSocket.onmessage = function (message) {
             // let stationsStatus = JSON.parse(message);
+	let active_stations = 0;
+	for (const [key, value] of Object.entries(JSON.parse(message.data))) {
+		let color = process_station_status(key, value.st);
+		if (color === "green") {
+		active_stations++;
+		}
+	}
+    console.log('czynnych stanowisk: ' + active_stations);
+            open_counting_stations.textContent = active_stations;
         }
 
         let intervalId = window.setInterval(function () {
