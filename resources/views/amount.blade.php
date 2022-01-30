@@ -67,7 +67,7 @@
                     </div>
                     <div class="extras-field">
                         <div class="extras-field-value" id="collectors_in_city">
-                            {{ $data['collectors_in_city'] }}
+                            0
                         </div>
                         <div class="extras-field-description">
                             Czynnych
@@ -88,21 +88,22 @@
     &copy 2017-{{ date('Y') }} <a href="http://wosp.put.poznan.pl/">Sztab WOŚP przy Politechnice Poznańskiej</a> i <a
             href="http://akai.org.pl" class="footer-akai">AKAI</a> <br>
     <div class="footer__currency">
-        Kursy: 1€ → {{ $data['rates']['EUR'] }}zł |
-        1$ → {{ $data['rates']['USD'] }}zł |
-        1£ → {{ $data['rates']['GBP'] }}zł
+        Kursy: 1€ → 4.5697 zł |
+        1$ → 4.1048 zł |
+        1£ → 5.4934 zł
     </div>
 @endsection
 
 @push('scripts')
     <script defer type="text/javascript">
-        const svgz_map = document.querySelector(".map_site > svg");
+        const svg_map = document.querySelector(".map_site > svg");
         const station_prefix = "station";
         const webSocket = new WebSocket('ws://' + window.location.hostname + ':6001/ws/queue');
         const STATUS_UNKNOWN = 0;
         const STATUS_READY = 1;
         const STATUS_BUSY = 2;
 
+	const collectors_in_city = document.querySelector("#collectors_in_city");
         const get_station_number = username => username.match(/[\d]{2}$/);
 
         const fill_station = (station_no, color) => {
@@ -130,13 +131,19 @@
             const station_no = get_station_number(username);
             if (station_no != null)
                 fill_station(station_no, color);
-        }
+		return color;
+	}
 
         webSocket.onmessage = function (message) {
             // let stationsStatus = JSON.parse(message);
-            for (const [key, value] of Object.entries(JSON.parse(message.data))) {
-                process_station_status(key, value.st);
-            }
+	let active_stations = 0;	
+	for (const [key, value] of Object.entries(JSON.parse(message.data))) {
+		let color = process_station_status(key, value.st);
+		if (color === "green") {
+		active_stations++;
+		}
+	}
+	collectors_in_city.textContent = active_stations;
         }
 
         let intervalId = window.setInterval(function () {
@@ -170,7 +177,6 @@
         let intervalId2 = window.setInterval(function () {
             loadDoc()
         }, 5000);
-
 
     </script>
 @endpush
