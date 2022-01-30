@@ -68,9 +68,9 @@ function totalCollectedReal() {
 //    $controller = new AmountDisplayController();
 //    $rates = $controller->getRatesArray();
     $rates = [
-        'USD' => config('rates.usd'),
-        'EUR' => config('rates.eur'),
-        'GBP' => config('rates.gbp')
+        'USD' => config('rates.usd', 4.1048),
+        'EUR' => config('rates.eur', 4.5697),
+        'GBP' => config('rates.gbp', 5.4934)
     ];
 
     //Policzenie sumy całości
