@@ -136,13 +136,15 @@
 
         webSocket.onmessage = function (message) {
             // let stationsStatus = JSON.parse(message);
-	let active_stations = 0;
-	for (const [key, value] of Object.entries(JSON.parse(message.data))) {
-		if (value.st === STATUS_READY) {
-		    active_stations++;
-		}
-	}
-    console.log('czynnych stanowisk: ' + active_stations);
+            for (const [key, value] of Object.entries(JSON.parse(message.data))) {
+                process_station_status(key, value.st);
+            }
+            let active_stations = 0;
+            for (const [key, value] of Object.entries(JSON.parse(message.data))) {
+                if (value.st === STATUS_READY) {
+                    active_stations++;
+                }
+            }
             open_counting_stations.textContent = active_stations;
         }
 
