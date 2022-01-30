@@ -136,14 +136,6 @@
 
         webSocket.onmessage = function (message) {
             // let stationsStatus = JSON.parse(message);
-	let active_stations = 0;	
-	for (const [key, value] of Object.entries(JSON.parse(message.data))) {
-		let color = process_station_status(key, value.st);
-		if (color === "green") {
-		active_stations++;
-		}
-	}
-	collectors_in_city.textContent = active_stations;
         }
 
         let intervalId = window.setInterval(function () {
