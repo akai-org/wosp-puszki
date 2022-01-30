@@ -70,10 +70,10 @@
                             0
                         </div>
                         <div class="extras-field-description">
-                            Czynnych
+                            Dostępne
                         </div>
                         <div class="extras-field-description">
-                            Stanowisk
+                            Stanowiska
                         </div>
                     </div>
                 </div>
@@ -138,9 +138,8 @@
             // let stationsStatus = JSON.parse(message);
 	let active_stations = 0;
 	for (const [key, value] of Object.entries(JSON.parse(message.data))) {
-		let color = process_station_status(key, value.st);
-		if (color === "green") {
-		active_stations++;
+		if (value.st === STATUS_READY) {
+		    active_stations++;
 		}
 	}
     console.log('czynnych stanowisk: ' + active_stations);
