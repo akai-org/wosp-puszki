@@ -131,7 +131,6 @@
             const station_no = get_station_number(username);
             if (station_no != null)
                 fill_station(station_no, color);
-		return color;
 	}
 
         webSocket.onmessage = function (message) {
