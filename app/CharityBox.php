@@ -26,9 +26,9 @@ class CharityBox extends Model
     public function getTotalWithForeignAttribute() {
         $totalWithForeign = array_sum([
                 $this->amount_PLN,
-                $this->amount_EUR * env('RATE_EUR'),
-                $this->amount_GBP * env('RATE_GBP'),
-                $this->amount_USD * env('RATE_USD')
+                $this->amount_EUR * config('rates.eur'),
+                $this->amount_GBP * config('rates.gbp'),
+                $this->amount_USD * config('rates.usd')
         ]);
         return number_format($totalWithForeign, 2, ',', ' ');
     }

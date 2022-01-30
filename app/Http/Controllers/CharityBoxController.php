@@ -228,9 +228,9 @@ class CharityBoxController extends Controller
             array_sum(
                 array(
                     $totalFormatted,
-                    $request->input('amount_EUR') * env('RATE_EUR'),
-                    $request->input('amount_USD') * env('RATE_USD'),
-                    $request->input('amount_GBP') * env('RATE_GBP')
+                    $request->input('amount_EUR') * config('rates.eur'),
+                    $request->input('amount_USD') * config('rates.usd'),
+                    $request->input('amount_GBP') * config('rates.gbp')
                 )
             ), 2, '.', ' ');
 

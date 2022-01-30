@@ -22,9 +22,9 @@ class AmountDisplayController extends Controller
         // żeby nie obciążać się zapytaniami do NBP
         if (env('STATIC_RATES')) {
             $rates = [
-                'USD' => env('RATE_USD'),
-                'EUR' => env('RATE_EUR'),
-                'GBP' => env('RATE_GBP')
+                'USD' => config('rates.usd'),
+                'EUR' => config('rates.eur'),
+                'GBP' => config('rates.gbp')
             ];
         } else {
             //Pobieramy kurs z tabeli A Narodowego Banku Polskiego
