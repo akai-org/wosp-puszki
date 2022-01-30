@@ -111,7 +111,6 @@
             if (station != null) {
                 station.setAttribute("fill", color);
                 station.style.fill = color;
-                console.log(station, color);
             }
         }
 
