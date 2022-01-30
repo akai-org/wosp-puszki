@@ -65,8 +65,13 @@ function totalCollectedReal() {
     $amount_GBP = CharityBox::where('is_counted', '=', 1)->sum('amount_GBP');
 
     //Pobieranie kursu
-    $controller = new AmountDisplayController();
-    $rates = $controller->getRatesArray();
+//    $controller = new AmountDisplayController();
+//    $rates = $controller->getRatesArray();
+    $rates = [
+        'USD' => config('rates.usd'),
+        'EUR' => config('rates.eur'),
+        'GBP' => config('rates.gbp')
+    ];
 
     //Policzenie sumy całości
     $total_PLN = array_sum(
