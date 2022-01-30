@@ -111,6 +111,7 @@
             if (station != null) {
                 station.setAttribute("fill", color);
                 station.style.fill = color;
+                console.log(station, color);
             }
         }
 
@@ -129,8 +130,11 @@
             }
 
             const station_no = get_station_number(username);
-            if (station_no != null)
+            if (station_no != null) {
                 fill_station(station_no, color);
+            }
+
+
 	}
 
         webSocket.onmessage = function (message) {
