@@ -5,12 +5,13 @@ use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 beforeEach(function () {
+    $this->superAdminRoleId = Role::where('name', '=', 'superadmin')->first()->id;
     $this->superadmin = User::with('roles')->whereRelation('roles', 'name', 'superadmin')->first();
     $this->assertEquals($this->superadmin->name, 'superadmin');
     $this->actingAs($this->superadmin);
 });
 
-test('as an admin I can see add user form with correct labels in order', function () {
+test('as a superadmin I can see add user form with correct labels in order', function () {
     $response = $this->get('/liczymy/user/create');
 
     $response->assertSeeInOrder([
@@ -38,12 +39,11 @@ test('as a superadmin I can add a user', function () {
         'name' => 'testUser',
     ]);
 
-    $user = User::orderBy('id', 'desc')->first();
-    $role = Role::where('name', '=', 'superadmin')->first();
+    $this->addedUser = User::orderBy('id', 'desc')->first();
 
     $this->assertDatabaseHas('role_user', [
-        'role_id' => $role->id,
-        'user_id' => $user->id
+        'role_id' => $this->superAdminRoleId,
+        'user_id' => $this->addedUser->id
     ]);
 
     //Check if visible on list
@@ -51,8 +51,13 @@ test('as a superadmin I can add a user', function () {
 
     $response->assertSee('testUser');
 
-    //Cleanup to be refactored
-    $user->delete();
-    DB::delete("DELETE FROM role_user where role_id = $role->id and user_id = $user->id;");
+});
+
+afterEach(function ()  {
+    if(!empty($this->addedUser)) {
+        $this->addedUser->delete();
+        $userId = $this->addedUser->id;
+        DB::delete("DELETE FROM role_user where role_id = $this->superAdminRoleId  and user_id = $userId;");
+    }
 
 });
