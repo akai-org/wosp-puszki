@@ -14,13 +14,13 @@ class AmountDisplayController extends Controller
 //
 //    }
 
-    function getRatesArray() {
+    function getRatesArray($forceCurrent = false) {
         //Pobiera kursy z NBP, albo zwraca zacache'owane
         //Po 11:30
 
         // W pliku .env można ustawić stawki na sztywno,
         // żeby nie obciążać się zapytaniami do NBP
-        if (env('STATIC_RATES')) {
+        if (config('rates.static-rates') && !$forceCurrent) {
             $rates = [
                 'USD' => config('rates.usd'),
                 'EUR' => config('rates.eur'),
