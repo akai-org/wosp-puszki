@@ -35,6 +35,8 @@ UWAGA, jeżeli nie są ustawione kursy, to STATIC_RATES musi być false
 ```
 
 ## Testy
+Testy wymagają zainstalowania zgodnie z powyższą instrukcją.
+
 `php artisan test`
 
 ### Wyłączanie autofill formularza w chrome
