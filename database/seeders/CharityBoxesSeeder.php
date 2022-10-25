@@ -20,8 +20,6 @@ class CharityBoxesSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Factory::create();
-
         $boxCount = 20;
         //Dodajemy 2000 losowych puszek, do testowania
         for($i=0;$i<$boxCount;$i++) {
@@ -31,7 +29,12 @@ class CharityBoxesSeeder extends Seeder
             $charityBox->collector_id = $collector->id;
             $charityBox->is_given_to_collector = true;
             $charityBox->given_to_collector_user_id = 1;
-            $charityBox->time_given = Carbon::parse($faker->dateTimeBetween('-1 day', 'now')->format('Y-m-d H:i:s'));
+            $charityBox->time_given =
+                Carbon::now()
+                    ->subHours(rand(0,20))
+                    ->subMinutes(rand(0,60))
+                    ->subSeconds(rand(0,60))
+                    ->format('Y-m-d H:i:s');
 
             $rand = rand(0,100);
 
@@ -42,7 +45,13 @@ class CharityBoxesSeeder extends Seeder
                 // 70% pełnych
                 $charityBox->is_counted = true;
                 $charityBox->counting_user_id = 2;
-                $charityBox->time_counted = Carbon::parse($faker->dateTimeBetween('-1 day', 'now')->format('Y-m-d H:i:s'));
+                $charityBox->time_counted =
+                    Carbon::now()
+                        ->subHours(rand(0,20))
+                        ->subMinutes(rand(0,60))
+                        ->subSeconds(rand(0,60))
+                        ->format('Y-m-d H:i:s');
+
                 if($rand >= 50) {
                     //20% pełnych puszek, niepotwierdzonych
                     $charityBox->is_confirmed = false;
@@ -50,25 +59,30 @@ class CharityBoxesSeeder extends Seeder
                     //Reszta (50%) pełna i potwierdzona
                     $charityBox->is_confirmed = true;
                     $charityBox->user_confirmed_id = 1;
-                    $charityBox->time_confirmed = Carbon::parse($faker->dateTimeBetween('-1 day', 'now')->format('Y-m-d H:i:s'));
+                    $charityBox->time_confirmed =
+                        Carbon::now()
+                            ->subHours(rand(0,20))
+                            ->subMinutes(rand(0,60))
+                            ->subSeconds(rand(0,60))
+                            ->format('Y-m-d H:i:s');
                 }
 
                 //Wypełniamy hajsem
-                $charityBox->count_1gr = $faker->numberBetween(0,3000);
-                $charityBox->count_2gr = $faker->numberBetween(0,2000);
-                $charityBox->count_5gr = $faker->numberBetween(0,1000);
-                $charityBox->count_10gr = $faker->numberBetween(0,500);
-                $charityBox->count_20gr = $faker->numberBetween(0,200);
-                $charityBox->count_50gr = $faker->numberBetween(0,100);
-                $charityBox->count_1zl = $faker->numberBetween(0,100);
-                $charityBox->count_2zl = $faker->numberBetween(2,100);
-                $charityBox->count_5zl = $faker->numberBetween(2,100);
-                $charityBox->count_10zl = $faker->numberBetween(2,50);
-                $charityBox->count_20zl = $faker->numberBetween(2,20);
-                $charityBox->count_50zl = $faker->numberBetween(0,20);
-                $charityBox->count_100zl = $faker->numberBetween(0,10);
-                $charityBox->count_200zl = $faker->numberBetween(0,5);
-                $charityBox->count_500zl = $faker->numberBetween(0,1);
+                $charityBox->count_1gr = rand(0,3000);
+                $charityBox->count_2gr = rand(0,2000);
+                $charityBox->count_5gr = rand(0,1000);
+                $charityBox->count_10gr = rand(0,500);
+                $charityBox->count_20gr = rand(0,200);
+                $charityBox->count_50gr = rand(0,100);
+                $charityBox->count_1zl = rand(0,100);
+                $charityBox->count_2zl = rand(2,100);
+                $charityBox->count_5zl = rand(2,100);
+                $charityBox->count_10zl = rand(2,50);
+                $charityBox->count_20zl = rand(2,20);
+                $charityBox->count_50zl = rand(0,20);
+                $charityBox->count_100zl = rand(0,10);
+                $charityBox->count_200zl = rand(0,5);
+                $charityBox->count_500zl = rand(0,1);
 
                 //Przeliczamy sumę hajsu
                 //Ilości są w groszach
@@ -98,11 +112,11 @@ class CharityBoxesSeeder extends Seeder
 
                 //Inne waluty
                 //USD
-                $charityBox->amount_USD = $faker->randomFloat(2, 0, 5);
+                $charityBox->amount_USD = rand(0, 500) / 100;
                 //EUR
-                $charityBox->amount_EUR = $faker->randomFloat(2, 0, 5);
+                $charityBox->amount_EUR = rand(0, 500) / 100;
                 //GBP
-                $charityBox->amount_GBP = $faker->randomFloat(2, 0, 5);
+                $charityBox->amount_GBP = rand(0, 500) / 100;
             }
 
             //Komentarz
