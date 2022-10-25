@@ -2,7 +2,8 @@
 
 
 ### wymagania
- - PHP 7.3
+ - PHP >= 8.0
+ - Baza MySQL lub kompatybilna (Może też Postgres, ale nie testowane)
 
 ### instalacja
 
@@ -39,6 +40,15 @@ Testy wymagają zainstalowania zgodnie z powyższą instrukcją.
 
 `php artisan test`
 
+Nowe testy dodajemy w folderze `tests/`.
+
+## Dev guidelines
+
+Hard:
+
+Soft:
+ - Używamy [gitmoji](https://gitmoji.dev/)
+
 ### Wyłączanie autofill formularza w chrome
 ```
 How to Disable and Clear AutoFill Info in your Browser
@@ -66,32 +76,21 @@ src: https://support.iclasspro.com/hc/en-us/articles/218569268-How-to-Disable-an
 
 
 ### Wydarzenia zapisywane do bazy (BoxEvent)
+
+| Nazwa eventu    | Opis eventu                                           |
+|-----------------|-------------------------------------------------------|
+| give            | wydanie puszki wolontariuszowi                        |
+| found           | znalezienie puszki                                    |
+| startedCounting | rozpoczął rozliczenie puszki                          |
+| endedCounting   | zakończył liczenie (nie potwierdził jeszcze)          |
+| confirmed       | puszka została przeliczona i wysłana do potwierdzenia |
+| verified        | administrator zatwierdził                             |
+| modified        | administrator zmodyfikował                            |
+| unverified      | administrator od-zatwierdził                          |
+
+
+#### Przykładowy kod dodawania eventu
 ```
-$table->string('type');
-$table->integer('box_id');
-$table->integer('user_id');
-$table->string('comment');
-```
-
-give - wydanie puszki wolontariuszowi
-found - znalezienie puszki
-startedCounting - rozpoczął rozliczenie puszki
-endedCounting - zakończył liczenie (nie potwierdził jeszcze)
-confirmed - puszka została przeliczona i wysłana do potwierdzenia
-//pRZECHODZIMY do admina
-verified - administrator zatwierdził
-modified - administrator zmodyfikował
-unverified - administrator od-zatwierdził
-
-alarm- uruchomiony silent alarm
-
-
-
-//USER
-alreadyCounted - event usera
-
-
-
 //Zapisujemy event do bazy
 
 $event = new BoxEvent();
@@ -100,8 +99,7 @@ $event->box_id = $box->id;
 $event->user_id = $request->user()->id;
 $event->comment = 'Collector: ' . $collector->display;
 $event->save();
-
-$collector->display . $box->display_id
+```
 
 ### Websockets
 
@@ -113,8 +111,7 @@ https://beyondco.de/docs/laravel-websockets/basic-usage/starting
 https://github.com/beyondcode/laravel-websockets/issues/148
 https://laracasts.com/discuss/channels/laravel/laravel-nuxt-nginx-websocket-is-closed-before-the-connection-is-established
 
-
-
 ### Import wolontariuszy
 
-Należy pobrać plik `wolontariusze.csv` z systemu fundacji, a następnie zaimpoerować komendą `php artisan import:collectors`
+Należy pobrać plik `wolontariusze.csv` z systemu fundacji,
+a następnie zaimpoerować komendą `php artisan import:collectors`
