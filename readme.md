@@ -118,3 +118,15 @@ https://laracasts.com/discuss/channels/laravel/laravel-nuxt-nginx-websocket-is-c
 
 Należy pobrać plik `wolontariusze.csv` z systemu fundacji,
 a następnie zaimpoerować komendą `php artisan import:collectors`
+
+### Pobieranie stanu eSkarbonki
+
+Identyfikator eSkarbonki, której stan należy pobierać jest zapisany w pliku .env
+(klucz MONEYBOX_ID). Indentyfikator można określić na podstawie adresu URL skarbonki.
+Na przykład dla `https://eskarbonka.wosp.org.pl/he9yxj` identyfikatorem jest `he9yxj`.
+
+Aby okresowe pobieranie działało, należy stworzyć zadanie cron:
+```
+* * * * * cd /wosp-puszki && php artisan schedule:run >> /dev/null 2>&1
+```
+(więcej informacji: https://laravel.com/docs/9.x/scheduling#running-the-scheduler)
