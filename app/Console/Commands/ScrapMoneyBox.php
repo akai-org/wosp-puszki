@@ -38,8 +38,8 @@ class ScrapMoneyBox extends Command
      */
     public function handle()
     {
-        $moneyboxId = env('MONEYBOX_ID');
-        $moneyboxValueSelector = env('MONEYBOX_SELECTOR');
+        $moneyboxId = config('wosp.moneybox.id');
+        $moneyboxValueSelector = config('wosp.moneybox.selector');
         $url = 'https://eskarbonka.wosp.org.pl/' . $moneyboxId;
 
         $client = Client::createFirefoxClient();
