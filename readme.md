@@ -15,6 +15,9 @@
 
 composer install
 
+// Instalacja drivera do przeglądarki
+vendor/bin/bdi detect drivers
+
 //generujemy nowy klucz, jeżeli to świeża instalacja
 
 php artisan key:generate
