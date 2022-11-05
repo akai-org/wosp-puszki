@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Symfony\Component\Panther\Client;
 
 class ScrapMoneyBox extends Command
 {
@@ -12,7 +11,7 @@ class ScrapMoneyBox extends Command
      *
      * @var string
      */
-    protected $signature = 'scrap:moneybox';
+    protected $signature = 'scrap:moneybox {browser=firefox}';
 
     /**
      * The console command description.
@@ -20,6 +19,16 @@ class ScrapMoneyBox extends Command
      * @var string
      */
     protected $description = 'Scrap the current moneybox value and save to DB';
+
+    /**
+     * The supported browsers
+     *
+     * @var array
+     */
+    protected $browsers = [
+        'firefox' => 'Symfony\\Component\\Panther\\Client::createFirefoxClient',
+        'chrome' => 'Symfony\\Component\\Panther\\Client::createChromeClient'
+    ];
 
     /**
      * Create a new command instance.
@@ -42,9 +51,15 @@ class ScrapMoneyBox extends Command
         $moneyboxValueSelector = config('wosp.moneybox.selector');
         $url = 'https://eskarbonka.wosp.org.pl/' . $moneyboxId;
 
-        $client = Client::createFirefoxClient();
-        // Or, alternatively use Chrome
-        // $client = Client::createChromeClient();
+        // Create the browser client as specified in an argument
+        $browser = $this->argument('browser');
+        if(isset($this->browsers[$browser])){
+            $client = $this->browsers[$browser]();
+        }else{
+            $this->error($browser . ' is not a supported browser.');
+            $this->info('Supported browsers: ' . implode(', ', array_keys($this->browsers)));
+            return;
+        }
 
         $client->request('GET', $url);
 
