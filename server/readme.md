@@ -2,8 +2,8 @@
 
 
 ### wymagania
- - PHP >= 8.0
- - Baza MySQL lub kompatybilna (Może też Postgres, ale nie testowane)
+- PHP >= 8.0
+- Baza MySQL lub kompatybilna (Może też Postgres, ale nie testowane)
 
 ### instalacja
 
@@ -14,6 +14,9 @@
 //instalujemy zależności
 
 composer install
+
+// Instalacja drivera do przeglądarki
+vendor/bin/bdi detect drivers
 
 //generujemy nowy klucz, jeżeli to świeża instalacja
 
@@ -47,7 +50,7 @@ Nowe testy dodajemy w folderze `tests/`.
 Hard:
 
 Soft:
- - Używamy [gitmoji](https://gitmoji.dev/)
+- Używamy [gitmoji](https://gitmoji.dev/)
 
 ### Wyłączanie autofill formularza w chrome
 ```
@@ -115,3 +118,15 @@ https://laracasts.com/discuss/channels/laravel/laravel-nuxt-nginx-websocket-is-c
 
 Należy pobrać plik `wolontariusze.csv` z systemu fundacji,
 a następnie zaimpoerować komendą `php artisan import:collectors`
+
+### Pobieranie stanu eSkarbonki
+
+Identyfikator eSkarbonki, której stan należy pobierać jest zapisany w pliku .env
+(klucz MONEYBOX_ID). Indentyfikator można określić na podstawie adresu URL skarbonki.
+Na przykład dla `https://eskarbonka.wosp.org.pl/he9yxj` identyfikatorem jest `he9yxj`.
+
+Aby okresowe pobieranie działało, należy stworzyć zadanie cron:
+```
+* * * * * cd /wosp-puszki && php artisan schedule:run >> /dev/null 2>&1
+```
+(więcej informacji: https://laravel.com/docs/9.x/scheduling#running-the-scheduler)
