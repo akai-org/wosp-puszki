@@ -1,37 +1,34 @@
 import { Button, Layout } from 'antd';
-import React, { useState } from 'react';
+import React from 'react';
 
-import { pageName } from '../../types/Sidebar';
 import styles from './Sidebar.module.css';
+import SidebarItem from './SidebarItem';
 
 const { Header, Footer } = Layout;
 
+const bookmarks = [
+  { name: 'Strona Główna', url: '#home' },
+  { name: 'Przeliczone puszki', url: '#count' },
+  { name: 'Administracja', url: '#admin' },
+  { name: 'Puszki', url: '#box' },
+];
+
 const Sidebar: React.FC = () => {
   const userName = 'superadmin';
-  const [page] = useState(window.location.hash) as unknown as pageName;
 
   return (
-    <Layout className={`${styles.sidebar} ${styles['sidebar-layout']}`}>
-      <Header className={`${styles.sidebar} ${styles['sidebar-header']}`}>
+    <Layout className={[styles.sidebar, styles.sidebarLayout].join(' ')}>
+      <Header className={[styles.sidebar, styles.sidebarHeader].join(' ')}>
         <img src="/src/assets/wospLogo.png" alt="WOSP Logo" />
       </Header>
-      <Layout className={`${styles.sidebar} ${styles['sidebar-content']}`}>
-        <a className={`${styles[`${page === '#home' ? 'active' : ''}`]}`} href="#home">
-          Strona Główna
-        </a>
-        <a className={`${styles[`${page === '#count' ? 'active' : ''}`]}`} href="#count">
-          Przeliczone puszki
-        </a>
-        <a className={`${styles[`${page === '#admin' ? 'active' : ''}`]}`} href="#admin">
-          Administracja
-        </a>
-        <a className={`${styles[`${page === '#box' ? 'active' : ''}`]}`} href="#box">
-          Puszki
-        </a>
+      <Layout className={[styles.sidebar, styles.sidebarContent].join(' ')}>
+        {bookmarks.map((item) => (
+          <SidebarItem name={item.name} url={item.url} key={item.name} />
+        ))}
       </Layout>
-      <Footer className={`${styles.sidebar} ${styles['sidebar-footer']}`}>
+      <Footer className={[styles.sidebar, styles.sidebarFooter].join(' ')}>
         <p>Użytkownik:</p>
-        <p className={styles['user-name']}>{userName}</p>
+        <p className={styles.userName}>{userName}</p>
         <Button type="primary">Wyloguj</Button>
       </Footer>
     </Layout>

@@ -14,7 +14,7 @@ body {
   color: var(--color-white-primary);
 }
 
-.sidebar-layout {
+.sidebarLayout {
   width: 240px;
   height: 100%;
   position: fixed;
@@ -22,17 +22,17 @@ body {
   left: 0;
 }
 
-.sidebar-header {
+.sidebarHeader {
   padding-top: 20px;
   height: 100px;
 }
 
-.sidebar-header img {
+.sidebarHeader img {
   height: 55px;
   object-fit: cover;
 }
 
-.sidebar-content {
+.sidebarContent {
   margin-top: 50px;
   text-align: left;
   width: 200px;
@@ -40,46 +40,23 @@ body {
   overflow-y: auto;
 }
 
-.sidebar-content a {
-  color: var(--color-white-primary);
-  font-weight: 400;
-  font-size: 1rem;
-  margin: 15px 0;
-  width: 100%;
-  padding: 10px 20px;
-  border-radius: 10px;
-  transition: all 0.3s ease-in-out;
-}
-
-.sidebar-content a:hover {
-  background-color: var(--color-red-background) ;
-  color: var(--color-dark-primary);
-  font-weight: bold;
-}
-
-a.active {
-  background-color: var(--color-red-background) ;
-  color: var(--color-white-primary);
-  font-weight: bold;
-}
-
-.sidebar-footer {
+.sidebarFooter {
   text-align: left;
   padding: 20px;
 }
 
-.sidebar-footer p {
+.sidebarFooter p {
   margin: 0;
   font-size: 1rem;
 }
 
-.sidebar-footer p.user-name {
+.sidebarFooter p.userName {
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
   margin-top: -0.5rem;
 }
 
-.sidebar-footer button {
+.sidebarFooter button {
   background-color: var(--color-red-primary);
   border-color: var(--color-red-primary);
   color: var(--color-dark-primary);
@@ -88,7 +65,7 @@ a.active {
   width: 100%;
 }
 
-.sidebar-footer button:hover {
+.sidebarFooter button:hover {
   color: var(--color-white-primary);
   background-color: var(--color-red-background);
   border-color: var(--color-red-primary);
