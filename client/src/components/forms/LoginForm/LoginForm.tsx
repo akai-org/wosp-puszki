@@ -28,7 +28,6 @@ export const LoginForm = () => {
         >
           <Input.Password className={s.input} />
         </Form.Item>
-
         <Form.Item>
           <Button type="primary" htmlType="submit" className={s.submitBtn}>
             Zaloguj
