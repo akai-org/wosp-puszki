@@ -16,32 +16,16 @@ const Sidebar: React.FC = () => {
         <img src="/src/assets/wospLogo.png" alt="WOSP Logo" />
       </Header>
       <Layout className={`${styles.sidebar} ${styles['sidebar-content']}`}>
-        <a
-          className={`${styles.sidebar} ${styles[`${page === '#home' ? 'active' : ''}`]}`}
-          href="#home"
-        >
+        <a className={`${styles[`${page === '#home' ? 'active' : ''}`]}`} href="#home">
           Strona Główna
         </a>
-        <a
-          className={`${styles.sidebar} ${
-            styles[`${page === '#count' ? 'active' : ''}`]
-          }`}
-          href="#count"
-        >
+        <a className={`${styles[`${page === '#count' ? 'active' : ''}`]}`} href="#count">
           Przeliczone puszki
         </a>
-        <a
-          className={`${styles.sidebar} ${
-            styles[`${page === '#admin' ? 'active' : ''}`]
-          }`}
-          href="#admin"
-        >
+        <a className={`${styles[`${page === '#admin' ? 'active' : ''}`]}`} href="#admin">
           Administracja
         </a>
-        <a
-          className={`${styles.sidebar} ${styles[`${page === '#box' ? 'active' : ''}`]}`}
-          href="#box"
-        >
+        <a className={`${styles[`${page === '#box' ? 'active' : ''}`]}`} href="#box">
           Puszki
         </a>
       </Layout>
