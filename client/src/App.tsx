@@ -1,13 +1,18 @@
-import './App.css';
-import 'antd/dist/antd.css';
-
-import Sidebar from './components/Layout/Sidebar';
+import { Space } from 'antd';
+import { LoginForm } from './components/forms/LoginForm/LoginForm';
 
 function App() {
   return (
-    <div className="App">
-      <Sidebar />
-    </div>
+    <Space
+      align="center"
+      style={{
+        width: '100vw',
+        height: '100vh',
+        justifyContent: 'center',
+      }}
+    >
+      <LoginForm />
+    </Space>
   );
 }
 
