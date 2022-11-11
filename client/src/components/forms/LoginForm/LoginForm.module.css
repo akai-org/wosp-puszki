@@ -1,0 +1,37 @@
+.card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 43rem;
+    height: 26rem;
+    border: 0.0125rem solid #CF1322;
+    border-radius: 0.625rem;
+    background-color: #EDF2F4;
+    box-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
+}
+
+.form {
+    width: 34rem;
+    display: flex;
+    align-items: end;
+    flex-direction: column;
+}
+
+.input {
+    width: 25rem;
+    height: 1.75rem;
+    border-radius: 0.125rem;
+}
+
+.submitBtn {
+    margin-right: 16.875rem;
+    background-color: #CF1322;
+    width: 8.125rem;
+    height: 2rem;
+    border-radius: 0.125rem;
+    border: none;
+}
+
+.submitBtn:hover, .submitBtn:focus {
+    background-color: #ed1324;
+}
