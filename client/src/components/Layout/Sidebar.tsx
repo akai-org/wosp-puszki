@@ -1,11 +1,14 @@
-import { Layout, Button } from 'antd';
-import React from 'react';
+import { Button, Layout } from 'antd';
+import React, { useState } from 'react';
+
+import { pageName } from '../../types/Sidebar';
 import styles from './Sidebar.module.css';
 
 const { Header, Footer } = Layout;
 
 const Sidebar: React.FC = () => {
-  const userName: string = 'superadmin';
+  const userName = 'superadmin';
+  const [page] = useState(window.location.hash) as unknown as pageName;
 
   return (
     <Layout className={`${styles.sidebar} ${styles['sidebar-layout']}`}>
@@ -13,10 +16,34 @@ const Sidebar: React.FC = () => {
         <img src="/src/assets/wospLogo.png" alt="WOSP Logo" />
       </Header>
       <Layout className={`${styles.sidebar} ${styles['sidebar-content']}`}>
-        <a href="">Strona Główna</a>
-        <a href="">Przeliczone puszki</a>
-        <a href="">Administracja</a>
-        <a href="">Puszki</a>
+        <a
+          className={`${styles.sidebar} ${styles[`${page === '#home' ? 'active' : ''}`]}`}
+          href="#home"
+        >
+          Strona Główna
+        </a>
+        <a
+          className={`${styles.sidebar} ${
+            styles[`${page === '#count' ? 'active' : ''}`]
+          }`}
+          href="#count"
+        >
+          Przeliczone puszki
+        </a>
+        <a
+          className={`${styles.sidebar} ${
+            styles[`${page === '#admin' ? 'active' : ''}`]
+          }`}
+          href="#admin"
+        >
+          Administracja
+        </a>
+        <a
+          className={`${styles.sidebar} ${styles[`${page === '#box' ? 'active' : ''}`]}`}
+          href="#box"
+        >
+          Puszki
+        </a>
       </Layout>
       <Footer className={`${styles.sidebar} ${styles['sidebar-footer']}`}>
         <p>Użytkownik:</p>
