@@ -2,7 +2,17 @@
 
 namespace App;
 
-use App\Http\Controllers\AmountDisplayController;
+use App\Lib\Rates\CurrentRatesFetcher;
+use App\Lib\Rates\RatesFetcher;
+use App\Lib\Rates\StaticRatesFetcher;
+
+// TODO jeżeli ten skrypt będzie refaktoryzowany, to te metode trzeba bedzie zastpic DI
+function resolveRatesFetcher(): RatesFetcher {
+    if (config('rates.static-rates')) {
+        return new StaticRatesFetcher();
+    }
+    return new CurrentRatesFetcher();
+}
 
 function totalCollected() {
     $data = totalCollectedArray();
@@ -23,8 +33,8 @@ function totalCollectedArray() {
     $amount_GBP = CharityBox::where('is_confirmed', '=', 1)->sum('amount_GBP');
 
     //Pobieranie kursu
-    $controller = new AmountDisplayController();
-    $rates = $controller->getRatesArray();
+    $fetcher = resolveRatesFetcher();
+    $rates = $fetcher->fetchRates();
 
     //Policzenie sumy całości
     $total_PLN = array_sum(
@@ -65,8 +75,8 @@ function totalCollectedReal() {
     $amount_GBP = CharityBox::where('is_counted', '=', 1)->sum('amount_GBP');
 
     //Pobieranie kursu
-    $controller = new AmountDisplayController();
-    $rates = $controller->getRatesArray();
+    $fetcher = resolveRatesFetcher();
+    $rates = $fetcher->fetchRates();
 
     //Policzenie sumy całości
     $total_PLN = array_sum(
