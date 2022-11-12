@@ -15,34 +15,38 @@ body {
 }
 
 .sidebarLayout {
-  width: 240px;
+  width: 15rem;
   height: 100%;
   position: fixed;
   top: 0;
   left: 0;
 }
 
+.sidebarLoginPage {
+  width: 7.5rem;
+}
+
 .sidebarHeader {
-  padding-top: 20px;
-  height: 100px;
+  padding: 1.25rem 0 0 0;
+  height: 6.25rem;
 }
 
 .sidebarHeader img {
-  height: 55px;
+  height: 3.4375rem;
   object-fit: cover;
 }
 
 .sidebarContent {
-  margin-top: 50px;
+  margin-top: 3.125rem;
   text-align: left;
-  width: 200px;
-  margin-left: 20px;
+  width: 12.5rem;
+  margin-left: 1.25rem;
   overflow-y: auto;
 }
 
 .sidebarFooter {
   text-align: left;
-  padding: 20px;
+  padding: 1.25rem;
 }
 
 .sidebarFooter p {
@@ -61,7 +65,7 @@ body {
   border-color: var(--color-red-primary);
   color: var(--color-dark-primary);
   font-weight: bold;
-  border-radius: 10px;
+  border-radius: 0.625rem;
   width: 100%;
 }
 
