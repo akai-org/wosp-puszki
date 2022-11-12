@@ -1,11 +1,14 @@
 # wosp-puszki
 
+## Setup
 
-### wymagania
+### no-docker
+
+#### wymagania
 - PHP >= 8.0
 - Baza MySQL lub kompatybilna (Może też Postgres, ale nie testowane)
 
-### instalacja
+#### instalacja
 
 ```
 //kopiujemy plik .env.example do .env
@@ -37,6 +40,21 @@ Usupełniamy kursy walut w pliku .env, odwiedzając
 http://localhost:8000/liczymy/rates i wklejając poniżej
 UWAGA, jeżeli nie są ustawione kursy, to STATIC_RATES musi być false
 ```
+
+### docker
+
+#### wymagania
+- docker-compose
+
+#### instalacja
+- najpierw przekopiowac: `cp .env.example .env`
+- uruchomić aplikację poleceniem:
+```bash
+docker-compose up 
+```
+- jeżeli to pierwsze uruchomienie na maszynie, można uruchomić skrypt `./first_launch.sh`
+lub ręcznie wykonać wybrane komendy z tego skryptu
+
 
 ## Testy
 Testy wymagają zainstalowania zgodnie z powyższą instrukcją.
