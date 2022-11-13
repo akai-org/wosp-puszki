@@ -12,6 +12,7 @@ body {
 .sidebar {
   background-color: var(--color-dark-primary);
   color: var(--color-white-primary);
+  align-items: center;
 }
 
 .sidebarLayout {
