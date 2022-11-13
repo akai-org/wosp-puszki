@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import styles from './SidebarItem.module.css';
 
@@ -9,12 +9,10 @@ type Item = {
 };
 
 const SidebarItem: React.FC<Item> = (props) => {
-  const location = useLocation();
-
   return (
     <NavLink
       to={props.url}
-      className={`${styles[`${location.hash === props.url ? 'active' : ''}`]}`}
+      className={({ isActive }) => (isActive ? styles.active : undefined)}
     >
       {props.name}
     </NavLink>
