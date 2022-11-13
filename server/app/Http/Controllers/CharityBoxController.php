@@ -6,6 +6,8 @@ use App\BoxEvent;
 use App\CharityBox;
 use App\Collector;
 use App\Events\BoxConfirmed;
+use App\Lib\BoxOperations\BoxAdding;
+use App\Lib\BoxOperations\BoxOperationResult;
 use Auth;
 use Illuminate\Http\Request;
 use Money\Money;
@@ -18,6 +20,7 @@ use Illuminate\Support\Facades\Validator;
 
 class CharityBoxController extends Controller
 {
+
     public function __construct()
     {
         //Zabezpieczamy autoryzacją (każdy zalogowany użytkownik ma dostęp)
@@ -31,59 +34,12 @@ class CharityBoxController extends Controller
 
     //Dodaj nową puszkę
     public function postCreate(Request $request){
-        $error = '';
-        //Sprawdź poprawność danych (id/puszka)
-        $request->validate([
-            'collectorIdentifier' => 'required|between:1,255'
-        ]);
-
-        $collector = Collector::where('identifier', '=', $request->input('collectorIdentifier'));
-        //Sprawdź czy wolontariusz istnieje
-        if(!$collector->exists()){
-            $error = 'Brak wolontariusza o takim identyfikatorze.';
-        } else if ($collector->first()->boxes()->count() != 0) {
-            //Sprawdź czy w ciągu ostatnich 30 sekund nie wydano puszki temu wolontariuszowi
-            $latestGiven = Collector::with('boxes')->where('identifier', '=', $request->input('collectorIdentifier'))->first()->boxes()->orderBy('time_given', 'desc')->first(['time_given']);
-            $latestTimeGiven = $latestGiven->time_given;
-            $carbon = Carbon::parse($latestTimeGiven);
-            //TODO FIX to 3600, add admin bypass
-            if($carbon->diffInSeconds(Carbon::now()) <= 10 ){
-                $error = 'Limit wydawania puszek - jedna na godzinę na wolontariusza';
-            }
-        }
-
-        //Dodaj puszkę
-        if(empty($error)) {
-            $collector = Collector::where('identifier', '=', $request->input('collectorIdentifier'))->first();
-
-            //Brak błędów
-            $box = new CharityBox();
-            $box->collectorIdentifier = trim($request->input('collectorIdentifier'));
-            $box->collector_id = $collector->id;
-            $box->is_given_to_collector = true;
-            $box->given_to_collector_user_id = Auth::user()->id;
-            $box->time_given = Carbon::now();
-            $box->save();
-
-            //Zapisujemy event do bazy
-
-            $event = new BoxEvent();
-            $event->type = 'give';
-            $event->box_id = $box->id;
-            $event->user_id = $request->user()->id;
-            $event->comment = 'Collector: ' . $collector->display;
-            $event->save();
-
-            //Redirect do dodawania kolejnej puszki
-            return view('liczymy.box.create')->with('message',
-                'Wydano puszkę wolontariuszowi ' .
-                $collector->display . $box->display_id);
-
-        } else {
-            //Zwracamy błąd
+        $boxAdding = new BoxAdding($request->input('collectorIdentifier'));
+        $boxAdding->proceed();
+        if ($boxAdding->result()->kind() == BoxOperationResult::KIND_ERROR) {
             $request->flash();
-            return view('liczymy.box.create')->with('error', $error);
         }
+        return view('liczymy.box.create')->with($boxAdding->result()->kind(), $boxAdding->result()->message());
     }
 
     //Znajdź puszkę (formularz)
