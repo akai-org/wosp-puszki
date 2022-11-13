@@ -1,7 +1,11 @@
 import Sidebar from './components/Layout/Sidebar';
 
 function App() {
-  return <div>wosp-puszki</div>;
+  return (
+    <div>
+      <Sidebar />
+    </div>
+  );
 }
 
 export default App;
