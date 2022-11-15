@@ -3,9 +3,10 @@
 
 use App\Http\Controllers\AmountDisplayController;
 
+// TODO actually this test is of no use. Can we dump it?
 test('it correctly fetches rates data from NBP', function () {
-    $controller = new AmountDisplayController();
-    $rates = $controller->getRatesArray(true);
+    $fetcher = new CurrentRatesFetcher();
+    $rates = $fetcher->fetchRates();
 
     $this->assertIsArray($rates);
 
