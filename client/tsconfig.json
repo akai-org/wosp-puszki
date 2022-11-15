@@ -17,5 +17,11 @@
     "jsx": "react-jsx"
   },
   "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [{ "path": "./tsconfig.node.json" }],
+  "typedocOptions": {
+    "entryPoints": ["src"],
+    "out": "docs",
+    "entryPointStrategy": "expand",
+    "exclude": ["components/*", "\"src/pages/LoginPage/LoginPage.tsx\"", "(.+\\.d\\.ts)"]
+  }
 }
