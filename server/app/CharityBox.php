@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class CharityBox extends Model
 {
@@ -35,5 +36,21 @@ class CharityBox extends Model
 
     public function getDisplayIdAttribute() {
         return ' (ID puszki w bazie: ' . $this->id . ')';
+    }
+
+    public function scopeUnconfirmed(Builder $query): Builder
+    {
+        return $query
+            ->where('is_given_to_collector', '=', true)
+            ->where('is_counted', '=', true)
+            ->where('is_confirmed', '=', false);
+    }
+
+    public function scopeConfirmed(Builder $query): Builder
+    {
+        return $query
+            ->where('is_given_to_collector', '=', true)
+            ->where('is_counted', '=', true)
+            ->where('is_confirmed', '=', true);
     }
 }
