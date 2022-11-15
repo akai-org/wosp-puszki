@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Lib\AppStatusManager;
 use Illuminate\Console\Command;
 
 class ScrapMoneyBox extends Command
@@ -68,11 +69,13 @@ class ScrapMoneyBox extends Command
         $moneyInBox = $crawler->filter($moneyboxValueSelector)->text();
 
         $matches = [];
-        $result = preg_match('/\d+([,.]\d{,2})?/', $moneyInBox, $matches);
+        $result = preg_match('/[ \d]+([,.]\d{,2})?/', $moneyInBox, $matches);
         if($result !== 1){
             $this->error('Could not fetch the moneybox value');
         }else{
-            $this->info($matches[0]);
+            // Normalize the decimal point to full stop and not comma and remove spaces from inside
+            $normalizedAmount = str_replace([ ',', ' ' ], [ '.', '' ], $matches[0]);
+            AppStatusManager::saveStatusValue(AppStatusManager::MONEYBOX_VALUE, $normalizedAmount);
         }
     }
 }
