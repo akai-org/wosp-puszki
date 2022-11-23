@@ -1,0 +1,22 @@
+a {
+  color: var(--color-white-primary);
+  font-weight: 400;
+  font-size: 1rem;
+  margin: 0.9375rem 0;
+  width: 100%;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.625rem;
+  transition: all 0.3s ease-in-out;
+}
+
+a:hover {
+  background-color: var(--color-red-background);
+  color: var(--color-dark-primary);
+  font-weight: bold;
+}
+
+a.active {
+  background-color: var(--color-red-background);
+  color: var(--color-white-primary);
+  font-weight: bold;
+}

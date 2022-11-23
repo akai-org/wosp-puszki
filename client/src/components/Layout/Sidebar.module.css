@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+  --color-dark-primary: rgb(0, 35, 41);
+  --color-white-primary: rgb(255, 255, 255);
+  --color-red-primary: rgb(207, 19, 34);
+  --color-red-background: rgb(207, 19, 34, 0.8);
+
+  font-family: 'Poppins', sans-serif;
+}
+
+.sidebar {
+  background-color: var(--color-dark-primary);
+  color: var(--color-white-primary);
+  align-items: center;
+}
+
+.sidebarLayout {
+  width: 15rem;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.sidebarLoginPage {
+  width: 7.5rem;
+}
+
+.sidebarHeader {
+  padding: 1.25rem 0 0 0;
+  height: 6.25rem;
+}
+
+.sidebarHeader img {
+  height: 3.4375rem;
+  object-fit: cover;
+}
+
+.sidebarContent {
+  margin-top: 3.125rem;
+  text-align: left;
+  width: 12.5rem;
+  margin-left: 1.25rem;
+  overflow-y: auto;
+}
+
+.sidebarFooter {
+  text-align: left;
+  padding: 1.25rem;
+}
+
+.sidebarFooter p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.sidebarFooter p.userName {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  margin-top: -0.5rem;
+}
+
+.sidebarFooter button {
+  background-color: var(--color-red-primary);
+  border-color: var(--color-red-primary);
+  color: var(--color-dark-primary);
+  font-weight: bold;
+  border-radius: 0.625rem;
+  width: 100%;
+}
+
+.sidebarFooter button:hover {
+  color: var(--color-white-primary);
+  background-color: var(--color-red-background);
+  border-color: var(--color-red-primary);
+}
