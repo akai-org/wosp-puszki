@@ -1,20 +1,16 @@
-import './App.css';
-import Sidebar from './components/Layout/Sidebar';
-import './App.css';
-
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { AddUserPage } from './pages/admin/AddUserPage';
-import { AddVolunteerPage } from './pages/admin/AddVolunteerPage';
-import { ListUsersPage } from './pages/admin/ListUsersPage';
-import { ListVolunteersPage } from './pages/admin/ListVolunteersPage';
-import { LogsPage } from './pages/admin/LogsPage';
-import { GiveBoxPage } from './pages/boxes/GiveBoxPage';
-import { SettleBoxPage } from './pages/boxes/SettleBoxPage';
-import { BoxesApprovedPage } from './pages/countedBoxes/BoxesApprovedPage';
-import { BoxesForApprovalPage } from './pages/countedBoxes/BoxesForApprovalPage';
-import { HomePage } from './pages/Home';
-import { LoginPage } from './pages/Login';
+import { AddUserPage } from './pages/admin/AddUserPage/AddUserPage';
+import { AddVolunteerPage } from './pages/admin/AddVolunteerPage/AddVolunteerPage';
+import { ListUsersPage } from './pages/admin/ListUsersPage/ListUsersPage';
+import { ListVolunteersPage } from './pages/admin/ListVolunteersPage/ListVolunteersPage';
+import { LogsPage } from './pages/admin/LogsPage/LogsPage';
+import { GiveBoxPage } from './pages/boxes/GiveBoxPage/GiveBoxPage';
+import { SettleBoxPage } from './pages/boxes/SettleBoxPage/SettleBoxPage';
+import { BoxesApprovedPage } from './pages/countedBoxes/BoxesApprovedPage/BoxesApprovedPage';
+import { BoxesForApprovalPage } from './pages/countedBoxes/BoxesApprovedPage/BoxesForApprovalPage';
+import { HomePage } from './pages/home/HomePage';
+import { LoginPage } from './pages';
 
 const router = createBrowserRouter([
   {
@@ -74,8 +70,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <div>
-      <Sidebar />
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
     </div>
   );
 }

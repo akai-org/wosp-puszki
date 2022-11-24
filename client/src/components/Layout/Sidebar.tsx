@@ -3,10 +3,10 @@ import SidebarBig from './SidebarBig';
 import SidebarSmall from './SidebarSmall';
 
 const links = [
-  { name: 'Strona Główna', url: 'home' },
-  { name: 'Przeliczone puszki', url: 'count' },
-  { name: 'Administracja', url: 'admin' },
-  { name: 'Puszki', url: 'box' },
+  { name: 'Strona Główna', url: '/home' },
+  { name: 'Przeliczone puszki', url: '/count' },
+  { name: 'Administracja', url: '/admin' },
+  { name: 'Puszki', url: '/box' },
 ];
 
 const Sidebar: React.FC = () => {
