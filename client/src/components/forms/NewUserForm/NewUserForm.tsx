@@ -3,8 +3,8 @@ import { FormHOC } from '../FormHOC';
 import { Option, VolunteerType } from '../../../utils/types';
 import { FormInput } from '../FormInput';
 import { FormButton } from '../FormButton';
-import { FormSelect } from '../FormSelect/FormSelect';
-import { FormRule } from 'antd';
+import { FormSelect } from '../FormSelect';
+import type { FormRule } from 'antd';
 
 interface NewUserValues {
   username: string;
@@ -13,7 +13,11 @@ interface NewUserValues {
   userType: VolunteerType;
 }
 
-const options: Option[] = [{ value: 'Wolontariusz', label: 'Wolontariusz' }];
+const options: Option[] = [
+  { value: 'Wolontariusz', label: 'Wolontariusz' },
+  { value: 'admin', label: 'Admin' },
+  { value: 'superadmin', label: 'Superadmin' },
+];
 
 const validateConfirmPassword: FormRule = ({ getFieldValue }) => ({
   validator(_, value) {
@@ -30,35 +34,36 @@ export const NewUserForm = () => {
     return;
   };
   return (
-    <FormHOC submitHandler={onSubmit}>
+    <FormHOC
+      initialValues={{ userType: 'Wolontariusz' }}
+      name="newUserForm"
+      onFinish={onSubmit}
+    >
       <FormInput
         label="Nazwa użytkownika"
-        name="username"
+        formItemName="username"
         rules={[{ required: true, message: 'Nazwa użytkownika jest wymagana' }]}
       />
       <FormInput
         isPassword
         label="Hasło"
-        name="password"
+        formItemName="password"
         rules={[{ required: true, message: 'Hasło jest wymagane' }]}
       />
       <FormInput
         isPassword
         label="Potwierdzenie hasła"
-        name="confirmPassword"
+        formItemName="confirmPassword"
         dependencies={['password']}
         rules={[
           { required: true, message: 'Powtórzenie hasła jest wymagane' },
           validateConfirmPassword,
         ]}
       />
-      <FormSelect
-        defaultValue="Wolontariusz"
-        label="Typ użytkownika"
-        name="userType"
-        options={options}
-      />
-      <FormButton buttonText="Dodaj użytkownika" type="primary" htmlType="submit" />
+      <FormSelect label="Typ użytkownika" name="userType" options={options} />
+      <FormButton type="primary" htmlType="submit">
+        Dodaj użytkownika
+      </FormButton>
     </FormHOC>
   );
 };

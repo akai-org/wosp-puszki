@@ -1,20 +1,13 @@
 import s from './FormHOC.module.less';
-import { Card, Form } from 'antd';
-import { PropsWithChildren } from 'react';
+import { Card, Form, FormProps } from 'antd';
+import { FC, PropsWithChildren } from 'react';
 
-interface Props<T> extends PropsWithChildren {
-  submitHandler: ((values: T) => void) | undefined;
-}
+interface Props extends Omit<FormProps, 'children'>, PropsWithChildren {}
 
-export const FormHOC = <T extends object>({ submitHandler, children }: Props<T>) => {
+export const FormHOC: FC<Props> = ({ children, ...rest }) => {
   return (
     <Card size="small" className={s.card}>
-      <Form
-        name="loginForm"
-        layout="horizontal"
-        onFinish={submitHandler}
-        className={s.form}
-      >
+      <Form {...rest} className={s.form}>
         {children}
       </Form>
     </Card>
