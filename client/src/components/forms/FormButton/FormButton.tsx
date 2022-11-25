@@ -8,7 +8,7 @@ interface Props extends ButtonProps {
 
 export const FormButton: FC<Props> = ({ buttonText, ...rest }) => {
   return (
-    <Form.Item>
+    <Form.Item className={s.formItem}>
       <Button {...rest} className={s.submitBtn}>
         {buttonText}
       </Button>
