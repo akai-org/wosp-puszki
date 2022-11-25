@@ -1,5 +1,5 @@
 import { Button, Form, Input, Card } from 'antd';
-import s from './LoginForm.module.css';
+import s from './LoginForm.module.less';
 
 interface LoginFormValues {
   username: string;
