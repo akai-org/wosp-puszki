@@ -35,6 +35,7 @@ export const NewUserForm = () => {
   };
   return (
     <FormHOC
+      title="Dodaj użytkownika"
       initialValues={{ userType: 'Wolontariusz' }}
       name="newUserForm"
       onFinish={onSubmit}
