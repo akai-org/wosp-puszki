@@ -9,7 +9,6 @@ use App\Lib\BoxOperations\Validators\BoxAddingCooldownValidator;
 use App\Lib\BoxOperations\Validators\CollectorExistenceValidator;
 use App\Lib\BoxOperations\Validators\ValidationContext;
 use App\Lib\BoxOperations\Validators\Validator;
-use Auth;
 use Carbon\Carbon;
 
 class BoxAdding implements BoxOperation
@@ -66,6 +65,7 @@ class BoxAdding implements BoxOperation
 
     private function validate(): void
     {
+        // nice to have: remove redundancy among objects of interface BoxOperation in this method
         /** @var Validator[] $validatorChain */
         $validatorChain = [
             new CollectorExistenceValidator(),
