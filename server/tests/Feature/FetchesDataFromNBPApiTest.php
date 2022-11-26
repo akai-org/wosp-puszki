@@ -1,9 +1,11 @@
 <?php
 
-
-use App\Http\Controllers\AmountDisplayController;
+use App\Lib\Rates\CurrentRatesFetcher;
 
 // TODO actually this test is of no use. Can we dump it?
+// I'd actually argue it is of use, it is an integration test
+// against an external API
+// Why is it of no use?
 test('it correctly fetches rates data from NBP', function () {
     $fetcher = new CurrentRatesFetcher();
     $rates = $fetcher->fetchRates();
