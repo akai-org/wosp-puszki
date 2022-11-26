@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import { Form, Input, FormItemProps, InputProps } from 'antd';
+import { Form, Input } from 'antd';
+import type { FormItemProps, InputProps } from 'antd';
 import s from './FormInput.module.less';
 
 interface Props

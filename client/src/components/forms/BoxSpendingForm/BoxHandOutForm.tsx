@@ -2,6 +2,7 @@ import React from 'react';
 import { FormHOC } from '../FormHOC';
 import { FormInput } from '../FormInput';
 import { FormButton } from '../FormButton';
+import { ID_NUMBER_REQUIRED } from '../../../utils';
 
 export const BoxHandOutForm = () => {
   return (
@@ -9,7 +10,7 @@ export const BoxHandOutForm = () => {
       <FormInput
         label="Numer identyfikatora"
         formItemName="idNumber"
-        rules={[{ required: true, message: 'Numer identyfikatora jest wymagany' }]}
+        rules={[{ required: true, message: ID_NUMBER_REQUIRED }]}
       />
       <FormButton type="primary" htmlType="submit">
         Dodaj puszkę

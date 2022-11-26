@@ -1,10 +1,15 @@
 import React from 'react';
-import { FormHOC } from '../FormHOC';
-import { Option, VolunteerType } from '../../../utils/types';
-import { FormInput } from '../FormInput';
-import { FormButton } from '../FormButton';
-import { FormSelect } from '../FormSelect';
 import type { FormRule } from 'antd';
+import type { Option, VolunteerType } from '../../../utils';
+import { FormHOC } from '../FormHOC';
+import { FormInput } from '../FormInput';
+import { FormSelect } from '../FormSelect';
+import { FormButton } from '../FormButton';
+import {
+  PASSWORD_REQUIRED,
+  PASSWORDS_DO_NOT_MATCH,
+  USERNAME_REQUIRED,
+} from '../../../utils';
 
 interface NewUserValues {
   username: string;
@@ -24,7 +29,7 @@ const validateConfirmPassword: FormRule = ({ getFieldValue }) => ({
     if (!value || getFieldValue('password') === value) {
       return Promise.resolve();
     }
-    return Promise.reject(new Error('Hasła nie są zgodne'));
+    return Promise.reject(new Error(PASSWORDS_DO_NOT_MATCH));
   },
 });
 
@@ -43,23 +48,20 @@ export const NewUserForm = () => {
       <FormInput
         label="Nazwa użytkownika"
         formItemName="username"
-        rules={[{ required: true, message: 'Nazwa użytkownika jest wymagana' }]}
+        rules={[{ required: true, message: USERNAME_REQUIRED }]}
       />
       <FormInput
         isPassword
         label="Hasło"
         formItemName="password"
-        rules={[{ required: true, message: 'Hasło jest wymagane' }]}
+        rules={[{ required: true, message: PASSWORD_REQUIRED }]}
       />
       <FormInput
         isPassword
         label="Potwierdzenie hasła"
         formItemName="confirmPassword"
         dependencies={['password']}
-        rules={[
-          { required: true, message: 'Powtórzenie hasła jest wymagane' },
-          validateConfirmPassword,
-        ]}
+        rules={[{ required: true, message: PASSWORD_REQUIRED }, validateConfirmPassword]}
       />
       <FormSelect label="Typ użytkownika" name="userType" options={options} />
       <FormButton type="primary" htmlType="submit">

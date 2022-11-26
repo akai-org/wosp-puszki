@@ -1,11 +1,8 @@
 import s from './LoginPage.module.less';
-import { LoginForm, NewUserForm } from '../../components';
-import { BoxHandOutForm } from '../../components/forms/BoxSpendingForm/BoxHandOutForm';
-import { BoxToSettleForm } from '../../components/forms/BoxToSettleForm/BoxToSettleForm';
-import { NewVolunteerForm } from '../../components/forms/NewVolunteerForm/NewVolunteerForm';
+import { LoginForm } from '../../components';
 
 export const LoginPage = () => (
   <div className={s.container}>
-    <NewUserForm />
+    <LoginForm />
   </div>
 );

@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import { Button, Form, ButtonProps, FormItemProps } from 'antd';
+import { Button, Form } from 'antd';
+import type { ButtonProps, FormItemProps } from 'antd';
 import s from './FormButton.module.less';
 
 interface Props

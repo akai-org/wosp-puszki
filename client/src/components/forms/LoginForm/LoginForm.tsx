@@ -1,6 +1,7 @@
-import { FormHOC } from '../FormHOC';
+import { PASSWORD_REQUIRED, USERNAME_REQUIRED } from '../../../utils';
 import { FormInput } from '../FormInput';
 import { FormButton } from '../FormButton';
+import { FormHOC } from '../FormHOC';
 
 interface LoginFormValues {
   username: string;
@@ -17,13 +18,13 @@ export const LoginForm = () => {
       <FormInput
         formItemName="username"
         label="Nazwa użytkownika"
-        rules={[{ required: true, message: 'Wprowadź nazwę użytkownika' }]}
+        rules={[{ required: true, message: USERNAME_REQUIRED }]}
       />
       <FormInput
         isPassword
         formItemName="password"
         label="Hasło"
-        rules={[{ required: true, message: 'Wprowadź hasło' }]}
+        rules={[{ required: true, message: PASSWORD_REQUIRED }]}
       />
       <FormButton type="primary" htmlType="submit">
         Zaloguj

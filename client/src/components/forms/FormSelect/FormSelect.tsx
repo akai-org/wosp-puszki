@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
-import { Select, Form, FormItemProps, SelectProps } from 'antd';
-import { VolunteerType } from '../../../utils/types';
+import { Select, Form } from 'antd';
+import type { FormItemProps, SelectProps } from 'antd';
+import type { VolunteerType } from '../../../utils';
 import s from './FormSelect.module.less';
 
 interface Props

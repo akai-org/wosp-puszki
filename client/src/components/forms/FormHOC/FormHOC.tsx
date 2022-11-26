@@ -1,6 +1,7 @@
 import s from './FormHOC.module.less';
-import { Card, Form, FormProps, Typography } from 'antd';
-import { FC, PropsWithChildren, ReactNode } from 'react';
+import { Card, Form, Typography } from 'antd';
+import type { FormProps } from 'antd';
+import type { FC, PropsWithChildren, ReactNode } from 'react';
 
 interface Props extends Omit<FormProps, 'children' | 'title'>, PropsWithChildren {
   title?: ReactNode;

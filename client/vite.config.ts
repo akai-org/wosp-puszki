@@ -22,12 +22,14 @@ export default defineConfig({
     preprocessorOptions: {
       less: {
         modifyVars: {
+          'primary-color': '#CF1322',
           'btn-primary-bg': '#CF1322',
           //fonts
           'font-size-base': '16px',
           'font-size-lg': '24px',
           'heading-1-size': '40px',
           'heading-2-size': '32px',
+          'text-color-secondary': '#CF1322',
         },
 
         javascriptEnabled: true,
