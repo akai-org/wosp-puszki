@@ -14,6 +14,7 @@ yarn-error.log
 .phpunit.result.cache
 /public/css/app.css
 /public/js/app.js
+
 docker/mysql/storage/*
 
 public/css/home_page.css

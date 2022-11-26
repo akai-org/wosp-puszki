@@ -47,7 +47,6 @@ UWAGA, jeżeli nie są ustawione kursy, to STATIC_RATES musi być false
 - docker-compose
 
 #### instalacja
-- najpierw przekopiowac: `cp .env.example .env`
 - uruchomić aplikację poleceniem:
 ```bash
 docker-compose up 
