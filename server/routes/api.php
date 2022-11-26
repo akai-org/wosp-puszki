@@ -1,5 +1,6 @@
 <?php
 
+use App\Lib\BoxOperator\BoxOperator;
 use Illuminate\Http\Request;
 
 /*
@@ -22,9 +23,16 @@ Route::group(['middleware' => ['auth:sanctum', 'collectorcoordinator']], functio
         return response()->json(['hello' => 'world']);
     });
 
-    Route::get('/collectors/{collectorIdentifier}/boxes/latestUncounted', function(string $collectorIdentifier) {
+    Route::get('/collectors/{collectorIdentifier}/boxes/latestUncounted', function(Request $request, string $collectorIdentifier) {
+        $bo = new BoxOperator($request->user()->id);
 
-        return response()->json(['not' => 'implemented']);
+        try {
+            $box = $bo->findByCollectorIdentifier($collectorIdentifier);
+        } catch (\Exception $e) {
+            return Response::json('', 404);
+        }
+
+        return Response::json($box, 200);
     });
 });
 

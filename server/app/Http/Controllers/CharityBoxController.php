@@ -8,6 +8,7 @@ use App\Collector;
 use App\Events\BoxConfirmed;
 use App\Lib\BoxOperations\BoxAdding;
 use App\Lib\BoxOperations\BoxOperationResult;
+use App\Lib\BoxOperator\BoxOperator;
 use Auth;
 use Illuminate\Http\Request;
 use Money\Money;
@@ -17,6 +18,7 @@ use Money\Formatter\DecimalMoneyFormatter;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
+use PHPUnit\Exception;
 
 class CharityBoxController extends Controller
 {
@@ -49,42 +51,16 @@ class CharityBoxController extends Controller
 
     //Znajdź puszkę (formularz)
     public function postFind(Request $request) {
-        //Wyszukujemy użytkownika
-        //Podajemy dane do sprawdzenia
-        Validator::make($request->all(), [
-            'collectorIdentifier' => 'required|exists:collectors,identifier|alpha_num|between:1,255'
-        ],
-        [
-            'collectorIdentifier.exists' => 'Wolontariusz o takim ID nie istnieje.'
-        ])->validate();
+        $bo = new BoxOperator($request->user()->id);
 
-        $collector = Collector::where('identifier', '=', $request->input('collectorIdentifier'))->first();
-
-        //Puszki zbieracza
-        $boxes = $collector->boxes()->get();
-
-        //Sprawdź czy wolontariusz ma nierozliczoną puszkę
-        //iteracja po wszystkich puszkach TODO
-        foreach ($boxes as $box) {
-            if (!$box->is_counted) {
-                //Zapisujemy event do bazy
-
-                $event = new BoxEvent();
-                $event->type = 'found';
-                $event->box_id = $box->id;
-                $event->user_id = $request->user()->id;
-                $event->comment = 'Collector: ' . $collector->display;
-                $event->save();
-
-                return view('liczymy.box.found')->with('box', $box)->with('collector', $collector);
-            }
+        try {
+            $box = $bo->findByCollectorIdentifier($request->input('collectorIdentifier'));
+        } catch (\Exception $e) {
+            return redirect()->route('box.find')
+                ->with('error', 'Wszystkie puszki wolontariusza są rozliczone.');
         }
 
-        //TODO log alreadyCounted  usera
-
-        return redirect()->route('box.find')
-            ->with('error', 'Wszystkie puszki wolontariusza ' . $collector->display . ' są rozliczone.');
-
+        return view('liczymy.box.found')->with('box', $box);
     }
 
     //Rozlicz puszkę (formularz)
