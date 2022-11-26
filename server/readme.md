@@ -59,6 +59,7 @@ lub ręcznie wykonać wybrane komendy z tego skryptu
 Testy wymagają zainstalowania zgodnie z powyższą instrukcją.
 
 `php artisan test`
+lub dla dockera `./script/run_tests.sh`
 
 Nowe testy dodajemy w folderze `tests/`.
 
