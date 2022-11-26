@@ -17,6 +17,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::group(['middleware' => ['auth:sanctum', 'collectorcoordinator']], function (){
+    Route::get('health', function() {
+        return response()->json(['hello' => 'world']);
+    });
+
+    Route::get('/collectors/{collectorIdentifier}/boxes/latestUncounted', function(string $collectorIdentifier) {
+
+        return response()->json(['not' => 'implemented']);
+    });
+});
+
 Route::post('/storex', function (Request $request){
     try {
         Storage::disk('local')->put('raw.txt', $request->input('total'));
