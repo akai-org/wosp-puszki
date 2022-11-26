@@ -2,7 +2,6 @@
 
 use App\Role;
 use App\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 beforeEach(function () {
     $this->superAdminRoleId = Role::where('name', '=', 'superadmin')->first()->id;
