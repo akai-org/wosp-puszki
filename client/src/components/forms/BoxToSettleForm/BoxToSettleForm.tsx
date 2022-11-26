@@ -1,6 +1,5 @@
 import React from 'react';
-import { FormHOC } from '../FormHOC';
-import { FormButton } from '../FormButton';
+import { FormButton, FormHOC } from '@/components';
 
 export const BoxToSettleForm = () => {
   return (

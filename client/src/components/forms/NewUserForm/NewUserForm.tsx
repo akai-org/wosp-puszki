@@ -1,15 +1,7 @@
-import React from 'react';
 import type { FormRule } from 'antd';
-import type { Option, VolunteerType } from '../../../utils';
-import { FormHOC } from '../FormHOC';
-import { FormInput } from '../FormInput';
-import { FormSelect } from '../FormSelect';
-import { FormButton } from '../FormButton';
-import {
-  PASSWORD_REQUIRED,
-  PASSWORDS_DO_NOT_MATCH,
-  USERNAME_REQUIRED,
-} from '../../../utils';
+import { PASSWORD_REQUIRED, PASSWORDS_DO_NOT_MATCH, USERNAME_REQUIRED } from '@/utils';
+import { FormButton, FormHOC, FormInput, FormSelect } from '@/components';
+import type { Option, VolunteerType } from '@/utils';
 
 interface NewUserValues {
   username: string;

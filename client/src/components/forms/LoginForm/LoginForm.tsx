@@ -1,7 +1,5 @@
-import { PASSWORD_REQUIRED, USERNAME_REQUIRED } from '../../../utils';
-import { FormInput } from '../FormInput';
-import { FormButton } from '../FormButton';
-import { FormHOC } from '../FormHOC';
+import { PASSWORD_REQUIRED, USERNAME_REQUIRED } from '@/utils';
+import { FormButton, FormHOC, FormInput } from '@/components';
 
 interface LoginFormValues {
   username: string;

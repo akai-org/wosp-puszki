@@ -2,6 +2,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import vitePluginImp from 'vite-plugin-imp';
+import path from 'path';
 
 export default defineConfig({
   plugins: [
@@ -16,7 +17,12 @@ export default defineConfig({
     }),
   ],
   resolve: {
-    alias: [{ find: 'less', replacement: '/src/less' }],
+    alias: [
+      { find: 'less', replacement: path.resolve(__dirname, './src/less/') },
+      { find: '@components', replacement: path.resolve(__dirname, './src/components/') },
+      { find: '@utils', replacement: path.resolve(__dirname, './src/utils/') },
+      { find: '@', replacement: path.resolve(__dirname, './src/') },
+    ],
   },
   css: {
     preprocessorOptions: {

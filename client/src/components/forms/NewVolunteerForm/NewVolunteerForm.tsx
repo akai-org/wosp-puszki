@@ -1,13 +1,7 @@
 import React from 'react';
 import { Typography } from 'antd';
-import { FormHOC } from '../FormHOC';
-import { FormInput } from '../FormInput';
-import { FormButton } from '../FormButton';
-import {
-  FIRST_NAME_REQUIRED,
-  ID_NUMBER_REQUIRED,
-  LAST_NAME_REQUIRED,
-} from '../../../utils';
+import { FormButton, FormInput, FormHOC } from '@/components';
+import { FIRST_NAME_REQUIRED, ID_NUMBER_REQUIRED, LAST_NAME_REQUIRED } from '@/utils';
 
 export const NewVolunteerForm = () => {
   const title = (
