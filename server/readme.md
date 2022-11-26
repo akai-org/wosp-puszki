@@ -51,7 +51,7 @@ UWAGA, jeżeli nie są ustawione kursy, to STATIC_RATES musi być false
 ```bash
 docker-compose up 
 ```
-- jeżeli to pierwsze uruchomienie na maszynie, można uruchomić skrypt `./first_launch.sh`
+- jeżeli to pierwsze uruchomienie na maszynie, można uruchomić skrypt `script/first_launch.sh`
 lub ręcznie wykonać wybrane komendy z tego skryptu
 
 
