@@ -25,6 +25,8 @@ services:
       - MYSQL_PASSWORD=secret
     volumes:
       - ./docker/mysql/storage:/var/lib/mysql
+    ports:
+        - "3306:3306"
 
   adminer:
     image: adminer
