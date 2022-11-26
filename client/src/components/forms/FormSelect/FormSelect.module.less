@@ -1,11 +1,13 @@
+@import "less/variables.less";
+
 .select {
-  border-radius: 0.125rem;
-  min-width: 13.125rem;
+  border-radius: @input-border-radius;
+  min-width: @select-width;
   :global(.ant-select-selector) {
-    max-height: 1.75rem;
+    max-height: @input-height;
   }
 }
 
 .formItem {
-  margin-right: 11.875rem;
+  margin-right: @input-width - @select-width;
 }

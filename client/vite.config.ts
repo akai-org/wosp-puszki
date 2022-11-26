@@ -1,3 +1,4 @@
+/** @type {import('vite').UserConfig} */
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import vitePluginImp from 'vite-plugin-imp';
@@ -14,7 +15,9 @@ export default defineConfig({
       ],
     }),
   ],
-
+  resolve: {
+    alias: [{ find: 'less', replacement: '/src/less' }],
+  },
   css: {
     preprocessorOptions: {
       less: {

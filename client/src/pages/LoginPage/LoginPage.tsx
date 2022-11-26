@@ -1,8 +1,8 @@
 import s from './LoginPage.module.less';
-import { LoginForm } from '../../components';
+import { LoginForm, NewUserForm } from '../../components';
 
 export const LoginPage = () => (
   <div className={s.container}>
-    <LoginForm />
+    <NewUserForm />
   </div>
 );
