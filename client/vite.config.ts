@@ -21,6 +21,7 @@ export default defineConfig({
       { find: 'less', replacement: path.resolve(__dirname, './src/less/') },
       { find: '@components', replacement: path.resolve(__dirname, './src/components/') },
       { find: '@utils', replacement: path.resolve(__dirname, './src/utils/') },
+      { find: '@assets', replacement: path.resolve(__dirname, './src/assets/') },
       { find: '@', replacement: path.resolve(__dirname, './src/') },
     ],
   },

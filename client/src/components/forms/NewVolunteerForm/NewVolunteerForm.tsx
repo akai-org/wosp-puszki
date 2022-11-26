@@ -2,6 +2,12 @@ import React from 'react';
 import { Typography } from 'antd';
 import { FormButton, FormInput, FormHOC } from '@/components';
 import { FIRST_NAME_REQUIRED, ID_NUMBER_REQUIRED, LAST_NAME_REQUIRED } from '@/utils';
+import type { IdNumber } from '@/utils';
+
+interface NewVolunteerValues extends IdNumber {
+  firstName: string;
+  lastName: string;
+}
 
 export const NewVolunteerForm = () => {
   const title = (
@@ -11,8 +17,13 @@ export const NewVolunteerForm = () => {
     </>
   );
 
+  const onSubmit = (values: NewVolunteerValues) => {
+    // TODOL send values to BE
+    return;
+  };
+
   return (
-    <FormHOC title={title} name="newVolunteerForm">
+    <FormHOC onFinish={onSubmit} title={title} name="newVolunteerForm">
       <FormInput
         label="Numer identyfikatora"
         rules={[{ required: true, message: ID_NUMBER_REQUIRED }]}

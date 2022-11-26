@@ -4,3 +4,7 @@ export interface Option {
   value: VolunteerType;
   label: string;
 }
+
+export interface IdNumber {
+  idNumber: string;
+}

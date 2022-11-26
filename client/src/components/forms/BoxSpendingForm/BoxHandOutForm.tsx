@@ -1,12 +1,16 @@
 import React from 'react';
-import { FormHOC } from '../FormHOC';
-import { FormInput } from '../FormInput';
-import { FormButton } from '../FormButton';
-import { ID_NUMBER_REQUIRED } from '../../../utils';
+import { FormButton, FormInput, FormHOC } from '@/components';
+import { ID_NUMBER_REQUIRED } from '@/utils';
+import type { IdNumber } from '@/utils';
 
 export const BoxHandOutForm = () => {
+  const onSubmit = (values: IdNumber) => {
+    // TODO: send values to BE
+    return;
+  };
+
   return (
-    <FormHOC name="boxHandoutForm" title="Wydawanie puszki">
+    <FormHOC onFinish={onSubmit} name="boxHandoutForm" title="Wydawanie puszki">
       <FormInput
         label="Numer identyfikatora"
         formItemName="idNumber"
