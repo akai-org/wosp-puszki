@@ -17,7 +17,8 @@ export const FormButton: FC<Props> = ({
   buttonOnReset,
   formItemOnReset,
   formItemName,
-  htmlType,
+  htmlType = 'submit',
+  type = 'primary',
   ...rest
 }) => {
   return (
@@ -29,6 +30,7 @@ export const FormButton: FC<Props> = ({
     >
       <Button
         htmlType={htmlType}
+        type={type}
         onReset={buttonOnReset}
         name={buttonName}
         {...rest}
