@@ -1,5 +1,5 @@
 import { PASSWORD_REQUIRED, USERNAME_REQUIRED } from '@/utils';
-import { FormButton, FormHOC, FormInput } from '@/components';
+import { FormButton, FormWrapper, FormInput } from '@/components';
 
 interface LoginFormValues {
   username: string;
@@ -12,7 +12,7 @@ export const LoginForm = () => {
   };
 
   return (
-    <FormHOC onFinish={onSubmit}>
+    <FormWrapper onFinish={onSubmit}>
       <FormInput
         formItemName="username"
         label="Nazwa użytkownika"
@@ -27,6 +27,6 @@ export const LoginForm = () => {
       <FormButton type="primary" htmlType="submit">
         Zaloguj
       </FormButton>
-    </FormHOC>
+    </FormWrapper>
   );
 };

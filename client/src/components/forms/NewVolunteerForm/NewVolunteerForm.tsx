@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography } from 'antd';
-import { FormButton, FormInput, FormHOC } from '@/components';
+import { FormButton, FormInput, FormWrapper } from '@/components';
 import { FIRST_NAME_REQUIRED, ID_NUMBER_REQUIRED, LAST_NAME_REQUIRED } from '@/utils';
 import type { IdNumber } from '@/utils';
 
@@ -18,12 +18,12 @@ export const NewVolunteerForm = () => {
   );
 
   const onSubmit = (values: NewVolunteerValues) => {
-    // TODOL send values to BE
+    // TODO: send values to BE
     return;
   };
 
   return (
-    <FormHOC onFinish={onSubmit} title={title} name="newVolunteerForm">
+    <FormWrapper onFinish={onSubmit} title={title} name="newVolunteerForm">
       <FormInput
         label="Numer identyfikatora"
         rules={[{ required: true, message: ID_NUMBER_REQUIRED }]}
@@ -40,6 +40,6 @@ export const NewVolunteerForm = () => {
         rules={[{ required: true, message: LAST_NAME_REQUIRED }]}
       />
       <FormButton>Dodaj wolontariusza</FormButton>
-    </FormHOC>
+    </FormWrapper>
   );
 };

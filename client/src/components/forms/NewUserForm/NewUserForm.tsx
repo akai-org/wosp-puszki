@@ -1,6 +1,6 @@
 import type { FormRule } from 'antd';
 import { PASSWORD_REQUIRED, PASSWORDS_DO_NOT_MATCH, USERNAME_REQUIRED } from '@/utils';
-import { FormButton, FormHOC, FormInput, FormSelect } from '@/components';
+import { FormButton, FormWrapper, FormInput, FormSelect } from '@/components';
 import type { Option, VolunteerType } from '@/utils';
 
 interface NewUserValues {
@@ -11,7 +11,8 @@ interface NewUserValues {
 }
 
 const options: Option[] = [
-  { value: 'Wolontariusz', label: 'Wolontariusz' },
+  { value: 'collector', label: 'Wolontariusz' },
+  { value: 'collectorcoordinator', label: 'Koordynator wolontariuszy' },
   { value: 'admin', label: 'Admin' },
   { value: 'superadmin', label: 'Superadmin' },
 ];
@@ -31,7 +32,7 @@ export const NewUserForm = () => {
     return;
   };
   return (
-    <FormHOC
+    <FormWrapper
       title="Dodaj użytkownika"
       initialValues={{ userType: 'Wolontariusz' }}
       name="newUserForm"
@@ -59,6 +60,6 @@ export const NewUserForm = () => {
       <FormButton type="primary" htmlType="submit">
         Dodaj użytkownika
       </FormButton>
-    </FormHOC>
+    </FormWrapper>
   );
 };

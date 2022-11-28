@@ -1,1 +1,1 @@
-export * from './FormHOC';
+export * from './FormWrapper';

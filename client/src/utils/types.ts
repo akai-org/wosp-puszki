@@ -1,4 +1,4 @@
-export type VolunteerType = 'Wolontariusz' | 'admin' | 'superadmin';
+export type VolunteerType = 'collector' | 'admin' | 'superadmin' | 'collectorcoordinator';
 
 export interface Option {
   value: VolunteerType;
