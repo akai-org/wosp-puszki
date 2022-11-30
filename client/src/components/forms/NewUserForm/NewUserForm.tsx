@@ -40,19 +40,19 @@ export const NewUserForm = () => {
     >
       <FormInput
         label="Nazwa użytkownika"
-        formItemName="username"
+        name="username"
         rules={[{ required: true, message: USERNAME_REQUIRED }]}
       />
       <FormInput
         isPassword
         label="Hasło"
-        formItemName="password"
+        name="password"
         rules={[{ required: true, message: PASSWORD_REQUIRED }]}
       />
       <FormInput
         isPassword
         label="Potwierdzenie hasła"
-        formItemName="confirmPassword"
+        name="confirmPassword"
         dependencies={['password']}
         rules={[{ required: true, message: PASSWORD_REQUIRED }, validateConfirmPassword]}
       />

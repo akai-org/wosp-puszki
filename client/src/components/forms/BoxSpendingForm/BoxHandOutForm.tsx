@@ -13,7 +13,7 @@ export const BoxHandOutForm = () => {
     <FormWrapper onFinish={onSubmit} name="boxHandoutForm" title="Wydawanie puszki">
       <FormInput
         label="Numer identyfikatora"
-        formItemName="idNumber"
+        name="idNumber"
         rules={[{ required: true, message: ID_NUMBER_REQUIRED }]}
       />
       <FormButton type="primary" htmlType="submit">

@@ -14,13 +14,13 @@ export const LoginForm = () => {
   return (
     <FormWrapper onFinish={onSubmit}>
       <FormInput
-        formItemName="username"
+        name="username"
         label="Nazwa użytkownika"
         rules={[{ required: true, message: USERNAME_REQUIRED }]}
       />
       <FormInput
         isPassword
-        formItemName="password"
+        name="password"
         label="Hasło"
         rules={[{ required: true, message: PASSWORD_REQUIRED }]}
       />

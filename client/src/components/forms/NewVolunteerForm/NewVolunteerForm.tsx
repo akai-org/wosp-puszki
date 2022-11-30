@@ -27,16 +27,16 @@ export const NewVolunteerForm = () => {
       <FormInput
         label="Numer identyfikatora"
         rules={[{ required: true, message: ID_NUMBER_REQUIRED }]}
-        formItemName="idNumber"
+        name="idNumber"
       />
       <FormInput
         label="Imię"
         rules={[{ required: true, message: FIRST_NAME_REQUIRED }]}
-        formItemName="firstName"
+        name="firstName"
       />
       <FormInput
         label="Nazwisko"
-        formItemName="lastName"
+        name="lastName"
         rules={[{ required: true, message: LAST_NAME_REQUIRED }]}
       />
       <FormButton>Dodaj wolontariusza</FormButton>
