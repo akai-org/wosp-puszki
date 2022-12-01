@@ -41,13 +41,13 @@ body {
   margin-top: 3.125rem;
   text-align: left;
   width: 12.5rem;
-  margin-left: 1.25rem;
   overflow-y: auto;
 }
 
 .sidebarFooter {
   text-align: left;
   padding: 1.25rem;
+  width: 100%;
 }
 
 .sidebarFooter p {
