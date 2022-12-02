@@ -1,10 +1,11 @@
-import MainPage from './pages/MainPage/MainPage';
+import Sidebar from './components/Layout/Sidebar';
 
 function App() {
   return (
     <div>
-      <MainPage />
+      <Sidebar />
     </div>
   );
 }
+
 export default App;
