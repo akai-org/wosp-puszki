@@ -1,11 +1,39 @@
-.container {
-  height: 100vh;
+body {
+  background-color: #fff0f6;
+}
+.position {
+  margin-left: 15rem;
+}
+.container,
+.collected {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
+.container {
+  height: 100vh;
+  gap: 4.25rem;
+}
 
-.test {
-  color: blue;
+.flexContainer {
+  flex-direction: column;
+}
+.collected {
+  gap: 0;
+}
+
+.buttonsContainer {
+  gap: 3rem;
+}
+
+.buttons {
+  width: 25rem;
+  height: 3rem;
+  font-size: 24px;
+}
+
+.text {
+  margin: 0;
+  font-weight: 500;
 }
