@@ -1,7 +1,6 @@
 import type { RouteObject } from 'react-router-dom';
 import { adminRoute, boxesRoute, countedBoxesRoute } from './nestedRoutes';
-import { LoginPage } from '../pages';
-import { HomePage } from '../pages/home';
+import { LoginPage, HomePage, NotFoundPage } from '../pages';
 import { MainLayout } from '../components';
 
 const rootRoutes: RouteObject[] = [
@@ -13,6 +12,7 @@ const rootRoutes: RouteObject[] = [
     index: true,
     element: <HomePage />,
   },
+  { path: '*', element: <NotFoundPage /> },
 ];
 
 export const routes: RouteObject[] = [
