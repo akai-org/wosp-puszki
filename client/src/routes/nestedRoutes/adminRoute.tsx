@@ -33,6 +33,6 @@ const adminSubroutes: RouteObject[] = [
 
 export const adminRoute = {
   path: 'admin',
-  element: <InnerLayout />,
+  element: <InnerLayout links={[]} />,
   children: adminSubroutes,
 };

@@ -2,8 +2,14 @@ import { Outlet } from 'react-router-dom';
 import { Layout } from 'antd';
 
 import s from './InnerLayout.module.css';
+import { SubNavLink } from '../../../utils/types';
+import { FC } from 'react';
 
-export const InnerLayout = () => {
+interface Props {
+  links: SubNavLink[];
+}
+
+export const InnerLayout: FC<Props> = ({ links }) => {
   return (
     <Layout>
       <Layout.Header className={s.customNavbar}>

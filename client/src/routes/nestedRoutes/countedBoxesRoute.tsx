@@ -14,6 +14,6 @@ const countedBoxesSubroutes: RouteObject[] = [
 ];
 export const countedBoxesRoute = {
   path: 'countedBoxes',
-  element: <InnerLayout />,
+  element: <InnerLayout links={[]} />,
   children: countedBoxesSubroutes,
 };

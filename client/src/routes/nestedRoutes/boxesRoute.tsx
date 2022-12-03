@@ -23,6 +23,6 @@ const boxesSubroutes: RouteObject[] = [
 
 export const boxesRoute = {
   path: 'boxes',
-  element: <InnerLayout />,
+  element: <InnerLayout links={[]} />,
   children: boxesSubroutes,
 };
