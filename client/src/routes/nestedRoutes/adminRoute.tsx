@@ -1,9 +1,12 @@
 import { RouteObject } from 'react-router-dom';
-import { AddUserPage } from '../../pages/admin/AddUserPage/AddUserPage';
-import { ListUsersPage } from '../../pages/admin/ListUsersPage/ListUsersPage';
-import { ListVolunteersPage } from '../../pages/admin/ListVolunteersPage/ListVolunteersPage';
-import { AddVolunteerPage } from '../../pages/admin/AddVolunteerPage/AddVolunteerPage';
-import { LogsPage } from '../../pages/admin/LogsPage/LogsPage';
+import {
+  AddUserPage,
+  AddVolunteerPage,
+  ListUsersPage,
+  ListVolunteersPage,
+  LogsPage,
+} from '../../pages/admin';
+import { InnerLayout } from '../../components';
 
 const adminSubroutes: RouteObject[] = [
   {
@@ -30,5 +33,6 @@ const adminSubroutes: RouteObject[] = [
 
 export const adminRoute = {
   path: 'admin',
+  element: <InnerLayout />,
   children: adminSubroutes,
 };

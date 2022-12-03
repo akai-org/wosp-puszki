@@ -1,7 +1,6 @@
 import { RouteObject } from 'react-router-dom';
-import { GiveBoxPage } from '../../pages/boxes/GiveBoxPage/GiveBoxPage';
-import { SettleBoxPage } from '../../pages/boxes/SettleBoxPage/SettleBoxPage';
-import { InnerLayout } from '../../components/Layout/InnerLayout/InnerLayout';
+import { GiveBoxPage, SettleBoxPage } from '../../pages/boxes';
+import { InnerLayout } from '../../components';
 
 const boxesSubroutes: RouteObject[] = [
   {

@@ -1,6 +1,5 @@
 import React from 'react';
-import { SidebarSmall } from './SidebarSmall';
-import { SidebarBig } from './SidebarBig';
+import { SidebarSmall, SidebarBig } from './SidebarVariants';
 
 const links = [
   { name: 'Strona Główna', url: '/home' },

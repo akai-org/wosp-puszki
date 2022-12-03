@@ -1,7 +1,7 @@
 import { Layout } from 'antd';
-import Logo from '../../../public/wosp.svg';
+import Logo from '../../../../../public/wosp.svg';
 const { Header } = Layout;
-import styles from './Sidebar.module.css';
+import styles from '../Sidebar.module.css';
 
 export const SidebarSmall: React.FC = () => {
   return (

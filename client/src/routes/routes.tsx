@@ -1,10 +1,8 @@
-import { MainLayout } from '../components/Layout/MainLayout/MainLayout';
+import type { RouteObject } from 'react-router-dom';
+import { adminRoute, boxesRoute, countedBoxesRoute } from './nestedRoutes';
 import { LoginPage } from '../pages';
-import { HomePage } from '../pages/home/HomePage';
-import { RouteObject } from 'react-router-dom';
-import { adminRoute } from './nestedRoutes/adminRoute';
-import { boxesRoute } from './nestedRoutes/boxesRoute';
-import { countedBoxesRoute } from './nestedRoutes/countedBoxesRoute';
+import { HomePage } from '../pages/home';
+import { MainLayout } from '../components';
 
 const rootRoutes: RouteObject[] = [
   {

@@ -1,6 +1,6 @@
 import { RouteObject } from 'react-router-dom';
-import { BoxesForApprovalPage } from '../../pages/countedBoxes/BoxesApprovedPage/BoxesForApprovalPage';
-import { BoxesApprovedPage } from '../../pages/countedBoxes/BoxesApprovedPage/BoxesApprovedPage';
+import { BoxesApprovedPage, BoxesForApprovalPage } from '../../pages/countedBoxes';
+import { InnerLayout } from '../../components';
 
 const countedBoxesSubroutes: RouteObject[] = [
   {
@@ -14,5 +14,6 @@ const countedBoxesSubroutes: RouteObject[] = [
 ];
 export const countedBoxesRoute = {
   path: 'countedBoxes',
+  element: <InnerLayout />,
   children: countedBoxesSubroutes,
 };

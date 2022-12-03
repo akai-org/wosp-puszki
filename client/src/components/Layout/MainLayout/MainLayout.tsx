@@ -1,5 +1,5 @@
 import { Layout } from 'antd';
-import { Sidebar } from '../Sidebar';
+import { Sidebar } from '../Sidebar/Sidebar';
 import { Outlet } from 'react-router-dom';
 
 import s from './MainLayout.module.css';
