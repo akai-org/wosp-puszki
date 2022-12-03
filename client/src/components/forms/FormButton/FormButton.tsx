@@ -13,7 +13,7 @@ export const FormButton: FC<Props> = ({
 }) => {
   return (
     <Form.Item className={s.formItem} {...rest}>
-      <Button htmlType={htmlType} type={type} {...rest} className={s.submitBtn}>
+      <Button htmlType={htmlType} type={type} className={s.submitBtn} {...rest}>
         {children}
       </Button>
     </Form.Item>

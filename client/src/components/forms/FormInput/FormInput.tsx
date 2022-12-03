@@ -13,7 +13,7 @@ export const FormInput: FC<Props> = ({ isPassword, ...rest }) => {
   return (
     <Form.Item {...rest}>
       {isPassword ? (
-        <Input.Password className={s.input} />
+        <Input.Password className={s.input} {...rest} />
       ) : (
         <Input className={s.input} {...rest} />
       )}
