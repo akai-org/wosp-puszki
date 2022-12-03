@@ -12,7 +12,7 @@ type sidebarData = {
   userName: string;
 };
 
-const SidebarBig: React.FC<sidebarData> = (props) => {
+export const SidebarBig: React.FC<sidebarData> = (props) => {
   return (
     <Layout className={[styles.sidebar, styles.sidebarLayout].join(' ')}>
       <Header className={[styles.sidebar, styles.sidebarHeader].join(' ')}>
@@ -31,5 +31,3 @@ const SidebarBig: React.FC<sidebarData> = (props) => {
     </Layout>
   );
 };
-
-export default SidebarBig;

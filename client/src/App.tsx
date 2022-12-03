@@ -11,59 +11,83 @@ import { BoxesApprovedPage } from './pages/countedBoxes/BoxesApprovedPage/BoxesA
 import { BoxesForApprovalPage } from './pages/countedBoxes/BoxesApprovedPage/BoxesForApprovalPage';
 import { HomePage } from './pages/home/HomePage';
 import { LoginPage } from './pages';
+import { MainLayout } from './components/Layout/MainLayout/MainLayout';
+import { InnerLayout } from './components/Layout/InnerLayout/InnerLayout';
 
 const router = createBrowserRouter([
   {
-    path: '/login',
-    element: <LoginPage />,
-  },
-  {
-    path: '/home',
-    element: <HomePage />,
-  },
-  {
-    path: '/countedBoxes/forApproval',
-    element: <BoxesForApprovalPage />,
-  },
-  {
-    path: '/countedBoxes/approved',
-    element: <BoxesApprovedPage />,
-  },
-  {
-    path: '/admin/users/add',
-    element: <AddUserPage />,
-  },
-  {
-    path: '/admin/users/list',
-    element: <ListUsersPage />,
-  },
-  {
-    path: '/admin/volunteers/list',
-    element: <ListVolunteersPage />,
-  },
-  {
-    path: '/admin/volunteers/add',
-    element: <AddVolunteerPage />,
-  },
-  {
-    path: '/admin/logs',
-    element: <LogsPage />,
-  },
-  {
-    path: '/boxes/give',
-    element: <GiveBoxPage />,
-  },
-  {
-    path: '/boxes/settle',
-    element: <SettleBoxPage />,
-  },
-  {
-    path: '/boxes/all',
-    element: <SettleBoxPage />,
-  },
-  {
-    path: '/boxes/unsettled',
-    element: <SettleBoxPage />,
+    path: '/',
+    element: <MainLayout />,
+    children: [
+      {
+        path: 'countedBoxes',
+        children: [
+          {
+            index: true,
+            element: <BoxesForApprovalPage />,
+          },
+          {
+            path: 'approved',
+            element: <BoxesApprovedPage />,
+          },
+        ],
+      },
+      {
+        path: 'admin',
+        children: [
+          {
+            path: 'users/add',
+            element: <AddUserPage />,
+          },
+          {
+            index: true,
+            element: <ListUsersPage />,
+          },
+          {
+            path: 'volunteers/list',
+            element: <ListVolunteersPage />,
+          },
+          {
+            path: 'volunteers/add',
+            element: <AddVolunteerPage />,
+          },
+          {
+            path: 'logs',
+            element: <LogsPage />,
+          },
+        ],
+      },
+      {
+        path: 'boxes',
+        element: <InnerLayout />,
+        children: [
+          {
+            path: '/boxes/give',
+            element: <GiveBoxPage />,
+          },
+          {
+            path: '/boxes/settle',
+            element: <SettleBoxPage />,
+          },
+          {
+            index: true,
+            element: <SettleBoxPage />,
+          },
+          {
+            path: '/boxes/unsettled',
+            element: <SettleBoxPage />,
+          },
+        ],
+      },
+      {
+        path: '/login',
+        element: <LoginPage />,
+      },
+      {
+        index: true,
+        element: <HomePage />,
+      },
+    ],
   },
 ]);
 

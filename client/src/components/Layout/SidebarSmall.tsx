@@ -3,7 +3,7 @@ import Logo from '../../../public/wosp.svg';
 const { Header } = Layout;
 import styles from './Sidebar.module.css';
 
-const SidebarSmall: React.FC = () => {
+export const SidebarSmall: React.FC = () => {
   return (
     <Layout
       className={[styles.sidebar, styles.sidebarLayout, styles.sidebarLoginPage].join(
@@ -16,5 +16,3 @@ const SidebarSmall: React.FC = () => {
     </Layout>
   );
 };
-
-export default SidebarSmall;

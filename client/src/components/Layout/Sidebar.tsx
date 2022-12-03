@@ -1,6 +1,6 @@
 import React from 'react';
-import SidebarBig from './SidebarBig';
-import SidebarSmall from './SidebarSmall';
+import { SidebarSmall } from './SidebarSmall';
+import { SidebarBig } from './SidebarBig';
 
 const links = [
   { name: 'Strona Główna', url: '/home' },
@@ -9,7 +9,7 @@ const links = [
   { name: 'Puszki', url: '/box' },
 ];
 
-const Sidebar: React.FC = () => {
+export const Sidebar: React.FC = () => {
   const userName = 'superadmin';
   const isLogin = true;
 
@@ -17,5 +17,3 @@ const Sidebar: React.FC = () => {
     <>{!isLogin ? <SidebarSmall /> : <SidebarBig links={links} userName={userName} />}</>
   );
 };
-
-export default Sidebar;
