@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { SidebarSmall, SidebarBig } from './SidebarVariants';
 
 const links = [
@@ -8,9 +8,12 @@ const links = [
   { name: 'Puszki', url: '/box' },
 ];
 
-export const Sidebar: React.FC = () => {
-  const userName = 'superadmin';
-  const isLogin = true;
+interface Props {
+  isLoggedIn: boolean;
+}
 
-  return isLogin ? <SidebarBig links={links} userName={userName} /> : <SidebarSmall />;
+export const Sidebar: FC<Props> = ({ isLoggedIn }) => {
+  const userName = 'superadmin';
+
+  return isLoggedIn ? <SidebarBig links={links} userName={userName} /> : <SidebarSmall />;
 };

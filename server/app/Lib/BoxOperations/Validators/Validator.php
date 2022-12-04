@@ -4,17 +4,19 @@ namespace App\Lib\BoxOperations\Validators;
 
 abstract class Validator
 {
-    protected ?Validator $next;
+    protected ?Validator $next = null;
 
     public function validate(ValidationContext $context): ValidationResult {
-        $result = $this->
-        resolve($context);
+        $result = $this->resolve($context);
+
         if ($result->failed()) {
             return $result;
         }
+
         if (!is_null($this->next)) {
             return $this->next->validate($context);
         }
+
         return $result;
     }
 

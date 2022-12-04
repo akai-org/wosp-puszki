@@ -1,8 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { Layout } from 'antd';
-
 import s from './InnerLayout.module.css';
-import { SubNavLink } from '../../../utils/types';
+import { SubNavLink } from '@/utils';
 import { FC } from 'react';
 
 interface Props {

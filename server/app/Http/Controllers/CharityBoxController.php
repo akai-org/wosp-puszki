@@ -34,7 +34,7 @@ class CharityBoxController extends Controller
 
     //Dodaj nową puszkę
     public function postCreate(Request $request){
-        $boxAdding = new BoxAdding($request->input('collectorIdentifier'));
+        $boxAdding = new BoxAdding($request->input('collectorIdentifier'), $request->user()->id);
         $boxAdding->proceed();
         if ($boxAdding->result()->kind() == BoxOperationResult::KIND_ERROR) {
             $request->flash();

@@ -1,0 +1,21 @@
+body {
+  background-color: #fff0f6;
+}
+
+.container,
+.collected {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.container {
+  height: 100vh;
+  gap: 4.25rem;
+}
+
+.buttons {
+  width: 25rem;
+  height: 3rem;
+  font-size: 24px;
+}

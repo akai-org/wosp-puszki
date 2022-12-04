@@ -1,14 +1,14 @@
 import { Layout } from 'antd';
-import { Sidebar } from '../Sidebar/Sidebar';
 import { Outlet } from 'react-router-dom';
 import s from './MainLayout.module.css';
+import { Sidebar } from '@components/Layout/Sidebar/Sidebar';
 
 export const MainLayout = () => {
-  const isLoggedIn = true;
+  const isLoggedIn = false;
 
   return (
     <Layout>
-      <Sidebar />
+      <Sidebar isLoggedIn={isLoggedIn} />
       <Layout.Content
         className={isLoggedIn ? s.layoutContentWide : s.layoutContentNarrow}
       >
