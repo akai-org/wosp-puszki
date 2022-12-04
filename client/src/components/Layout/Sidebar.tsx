@@ -2,6 +2,10 @@ import React from 'react';
 import SidebarBig from './SidebarBig';
 import SidebarSmall from './SidebarSmall';
 
+interface Props {
+  isLoggedIn: boolean;
+}
+
 const links = [
   { name: 'Strona Główna', url: 'home' },
   { name: 'Przeliczone puszki', url: 'count' },
@@ -9,12 +13,13 @@ const links = [
   { name: 'Puszki', url: 'box' },
 ];
 
-const Sidebar: React.FC = () => {
+const Sidebar: React.FC<Props> = ({ isLoggedIn }) => {
   const userName = 'superadmin';
-  const isLogin = true;
 
   return (
-    <>{!isLogin ? <SidebarSmall /> : <SidebarBig links={links} userName={userName} />}</>
+    <>
+      {!isLoggedIn ? <SidebarSmall /> : <SidebarBig links={links} userName={userName} />}
+    </>
   );
 };
 

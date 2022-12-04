@@ -1,9 +1,8 @@
-import { LoginForm } from '../../components';
-import { Space } from 'antd';
-import s from './LoginPage.module.css';
+import s from './LoginPage.module.less';
+import { LoginForm } from '@/components';
 
 export const LoginPage = () => (
-  <Space align="center" className={s.container}>
+  <div className={s.container}>
     <LoginForm />
-  </Space>
+  </div>
 );

@@ -1,9 +1,9 @@
 import { Button, Layout } from 'antd';
 import React from 'react';
 
-import styles from './Sidebar.module.css';
+import styles from './Sidebar.module.less';
 import SidebarItem from './SidebarItem';
-import Logo from '../../../public/wosp.svg';
+import Logo from '@/assets/wosp.svg';
 
 const { Header, Footer } = Layout;
 
