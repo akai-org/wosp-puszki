@@ -23,7 +23,7 @@ export const NewVolunteerForm = () => {
   };
 
   return (
-    <FormWrapper onFinish={onSubmit} title={title} name="newVolunteerForm">
+    <FormWrapper onFinish={onSubmit} label={title} name="newVolunteerForm">
       <FormInput
         label="Numer identyfikatora"
         rules={[{ required: true, message: ID_NUMBER_REQUIRED }]}

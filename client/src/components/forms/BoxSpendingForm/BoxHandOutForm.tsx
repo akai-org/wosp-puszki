@@ -10,7 +10,7 @@ export const BoxHandOutForm = () => {
   };
 
   return (
-    <FormWrapper onFinish={onSubmit} name="boxHandoutForm" title="Wydawanie puszki">
+    <FormWrapper onFinish={onSubmit} name="boxHandoutForm" label="Wydawanie puszki">
       <FormInput
         label="Numer identyfikatora"
         name="idNumber"
