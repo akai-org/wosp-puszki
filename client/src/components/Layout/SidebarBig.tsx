@@ -7,12 +7,12 @@ import Logo from '../../../public/wosp.svg';
 
 const { Header, Footer } = Layout;
 
-type sidebarData = {
+type SidebarData = {
   links: { name: string; url: string }[];
   userName: string;
 };
 
-const SidebarBig: React.FC<sidebarData> = (props) => {
+const SidebarBig: React.FC<SidebarData> = (props) => {
   return (
     <Layout className={[styles.sidebar, styles.sidebarLayout].join(' ')}>
       <Header className={[styles.sidebar, styles.sidebarHeader].join(' ')}>
