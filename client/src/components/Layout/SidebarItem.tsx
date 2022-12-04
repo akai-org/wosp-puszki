@@ -12,7 +12,11 @@ const SidebarItem: React.FC<Item> = (props) => {
   return (
     <NavLink
       to={props.url}
-      className={({ isActive }) => (isActive ? styles.active : undefined)}
+      className={({ isActive }) =>
+        isActive
+          ? [styles.sideBarItem, styles.active].join(' ')
+          : [styles.sideBarItem].join(' ')
+      }
     >
       {props.name}
     </NavLink>

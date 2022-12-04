@@ -1,9 +1,7 @@
 <?php
 
+use App\Lib\Rates\CurrentRatesFetcher;
 
-use App\Http\Controllers\AmountDisplayController;
-
-// TODO actually this test is of no use. Can we dump it?
 test('it correctly fetches rates data from NBP', function () {
     $fetcher = new CurrentRatesFetcher();
     $rates = $fetcher->fetchRates();
