@@ -1,9 +1,8 @@
 import { Button, Layout } from 'antd';
 import React from 'react';
-
-import styles from './Sidebar.module.less';
-import SidebarItem from './SidebarItem';
+import styles from '../Sidebar.module.less';
 import Logo from '@/assets/wosp.svg';
+import SidebarItem from '@components/Layout/Sidebar/SidebarItem/SidebarItem';
 
 const { Header, Footer } = Layout;
 
@@ -12,7 +11,7 @@ type sidebarData = {
   userName: string;
 };
 
-const SidebarBig: React.FC<sidebarData> = (props) => {
+export const SidebarBig: React.FC<sidebarData> = (props) => {
   return (
     <Layout className={[styles.sidebar, styles.sidebarLayout].join(' ')}>
       <Header className={[styles.sidebar, styles.sidebarHeader].join(' ')}>
@@ -31,5 +30,3 @@ const SidebarBig: React.FC<sidebarData> = (props) => {
     </Layout>
   );
 };
-
-export default SidebarBig;

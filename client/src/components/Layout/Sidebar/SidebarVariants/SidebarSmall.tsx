@@ -1,10 +1,10 @@
 import { Layout } from 'antd';
 import Logo from '@/assets/wosp.svg';
 const { Header } = Layout;
-import styles from './Sidebar.module.less';
+import styles from '../Sidebar.module.less';
 import type { FC } from 'react';
 
-const SidebarSmall: FC = () => {
+export const SidebarSmall: FC = () => {
   return (
     <Layout
       className={[styles.sidebar, styles.sidebarLayout, styles.sidebarLoginPage].join(
@@ -17,5 +17,3 @@ const SidebarSmall: FC = () => {
     </Layout>
   );
 };
-
-export default SidebarSmall;

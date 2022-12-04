@@ -1,16 +1,11 @@
-import Sidebar from './components/Layout/Sidebar';
-import { LoginPage } from './pages';
-import s from './App.module.less';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { routes } from './routes';
+import { Spin } from 'antd';
+
+const router = createBrowserRouter(routes);
 
 function App() {
-  const isLoggedIn = false;
-
-  return (
-    <section className={isLoggedIn ? s.bigContainer : s.smallContainer}>
-      <Sidebar isLoggedIn={isLoggedIn} />
-      <LoginPage />
-    </section>
-  );
+  return <RouterProvider router={router} fallbackElement={<Spin />} />;
 }
 
 export default App;

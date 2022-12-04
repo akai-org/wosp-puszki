@@ -4,11 +4,11 @@ import { useEffect, useState } from 'react';
 const { Title } = Typography;
 
 export const Collected = () => {
-  const [data, setData] = useState({})
+  const [data, setData] = useState({});
 
-  useEffect(() =>{
+  useEffect(() => {
     //fetching data here
-  },[])
+  }, []);
 
   return (
     <Space direction="vertical" size={40} className={s.collected}>

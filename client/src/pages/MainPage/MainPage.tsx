@@ -1,4 +1,4 @@
-import { Main } from '../../components/main';
+import { Main } from '@components/main';
 
 const MainPage: React.FC = () => <Main />;
 
