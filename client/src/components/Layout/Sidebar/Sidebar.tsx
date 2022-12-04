@@ -12,7 +12,5 @@ export const Sidebar: React.FC = () => {
   const userName = 'superadmin';
   const isLogin = true;
 
-  return (
-    <>{!isLogin ? <SidebarSmall /> : <SidebarBig links={links} userName={userName} />}</>
-  );
+  return isLogin ? <SidebarBig links={links} userName={userName} /> : <SidebarSmall />;
 };
