@@ -18,7 +18,6 @@ return [
                  * The list of directories and files that will be included in the backup.
                  */
                 'include' => [
-                    base_path(),
                 ],
 
                 /*
@@ -27,8 +26,7 @@ return [
                  * Directories used by the backup process will automatically be excluded.
                  */
                 'exclude' => [
-                    base_path('vendor'),
-                    base_path('node_modules'),
+                    // base_path('vendor'),
                     storage_path('app/backups')
                 ],
 
@@ -248,33 +246,33 @@ return [
             /*
              * The number of days for which backups must be kept.
              */
-            'keep_all_backups_for_days' => 1000,
+            'keep_all_backups_for_days' => 3,
 
             /*
              * The number of days for which daily backups must be kept.
              */
-            'keep_daily_backups_for_days' => 1000,
+            'keep_daily_backups_for_days' => 0,
 
             /*
              * The number of weeks for which one weekly backup must be kept.
              */
-            'keep_weekly_backups_for_weeks' => 1000,
+            'keep_weekly_backups_for_weeks' => 1,
 
             /*
              * The number of months for which one monthly backup must be kept.
              */
-            'keep_monthly_backups_for_months' => 1000,
+            'keep_monthly_backups_for_months' => 1,
 
             /*
              * The number of years for which one yearly backup must be kept.
              */
-            'keep_yearly_backups_for_years' => 1000,
+            'keep_yearly_backups_for_years' => 0,
 
             /*
              * After cleaning up the backups remove the oldest backup until
              * this amount of megabytes has been reached.
              */
-            'delete_oldest_backups_when_using_more_megabytes_than' => 50000,
+            // 'delete_oldest_backups_when_using_more_megabytes_than' => 50000,
         ],
     ],
 
