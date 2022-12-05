@@ -4,7 +4,7 @@ import s from './MainLayout.module.css';
 import { Sidebar } from '@components/Layout/Sidebar/Sidebar';
 
 export const MainLayout = () => {
-  const isLoggedIn = false;
+  const isLoggedIn = true;
 
   return (
     <Layout>
