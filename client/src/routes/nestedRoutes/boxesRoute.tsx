@@ -23,6 +23,15 @@ const boxesSubroutes: RouteObject[] = [
 
 export const boxesRoute = {
   path: 'boxes',
-  element: <InnerLayout links={[]} />,
+  element: (
+    <InnerLayout
+      links={[
+        { url: '/boxes/give', label: 'Wydaj puszkę' },
+        { url: '/boxes/settle', label: 'Rozlicz puszkę' },
+        { url: '/boxes', label: 'Wszystkie puszki' },
+        { url: '/boxes/unsettled', label: 'Lista puszek nie rozliczonych' },
+      ]}
+    />
+  ),
   children: boxesSubroutes,
 };

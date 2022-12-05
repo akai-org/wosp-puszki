@@ -14,7 +14,7 @@ export const InnerLayout: FC<Props> = ({ links }) => {
     <Layout>
       <Layout.Header className={s.customNavbar}>
         {/* <h1>Header</h1> */}
-        <Navbar links={[]} />
+        <Navbar links={links} />
       </Layout.Header>
       <Layout.Content>
         <Outlet />

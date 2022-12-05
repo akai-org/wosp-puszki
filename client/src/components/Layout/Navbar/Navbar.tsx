@@ -7,11 +7,12 @@ interface Props {
   links: SubNavLink[];
 }
 
-const Navbar: FC<Props> = (links) => {
+const Navbar: FC<Props> = (props) => {
   return (
     <div className={s.navbar}>
-      <NavbarItem url="/admin" label="Dodaj użytkownika" withDot />
-      <NavbarItem url="/puszka" label="Lista użytkowników" />
+      {props.links.map((item) => (
+        <NavbarItem url={item.url} label={item.label} withDot={item.withDot} />
+      ))}
     </div>
   );
 };

@@ -14,6 +14,16 @@ const countedBoxesSubroutes: RouteObject[] = [
 ];
 export const countedBoxesRoute = {
   path: 'countedBoxes',
-  element: <InnerLayout links={[]} />,
+  element: (
+    <InnerLayout
+      links={[
+        { url: '/countedBoxes', label: 'Lista puszek do zatwierdzenia' },
+        {
+          url: 'approved',
+          label: 'Lista puszek zatwierdzonych',
+        },
+      ]}
+    />
+  ),
   children: countedBoxesSubroutes,
 };
