@@ -1,6 +1,7 @@
 export interface SubNavLink {
+  url: string;
   label: string;
-  link: string;
+  withDot?: boolean;
 }
 
 export type VolunteerType = 'collector' | 'admin' | 'superadmin' | 'collectorcoordinator';

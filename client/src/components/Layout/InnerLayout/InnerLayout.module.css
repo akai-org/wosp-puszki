@@ -1,3 +1,11 @@
 .customNavbar {
-    background: none;
+  background: none;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  position: absolute;
+  left: 260px;
+  top: 20px;
+  padding: 0;
+  height: 32px;
 }

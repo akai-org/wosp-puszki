@@ -13,9 +13,7 @@ const SidebarItem: React.FC<Item> = (props) => {
     <NavLink
       to={props.url}
       className={({ isActive }) =>
-        isActive
-          ? [styles.sideBarItem, styles.active].join(' ')
-          : [styles.sideBarItem].join(' ')
+        isActive ? [styles.sideBarItem, styles.active].join(' ') : styles.sideBarItem
       }
     >
       {props.name}
