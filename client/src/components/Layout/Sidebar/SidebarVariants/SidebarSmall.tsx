@@ -1,17 +1,13 @@
 import { Layout } from 'antd';
 import Logo from '@/assets/wosp.svg';
 const { Header } = Layout;
-import styles from '../Sidebar.module.less';
+import s from '../Sidebar.module.less';
 import type { FC } from 'react';
 
 export const SidebarSmall: FC = () => {
   return (
-    <Layout
-      className={[styles.sidebar, styles.sidebarLayout, styles.sidebarLoginPage].join(
-        ' ',
-      )}
-    >
-      <Header className={[styles.sidebar, styles.sidebarHeader].join(' ')}>
+    <Layout className={[s.sidebar, s.sidebarLayout, s.sidebarLoginPage].join(' ')}>
+      <Header className={[s.sidebar, s.sidebarHeader].join(' ')}>
         <img src={Logo} alt="WOSP Logo" />
       </Header>
     </Layout>

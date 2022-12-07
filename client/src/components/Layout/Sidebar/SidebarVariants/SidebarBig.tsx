@@ -1,30 +1,31 @@
 import { Button, Layout } from 'antd';
 import React from 'react';
-import styles from '../Sidebar.module.less';
+import s from '../Sidebar.module.less';
 import Logo from '@/assets/wosp.svg';
-import SidebarItem from '@components/Layout/Sidebar/SidebarItem/SidebarItem';
+import { SidebarItem } from '@components/Layout/Sidebar/SidebarItem/SidebarItem';
+import { SubNavLink } from '@/utils';
 
 const { Header, Footer } = Layout;
 
-type sidebarData = {
-  links: { name: string; url: string }[];
+type SidebarData = {
+  links: SubNavLink[];
   userName: string;
 };
 
-export const SidebarBig: React.FC<sidebarData> = (props) => {
+export const SidebarBig: React.FC<SidebarData> = (props) => {
   return (
-    <Layout className={[styles.sidebar, styles.sidebarLayout].join(' ')}>
-      <Header className={[styles.sidebar, styles.sidebarHeader].join(' ')}>
+    <Layout className={[s.sidebar, s.sidebarLayout].join(' ')}>
+      <Header className={[s.sidebar, s.sidebarHeader].join(' ')}>
         <img src={Logo} alt="WOSP Logo" />
       </Header>
-      <Layout className={[styles.sidebar, styles.sidebarContent].join(' ')}>
+      <Layout className={[s.sidebar, s.sidebarContent].join(' ')}>
         {props.links.map((item) => (
-          <SidebarItem name={item.name} url={item.url} key={item.name} />
+          <SidebarItem label={item.label} url={item.url} key={item.label} />
         ))}
       </Layout>
-      <Footer className={[styles.sidebar, styles.sidebarFooter].join(' ')}>
+      <Footer className={[s.sidebar, s.sidebarFooter].join(' ')}>
         <p>Użytkownik:</p>
-        <p className={styles.userName}>{props.userName}</p>
+        <p className={s.userName}>{props.userName}</p>
         <Button type="primary">Wyloguj</Button>
       </Footer>
     </Layout>
