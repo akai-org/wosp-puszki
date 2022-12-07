@@ -1,24 +1,17 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { SubNavLink } from '@/utils';
+import s from './SidebarItem.module.less';
 
-import styles from './SidebarItem.module.less';
-
-type Item = {
-  name: string;
-  url: string;
-};
-
-const SidebarItem: React.FC<Item> = (props) => {
+export const SidebarItem: React.FC<SubNavLink> = (props) => {
   return (
     <NavLink
       to={props.url}
       className={({ isActive }) =>
-        isActive ? [styles.sideBarItem, styles.active].join(' ') : styles.sideBarItem
+        isActive ? [s.sideBarItem, s.active].join(' ') : s.sideBarItem
       }
     >
-      {props.name}
+      {props.label}
     </NavLink>
   );
 };
-
-export default SidebarItem;

@@ -1,18 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import s from './NavbarItem.module.less';
+import { SubNavLink } from '@/utils';
 
-type Item = {
-  url: string;
-  label: string;
-  withDot?: boolean;
-};
-
-const NavbarItem: React.FC<Item> = (props) => {
+export const NavbarItem: React.FC<SubNavLink> = (props) => {
   return (
     <>
       <NavLink
         to={props.url}
+        end
         className={({ isActive }) =>
           isActive ? [s.navbarItem, s.active].join(' ') : s.navbarItem
         }
@@ -23,5 +19,3 @@ const NavbarItem: React.FC<Item> = (props) => {
     </>
   );
 };
-
-export default NavbarItem;

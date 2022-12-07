@@ -1,19 +1,19 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { SidebarSmall, SidebarBig } from './SidebarVariants';
 
 const links = [
-  { name: 'Strona Główna', url: '/home' },
-  { name: 'Przeliczone puszki', url: '/count' },
-  { name: 'Administracja', url: '/admin' },
-  { name: 'Puszki', url: '/box' },
+  { label: 'Strona Główna', url: '/' },
+  { label: 'Przeliczone puszki', url: '/countedBoxes' },
+  { label: 'Administracja', url: '/admin' },
+  { label: 'Puszki', url: '/boxes' },
 ];
 
 interface Props {
   isLoggedIn: boolean;
 }
 
-export const Sidebar: FC<Props> = ({ isLoggedIn }) => {
-  const userName = 'superadmin';
+const userName = 'superadmin';
 
+export const Sidebar: FC<Props> = ({ isLoggedIn }) => {
   return isLoggedIn ? <SidebarBig links={links} userName={userName} /> : <SidebarSmall />;
 };

@@ -2,13 +2,18 @@ import { RouteObject } from 'react-router-dom';
 import { GiveBoxPage, SettleBoxPage } from '../../pages/boxes';
 import { InnerLayout } from '../../components';
 
+const giveBoxPagePath = '/boxes/give';
+const settleBoxPagePath = '/boxes/settle';
+const allBoxesPagePath = '/boxes';
+const unsettledBoxesPagePath = '/boxes/unsettled';
+
 const boxesSubroutes: RouteObject[] = [
   {
-    path: '/boxes/give',
+    path: giveBoxPagePath,
     element: <GiveBoxPage />,
   },
   {
-    path: '/boxes/settle',
+    path: settleBoxPagePath,
     element: <SettleBoxPage />,
   },
   {
@@ -16,7 +21,7 @@ const boxesSubroutes: RouteObject[] = [
     element: <SettleBoxPage />,
   },
   {
-    path: '/boxes/unsettled',
+    path: unsettledBoxesPagePath,
     element: <SettleBoxPage />,
   },
 ];
@@ -26,10 +31,10 @@ export const boxesRoute = {
   element: (
     <InnerLayout
       links={[
-        { url: '/boxes/give', label: 'Wydaj puszkę' },
-        { url: '/boxes/settle', label: 'Rozlicz puszkę' },
-        { url: '/boxes', label: 'Wszystkie puszki' },
-        { url: '/boxes/unsettled', label: 'Lista puszek nie rozliczonych' },
+        { url: giveBoxPagePath, label: 'Wydaj puszkę' },
+        { url: settleBoxPagePath, label: 'Rozlicz puszkę' },
+        { url: allBoxesPagePath, label: 'Wszystkie puszki' },
+        { url: unsettledBoxesPagePath, label: 'Lista puszek nie rozliczonych' },
       ]}
     />
   ),

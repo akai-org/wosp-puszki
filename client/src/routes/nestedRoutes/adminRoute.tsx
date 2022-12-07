@@ -8,9 +8,15 @@ import {
 } from '../../pages/admin';
 import { InnerLayout } from '../../components';
 
+const addUserPagePath = 'users/add';
+const listUsersPagePath = '/admin';
+const listVolunteersPagePath = 'volunteers/list';
+const addVolunteerPagePath = 'volunteers/add';
+const logsPagePath = 'logs';
+
 const adminSubroutes: RouteObject[] = [
   {
-    path: 'users/add',
+    path: addUserPagePath,
     element: <AddUserPage />,
   },
   {
@@ -18,15 +24,15 @@ const adminSubroutes: RouteObject[] = [
     element: <ListUsersPage />,
   },
   {
-    path: 'volunteers/list',
+    path: listVolunteersPagePath,
     element: <ListVolunteersPage />,
   },
   {
-    path: 'volunteers/add',
+    path: addVolunteerPagePath,
     element: <AddVolunteerPage />,
   },
   {
-    path: 'logs',
+    path: logsPagePath,
     element: <LogsPage />,
   },
 ];
@@ -36,11 +42,11 @@ export const adminRoute = {
   element: (
     <InnerLayout
       links={[
-        { url: 'users/add', label: 'Dodaj użytkownika' },
-        { url: '/admin', label: 'Lista użytkowników', withDot: true },
-        { url: 'volunteers/add', label: 'Dodaj wolontariusza' },
-        { url: 'volunteers/list', label: 'Lista użytkowników', withDot: true },
-        { url: 'logs', label: 'Logi' },
+        { url: addUserPagePath, label: 'Dodaj użytkownika' },
+        { url: listUsersPagePath, label: 'Lista użytkowników', withDot: true },
+        { url: listVolunteersPagePath, label: 'Dodaj wolontariusza' },
+        { url: addVolunteerPagePath, label: 'Lista wolontariuszy', withDot: true },
+        { url: logsPagePath, label: 'Logi' },
       ]}
     />
   ),
