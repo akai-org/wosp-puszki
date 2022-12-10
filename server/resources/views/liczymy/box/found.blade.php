@@ -17,11 +17,11 @@
         <tbody>
             <tr>
                 <td>Wolontariusz</td>
-                <td>{{ $collector->firstName }} {{ $collector->lastName }}</td>
+                <td>{{ $box->collector->firstName }} {{ $box->collector->lastName }}</td>
             </tr>
             <tr>
                 <td>Numer identyfikatora i na puszce</td>
-                <td>{{ $collector->identifier }}</td>
+                <td>{{ $box->collector->identifier }}</td>
             </tr>
             @if(Auth::user()->hasAnyRole(['admin', 'superadmin']))
                 <tr>

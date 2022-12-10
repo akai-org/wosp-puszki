@@ -38,6 +38,14 @@ class CharityBox extends Model
         return ' (ID puszki w bazie: ' . $this->id . ')';
     }
 
+    public function scopeNotCounted(Builder $query): Builder
+    {
+        return $query
+            ->where('is_given_to_collector', '=', true)
+            ->where('is_counted', '=', false)
+            ->where('is_confirmed', '=', false);
+    }
+
     public function scopeUnconfirmed(Builder $query): Builder
     {
         return $query
