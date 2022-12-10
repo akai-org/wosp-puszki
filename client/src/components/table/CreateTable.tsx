@@ -226,6 +226,7 @@ export const CreateTable = ({ data, columnsOptions }: TableProps) => {
     <Space>
       <Table
         size="small"
+        bordered={true}
         columns={columns}
         pagination={false}
         dataSource={data}
