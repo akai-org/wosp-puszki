@@ -4,21 +4,15 @@ namespace App\Http\Controllers;
 
 use App\BoxEvent;
 use App\CharityBox;
-use App\Collector;
 use App\Events\BoxConfirmed;
-use App\Lib\BoxOperations\BoxAdding;
-use App\Lib\BoxOperations\BoxOperationResult;
 use App\Lib\BoxOperator\BoxOperator;
 use Auth;
 use Illuminate\Http\Request;
 use Money\Money;
 use Money\Currencies\ISOCurrencies;
-use Money\Currency;
 use Money\Formatter\DecimalMoneyFormatter;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Validator;
-use PHPUnit\Exception;
 
 class CharityBoxController extends Controller
 {
@@ -36,12 +30,16 @@ class CharityBoxController extends Controller
 
     //Dodaj nową puszkę
     public function postCreate(Request $request){
-        $boxAdding = new BoxAdding($request->input('collectorIdentifier'), $request->user()->id);
-        $boxAdding->proceed();
-        if ($boxAdding->result()->kind() == BoxOperationResult::KIND_ERROR) {
-            $request->flash();
+        $bo = new BoxOperator($request->user()->id);
+
+        try {
+            $box = $bo->giveByCollectorIdentifier($request->input('collectorIdentifier'));
+        } catch (\Exception $e) {
+            return redirect()->route('liczymy.box.create')
+                ->with('error', $e->getMessage());
         }
-        return view('liczymy.box.create')->with($boxAdding->result()->kind(), $boxAdding->result()->message());
+
+        return view('liczymy.box.create')->with('success', 'Wydano puszkę wolontariuszowi ' . $box->collector->display . $box->display_id);
     }
 
     //Znajdź puszkę (formularz)

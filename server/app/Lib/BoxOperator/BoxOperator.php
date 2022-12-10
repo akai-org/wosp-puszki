@@ -5,6 +5,7 @@ namespace App\Lib\BoxOperator;
 use App\BoxEvent;
 use App\CharityBox;
 use App\Collector;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -15,6 +16,28 @@ class BoxOperator {
         $this->operatingUserId = $operatingUserId;
     }
 
+    public function giveByCollectorIdentifier(string $identifier): CharityBox {
+        $collector = Collector::where('identifier', '=', $identifier)->first();
+
+        $box = new CharityBox();
+        $box->collectorIdentifier = $collector->identifier;
+        $box->collector_id = $collector->id;
+        $box->is_given_to_collector = true;
+        $box->given_to_collector_user_id = $this->operatingUserId;
+        $box->time_given = Carbon::now();
+        $box->save();
+
+        $box = $box->fresh()->load('collector');
+
+        $event = new BoxEvent();
+        $event->type = 'give';
+        $event->box_id = $box->id;
+        $event->user_id = $this->operatingUserId;
+        $event->comment = 'Collector: ' . $collector->display;
+        $event->save();
+
+        return $box;
+    }
 
     /**
      * @throws ValidationException

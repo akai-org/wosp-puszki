@@ -161,9 +161,58 @@ Wydanie puszki polega na wpisaniu numeru wolontariusza i kliknięciu "Wydaj pusz
 
 UWAGA: `id` puszki jesy używane tylko wewnętrznie, do wyświetlania używamy `identifier` wolontariusza.
 
-Operacja API:
+Operacja API: `POST /api/collectors/{collectorIdentifier}/boxes`
 
-Możliwe błędy:
+Przykładowa zwrotka:
+```json
+{
+    "id": 1,
+    "collectorIdentifier": "774",
+    "collector_id": 182,
+    "is_given_to_collector": true,
+    "given_to_collector_user_id": 1,
+    "time_given": "2022-02-25 19:55:29",
+    "is_counted": 0,
+    "counting_user_id": null,
+    "time_counted": null,
+    "is_confirmed": 0,
+    "user_confirmed_id": null,
+    "time_confirmed": null,
+    "count_1gr": 0,
+    "count_2gr": 0,
+    "count_5gr": 0,
+    "count_10gr": 0,
+    "count_20gr": 0,
+    "count_50gr": 0,
+    "count_1zl": 0,
+    "count_2zl": 0,
+    "count_5zl": 0,
+    "count_10zl": 0,
+    "count_20zl": 0,
+    "count_50zl": 0,
+    "count_100zl": 0,
+    "count_200zl": 0,
+    "count_500zl": 0,
+    "amount_PLN": "0.00",
+    "amount_EUR": "0.00",
+    "amount_USD": "0.00",
+    "amount_GBP": "0.00",
+    "comment": "",
+    "created_at": "2022-02-25T18:59:07.000000Z",
+    "updated_at": "2022-02-25T18:59:07.000000Z",
+    "is_special_box": 0,
+    "collector": {
+        "id": 182,
+        "identifier": "774",
+        "firstName": "Błażej",
+        "lastName": "Górecka",
+        "created_at": "2022-02-25T18:59:06.000000Z",
+        "updated_at": "2022-02-25T18:59:06.000000Z"
+    }
+}
+```
+
+Możliwe błędy: `TODO`
 
 Puszka może być wydana wielokrotnie w ciągu dnia (np. wolontariusz ją zapełnił, ale idzie dalej zbierać),
 albo wielokrotnie na początku dnia, np. zbiórka stacjonarna skłąda się z 10 puszek, więc operacja wydawania jest
@@ -183,13 +232,13 @@ Po kolei:
 ##### Puszka jest znajdowana w systemie poprzez identyfikator wolontariusza
 Endpoint: `api/collectors/{collectorIdentifier}/boxes/latestUncounted`
 
-przykładowa zwrotka:
+Przykładowa zwrotka:
 ```json
 {
     "id": 1,
     "collectorIdentifier": "774",
     "collector_id": 182,
-    "is_given_to_collector": 1,
+    "is_given_to_collector": true,
     "given_to_collector_user_id": 1,
     "time_given": "2022-02-25 19:55:29",
     "is_counted": 0,

@@ -25,10 +25,10 @@ test('as a collectorcoordinator I can find a box through API', function () {
 
     $response->assertJson(
         [
-            "id" => 1,
+            "id" => $this->box->id,
             "collectorIdentifier" => $this->collector->identifier,
             "collector_id" => $this->collector->id,
-            "is_given_to_collector" => 1,
+            "is_given_to_collector" => true,
             "given_to_collector_user_id" => $this->box->given_to_collector_user_id,
             "time_given" => $this->box->time_given,
             "is_counted" => 0,

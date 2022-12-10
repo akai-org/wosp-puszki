@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Builder;
 
 class CharityBox extends Model
 {
-    /**
-     * Get the post that owns the comment.
-     */
+    protected $casts = [
+        'is_given_to_collector' => 'boolean',
+    ];
+
     public function collector()
     {
         return $this->belongsTo('App\Collector');
