@@ -45,11 +45,26 @@ Route::group(['middleware' => ['auth:sanctum', 'collectorcoordinator']], functio
         $bo = new BoxOperator($request->user()->id);
 
         try {
-            $box = $bo->findByCollectorIdentifier($collectorIdentifier);
+            $box = $bo->findLatestUncountedByCollectorIdentifier($collectorIdentifier);
         } catch (\Exception $e) {
             return Response::json('', 404);
         }
 
         return Response::json($box, 200);
     });
+
+    Route::post('/boxes/{boxID}/startCounting', function(Request $request, string $boxID) {
+        $bo = new BoxOperator($request->user()->id);
+
+        try {
+            $box = $bo->startCountByBoxID($boxID);
+        } catch (\Exception $e) {
+            return Response::json([
+                'error' => $e->getMessage()
+            ], 400);
+        }
+
+        return Response::json($box, 200);
+    });
+
 });

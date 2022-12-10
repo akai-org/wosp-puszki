@@ -52,7 +52,7 @@ class CharityBoxController extends Controller
         $bo = new BoxOperator($request->user()->id);
 
         try {
-            $box = $bo->findByCollectorIdentifier($request->input('collectorIdentifier'));
+            $box = $bo->findLatestUncountedByCollectorIdentifier($request->input('collectorIdentifier'));
         } catch (\Exception $e) {
             return redirect()->route('box.find')
                 ->with('error', 'Wszystkie puszki wolontariusza są rozliczone.');
@@ -63,25 +63,16 @@ class CharityBoxController extends Controller
 
     //Rozlicz puszkę (formularz)
     public function getCount(Request $request, $boxID){
-        //Sprawdź czy nie jest rozliczona
-        $box = CharityBox::where('id', '=', $boxID)->first();
+        $bo = new BoxOperator($request->user()->id);
 
-        Log::info(Auth::user()->name . " rozpoczął/ęła rozliczanie puszki : " . $box->id .
-            "/" . $box->collectorIdentifier);
-
-        if(!$box->isCounted) {
-            $event = new BoxEvent();
-            $event->type = 'startedCounting';
-            $event->box_id = $box->id;
-            $event->user_id = $request->user()->id;
-            $event->comment = 'Collector: ' . $box->collector->display;
-            $event->save();
-
-            return view('liczymy.box.count')->with('box', $box);
-        } else {
+        try {
+            $box = $bo->startCountByBoxID($boxID);
+        } catch (\Exception $e) {
             return redirect()->route('box.find')
-                ->with('error', 'Puszka została już rozliczona, numer puszki: ' . $box->id . 'Wolontariusz: '. $box->collectorIdentifier);
+                ->with('error', $e->getMessage());
         }
+
+        return view('liczymy.box.count')->with('box', $box);
     }
 
     //Weryfikator przysłanych puszek

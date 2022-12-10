@@ -223,7 +223,7 @@ wykonywana 10 razy.
 Po powrocie z kwesty wolontariusz siada do stanowiska rozliczeniowego.
 Po kolei:
 1. Puszka jest znajdowana w systemie poprzez identyfikator wolontariusza - `api/collectors/{collectorIdentifier}/boxes/latestUncounted`
-2. Potwierdzane są dane i sygnalizowane jest rozpoczęcie liczenia - `TODO endpoint`
+2. Potwierdzane są dane i sygnalizowane jest rozpoczęcie liczenia - `/boxes/{boxID}/startCounting`
 3. Wysyłane są dane dot. zawartości puszki - `TODO endpoint`
 4. Pokazywany jest ekran potwierdzenia, i po zatwierdzeniu wysyłane kolejne potwierdzenie - `TODO endpoint`
 5. Wolontariusz udaje się do koordynatora rozliczenia.
@@ -280,3 +280,11 @@ Przykładowa zwrotka:
     }
 }
 ```
+
+##### Potwierdzane są dane i sygnalizowane jest rozpoczęcie liczenia
+Endpoint: `POST /boxes/{boxID}/startCounting`
+
+Zwrotką jest box jak przy found.
+
+##### Wysyłane są dane dot. zawartości puszki
+Endpoint: `POST`

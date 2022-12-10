@@ -42,7 +42,7 @@ class BoxOperator {
     /**
      * @throws ValidationException
      */
-    public function findByCollectorIdentifier(string $identifier): CharityBox {
+    public function findLatestUncountedByCollectorIdentifier(string $identifier): CharityBox {
         //Wyszukujemy użytkownika
         //Podajemy dane do sprawdzenia
         Validator::make(['identifier' => $identifier], [
@@ -70,4 +70,28 @@ class BoxOperator {
 
         return $boxes[0]->load('collector');
     }
+
+    public function startCountByBoxID(int $boxID) : CharityBox {
+        $box = CharityBox::where('id', '=', $boxID)->first();
+
+        if($box->isCounted) {
+            throw new \Exception('Puszka została już rozliczona, numer puszki: ' . $box->id . 'Wolontariusz: '.
+                $box->collectorIdentifier);
+        }
+
+        $event = new BoxEvent();
+        $event->type = 'startedCounting';
+        $event->box_id = $box->id;
+        $event->user_id = $this->operatingUserId;
+        $event->comment = 'Collector: ' . $box->collector->display;
+        $event->save();
+
+        return $box;
+    }
+
+
+    protected function validateBox() {
+
+    }
+
 }
