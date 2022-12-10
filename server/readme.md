@@ -147,3 +147,86 @@ Aby okresowe pobieranie działało, należy stworzyć zadanie cron:
 * * * * * cd /wosp-puszki && php artisan schedule:run >> /dev/null 2>&1
 ```
 (więcej informacji: https://laravel.com/docs/9.x/scheduling#running-the-scheduler)
+
+
+### API
+
+API umożliwia wydanie i rozliczenie puszki. Pozostałe funkcjonalności są w trakcie tworzenia.
+
+#### Wydanie puszki
+Na początku finału wolontariusz zgłasza się do sztabu, gdzie jest mu wydawana puszka z identyfikatorem.
+
+Wydanie puszki polega na wpisaniu numeru wolontariusza i kliknięciu "Wydaj puszkę".
+
+UWAGA: `id` puszki jesy używane tylko wewnętrznie, do wyświetlania używamy `identifier` wolontariusza.
+
+Operacja API:
+
+Możliwe błędy:
+
+Puszka może być wydana wielokrotnie w ciągu dnia (np. wolontariusz ją zapełnił, ale idzie dalej zbierać),
+albo wielokrotnie na początku dnia, np. zbiórka stacjonarna skłąda się z 10 puszek, więc operacja wydawania jest
+wykonywana 10 razy.
+
+#### Rozliczenie puszki po zbieraniu
+
+Po powrocie z kwesty wolontariusz siada do stanowiska rozliczeniowego.
+Po kolei:
+1. Puszka jest znajdowana w systemie poprzez identyfikator wolontariusza - `api/collectors/{collectorIdentifier}/boxes/latestUncounted`
+2. Potwierdzane są dane i sygnalizowane jest rozpoczęcie liczenia - `TODO endpoint`
+3. Wysyłane są dane dot. zawartości puszki - `TODO endpoint`
+4. Pokazywany jest ekran potwierdzenia, i po zatwierdzeniu wysyłane kolejne potwierdzenie - `TODO endpoint`
+5. Wolontariusz udaje się do koordynatora rozliczenia.
+6. Ten wypisuje dokumenty i ostatecznie satwierdza puszkę w systemie - `TODO endpoint`
+
+##### Puszka jest znajdowana w systemie poprzez identyfikator wolontariusza
+Endpoint: `api/collectors/{collectorIdentifier}/boxes/latestUncounted`
+
+przykładowa zwrotka:
+```json
+{
+    "id": 1,
+    "collectorIdentifier": "774",
+    "collector_id": 182,
+    "is_given_to_collector": 1,
+    "given_to_collector_user_id": 1,
+    "time_given": "2022-02-25 19:55:29",
+    "is_counted": 0,
+    "counting_user_id": null,
+    "time_counted": null,
+    "is_confirmed": 0,
+    "user_confirmed_id": null,
+    "time_confirmed": null,
+    "count_1gr": 0,
+    "count_2gr": 0,
+    "count_5gr": 0,
+    "count_10gr": 0,
+    "count_20gr": 0,
+    "count_50gr": 0,
+    "count_1zl": 0,
+    "count_2zl": 0,
+    "count_5zl": 0,
+    "count_10zl": 0,
+    "count_20zl": 0,
+    "count_50zl": 0,
+    "count_100zl": 0,
+    "count_200zl": 0,
+    "count_500zl": 0,
+    "amount_PLN": "0.00",
+    "amount_EUR": "0.00",
+    "amount_USD": "0.00",
+    "amount_GBP": "0.00",
+    "comment": "Puszka nr 0",
+    "created_at": "2022-02-25T18:59:07.000000Z",
+    "updated_at": "2022-02-25T18:59:07.000000Z",
+    "is_special_box": 0,
+    "collector": {
+        "id": 182,
+        "identifier": "774",
+        "firstName": "Błażej",
+        "lastName": "Górecka",
+        "created_at": "2022-02-25T18:59:06.000000Z",
+        "updated_at": "2022-02-25T18:59:06.000000Z"
+    }
+}
+```
