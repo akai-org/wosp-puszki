@@ -18,6 +18,7 @@
         "nesbot/carbon": "2.*",
         "nunomaduro/collision": "^6.1",
         "pusher/pusher-php-server": "~5.0",
+        "spatie/laravel-backup": "^8.1",
         "spatie/laravel-ignition": "^1.0",
         "symfony/panther": "^2.0"
     },
