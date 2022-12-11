@@ -29,7 +29,7 @@ export interface TableColumns {
 }
 
 // gdy będą jakieś dane z backendu to podmienić na odpowiedni typ
-export interface DataType {
+export type DataType = {
   id: string;
   name: string;
   amount_EUR: number;
@@ -39,4 +39,4 @@ export interface DataType {
   more: string;
   position: string;
   time_counted: string;
-}
+};
