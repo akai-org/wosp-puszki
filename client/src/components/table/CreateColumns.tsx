@@ -10,7 +10,7 @@ import type { TableColumns } from '@/utils';
 import React from 'react';
 import Highlighter from 'react-highlight-words';
 
-export function CreateColumns<DataType>(
+export function CreateColumns<DataType extends Record<string, string | number>>(
   columnsOptions: TableColumns[],
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _data: DataType[],
