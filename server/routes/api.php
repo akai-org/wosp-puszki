@@ -67,4 +67,33 @@ Route::group(['middleware' => ['auth:sanctum', 'collectorcoordinator']], functio
         return Response::json($box, 200);
     });
 
+    Route::post('/boxes/{boxID}', function(Request $request, string $boxID) {
+        $bo = new BoxOperator($request->user()->id);
+
+        try {
+            $box = $bo->updateBoxByBoxID($boxID, $request);
+        } catch (\Exception $e) {
+            return Response::json([
+                'error' => $e->getMessage()
+            ], 400);
+        }
+
+        return Response::json($box, 200);
+    });
+
+    Route::post('/boxes/{boxID}/finishCounting', function(Request $request, string $boxID) {
+        $bo = new BoxOperator($request->user()->id);
+
+        try {
+            $box = $bo->confirmBoxByBoxID($boxID);
+        } catch (\Exception $e) {
+            return Response::json([
+                'error' => $e->getMessage()
+            ], 400);
+        }
+
+        return Response::json($box, 200);
+    });
+
+
 });

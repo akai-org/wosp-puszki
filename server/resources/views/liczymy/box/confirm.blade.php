@@ -18,15 +18,15 @@
 @endsection
 
 @section('content')
-    <form class="form-horizontal" method="POST" action="{{ route('box.count.confirm', ['boxID' => $data['boxID']]) }}">
+    <form class="form-horizontal" method="POST" action="{{ route('box.count.confirm', ['boxID' => $box->id]) }}">
         <fieldset>
 
         {{ csrf_field() }}
 
         <!-- Form Name -->
-            <legend>Potwierdzenie rozliczenia puszki wolontariusza {{ $data['collectorIdentifier'] }}
+            <legend>Potwierdzenie rozliczenia puszki wolontariusza {{ $box->collectorIdentifier }}
                 @if(Auth::user()->hasAnyRole(['admin', 'superadmin']))
-                    (ID puszki w bazie: {{ $data["boxID"] }})
+                    (ID puszki w bazie: {{ $box->id }})
                 @endif
             </legend>
 
@@ -53,10 +53,10 @@
                         </td>
                         <td>
                             {{-- Ilości monet --}}
-                            {{ $data["count_1gr"] }}
+                            {{ $box->count_1gr }}
                         </td>
                         <td>
-                            <span id="1gr" class="sum">{{ $data["count_1gr"]*0.01 }}</span> zł
+                            <span id="1gr" class="sum">{{ $box->count_1gr*0.01 }}</span> zł
                         </td>
                     </tr>
                     <tr>
@@ -64,10 +64,10 @@
                             2gr
                         </td>
                         <td>
-                            {{ $data["count_2gr"] }}
+                            {{ $box->count_2gr }}
                         </td>
                         <td>
-                            <span id="2gr" class="sum">{{ $data["count_2gr"] * 0.02 }}</span> zł
+                            <span id="2gr" class="sum">{{ $box->count_2gr * 0.02 }}</span> zł
                         </td>
                     </tr>
                     <tr>
@@ -75,10 +75,10 @@
                             5gr
                         </td>
                         <td>
-                            {{ $data["count_5gr"] }}
+                            {{ $box->count_5gr }}
                         </td>
                         <td>
-                            <span id="5gr" class="sum">{{ $data["count_5gr"] * 0.05 }}</span> zł
+                            <span id="5gr" class="sum">{{ $box->count_5gr * 0.05 }}</span> zł
                         </td>
                     </tr>
                     <tr>
@@ -86,10 +86,10 @@
                             10gr
                         </td>
                         <td>
-                            {{ $data["count_10gr"] }}
+                            {{ $box->count_10gr }}
                         </td>
                         <td>
-                            <span id="10gr" class="sum">{{ $data["count_10gr"] * 0.1 }}</span> zł
+                            <span id="10gr" class="sum">{{ $box->count_10gr * 0.1 }}</span> zł
                         </td>
                     </tr>
                     <tr>
@@ -97,10 +97,10 @@
                             20gr
                         </td>
                         <td>
-                            {{ $data["count_20gr"] }}
+                            {{ $box->count_20gr }}
                         </td>
                         <td>
-                            <span id="20gr" class="sum">{{ $data["count_20gr"] * 0.2 }}</span> zł
+                            <span id="20gr" class="sum">{{ $box->count_20gr * 0.2 }}</span> zł
                         </td>
                     </tr>
                     <tr>
@@ -108,10 +108,10 @@
                             50gr
                         </td>
                         <td>
-                            {{ $data["count_50gr"] }}
+                            {{ $box->count_50gr }}
                         </td>
                         <td>
-                            <span id="50gr" class="sum">{{ $data["count_50gr"] * 0.5 }}</span> zł
+                            <span id="50gr" class="sum">{{ $box->count_50gr * 0.5 }}</span> zł
                         </td>
                     </tr>
                     <tr>
@@ -119,10 +119,10 @@
                             1zł
                         </td>
                         <td>
-                            {{ $data["count_1zl"] }}
+                            {{ $box->count_1zl }}
                         </td>
                         <td>
-                            <span id="1zl" class="sum">{{ $data["count_1zl"] * 1 }}</span> zł
+                            <span id="1zl" class="sum">{{ $box->count_1zl * 1 }}</span> zł
                         </td>
                     </tr>
                     <tr>
@@ -130,10 +130,10 @@
                             2zł
                         </td>
                         <td>
-                            {{ $data["count_2zl"] }}
+                            {{ $box->count_2zl }}
                         </td>
                         <td>
-                            <span id="2zl" class="sum">{{ $data["count_2zl"] * 2}}</span> zł
+                            <span id="2zl" class="sum">{{ $box->count_2zl * 2}}</span> zł
                         </td>
                     </tr>
                     <tr>
@@ -141,10 +141,10 @@
                             5zł
                         </td>
                         <td>
-                            {{ $data["count_5zl"] }}
+                            {{ $box->count_5zl }}
                         </td>
                         <td>
-                            <span id="5zl" class="sum">{{ $data["count_5zl"] * 5 }}</span> zł
+                            <span id="5zl" class="sum">{{ $box->count_5zl * 5 }}</span> zł
                         </td>
                     </tr>
                     {{-- Bamknoty --}}
@@ -153,9 +153,9 @@
                             10zł
                         </td>
                         <td>
-                            {{ $data["count_10zl"] }}
+                            {{ $box->count_10zl }}
                         <td>
-                            <span id="10zl" class="sum">{{ $data["count_10zl"] * 10 }}</span> zł
+                            <span id="10zl" class="sum">{{ $box->count_10zl * 10 }}</span> zł
                         </td>
                     </tr>
                     <tr>
@@ -163,9 +163,9 @@
                             20zł
                         </td>
                         <td>
-                            {{ $data["count_20zl"] }}
+                            {{ $box->count_20zl }}
                         <td>
-                            <span id="20zl" class="sum">{{ $data["count_20zl"] * 20 }}</span> zł
+                            <span id="20zl" class="sum">{{ $box->count_20zl * 20 }}</span> zł
                         </td>
                     </tr>
                     <tr>
@@ -173,10 +173,10 @@
                             50zł
                         </td>
                         <td>
-                            {{ $data["count_50zl"] }}
+                            {{ $box->count_50zl }}
                         </td>
                         <td>
-                            <span id="50zl" class="sum">{{ $data["count_50zl"] * 50 }}</span> zł
+                            <span id="50zl" class="sum">{{ $box->count_50zl * 50 }}</span> zł
                         </td>
                     </tr>
                     <tr>
@@ -184,10 +184,10 @@
                             100zł
                         </td>
                         <td>
-                            {{ $data["count_100zl"] }}
+                            {{ $box->count_100zl }}
                         </td>
                         <td>
-                            <span id="100zl" class="sum">{{ $data["count_100zl"] * 100 }}</span> zł
+                            <span id="100zl" class="sum">{{ $box->count_100zl * 100 }}</span> zł
                         </td>
                     </tr>
                     <tr>
@@ -195,10 +195,10 @@
                             200zł
                         </td>
                         <td>
-                            {{ $data["count_200zl"] }}
+                            {{ $box->count_200zl }}
                         </td>
                         <td>
-                            <span id="200zl" class="sum">{{ $data["count_200zl"] * 200 }}</span> zł
+                            <span id="200zl" class="sum">{{ $box->count_200zl * 200 }}</span> zł
                         </td>
                     </tr>
                     <tr>
@@ -206,10 +206,10 @@
                             500zł
                         </td>
                         <td>
-                            {{ $data["count_500zl"] }}
+                            {{ $box->count_500zl }}
                         </td>
                         <td>
-                            <span id="500zl" class="sum">{{ $data["count_500zl"] * 500 }}</span> zł
+                            <span id="500zl" class="sum">{{ $box->count_500zl * 500 }}</span> zł
                         </td>
                     </tr>
                     <tr class="total">
@@ -219,7 +219,7 @@
                         <td>
                         </td>
                         <td>
-                            <span class="total"><span id="total">{{ $data["amount_PLN"] }}</span> zł</span>
+                            <span class="total"><span id="total">{{ $box->amount_PLN }}</span> zł</span>
                         </td>
                     </tr>
                     </tbody>
@@ -246,7 +246,7 @@
                             Euro (EUR)
                         </td>
                         <td>
-                            <span>{{ $data["amount_EUR"] }}€ (EUR)</span>
+                            <span>{{ $box->amount_EUR }}€ (EUR)</span>
                         </td>
                     </tr>
                     <tr>
@@ -255,7 +255,7 @@
                             Funt brytyjski (GBP)
                         </td>
                         <td>
-                            <span>{{ $data["amount_GBP"] }}£ (GBP)</span>
+                            <span>{{ $box->amount_GBP }}£ (GBP)</span>
                         </td>
                     </tr>
                     <tr>
@@ -264,7 +264,7 @@
                             Dolar amerykański (USD)
                         </td>
                         <td>
-                            <span>{{ $data["amount_USD"] }}$ (USD)</span>
+                            <span>{{ $box->amount_USD }}$ (USD)</span>
                         </td>
                     </tr>
                     <tr>
@@ -273,7 +273,7 @@
                             Inne
                         </td>
                         <td>
-                            {{ $data["comment"] }}
+                            {{ $box->comment }}
                         </td>
                     </tr>
                     <tr>
@@ -303,7 +303,7 @@
 
             <div class="col-md-6">
                 <div class="total-big">
-                    Suma (bez walut obcych): {{ $data["amount_PLN"] }} zł
+                    Suma (bez walut obcych): {{ $box->amount_PLN }} zł
                 </div>
             </div>
         </fieldset>
