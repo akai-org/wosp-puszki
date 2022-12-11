@@ -17,6 +17,7 @@ export interface IdNumber {
 interface actions {
   title: string;
   link: string;
+  color?: string;
 }
 
 export interface TableColumns {
@@ -29,9 +30,13 @@ export interface TableColumns {
 
 // gdy będą jakieś dane z backendu to podmienić na odpowiedni typ
 export interface DataType {
-  key: string;
+  id: string;
   name: string;
-  age: number;
-  address: string;
-  date: string;
+  amount_EUR: number;
+  amount_GBP: number;
+  amount_USD: number;
+  amount_PLN: number;
+  more: string;
+  position: string;
+  time_counted: string;
 }

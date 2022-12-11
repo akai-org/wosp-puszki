@@ -1,63 +1,92 @@
-import { CreateTable } from '@components/table/CreateTable';
-import { Typography, Space, Layout } from 'antd';
-import { useState, useEffect } from 'react';
+import { Typography, Space, Layout, Table } from 'antd';
+import { useEffect } from 'react';
 
 import type { TableColumns, DataType } from '@/utils';
 
-import s from './BoxesApprovedPage.module.css';
+import { CreateColumns } from '@components/table/CreateColumns';
+
+import s from './BoxesApprovedPage.module.less';
 
 const { Title } = Typography;
 const { Content } = Layout;
 
 export const BoxesApprovedPage = () => {
-  const [data] = useState<DataType[]>([
-    {
-      key: '1',
-      name: 'C John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-      date: '2021-01-01',
-    },
-    {
-      key: '2',
-      name: 'A Jim Green',
-      age: 42,
-      address: 'London No. 2 Lake Park',
-      date: '2022-01-01',
-    },
-    {
-      key: '3',
-      name: 'B Jim Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park',
-      date: '2012-01-01',
-    },
-  ]);
+  const data: DataType[] = [];
+  for (let i = 0; i < 5; i++) {
+    data.push(
+      {
+        id: '1',
+        name: 'C John Brown',
+        amount_EUR: 2.41,
+        amount_GBP: 1.61,
+        amount_USD: 7.91,
+        amount_PLN: 1004,
+        more: 'Puszka nr. 13',
+        position: 'Stanowisko 1',
+        time_counted: '2023-02-01',
+      },
+      {
+        id: '2',
+        name: 'C John Brown',
+        amount_EUR: 2.41,
+        amount_GBP: 1.61,
+        amount_USD: 7.91,
+        amount_PLN: 1004,
+        more: 'Puszka nr. 13',
+        position: 'Stanowisko 1',
+        time_counted: '2023-02-01',
+      },
+    );
+  }
 
   const columnsOptions: TableColumns[] = [
     {
-      titleName: 'Name',
+      titleName: 'ID',
+      keyName: 'id',
+      sortType: 'string',
+      search: true,
+    },
+    {
+      titleName: 'Wolontariusz',
       keyName: 'name',
       sortType: 'string',
       search: true,
     },
     {
-      titleName: 'Age',
-      keyName: 'age',
+      titleName: 'EUR',
+      keyName: 'amount_EUR',
       sortType: 'number',
-      search: false,
     },
     {
-      titleName: 'Address',
-      keyName: 'address',
+      titleName: 'GBP',
+      keyName: 'amount_GBP',
+      sortType: 'number',
+    },
+    {
+      titleName: 'USD',
+      keyName: 'amount_USD',
+      sortType: 'number',
+    },
+    {
+      titleName: 'PLN',
+      keyName: 'amount_PLN',
+      sortType: 'number',
+    },
+    {
+      titleName: 'Inne',
+      keyName: 'more',
+      search: true,
+    },
+    {
+      titleName: 'Stanowisko',
+      keyName: 'position',
+      search: true,
       sortType: 'string',
-      search: true,
     },
     {
-      titleName: 'Date',
-      keyName: 'date',
+      titleName: 'Godzina przeliczenia',
+      keyName: 'time_counted',
       sortType: 'date',
-      search: true,
     },
     {
       titleName: 'Actions',
@@ -65,15 +94,19 @@ export const BoxesApprovedPage = () => {
       actions: [
         {
           title: 'Edit',
-          link: '/countedBoxes/boxesApproved/edit/',
+          link: '/countedBoxes/boxesApproved/approve/',
+          color: 'red',
         },
         {
-          title: 'Delete',
-          link: '/countedBoxes/boxesApproved/delete/',
+          title: 'Show',
+          link: '/countedBoxes/boxesApproved/show/',
+          color: 'blue',
         },
       ],
     },
   ];
+
+  const columns = CreateColumns(columnsOptions, data);
 
   useEffect(() => {
     //fetching data here
@@ -83,8 +116,16 @@ export const BoxesApprovedPage = () => {
     <Layout>
       <Content className={s.content}>
         <Space direction="vertical" size="small" className={s.space}>
-          <Title level={2}>Zatwierdzone</Title>
-          <CreateTable data={data} columnsOptions={columnsOptions} />
+          <Title level={2}>Do zatwierdzenia</Title>
+          <Table
+            size="small"
+            bordered={true}
+            columns={columns}
+            pagination={false}
+            dataSource={data}
+            tableLayout="fixed"
+            scroll={{ y: '65vh' }}
+          />
         </Space>
       </Content>
     </Layout>
