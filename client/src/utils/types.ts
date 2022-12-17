@@ -14,23 +14,32 @@ export interface IdNumber {
   idNumber: string;
 }
 
-interface actions {
-  title: string;
-  link: string;
-  color?: string;
-}
-
 export interface TableColumns {
   titleName: string;
   keyName: string;
   sortType?: 'number' | 'string' | 'date';
   search?: boolean;
-  actions?: actions[];
+  actions?: {
+    title: string;
+    link: string;
+    color?: string;
+  }[];
+  fixed?: 'left' | 'right';
+  width?: number;
+  beforeText?: string;
+  afterText?: string;
+  status?: {
+    key: string;
+    options: {
+      on: { value: string | number | boolean; description: string };
+      off: { value: string | number | boolean; description: string };
+    };
+  };
 }
 
-// gdy będą jakieś dane z backendu to podmienić na odpowiedni typ
+// gdy będą już jakieś dane z API to podmienić
 export type DataType = {
-  id: string;
+  key: string;
   name: string;
   amount_EUR: number;
   amount_GBP: number;
@@ -39,4 +48,5 @@ export type DataType = {
   more: string;
   position: string;
   time_counted: string;
+  is_confirmed: number;
 };
