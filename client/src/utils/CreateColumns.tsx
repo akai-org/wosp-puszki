@@ -6,7 +6,7 @@
 //    CreateColumns z '@components/table/CreateColumns';
 //    Table z 'antd';
 
-// 2. Tworzymy zmienną np. 'columns' o type TableColumns[] przy pomocy funkcji CreateColumns, a jako propsy dajemy nasze ustawienia dla kolumn oraz nasze dane.
+// 2. Tworzymy zmienną np. 'columns' o type TableColumns[] przy pomocy funkcji CreateColumns, a jako parametry dajemy nasze ustawienia dla kolumn oraz nasze dane.
 
 //   - Ustawienia dla kolumn są tabelą obiektów ( każdy obiekt to następna kolumna ):
 //     {
