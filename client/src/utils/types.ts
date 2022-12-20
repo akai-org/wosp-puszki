@@ -51,3 +51,39 @@ export type DataType = {
   time_counted: string;
   is_confirmed: number;
 };
+
+export type BoxDataType = {
+  box_id: string;
+  volunteer_id: number;
+  name: string;
+  amount_EUR: number;
+  amount_GBP: number;
+  amount_USD: number;
+  amount_PLN: number;
+  status: string;
+  give_hour: string;
+};
+
+export type VolunteerDataType = {
+  volunteer_id: number;
+  name: string;
+  sur_name: string;
+  id: string;
+  amount_PLN: number;
+  status: string;
+};
+
+export type UserDataType = {
+  user_id: string;
+  name: string;
+  role: string;
+};
+
+export type LogDataType = {
+  user: string;
+  volunteer_id: string;
+  box: string;
+  action: string;
+  other: string;
+  time: string;
+};

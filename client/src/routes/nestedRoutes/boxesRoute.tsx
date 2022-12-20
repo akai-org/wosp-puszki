@@ -1,5 +1,10 @@
 import { RouteObject } from 'react-router-dom';
-import { GiveBoxPage, SettleBoxPage } from '../../pages/boxes';
+import {
+  GiveBoxPage,
+  SettleBoxPage,
+  UnsettledBoxesPage,
+  ListBoxesPage,
+} from '../../pages/boxes';
 import { InnerLayout } from '../../components';
 
 const giveBoxPagePath = '/boxes/give';
@@ -18,11 +23,11 @@ const boxesSubroutes: RouteObject[] = [
   },
   {
     index: true,
-    element: <SettleBoxPage />,
+    element: <ListBoxesPage />,
   },
   {
     path: unsettledBoxesPagePath,
-    element: <SettleBoxPage />,
+    element: <UnsettledBoxesPage />,
   },
 ];
 
