@@ -44,8 +44,8 @@ export const adminRoute = {
       links={[
         { url: addUserPagePath, label: 'Dodaj użytkownika' },
         { url: listUsersPagePath, label: 'Lista użytkowników', withDot: true },
-        { url: listVolunteersPagePath, label: 'Dodaj wolontariusza' },
-        { url: addVolunteerPagePath, label: 'Lista wolontariuszy', withDot: true },
+        { url: addVolunteerPagePath, label: 'Dodaj wolontariusza' },
+        { url: listVolunteersPagePath, label: 'Lista wolontariuszy', withDot: true },
         { url: logsPagePath, label: 'Logi' },
       ]}
     />

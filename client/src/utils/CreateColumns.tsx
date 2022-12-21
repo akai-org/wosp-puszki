@@ -14,7 +14,7 @@
 //       keyName: '',              --- klucz który pokrywa sie z nazwą danych które mają być wyświetlane w danej kolumnie.
 //       sortType?: '',            --- czy ma być opcja sortowania, jeśli tak to jakiego typu ( możliwe opcje to 'number' / 'string' / 'date' )
 //       search?: boolean;         --- czy ma być opcja szukania po tekście ( true / false )
-//       actions?: [];             --- czy ma być kolumna z 'akcjami' czyli funkcjami dla danego elementu.
+//       actions?: [];             --- czy ma być kolumna z 'akcjami' czyli funkcjami dla danego elementu. Podczas używania tej opcji wartość keyName jest wartością która jest podawana w linku do akcji
 //           Elementy tabeli są obiektami i składają się z :
 //             title: '' ,         --- tekst wyświetlany
 //             link: '',           --- link strony na którą ma przenosić dana akcja --- ta funkcjonalność jest do przebudowania w zależności jakie będzie zapotrzebowanie w przyszłości
@@ -74,7 +74,7 @@ export function CreateColumns<DataType extends { [key: string]: string | number 
   const searchInput = useRef<InputRef>(null);
 
   // Do przebudowania w przyszłości, zależny od zapotrzebowania w przyszłości
-  const renderActions = (actions?: TableColumns['actions']) => {
+  const renderActions = (keyName: string, actions?: TableColumns['actions']) => {
     if (!actions || actions.length === 0) return;
     return {
       render: (_: unknown, record: DataType) => (
@@ -84,7 +84,7 @@ export function CreateColumns<DataType extends { [key: string]: string | number 
               <a
                 style={{ color: action.color }}
                 key={action.title}
-                href={action.link ? `${action.link}${record.key}` : '#'}
+                href={action.link ? `${action.link}${record[keyName]}` : '#'}
               >
                 {action.title}
               </a>
@@ -278,17 +278,17 @@ export function CreateColumns<DataType extends { [key: string]: string | number 
     if (!status || !status.key || !status.options) return {};
     return {
       render: (item: unknown, record: DataType) => {
-        let color = '#707070';
+        let color, description;
         if (record[status.key] === status.options.on.value) {
           color = '#429445';
+          description = status.options.on.description;
         } else if (record[status.key] === status.options.off.value) {
           color = '#f5222d';
+          description = status.options.off.description;
         }
         return (
           <Tag color={color} key={record[status.key]}>
-            {record[status.key]
-              ? status.options.on.description
-              : status.options.off.description}
+            {description}
           </Tag>
         );
       },
@@ -305,7 +305,7 @@ export function CreateColumns<DataType extends { [key: string]: string | number 
       ...setStatus(column.status),
       ...getColumnSearchProps(column.keyName, column.search),
       ...getSorter(column.sortType, column.keyName),
-      ...renderActions(column.actions),
+      ...renderActions(column.keyName, column.actions),
       ...getFixed(column.fixed, column.width),
       ...renderText(column.keyName, column.beforeText, column.afterText),
     };
