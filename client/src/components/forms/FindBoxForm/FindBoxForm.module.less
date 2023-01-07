@@ -1,0 +1,48 @@
+@import 'less/variables.less';
+
+.container {
+  height: 100vh;
+}
+
+.container,
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.input,
+.select {
+  width: calc(@input-width - 200px);
+}
+
+.input {
+  position: relative;
+}
+
+// .input::before {
+//   content: 'Numer identyfikatora:';
+//   position: absolute;
+//   left: -90%;
+//   top: 10%;
+// }
+
+.inputContainer {
+  position: relative;
+}
+
+.text {
+  position: absolute;
+  top: 3%;
+  left: -90%;
+}
+
+.break,
+.submitButton {
+  border-radius: 10px;
+}
+
+.submitButton {
+  margin: auto;
+}
