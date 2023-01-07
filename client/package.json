@@ -12,9 +12,11 @@
     "lint": "yarn lint:format && yarn lint:fix "
   },
   "dependencies": {
+    "@ant-design/icons": "^4.8.0",
     "@tanstack/react-query": "^4.19.1",
     "@tanstack/react-query-devtools": "^4.19.1",
     "antd": "^4.24.0",
+    "axios": "^1.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-highlight-words": "^0.18.0",
