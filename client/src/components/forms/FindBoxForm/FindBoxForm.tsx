@@ -17,11 +17,16 @@ export const FindBoxForm = () => {
     return;
   };
 
+  const handleBreak = () => {
+    // TODO: request ze to stanowisko nie jest gotowe?
+    return;
+  };
+
   const [error, setError] = useState(true);
 
   return (
     <Content className={s.container}>
-      <Button type="primary" className={s.break}>
+      <Button type="primary" className={s.break} onClick={handleBreak}>
         Nie chcę rozliczać dalej - przerwa
       </Button>
       <FormWrapper
