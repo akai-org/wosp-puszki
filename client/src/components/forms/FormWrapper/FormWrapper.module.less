@@ -1,5 +1,6 @@
 .card,
-.blackBorderCard {
+.blackBorderCard,
+.errorBorder {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11,11 +12,22 @@
   box-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
 }
 
-.blackBorderCard {
-  border: 3px solid #000;
-
+.blackBorderCard,
+.errorBorder {
   height: calc(26.0625rem / 1.5);
 }
+
+.blackBorderCard {
+  border: 3px solid #000;
+}
+
+.errorBorder {
+  border: 3px solid #f5222d;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  box-shadow: none;
+}
+
 .form {
   display: flex;
   align-items: end;

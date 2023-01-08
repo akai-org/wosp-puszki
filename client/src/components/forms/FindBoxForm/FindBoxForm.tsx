@@ -1,9 +1,9 @@
-import React from 'react';
 import { FormButton, FormWrapper, FormInput, FormSelect } from '@/components';
 import { ID_NUMBER_REQUIRED, TYPE_OF_BOX_REQUIRED } from '@/utils';
 import { Typography, Space, Button } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 import s from './FindBoxForm.module.less';
+import { useState } from 'react';
 const { Title, Text } = Typography;
 
 const options = [
@@ -13,9 +13,11 @@ const options = [
 
 export const FindBoxForm = () => {
   const onSubmit = () => {
-    // TODO: Navigate to another page?
+    // TODO: Check if
     return;
   };
+
+  const [error, setError] = useState(true);
 
   return (
     <Content className={s.container}>
@@ -27,6 +29,10 @@ export const FindBoxForm = () => {
         name="boxToSettleForm"
         className={s.form}
         borderColor="black"
+        errorMessage={
+          error &&
+          'Wszystkie puszki wolontariusza Patrycja Majewski ( 123 ) są rozliczone'
+        }
       >
         <Space direction="vertical">
           <Title level={4} className={s.title}>
