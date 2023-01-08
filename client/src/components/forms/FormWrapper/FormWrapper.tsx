@@ -2,7 +2,7 @@ import s from './FormWrapper.module.less';
 import { Card, Form, Space, Typography } from 'antd';
 import type { FormProps } from 'antd';
 import type { FC, ReactNode } from 'react';
-import { FindBoxFormError } from '../FindBoxFormError';
+import { FormError } from '../FormError';
 interface Props extends FormProps {
   label?: ReactNode;
   borderColor?: ReactNode;
@@ -33,7 +33,7 @@ export const FormWrapper: FC<Props> = ({
             {children}
           </Form>
         </Card>
-        {errorMessage && <FindBoxFormError message={errorMessage} />}
+        {errorMessage && <FormError message={errorMessage} />}
       </Space.Compact>
     </Space>
   );
