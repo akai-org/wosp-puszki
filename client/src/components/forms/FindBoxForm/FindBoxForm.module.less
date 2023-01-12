@@ -1,0 +1,51 @@
+@import 'less/variables.less';
+
+.container {
+  height: 100vh;
+  gap: 20px;
+}
+
+.container,
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.withError {
+  justify-content: center;
+}
+
+.input,
+.select {
+  width: calc(@input-width - 200px);
+}
+
+.input {
+  position: relative;
+}
+
+.title {
+  margin-bottom: 50px;
+}
+
+.inputContainer {
+  position: relative;
+}
+
+.text {
+  position: absolute;
+  top: 3%;
+  left: -90%;
+}
+
+.break,
+.submitButton {
+  border-radius: 10px;
+}
+
+.submitButton {
+  margin: auto;
+  border-radius: 10px !important;
+}
