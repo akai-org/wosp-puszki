@@ -5,8 +5,8 @@ import {
   ListUsersPage,
   ListVolunteersPage,
   LogsPage,
-} from '../../pages/admin';
-import { InnerLayout } from '../../components';
+} from '@/pages';
+import { InnerLayout } from '@/components';
 
 const addUserPagePath = 'users/add';
 const listUsersPagePath = '/admin';
