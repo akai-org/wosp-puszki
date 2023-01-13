@@ -8,12 +8,17 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-}
 
-.moneyContainer {
-  width: @money-container-width;
+  :global(.ant-space-item) {
+    &:first-of-type {
+      width: @money-container-width;
+    }
+    &:last-of-type {
+      width: calc(100% - @money-container-width)
+    }
+  }
 }
 
 .mapContaienr {
-  width: calc(100% - @money-container-width)
+  padding: 3rem;
 }
