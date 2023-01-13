@@ -1,16 +1,11 @@
 import { RouteObject } from 'react-router-dom';
-import {
-  GiveBoxPage,
-  SettleBoxPage,
-  UnsettledBoxesPage,
-  ListBoxesPage,
-} from '../../pages/boxes';
-import { InnerLayout } from '../../components';
+import { GiveBoxPage, SettleBoxPage, UnsettledBoxesPage, ListBoxesPage } from '@/pages';
+import { InnerLayout } from '@/components';
 
-const giveBoxPagePath = '/boxes/give';
-const settleBoxPagePath = '/boxes/settle';
-const allBoxesPagePath = '/boxes';
-const unsettledBoxesPagePath = '/boxes/unsettled';
+const giveBoxPagePath = 'boxes/give';
+const settleBoxPagePath = 'boxes/settle';
+const allBoxesPagePath = 'boxes';
+const unsettledBoxesPagePath = 'boxes/unsettled';
 
 const boxesSubroutes: RouteObject[] = [
   {

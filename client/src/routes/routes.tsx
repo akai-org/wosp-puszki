@@ -6,7 +6,7 @@ import { DisplayPage } from '@pages/DisplayPage';
 
 const rootRoutes: RouteObject[] = [
   {
-    path: '/login',
+    path: 'login',
     element: <LoginPage />,
   },
   {
@@ -14,15 +14,15 @@ const rootRoutes: RouteObject[] = [
     element: <HomePage />,
   },
   { path: '*', element: <NotFoundPage /> },
-  {
-    path: '/display',
-    element: <DisplayPage />,
-  },
 ];
 
 export const routes: RouteObject[] = [
   {
-    path: '/',
+    index: true,
+    element: <DisplayPage />,
+  },
+  {
+    path: 'liczymy',
     element: <MainLayout />,
     children: [...rootRoutes, countedBoxesRoute, adminRoute, boxesRoute],
   },

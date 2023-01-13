@@ -1,6 +1,6 @@
 import { RouteObject } from 'react-router-dom';
-import { BoxesApprovedPage, BoxesForApprovalPage } from '../../pages/countedBoxes';
-import { InnerLayout } from '../../components';
+import { BoxesApprovedPage, BoxesForApprovalPage } from '@/pages';
+import { InnerLayout } from '@/components';
 
 const boxesForApprovalPagePath = '/countedBoxes';
 const boxesApprovedPagePath = 'approved';

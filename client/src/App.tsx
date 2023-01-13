@@ -11,7 +11,7 @@ export const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} fallbackElement={<Spin />} />;
+      <RouterProvider router={router} fallbackElement={<Spin />} />
       <ReactQueryDevtools position="bottom-right" initialIsOpen={false} />
     </QueryClientProvider>
   );
