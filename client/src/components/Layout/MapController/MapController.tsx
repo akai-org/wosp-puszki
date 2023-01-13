@@ -16,7 +16,7 @@ export const MapController = () => {
   };
 
   return (
-    <div ref={containerRef}>
+    <div className={s.mapWrapper} ref={containerRef}>
       <MapVertical id="vertical-map" className={s.svgMap} />
     </div>
   );

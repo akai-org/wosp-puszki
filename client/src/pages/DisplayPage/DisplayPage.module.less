@@ -14,7 +14,92 @@
       width: @money-container-width;
     }
     &:last-of-type {
-      width: calc(100% - @money-container-width)
+      width: calc(100% - @money-container-width);
     }
   }
+}
+
+.logosContainer {
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  box-sizing: initial;
+  & img:nth-child(2) {
+    margin: 0 2.5rem;
+    height: 200px;
+  }
+  & img:last-of-type,
+  img:first-of-type {
+    height: 100px;
+  }
+}
+
+.moneyDataContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  border-right: 20px solid #071027;
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 1rem;
+}
+
+.collectedText {
+  & span {
+    display: block;
+    margin-right: 40px;
+  }
+  display: flex;
+  font-family: "Oxygen", sans-serif;
+  font-size: 8.75rem!important;
+  font-weight: 700!important;
+  color: white!important;
+  margin: 10px 0!important;
+  text-shadow: -7px -7px 0 #000, -7px -6px 0 #000, -7px -5px 0 #000, -7px -4px 0 #000,
+    -7px -3px 0 #000, -7px -2px 0 #000, -7px -1px 0 #000, -7px 0 0 #000, -7px 1px 0 #000,
+    -7px 2px 0 #000, -7px 3px 0 #000, -7px 4px 0 #000, -7px 5px 0 #000, -7px 6px 0 #000,
+    -7px 7px 0 #000, -6px -7px 0 #000, -6px -6px 0 #000, -6px -5px 0 #000,
+    -6px -4px 0 #000, -6px -3px 0 #000, -6px -2px 0 #000, -6px -1px 0 #000, -6px 0 0 #000,
+    -6px 1px 0 #000, -6px 2px 0 #000, -6px 3px 0 #000, -6px 4px 0 #000, -6px 5px 0 #000,
+    -6px 6px 0 #000, -6px 7px 0 #000, -5px -7px 0 #000, -5px -6px 0 #000, -5px -5px 0 #000,
+    -5px -4px 0 #000, -5px -3px 0 #000, -5px -2px 0 #000, -5px -1px 0 #000, -5px 0 0 #000,
+    -5px 1px 0 #000, -5px 2px 0 #000, -5px 3px 0 #000, -5px 4px 0 #000, -5px 5px 0 #000,
+    -5px 6px 0 #000, -5px 7px 0 #000, -4px -7px 0 #000, -4px -6px 0 #000, -4px -5px 0 #000,
+    -4px -4px 0 #000, -4px -3px 0 #000, -4px -2px 0 #000, -4px -1px 0 #000, -4px 0 0 #000,
+    -4px 1px 0 #000, -4px 2px 0 #000, -4px 3px 0 #000, -4px 4px 0 #000, -4px 5px 0 #000,
+    -4px 6px 0 #000, -4px 7px 0 #000, -3px -7px 0 #000, -3px -6px 0 #000, -3px -5px 0 #000,
+    -3px -4px 0 #000, -3px -3px 0 #000, -3px -2px 0 #000, -3px -1px 0 #000, -3px 0 0 #000,
+    -3px 1px 0 #000, -3px 2px 0 #000, -3px 3px 0 #000, -3px 4px 0 #000, -3px 5px 0 #000,
+    -3px 6px 0 #000, -3px 7px 0 #000, -2px -7px 0 #000, -2px -6px 0 #000, -2px -5px 0 #000,
+    -2px -4px 0 #000, -2px -3px 0 #000, -2px -2px 0 #000, -2px -1px 0 #000, -2px 0 0 #000,
+    -2px 1px 0 #000, -2px 2px 0 #000, -2px 3px 0 #000, -2px 4px 0 #000, -2px 5px 0 #000,
+    -2px 6px 0 #000, -2px 7px 0 #000, -1px -7px 0 #000, -1px -6px 0 #000, -1px -5px 0 #000,
+    -1px -4px 0 #000, -1px -3px 0 #000, -1px -2px 0 #000, -1px -1px 0 #000, -1px 0 0 #000,
+    -1px 1px 0 #000, -1px 2px 0 #000, -1px 3px 0 #000, -1px 4px 0 #000, -1px 5px 0 #000,
+    -1px 6px 0 #000, -1px 7px 0 #000, 0 -7px 0 #000, 0 -6px 0 #000, 0 -5px 0 #000,
+    0 -4px 0 #000, 0 -3px 0 #000, 0 -2px 0 #000, 0 -1px 0 #000, 0 0 0 #000, 0 1px 0 #000,
+    0 2px 0 #000, 0 3px 0 #000, 0 4px 0 #000, 0 5px 0 #000, 0 6px 0 #000, 0 7px 0 #000,
+    1px -7px 0 #000, 1px -6px 0 #000, 1px -5px 0 #000, 1px -4px 0 #000, 1px -3px 0 #000,
+    1px -2px 0 #000, 1px -1px 0 #000, 1px 0 0 #000, 1px 1px 0 #000, 1px 2px 0 #000,
+    1px 3px 0 #000, 1px 4px 0 #000, 1px 5px 0 #000, 1px 6px 0 #000, 1px 7px 0 #000,
+    2px -7px 0 #000, 2px -6px 0 #000, 2px -5px 0 #000, 2px -4px 0 #000, 2px -3px 0 #000,
+    2px -2px 0 #000, 2px -1px 0 #000, 2px 0 0 #000, 2px 1px 0 #000, 2px 2px 0 #000,
+    2px 3px 0 #000, 2px 4px 0 #000, 2px 5px 0 #000, 2px 6px 0 #000, 2px 7px 0 #000,
+    3px -7px 0 #000, 3px -6px 0 #000, 3px -5px 0 #000, 3px -4px 0 #000, 3px -3px 0 #000,
+    3px -2px 0 #000, 3px -1px 0 #000, 3px 0 0 #000, 3px 1px 0 #000, 3px 2px 0 #000,
+    3px 3px 0 #000, 3px 4px 0 #000, 3px 5px 0 #000, 3px 6px 0 #000, 3px 7px 0 #000,
+    4px -7px 0 #000, 4px -6px 0 #000, 4px -5px 0 #000, 4px -4px 0 #000, 4px -3px 0 #000,
+    4px -2px 0 #000, 4px -1px 0 #000, 4px 0 0 #000, 4px 1px 0 #000, 4px 2px 0 #000,
+    4px 3px 0 #000, 4px 4px 0 #000, 4px 5px 0 #000, 4px 6px 0 #000, 4px 7px 0 #000,
+    5px -7px 0 #000, 5px -6px 0 #000, 5px -5px 0 #000, 5px -4px 0 #000, 5px -3px 0 #000,
+    5px -2px 0 #000, 5px -1px 0 #000, 5px 0 0 #000, 5px 1px 0 #000, 5px 2px 0 #000,
+    5px 3px 0 #000, 5px 4px 0 #000, 5px 5px 0 #000, 5px 6px 0 #000, 5px 7px 0 #000,
+    6px -7px 0 #000, 6px -6px 0 #000, 6px -5px 0 #000, 6px -4px 0 #000, 6px -3px 0 #000,
+    6px -2px 0 #000, 6px -1px 0 #000, 6px 0 0 #000, 6px 1px 0 #000, 6px 2px 0 #000,
+    6px 3px 0 #000, 6px 4px 0 #000, 6px 5px 0 #000, 6px 6px 0 #000, 6px 7px 0 #000,
+    7px -7px 0 #000, 7px -6px 0 #000, 7px -5px 0 #000, 7px -4px 0 #000, 7px -3px 0 #000,
+    7px -2px 0 #000, 7px -1px 0 #000, 7px 0 0 #000, 7px 1px 0 #000, 7px 2px 0 #000,
+    7px 3px 0 #000, 7px 4px 0 #000, 7px 5px 0 #000, 7px 6px 0 #000, 7px 7px 0 #000;
 }

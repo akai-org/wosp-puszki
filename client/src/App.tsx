@@ -3,6 +3,7 @@ import { routes } from './routes';
 import { Spin } from 'antd';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import '@assets/fonts/Oxygen-Regular.ttf';
 
 const router = createBrowserRouter(routes);
 
