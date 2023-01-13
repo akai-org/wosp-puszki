@@ -7,3 +7,15 @@
   font-weight: 400;
   box-sizing: border-box;
 }
+
+#vertical-map .volunteer-occupied {
+  fill: #e11e14;
+}
+
+#vertical-map .volunteer-available {
+  fill: #93c01f;
+}
+
+#vertical-map .volunteer-unavailable {
+  fill: #000;
+}
