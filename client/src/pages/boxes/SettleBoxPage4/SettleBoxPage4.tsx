@@ -1,11 +1,26 @@
+import { Item } from 'rc-menu';
 import s from '../BoxesPage.module.less';
+
+interface Dupa {
+  id: string;
+  boxId: string;
+  plnAmount: Record<string, number>;
+  foreignCurrency: Record<string, number>;
+  other?: string;
+}
 
 export const SettleBoxPage4 = () => {
   const data = {
     volunteerId: 123,
     boxId: 22,
     plnAmount: {
-      '1gr': 3,
+      // [{
+      //   name: '1gr'
+      //   quantity: 3;
+      //   multiplier: 0.01
+      //   sum: 0;
+      // } sum += Item.sum]
+
       '2gr': 0,
       '5gr': 0,
       '10gr': 4,
