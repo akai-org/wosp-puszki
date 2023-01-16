@@ -1,15 +1,14 @@
 @money-container-width: 59%;
 
-.wrapper {
-  background-color: #222d53;
+.innerWrapper {
   width: 100vw;
   height: 100vh;
   background-image: url('/background.svg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-
-  & > div[class="ant-space-item"] {
+  position: relative;
+  & > div[class='ant-space-item'] {
     &:first-of-type {
       width: @money-container-width;
     }
@@ -17,6 +16,13 @@
       width: calc(100% - @money-container-width);
     }
   }
+}
+
+.wrapper {
+  background-color: #222d53;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
 }
 
 .logosContainer {
@@ -43,7 +49,7 @@
   border-right: 20px solid #071027;
   height: 100vh;
   box-sizing: border-box;
-  padding: 1rem;
+  position: relative;
 }
 
 .collectedText {
@@ -52,11 +58,11 @@
     margin-right: 40px;
   }
   display: flex;
-  font-family: "Oxygen", sans-serif;
-  font-size: 8.75rem!important;
-  font-weight: 700!important;
-  color: white!important;
-  margin: 10px 0!important;
+  font-family: 'Oxygen', sans-serif;
+  font-size: 8.75rem !important;
+  font-weight: 700 !important;
+  color: white !important;
+  margin: 10px 0 !important;
   text-shadow: -7px -7px 0 #000, -7px -6px 0 #000, -7px -5px 0 #000, -7px -4px 0 #000,
     -7px -3px 0 #000, -7px -2px 0 #000, -7px -1px 0 #000, -7px 0 0 #000, -7px 1px 0 #000,
     -7px 2px 0 #000, -7px 3px 0 #000, -7px 4px 0 #000, -7px 5px 0 #000, -7px 6px 0 #000,
@@ -102,4 +108,73 @@
     7px -7px 0 #000, 7px -6px 0 #000, 7px -5px 0 #000, 7px -4px 0 #000, 7px -3px 0 #000,
     7px -2px 0 #000, 7px -1px 0 #000, 7px 0 0 #000, 7px 1px 0 #000, 7px 2px 0 #000,
     7px 3px 0 #000, 7px 4px 0 #000, 7px 5px 0 #000, 7px 6px 0 #000, 7px 7px 0 #000;
+}
+
+.currencies {
+  text-shadow: -2px -2px 0 #000, -2px -1px 0 #000, -2px 0 0 #000, -2px 1px 0 #000,
+    -2px 2px 0 #000, -1px -2px 0 #000, -1px -1px 0 #000, -1px 0 0 #000, -1px 1px 0 #000,
+    -1px 2px 0 #000, 0 -2px 0 #000, 0 -1px 0 #000, 0 0 0 #000, 0 1px 0 #000, 0 2px 0 #000,
+    1px -2px 0 #000, 1px -1px 0 #000, 1px 0 0 #000, 1px 1px 0 #000, 1px 2px 0 #000,
+    2px -2px 0 #000, 2px -1px 0 #000, 2px 0 0 #000, 2px 1px 0 #000, 2px 2px 0 #000;
+  display: flex;
+  font-family: 'Oxygen', sans-serif;
+  font-size: 35px !important;
+  font-weight: 500 !important;
+  & > div {
+    margin: 0 30px;
+    & > div {
+      color: white !important;
+      & span {
+        //margin-right: 5px;
+      }
+    }
+  }
+}
+
+.bottomSection {
+  width: 100%;
+  margin-top: auto;
+  padding-top: 40px;
+}
+
+.waves {
+  width: calc(59% - 20px);
+  background-image: url('/waves.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+  z-index: 0;
+  position: absolute;
+  bottom: 0;
+  height: 38%;
+}
+
+.heartContainer {
+  text-shadow: -3px -3px 0 #000, -3px -2px 0 #000, -3px -1px 0 #000, -3px 0 0 #000,
+  -3px 1px 0 #000, -3px 2px 0 #000, -3px 3px 0 #000, -2px -3px 0 #000, -2px -2px 0 #000,
+    -2px -1px 0 #000, -2px 0 0 #000, -2px 1px 0 #000, -2px 2px 0 #000, -2px 3px 0 #000,
+    -1px -3px 0 #000, -1px -2px 0 #000, -1px -1px 0 #000, -1px 0 0 #000, -1px 1px 0 #000,
+  -1px 2px 0 #000, -1px 3px 0 #000, 0 -3px 0 #000, 0 -2px 0 #000, 0 -1px 0 #000,
+  0 0 0 #000, 0 1px 0 #000, 0 2px 0 #000, 0 3px 0 #000, 1px -3px 0 #000, 1px -2px 0 #000,
+    1px -1px 0 #000, 1px 0 0 #000, 1px 1px 0 #000, 1px 2px 0 #000, 1px 3px 0 #000,
+    2px -3px 0 #000, 2px -2px 0 #000, 2px -1px 0 #000, 2px 0 0 #000, 2px 1px 0 #000,
+  2px 2px 0 #000, 2px 3px 0 #000, 3px -3px 0 #000, 3px -2px 0 #000, 3px -1px 0 #000,
+  3px 0 0 #000, 3px 1px 0 #000, 3px 2px 0 #000, 3px 3px 0 #000;
+  font-family: 'Oxygen', sans-serif;
+  font-size: 43px !important;
+  color: white;
+  gap: 0!important;
+  line-height: normal;
+}
+
+.heart {
+  width: 140px;
+  height: 140px;
+  background-image: url('public/heart.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
