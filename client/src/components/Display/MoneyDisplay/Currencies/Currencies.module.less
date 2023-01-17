@@ -1,0 +1,30 @@
+@import "./src/less/variables";
+
+.currencies {
+  text-shadow: @currencies-test-shadow;
+  display: flex;
+  font-family: 'Oxygen', sans-serif;
+  font-size: 35px !important;
+  font-weight: 500 !important;
+  & > div {
+    margin: 0 30px;
+    & > div {
+      color: white !important;
+    }
+  }
+}
+
+.collectedText {
+  & span {
+    display: block;
+    margin-right: 40px;
+  }
+  display: flex;
+  font-family: 'Oxygen', sans-serif;
+  font-size: 8.75rem !important;
+  font-weight: 700 !important;
+  color: white !important;
+  margin: 10px 0 !important;
+  text-shadow: @main-text-shadow;
+}
+

@@ -1,0 +1,22 @@
+@import "./src/less/variables";
+
+.heart {
+  width: 140px;
+  height: 140px;
+  background-image: url('public/heart.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heartContainer {
+  text-shadow: @heart-text-shadow;
+  font-family: 'Oxygen', sans-serif;
+  font-size: 43px !important;
+  color: white;
+  gap: 0!important;
+  line-height: normal;
+}
