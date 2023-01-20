@@ -1,6 +1,7 @@
 import { Space } from 'antd';
 import s from './BottomContent.module.less';
 import { Heart } from '@components/Display/MoneyDisplay';
+import { Footer } from '@components/Display/MoneyDisplay/BottomContent/Footer/Footer';
 
 export const BottomContent = () => {
   return (
@@ -14,6 +15,7 @@ export const BottomContent = () => {
           <div>Stanowiska</div>
         </Heart>
       </Space>
+      <Footer />
     </Space>
   );
 };

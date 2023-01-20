@@ -11,6 +11,7 @@ export const DisplayPage = () => {
       <div className={s.waves}></div>
       <Space direction="horizontal" className={s.innerWrapper}>
         <MoneyDisplay collectedMoney={collectedMoney} />
+        <div id="bottom-content-portal"></div>
         <MapDisplay />
       </Space>
     </div>

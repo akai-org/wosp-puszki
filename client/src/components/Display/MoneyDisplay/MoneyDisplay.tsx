@@ -11,8 +11,10 @@ interface Props {
 export const MoneyDisplay: FC<Props> = ({ collectedMoney }) => {
   return (
     <section className={s.moneyDataContainer}>
-      <Logos />
-      <Currencies collectedMoney={collectedMoney} />
+      <section className={s.upperContent}>
+        <Logos />
+        <Currencies collectedMoney={collectedMoney} />
+      </section>
       <BottomContent />
     </section>
   );

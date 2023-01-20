@@ -10,7 +10,7 @@ interface Props {
 export const Currencies: FC<Props> = ({ collectedMoney }) => {
   return (
     <>
-      <img height={80} src={collected} alt="" />
+      <img height={80} src={collected} alt="" className={s.collectedImage} />
       <Typography.Title className={s.collectedText}>
         <span>{collectedMoney}</span>
         zł
