@@ -7,7 +7,7 @@ export const BottomContent = () => {
   return (
     <Space className={s.bottomSection} direction="vertical">
       <Space className={s.heartsWrapper} align="center">
-        <Heart count={1}>
+        <Heart count={495}>
           <div>Wolontariuszy</div>
         </Heart>
         <Heart count={2}>

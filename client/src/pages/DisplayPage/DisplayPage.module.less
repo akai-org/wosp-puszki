@@ -5,32 +5,31 @@
 .innerWrapper {
   width: 100vw;
   height: 100vh;
-  background-image: url('/background.svg');
+  background-image: url('/background_merged.svg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
   & > div[class='ant-space-item'] {
     &:first-of-type {
-      width: @money-container-width;
-      border-right: solid 20px #071027;
+      width: 50%;
       height: 100vh;
     }
     &:last-of-type {
-      width: calc(100% - @money-container-width);
+      width: 50%;
     }
   }
 }
 
 .wrapper {
-  background-color: #222d53;
+  background-image: linear-gradient(#1d2645, #0d1121);
   width: 100vw;
   height: 100vh;
   position: relative;
 }
 
 .waves {
-  width: calc(59% - 20px);
+  width: 50%;
   background-image: url('/waves.svg');
   background-size: cover;
   background-repeat: no-repeat;
