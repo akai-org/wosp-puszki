@@ -4,13 +4,16 @@ import { Heart } from '@components/Display/MoneyDisplay';
 import { Footer } from '@components/Display/MoneyDisplay/BottomContent/Footer/Footer';
 
 export const BottomContent = () => {
+  const volunteersNumber = 5;
+  const availableStations = 29;
+
   return (
     <Space className={s.bottomSection} direction="vertical">
       <Space className={s.heartsWrapper} align="center">
-        <Heart count={495}>
+        <Heart count={volunteersNumber}>
           <div>Wolontariuszy</div>
         </Heart>
-        <Heart count={2}>
+        <Heart count={availableStations}>
           <div>Dostępne</div>
           <div>Stanowiska</div>
         </Heart>

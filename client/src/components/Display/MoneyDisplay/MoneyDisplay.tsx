@@ -5,7 +5,7 @@ import { Currencies } from '@components/Display/MoneyDisplay/Currencies/Currenci
 import { BottomContent } from '@components/Display/MoneyDisplay/BottomContent/BottomContent';
 
 interface Props {
-  collectedMoney: string;
+  collectedMoney: number;
 }
 
 export const MoneyDisplay: FC<Props> = ({ collectedMoney }) => {

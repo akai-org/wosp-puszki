@@ -94,3 +94,5 @@ export type volunteerStatusClass =
   | 'volunteer-available'
   | 'volunteer-occupied'
   | 'volunteer-unavailable';
+
+export type currencies = 'pln' | 'eur' | 'gbp' | 'usd';
