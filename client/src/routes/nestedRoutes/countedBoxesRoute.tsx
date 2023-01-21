@@ -22,7 +22,7 @@ export const countedBoxesRoute = {
       links={[
         { url: '', label: 'Lista puszek do zatwierdzenia' },
         {
-          url: `boxesApprovedPagePath`,
+          url: boxesApprovedPagePath,
           label: 'Lista puszek zatwierdzonych',
         },
       ]}
