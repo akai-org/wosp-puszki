@@ -5,5 +5,5 @@ export const parseMoney = (money: number, currency: currencies): string => {
     currency: currency.toUpperCase(),
     style: 'currency',
   });
-  return formatter.format(money);
+  return formatter.format(money).replace('GBP', '£').replace('USD', '$');
 };

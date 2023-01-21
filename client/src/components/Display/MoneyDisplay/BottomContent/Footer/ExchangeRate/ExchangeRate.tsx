@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import s from './ExchangeRate.module.less';
+import { parseMoney } from '@/utils';
 
 interface Props {
   exchangeName: baseExchangeName;
@@ -7,19 +8,18 @@ interface Props {
 }
 
 type baseExchangeValue = '€' | '$' | '£';
-type baseExchangeName = 'euro' | 'dollar' | 'pound';
+type baseExchangeName = 'eur' | 'usd' | 'gbp';
 
 export const ExchangeRate: FC<Props> = ({ exchangeRate, exchangeName }) => {
   const exchangeRateValues: Record<baseExchangeName, baseExchangeValue> = {
-    dollar: '$',
-    euro: '€',
-    pound: '£',
+    usd: '$',
+    eur: '€',
+    gbp: '£',
   };
 
   return (
     <div className={s.exchangeRate}>
-      1{exchangeRateValues[exchangeName]} → {exchangeRate}
-      zł
+      1{exchangeRateValues[exchangeName]} → {parseMoney(exchangeRate, 'pln')}
     </div>
   );
 };

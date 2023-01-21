@@ -11,9 +11,9 @@ export const Footer = () => {
         <a href="https://akai.org.pl/">AKAI</a>
       </Space>
       <Space className={s.exchangeRate}>
-        kursy: <ExchangeRate exchangeName="euro" exchangeRate={5.1345} /> |
-        <ExchangeRate exchangeName="dollar" exchangeRate={4.3215} /> |
-        <ExchangeRate exchangeName="pound" exchangeRate={6.4367} />
+        kursy: <ExchangeRate exchangeName="eur" exchangeRate={5.1345} /> |
+        <ExchangeRate exchangeName="usd" exchangeRate={4.3215} /> |
+        <ExchangeRate exchangeName="gbp" exchangeRate={6.4367} />
       </Space>
     </Space>
   );
