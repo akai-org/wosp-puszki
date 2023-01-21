@@ -2,7 +2,6 @@ import { RouteObject } from 'react-router-dom';
 import { BoxesApprovedPage, BoxesForApprovalPage } from '@/pages';
 import { InnerLayout } from '@/components';
 
-const boxesForApprovalPagePath = '/countedBoxes';
 const boxesApprovedPagePath = 'approved';
 
 const countedBoxesSubroutes: RouteObject[] = [
@@ -21,9 +20,9 @@ export const countedBoxesRoute = {
   element: (
     <InnerLayout
       links={[
-        { url: boxesForApprovalPagePath, label: 'Lista puszek do zatwierdzenia' },
+        { url: '', label: 'Lista puszek do zatwierdzenia' },
         {
-          url: boxesApprovedPagePath,
+          url: `boxesApprovedPagePath`,
           label: 'Lista puszek zatwierdzonych',
         },
       ]}

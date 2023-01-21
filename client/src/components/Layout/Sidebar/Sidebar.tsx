@@ -2,10 +2,10 @@ import { FC } from 'react';
 import { SidebarSmall, SidebarBig } from './SidebarVariants';
 
 const links = [
-  { label: 'Strona Główna', url: '/' },
-  { label: 'Przeliczone puszki', url: '/countedBoxes' },
-  { label: 'Administracja', url: '/admin' },
-  { label: 'Puszki', url: '/boxes' },
+  { label: 'Strona Główna', url: '' },
+  { label: 'Przeliczone puszki', url: 'countedBoxes' },
+  { label: 'Administracja', url: 'admin' },
+  { label: 'Puszki', url: 'boxes' },
 ];
 
 interface Props {

@@ -4,7 +4,6 @@ import { InnerLayout } from '@/components';
 
 const giveBoxPagePath = 'boxes/give';
 const settleBoxPagePath = 'boxes/settle';
-const allBoxesPagePath = 'boxes';
 const unsettledBoxesPagePath = 'boxes/unsettled';
 
 const boxesSubroutes: RouteObject[] = [
@@ -33,7 +32,7 @@ export const boxesRoute = {
       links={[
         { url: giveBoxPagePath, label: 'Wydaj puszkę' },
         { url: settleBoxPagePath, label: 'Rozlicz puszkę' },
-        { url: allBoxesPagePath, label: 'Wszystkie puszki' },
+        { url: '', label: 'Wszystkie puszki' },
         { url: unsettledBoxesPagePath, label: 'Lista puszek nie rozliczonych' },
       ]}
     />

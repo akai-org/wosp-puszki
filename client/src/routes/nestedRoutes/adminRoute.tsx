@@ -9,7 +9,6 @@ import {
 import { InnerLayout } from '@/components';
 
 const addUserPagePath = 'users/add';
-const listUsersPagePath = '/admin';
 const listVolunteersPagePath = 'volunteers/list';
 const addVolunteerPagePath = 'volunteers/add';
 const logsPagePath = 'logs';
@@ -43,7 +42,7 @@ export const adminRoute = {
     <InnerLayout
       links={[
         { url: addUserPagePath, label: 'Dodaj użytkownika' },
-        { url: listUsersPagePath, label: 'Lista użytkowników', withDot: true },
+        { url: '', label: 'Lista użytkowników', withDot: true },
         { url: addVolunteerPagePath, label: 'Dodaj wolontariusza' },
         { url: listVolunteersPagePath, label: 'Lista wolontariuszy', withDot: true },
         { url: logsPagePath, label: 'Logi' },
