@@ -87,3 +87,12 @@ export type LogDataType = {
   other: string;
   time: string;
 };
+
+export type volunteerStatus = 'available' | 'occupied' | 'unavailable';
+
+export type volunteerStatusClass =
+  | 'volunteer-available'
+  | 'volunteer-occupied'
+  | 'volunteer-unavailable';
+
+export type currencies = 'pln' | 'eur' | 'gbp' | 'usd';

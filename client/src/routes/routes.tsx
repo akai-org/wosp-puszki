@@ -1,11 +1,12 @@
 import type { RouteObject } from 'react-router-dom';
 import { adminRoute, boxesRoute, countedBoxesRoute } from './nestedRoutes';
-import { LoginPage, HomePage, NotFoundPage } from '../pages';
-import { MainLayout } from '../components';
+import { LoginPage, HomePage, NotFoundPage } from '@/pages';
+import { MainLayout } from '@/components';
+import { DisplayPage } from '@pages/DisplayPage';
 
 const rootRoutes: RouteObject[] = [
   {
-    path: '/login',
+    path: 'login',
     element: <LoginPage />,
   },
   {
@@ -17,7 +18,11 @@ const rootRoutes: RouteObject[] = [
 
 export const routes: RouteObject[] = [
   {
-    path: '/',
+    index: true,
+    element: <DisplayPage />,
+  },
+  {
+    path: 'liczymy',
     element: <MainLayout />,
     children: [...rootRoutes, countedBoxesRoute, adminRoute, boxesRoute],
   },

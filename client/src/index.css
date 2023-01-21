@@ -1,4 +1,14 @@
-@import "antd/dist/antd.css";
+@import 'antd/dist/antd.css';
+
+@font-face {
+  font-family: 'Oxygen'; /*Can be any text*/
+  src: local('OxygenRegular'), url('./assets/fonts/Oxygen-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Oswald-Bold'; /*Can be any text*/
+  src: local('Oswald-Bold'), url('./assets/fonts/Oswald-Bold.ttf') format('truetype');
+}
 
 :root {
   font-family: Poppins, Avenir, Helvetica, Arial, sans-serif;
@@ -6,4 +16,16 @@
   line-height: 24px;
   font-weight: 400;
   box-sizing: border-box;
+}
+
+#vertical-map .volunteer-occupied {
+  fill: #e11e14;
+}
+
+#vertical-map .volunteer-available {
+  fill: #93c01f;
+}
+
+#vertical-map .volunteer-unavailable {
+  fill: #000;
 }

@@ -1,0 +1,41 @@
+@import "./src/less/variables";
+
+@money-container-width: 59%;
+
+.innerWrapper {
+  width: 100vw;
+  height: 100vh;
+  background-image: url('/background_merged.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  & > div[class='ant-space-item'] {
+    &:first-of-type {
+      width: 50%;
+      height: 100vh;
+    }
+    &:last-of-type {
+      width: 50%;
+    }
+  }
+}
+
+.wrapper {
+  background-image: linear-gradient(#1d2645, #0d1121);
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.waves {
+  width: 50%;
+  background-image: url('/waves.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+  z-index: 0;
+  position: absolute;
+  bottom: 0;
+  height: 38%;
+}
