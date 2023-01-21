@@ -13,39 +13,34 @@
   align-items: center;
 }
 
-.withError {
-  justify-content: center;
-}
-
 .input,
 .select {
-  width: calc(@input-width - 200px);
+  width: @input-width;
 }
 
-.input {
-  position: relative;
-}
-
-.title {
-  margin-bottom: 50px;
-}
-
-.inputContainer {
+.input, .inputContainer, .break {
   position: relative;
 }
 
 .text {
   position: absolute;
   top: 3%;
-  left: -90%;
+  left: -80%;
 }
 
-.break,
-.submitButton {
-  border-radius: 10px;
-}
-
-.submitButton {
-  margin: auto;
+.break {
+  padding: 0 2rem;
+  margin: 0 auto;
+  z-index: 2;
+  align-self: start;
+  height: 2.625rem;
   border-radius: 10px !important;
+  border: none;
+  color: white;
+  min-width: @input-width;
+  &:hover {
+    background-color: #ed1324;
+    color: white;
+  }
+  margin-bottom: 0;
 }
