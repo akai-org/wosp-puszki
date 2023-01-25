@@ -1,5 +1,7 @@
-import { PASSWORD_REQUIRED, USERNAME_REQUIRED } from '@/utils';
+import { IAuthContext, PASSWORD_REQUIRED, USERNAME_REQUIRED } from '@/utils';
 import { FormButton, FormWrapper, FormInput } from '@/components';
+import { useContext } from 'react';
+import { AuthContext } from '@/App';
 
 interface LoginFormValues {
   username: string;
@@ -7,8 +9,9 @@ interface LoginFormValues {
 }
 
 export const LoginForm = () => {
+  const { createCredentials } = useContext(AuthContext) as IAuthContext;
   const onSubmit = (values: LoginFormValues) => {
-    // TODO: send values to BE
+    createCredentials(values.username, values.password);
   };
 
   return (
