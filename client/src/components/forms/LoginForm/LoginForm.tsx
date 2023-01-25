@@ -1,14 +1,13 @@
 import {
-  IAuthContext,
   LOGIN_EXCEPTION,
   NetworkError,
   PASSWORD_REQUIRED,
+  useAuthContext,
   USERNAME_REQUIRED,
   WRONG_USER_CREDENTIALS,
 } from '@/utils';
 import { FormButton, FormWrapper, FormInput } from '@/components';
-import { useContext, useState } from 'react';
-import { AuthContext } from '@/App';
+import { useState } from 'react';
 import { LoadingOutlined } from '@ant-design/icons';
 
 interface LoginFormValues {
@@ -19,7 +18,7 @@ interface LoginFormValues {
 export const LoginForm = () => {
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
   const [isWaiting, setIsWaiting] = useState(false);
-  const { createCredentials } = useContext(AuthContext) as IAuthContext;
+  const { createCredentials } = useAuthContext();
   const onSubmit = async (values: LoginFormValues) => {
     setIsWaiting(true);
 

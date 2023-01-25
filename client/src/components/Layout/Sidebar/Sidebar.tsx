@@ -1,7 +1,6 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import { SidebarSmall, SidebarBig } from './SidebarVariants';
-import { AuthContext } from '@/App';
-import { IAuthContext } from '@/utils';
+import { useAuthContext } from '@/utils';
 
 const links = [
   { label: 'Strona Główna', url: '' },
@@ -11,9 +10,7 @@ const links = [
 ];
 
 export const Sidebar: FC = () => {
-  const { deleteCredentials, username, credentials } = useContext(
-    AuthContext,
-  ) as IAuthContext;
+  const { deleteCredentials, username, credentials } = useAuthContext();
   return credentials ? (
     <SidebarBig
       deleteCredentials={deleteCredentials}
