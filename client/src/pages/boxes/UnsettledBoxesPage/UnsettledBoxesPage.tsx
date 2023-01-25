@@ -160,6 +160,7 @@ export const UnsettledBoxesPage = () => {
             columns={columns}
             pagination={false}
             dataSource={data}
+            rowKey="box_id" // To należy zmienić przy okazji podłączenia API
             scroll={{ y: '70vh' }}
             rowClassName={s.table_row}
           />
