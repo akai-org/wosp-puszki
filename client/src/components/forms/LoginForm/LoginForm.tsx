@@ -1,8 +1,10 @@
 import {
   IAuthContext,
+  LOGIN_EXCEPTION,
   NetworkError,
   PASSWORD_REQUIRED,
   USERNAME_REQUIRED,
+  WRONG_USER_CREDENTIALS,
 } from '@/utils';
 import { FormButton, FormWrapper, FormInput } from '@/components';
 import { useContext, useState } from 'react';
@@ -31,7 +33,7 @@ export const LoginForm = () => {
 
     function handleNetworkError(e: NetworkError) {
       if (e.status == 401) {
-        setErrorMessage('Login lub hasło są nieprawidłowe');
+        setErrorMessage(WRONG_USER_CREDENTIALS);
       }
     }
 
@@ -39,7 +41,7 @@ export const LoginForm = () => {
       if (e instanceof NetworkError) {
         handleNetworkError(e);
       } else {
-        setErrorMessage('Podczas logowania wystąpił błąd');
+        setErrorMessage(LOGIN_EXCEPTION);
       }
     }
   };

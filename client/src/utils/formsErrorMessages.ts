@@ -7,3 +7,6 @@ export const LAST_NAME_REQUIRED = 'Wprowadź nazwisko';
 
 export const PASSWORDS_DO_NOT_MATCH = 'Hasła nie są identyczne';
 export const TYPE_OF_BOX_REQUIRED = 'Wybierz typ';
+
+export const WRONG_USER_CREDENTIALS = 'Login lub hasło są nieprawidłowe';
+export const LOGIN_EXCEPTION = 'Podczas logowania wystąpił błąd';
