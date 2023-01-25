@@ -118,7 +118,7 @@ export const SettleBoxPage4 = () => {
         bazie:
         {data.boxId})
       </h3>
-      <div className={s.content}>
+      <div className={s.contentTable}>
         <div>
           <table className={s.table}>
             <thead>
