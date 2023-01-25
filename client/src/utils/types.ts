@@ -98,7 +98,7 @@ export type volunteerStatusClass =
 export type currencies = 'pln' | 'eur' | 'gbp' | 'usd';
 
 export interface IAuthContext {
-  createCredentials: (username: string, password: string) => void;
+  createCredentials: (username: string, password: string) => Promise<void>;
   deleteCredentials: () => void;
   credentials: string | null;
 }

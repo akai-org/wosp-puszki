@@ -1,6 +1,11 @@
-import { IAuthContext, PASSWORD_REQUIRED, USERNAME_REQUIRED } from '@/utils';
+import {
+  IAuthContext,
+  NetworkError,
+  PASSWORD_REQUIRED,
+  USERNAME_REQUIRED,
+} from '@/utils';
 import { FormButton, FormWrapper, FormInput } from '@/components';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext } from '@/App';
 
 interface LoginFormValues {
@@ -9,13 +14,24 @@ interface LoginFormValues {
 }
 
 export const LoginForm = () => {
+  const [errorMessage, setErrorMessage] = useState<string | undefined>();
   const { createCredentials } = useContext(AuthContext) as IAuthContext;
-  const onSubmit = (values: LoginFormValues) => {
-    createCredentials(values.username, values.password);
+  const onSubmit = async (values: LoginFormValues) => {
+    try {
+      await createCredentials(values.username, values.password);
+    } catch (e) {
+      if (e instanceof NetworkError) {
+        if (e.status == 401) {
+          setErrorMessage('Login lub hasło są nieprawidłowe');
+        }
+      } else {
+        console.log(e);
+      }
+    }
   };
 
   return (
-    <FormWrapper onFinish={onSubmit}>
+    <FormWrapper onFinish={onSubmit} errorMessage={errorMessage}>
       <FormInput
         name="username"
         label="Nazwa użytkownika"

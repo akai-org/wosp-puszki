@@ -1,3 +1,5 @@
+import { NetworkError } from '@utils/errors';
+
 export interface FetcherRequestInit extends Omit<RequestInit, 'body'> {
   body?: object | string | number | boolean;
 }
@@ -20,6 +22,6 @@ export async function fetcher<T = object>(
     return (await response.json()) as T;
   } else {
     const errorMessage = await response.text();
-    throw new Error(errorMessage);
+    throw new NetworkError(errorMessage, response.status, response.statusText);
   }
 }
