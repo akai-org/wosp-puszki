@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import '@assets/fonts/Oswald-Bold.ttf';
 import { createContext, useState } from 'react';
-import { fetcher, IAuthContext } from '@/utils';
+import { APIManager, fetcher, IAuthContext } from '@/utils';
 
 const router = createBrowserRouter(routes);
 
@@ -23,7 +23,7 @@ function App() {
 
   const createCredentials = async (username: string, password: string) => {
     const encodedCredentials = window.btoa(decodeURI(`${username}:${password}`));
-    await fetcher('http://localhost:8000/api/health', {
+    await fetcher(APIManager.validateUserURL, {
       headers: { Authorization: `Basic ${encodedCredentials}` },
     });
     localStorage.setItem('credentials', encodedCredentials);
