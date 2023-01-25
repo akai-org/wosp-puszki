@@ -14,13 +14,10 @@ export const queryClient = new QueryClient();
 export const AuthContext = createContext<IAuthContext | null>(null);
 
 function App() {
-  const { deleteCredentials, credentials, createCredentials, username } =
-    useAuthContextValues();
+  const values = useAuthContextValues();
 
   return (
-    <AuthContext.Provider
-      value={{ credentials, createCredentials, deleteCredentials, username }}
-    >
+    <AuthContext.Provider value={values}>
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} fallbackElement={<Spin />} />
         <ReactQueryDevtools position="bottom-right" initialIsOpen={false} />
