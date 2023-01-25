@@ -80,6 +80,7 @@ export const ListUsersPage = () => {
             columns={columns}
             pagination={false}
             dataSource={data}
+            rowKey="user_id" // To należy zmienić przy okazji podłączenia API
             scroll={{ y: '70vh' }}
             rowClassName={s.table_row}
           />

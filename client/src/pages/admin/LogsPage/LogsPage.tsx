@@ -21,7 +21,7 @@ export const LogsPage = () => {
       box: '12',
       action: 'verifed',
       other: 'Puszka zatwierdzona przez administratora',
-      time: '2022-11-03T21:23:30.00000Z',
+      time: '2022-11-03T21:23:30.00003Z',
     },
     {
       user: 'superadmin',
@@ -29,7 +29,7 @@ export const LogsPage = () => {
       box: '12',
       action: 'verifed',
       other: 'Puszka zatwierdzona przez administratora',
-      time: '2022-11-03T21:23:30.00000Z',
+      time: '2022-11-03T21:23:30.00002Z',
     },
     {
       user: 'superadmin',
@@ -37,7 +37,7 @@ export const LogsPage = () => {
       box: '12',
       action: 'verifed',
       other: 'Puszka zatwierdzona przez administratora',
-      time: '2022-11-03T21:23:30.00000Z',
+      time: '2022-11-03T21:23:30.00001Z',
     },
   ];
 
@@ -102,6 +102,7 @@ export const LogsPage = () => {
             columns={columns}
             pagination={false}
             dataSource={data}
+            rowKey="time" // To należy zmienić przy okazji podłączenia API
             scroll={{ y: '70vh' }}
             rowClassName={s.table_row}
           />
