@@ -17,17 +17,17 @@ interface LoginFormValues {
 
 export const LoginForm = () => {
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
-  const [isWaiting, setIsWaiting] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { createCredentials } = useAuthContext();
   const onSubmit = async (values: LoginFormValues) => {
-    setIsWaiting(true);
+    setIsLoading(true);
 
     try {
       await createCredentials(values.username, values.password);
     } catch (e) {
       handleError(e);
     } finally {
-      setIsWaiting(false);
+      setIsLoading(false);
     }
 
     function handleNetworkError(e: NetworkError) {
@@ -58,8 +58,8 @@ export const LoginForm = () => {
         label="Hasło"
         rules={[{ required: true, message: PASSWORD_REQUIRED }]}
       />
-      <FormButton disabled={isWaiting} type="primary" htmlType="submit">
-        {!isWaiting ? 'Zaloguj' : <LoadingOutlined style={{ fontSize: 24 }} spin />}
+      <FormButton disabled={isLoading} type="primary" htmlType="submit">
+        {isLoading ? <LoadingOutlined style={{ fontSize: 24 }} spin /> : 'Zaloguj'}
       </FormButton>
     </FormWrapper>
   );

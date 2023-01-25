@@ -1,7 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { AuthContext } from '@/App';
-import { IAuthContext } from '@/utils';
+import { useAuthContext } from '@/utils';
 
 interface Props {
   reversed?: boolean;
@@ -14,8 +13,11 @@ export const ProtectedRoute = ({
   children,
   redirectTo = '/liczymy/login',
 }: Props) => {
-  const { credentials } = useContext(AuthContext) as IAuthContext;
-  if (!((credentials || reversed) && !(credentials && reversed))) {
+  const { credentials } = useAuthContext();
+
+  // if reversed is set to true, redirects when user is authenticated
+  const shouldRedirect = !((credentials || reversed) && !(credentials && reversed));
+  if (shouldRedirect) {
     return <Navigate to={redirectTo} replace />;
   }
   return children;
