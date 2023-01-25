@@ -161,7 +161,7 @@ Wydanie puszki polega na wpisaniu numeru wolontariusza i kliknięciu "Wydaj pusz
 
 UWAGA: `id` puszki jesy używane tylko wewnętrznie, do wyświetlania używamy `identifier` wolontariusza.
 
-Operacja API: `POST  `
+Operacja API: `POST  /api/collectors/{collectorIdentifier}/boxes`
 
 Przykładowa zwrotka:
 ```json
