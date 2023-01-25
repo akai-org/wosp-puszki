@@ -101,4 +101,5 @@ export interface IAuthContext {
   createCredentials: (username: string, password: string) => Promise<void>;
   deleteCredentials: () => void;
   credentials: string | null;
+  username: string | null;
 }

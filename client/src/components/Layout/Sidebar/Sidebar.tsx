@@ -1,5 +1,7 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import { SidebarSmall, SidebarBig } from './SidebarVariants';
+import { AuthContext } from '@/App';
+import { IAuthContext } from '@/utils';
 
 const links = [
   { label: 'Strona Główna', url: '' },
@@ -8,12 +10,17 @@ const links = [
   { label: 'Puszki', url: 'boxes' },
 ];
 
-interface Props {
-  isLoggedIn: boolean;
-}
-
-const userName = 'superadmin';
-
-export const Sidebar: FC<Props> = ({ isLoggedIn }) => {
-  return isLoggedIn ? <SidebarBig links={links} userName={userName} /> : <SidebarSmall />;
+export const Sidebar: FC = () => {
+  const { deleteCredentials, username, credentials } = useContext(
+    AuthContext,
+  ) as IAuthContext;
+  return credentials ? (
+    <SidebarBig
+      deleteCredentials={deleteCredentials}
+      links={links}
+      userName={username as string}
+    />
+  ) : (
+    <SidebarSmall />
+  );
 };

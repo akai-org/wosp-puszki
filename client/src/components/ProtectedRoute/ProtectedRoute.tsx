@@ -9,7 +9,11 @@ interface Props {
   children: JSX.Element;
 }
 
-export const ProtectedRoute = ({ reversed, children, redirectTo = '/login' }: Props) => {
+export const ProtectedRoute = ({
+  reversed,
+  children,
+  redirectTo = '/liczymy/login',
+}: Props) => {
   const { credentials } = useContext(AuthContext) as IAuthContext;
   if (!((credentials || reversed) && !(credentials && reversed))) {
     return <Navigate to={redirectTo} replace />;
