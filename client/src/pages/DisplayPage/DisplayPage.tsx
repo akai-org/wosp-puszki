@@ -25,7 +25,7 @@ export interface IDisplayPageContent {
 
 const initialStations: Record<number, volunteerStatusClass> = {};
 Array.from(Array(28)).forEach(
-  (el, index) => (initialStations[index + 1] = 'volunteer-occupied'),
+  (el, index) => (initialStations[index + 1] = 'volunteer-unavailable'),
 );
 
 export const DisplayPage = () => {
