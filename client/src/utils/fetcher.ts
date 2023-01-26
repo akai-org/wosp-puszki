@@ -3,18 +3,19 @@ import { STORAGE_CREDENTIALS } from '@utils/storageKeys';
 
 export interface FetcherRequestInit extends Omit<RequestInit, 'body'> {
   body?: object | string | number | boolean;
+  public?: boolean;
 }
 
 export async function fetcher<T = object>(
   url: string,
-  customConfiguration = {} as FetcherRequestInit,
+  customConfiguration = { public: false } as FetcherRequestInit,
 ) {
   const baseHeaders: Record<string, string> = {
     'Content-Type': 'application/json',
   };
 
   const credentials = localStorage.getItem(STORAGE_CREDENTIALS);
-  if (credentials) {
+  if (credentials && !customConfiguration.public) {
     baseHeaders.Authorization = `Basic ${credentials}`;
   }
 

@@ -1,9 +1,13 @@
 import s from './MapController.module.less';
 import { ReactComponent as MapVertical } from '@assets/map_vertical.svg';
-import { useRef } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import { volunteerStatusClass } from '@/utils';
 
-export const MapController = () => {
+interface Props {
+  stations: Record<number, volunteerStatusClass>;
+}
+
+export const MapController: FC<Props> = ({ stations }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const changeVolunteerAvailability = (
@@ -14,6 +18,12 @@ export const MapController = () => {
       ?.querySelector(`#station${stationNumber}`)
       ?.classList.add(newStatus);
   };
+
+  useEffect(() => {
+    for (const stationsKey in stations) {
+      changeVolunteerAvailability(parseInt(stationsKey), stations[stationsKey]);
+    }
+  }, [stations]);
 
   return (
     <div className={s.mapWrapper} ref={containerRef}>

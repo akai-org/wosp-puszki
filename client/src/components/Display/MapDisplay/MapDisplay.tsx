@@ -1,9 +1,15 @@
 import { MapController } from '@components/Layout/MapController/MapController';
+import { volunteerStatusClass } from '@/utils';
+import { FC } from 'react';
 
-export const MapDisplay = () => {
+interface Props {
+  stations: Record<number, volunteerStatusClass>;
+}
+
+export const MapDisplay: FC<Props> = ({ stations }) => {
   return (
     <section>
-      <MapController />
+      <MapController stations={stations} />
     </section>
   );
 };

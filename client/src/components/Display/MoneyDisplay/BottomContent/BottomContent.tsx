@@ -2,15 +2,24 @@ import { Space } from 'antd';
 import s from './BottomContent.module.less';
 import { Heart } from '@components/Display/MoneyDisplay';
 import { Footer } from '@components/Display/MoneyDisplay/BottomContent/Footer/Footer';
+import { FC } from 'react';
+import { ExchangeRates } from '@pages/DisplayPage';
 
-export const BottomContent = () => {
-  const volunteersNumber = 5;
-  const availableStations = 29;
+interface Props {
+  availableStations: number;
+  volunteersAmount: number;
+  exchangeRates: ExchangeRates;
+}
 
+export const BottomContent: FC<Props> = ({
+  volunteersAmount,
+  availableStations,
+  exchangeRates,
+}) => {
   return (
     <Space className={s.bottomSection} align="center" direction="vertical">
       <Space className={s.heartsWrapper} align="center">
-        <Heart count={volunteersNumber}>
+        <Heart count={volunteersAmount}>
           <div>Wolontariuszy</div>
         </Heart>
         <Heart count={availableStations}>
@@ -18,7 +27,7 @@ export const BottomContent = () => {
           <div>Stanowiska</div>
         </Heart>
       </Space>
-      <Footer />
+      <Footer exchangeRates={exchangeRates} />
     </Space>
   );
 };
