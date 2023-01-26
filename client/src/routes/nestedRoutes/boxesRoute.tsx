@@ -6,7 +6,7 @@ import {
   ListBoxesPage,
   SettleBoxPageCheckout,
 } from '@/pages';
-import { InnerLayout } from '@/components';
+import { InnerLayoutManager } from '@/components';
 import { ProtectedRoute } from '@components/ProtectedRoute/ProtectedRoute';
 
 const giveBoxPagePath = 'give';
@@ -41,7 +41,9 @@ export const boxesRoute = {
   path: 'boxes',
   element: (
     <ProtectedRoute>
-      <InnerLayout
+      <InnerLayoutManager
+        prefix="/liczymy/boxes"
+        excludingLinks={[settleBoxPagePath]}
         links={[
           { url: giveBoxPagePath, label: 'Wydaj puszkę' },
           { url: settleBoxPagePath, label: 'Rozlicz puszkę' },

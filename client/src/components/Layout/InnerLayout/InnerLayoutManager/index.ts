@@ -1,2 +1,2 @@
-export * from './InnerLayout';
+export * from './';
 export * from './InnerLayoutManager';

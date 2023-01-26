@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export interface SubNavLink {
   url: string;
   label: string;
@@ -102,4 +104,11 @@ export interface IAuthContext {
   deleteCredentials: () => void;
   credentials: string | null;
   username: string | null;
+}
+
+export type formMessageType = 'error' | 'success';
+
+export interface FormMessage {
+  type: formMessageType;
+  content: ReactNode;
 }

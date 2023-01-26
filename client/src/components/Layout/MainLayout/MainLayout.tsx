@@ -7,8 +7,8 @@ export const MainLayout = () => {
   const isLoggedIn = true;
 
   return (
-    <Layout>
-      <Sidebar isLoggedIn={isLoggedIn} />
+    <Layout style={{ minHeight: '100vh' }}>
+      <Sidebar />
       <Layout.Content
         className={isLoggedIn ? s.layoutContentWide : s.layoutContentNarrow}
       >
