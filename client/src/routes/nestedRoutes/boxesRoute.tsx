@@ -6,7 +6,6 @@ import {
   ListBoxesPage,
   SettleBoxPageCheckout,
 } from '@/pages';
-import { InnerLayout } from '@/components';
 import { InnerLayoutManager } from '@/components';
 import { ProtectedRoute } from '@components/ProtectedRoute/ProtectedRoute';
 
