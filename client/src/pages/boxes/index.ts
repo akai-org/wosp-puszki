@@ -2,4 +2,4 @@ export * from './GiveBoxPage';
 export * from './ListBoxesPage';
 export * from './SettleBoxPage';
 export * from './UnsettledBoxesPage';
-export * from './SettleBoxPage4';
+export * from './SettleBoxPageCheckout';

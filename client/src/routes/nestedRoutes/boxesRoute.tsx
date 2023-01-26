@@ -4,13 +4,13 @@ import {
   SettleBoxPage,
   UnsettledBoxesPage,
   ListBoxesPage,
-  SettleBoxPage4,
+  SettleBoxPageCheckout,
 } from '../../pages/boxes';
 import { InnerLayout } from '../../components';
 
 const giveBoxPagePath = '/boxes/give';
 const settleBoxPagePath = '/boxes/settle';
-const settleBoxPagePath4 = '/boxes/settle/4';
+const settleBoxPagePathCheckout = '/boxes/settle/4';
 const allBoxesPagePath = '/boxes';
 const unsettledBoxesPagePath = '/boxes/unsettled';
 
@@ -24,8 +24,8 @@ const boxesSubroutes: RouteObject[] = [
     element: <SettleBoxPage />,
   },
   {
-    path: settleBoxPagePath4,
-    element: <SettleBoxPage4 />,
+    path: settleBoxPagePathCheckout,
+    element: <SettleBoxPageCheckout />,
   },
   {
     index: true,

@@ -1,4 +1,4 @@
-import s from '../BoxesPage.module.less';
+import s from './SettleBoxPageCheckout.module.less';
 import { Button } from 'antd';
 
 type denomination =
@@ -33,7 +33,7 @@ interface BoxData {
   others?: string;
 }
 
-export const SettleBoxPage4 = () => {
+export const SettleBoxPageCheckout = () => {
   const data: BoxData = {
     volunteerId: 123,
     boxId: 22,
@@ -135,7 +135,7 @@ export const SettleBoxPage4 = () => {
   let totalPLNSum = 0;
 
   return (
-    <div className={s.page4}>
+    <div className={s.pageCheckout}>
       <h3>
         Potwierdzenie rozliczenia puszki wolontariusza {data.volunteerId} (ID puszki w
         bazie:
@@ -191,8 +191,8 @@ export const SettleBoxPage4 = () => {
               );
             })}
           </table>
-          <p className={s.otherParagraph}>Inne</p>
-          <p className={s.otherParagraph2}>{data.others}</p>
+          <p className={s.otherTitleParagraph}>Inne</p>
+          <p className={s.otherContentParagraph}>{data.others}</p>
         </div>
         <div className={s.sum}>
           <h4>Suma (bez walut obcych):</h4>
@@ -200,7 +200,7 @@ export const SettleBoxPage4 = () => {
         </div>
       </div>
       <div className={s.action}>
-        <p>Nie wydaj puszki wolontariusz</p>
+        <p>Nie wydawaj puszki wolontariuszowi</p>
         <Button className={s.confirm}>Potwierdź rozliczenie puszki</Button>
         <Button className={s.goBack}>Wróć do poprzedniej strony</Button>
       </div>
