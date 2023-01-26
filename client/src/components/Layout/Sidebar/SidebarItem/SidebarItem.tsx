@@ -6,8 +6,8 @@ import s from './SidebarItem.module.less';
 export const SidebarItem: React.FC<SubNavLink> = (props) => {
   return (
     <NavLink
-      to={`${props.url}`}
-      end
+      to={props.url}
+      end={props.url === ''}
       className={({ isActive }) =>
         isActive ? [s.sideBarItem, s.active].join(' ') : s.sideBarItem
       }
