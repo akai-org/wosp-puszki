@@ -1,17 +1,40 @@
-import { Item } from 'rc-menu';
 import s from '../BoxesPage.module.less';
 import { Button } from 'antd';
 
+type denomination =
+  | '1gr'
+  | '2gr'
+  | '5gr'
+  | '10gr'
+  | '20gr'
+  | '50gr'
+  | '1zł'
+  | '2zł'
+  | '5zł'
+  | '10zł'
+  | '20zł'
+  | '50zł'
+  | '100zł'
+  | '200zł'
+  | '500zł';
+
 interface BoxData {
-  volunteerId: string;
-  boxId: string;
-  plnAmount: Record<string, number>;
-  foreignCurrency: Record<string, number>;
-  other?: string;
+  volunteerId: number;
+  boxId: number;
+  plnAmount: Array<{
+    name: denomination;
+    quantity: number;
+    multiplier: number;
+  }>;
+  foreignCurrency: Array<{
+    name: string;
+    amount: number;
+  }>;
+  others?: string;
 }
 
 export const SettleBoxPage4 = () => {
-  const data = {
+  const data: BoxData = {
     volunteerId: 123,
     boxId: 22,
     plnAmount: [
