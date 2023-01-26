@@ -1,4 +1,4 @@
-@import "antd/dist/antd.css";
+@import 'antd/dist/antd.css';
 
 :root {
   font-family: Poppins, Avenir, Helvetica, Arial, sans-serif;
@@ -6,4 +6,5 @@
   line-height: 24px;
   font-weight: 400;
   box-sizing: border-box;
+  background-color: #f0f2f5;
 }
