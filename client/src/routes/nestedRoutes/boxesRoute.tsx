@@ -5,8 +5,8 @@ import {
   UnsettledBoxesPage,
   ListBoxesPage,
   SettleBoxPageCheckout,
-} from '../../pages/boxes';
-import { InnerLayout } from '../../components';
+} from '@/pages';
+import { InnerLayout } from '@/components';
 
 const giveBoxPagePath = '/boxes/give';
 const settleBoxPagePath = '/boxes/settle';
