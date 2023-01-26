@@ -5,6 +5,7 @@ import s from './GiveBoxForm.module.less';
 import {
   APIManager,
   fetcher,
+  FormMessage,
   ID_NUMBER_REQUIRED,
   NetworkError,
   TYPE_OF_BOX_REQUIRED,
@@ -24,7 +25,7 @@ type FormInput = {
 
 function handleError(
   error: unknown,
-  setError: Dispatch<SetStateAction<string | undefined>>,
+  setError: Dispatch<SetStateAction<FormMessage | undefined>>,
 ) {
   if (error instanceof NetworkError) {
     handleNetworkError(error);
@@ -34,9 +35,9 @@ function handleError(
 
   function handleDefaultError() {
     if (typeof error === 'string') {
-      setError(error);
+      setError({ type: 'error', content: error });
     } else {
-      setError('Wystąpił nieznany błąd');
+      setError({ type: 'error', content: 'Wystąpił nieznany błąd' });
     }
   }
 
@@ -49,23 +50,31 @@ function handleError(
     function handlerErrorMessage() {
       const errorMessage = errorData.error;
       if (errorMessage === 'Attempt to read property "identifier" on null') {
-        setError('Podano nieprawidłowy identyfikator');
+        setError({ type: 'error', content: 'Podano nieprawidłowy identyfikator' });
       } else {
-        setError(errorMessage);
+        setError({ type: 'error', content: errorMessage });
       }
     }
   }
 }
 
 export const GiveBoxForm = () => {
-  const [error, setError] = useState<string | undefined>();
+  const [message, setMessage] = useState<FormMessage | undefined>();
   const [form] = useForm();
-  const mutation = useMutation({
-    mutationFn: (volunteerId: number) =>
-      fetcher(APIManager.giveBoxURL(volunteerId), { method: 'POST' }),
-    onError: (error) => handleError(error, setError),
-    onSuccess: (data) => form.resetFields(),
-  });
+  const mutation = useMutation<{ collectorIdentifier: number }, unknown, number, unknown>(
+    {
+      mutationFn: (volunteerId: number) =>
+        fetcher(APIManager.giveBoxURL(volunteerId), { method: 'POST' }),
+      onError: (error) => handleError(error, setMessage),
+      onSuccess: (data) => {
+        setMessage({
+          type: 'success',
+          content: `Pomyślnie wydano puszkę dla identyfikatora: ${data.collectorIdentifier}`,
+        });
+        form.resetFields();
+      },
+    },
+  );
 
   const onFinish = (values: FormInput) => {
     let volunteerId = values.id_number;
@@ -73,7 +82,7 @@ export const GiveBoxForm = () => {
       volunteerId = parseInt(volunteerId);
     }
     mutation.mutate(volunteerId);
-    setError(undefined);
+    setMessage(undefined);
   };
 
   return (
@@ -82,7 +91,7 @@ export const GiveBoxForm = () => {
       label="Wydawanie Puszki"
       name="giveBoxForm"
       onFinish={onFinish}
-      errorMessage={error}
+      message={message}
       disabled={mutation.isLoading}
     >
       <Space className={s.formInputs}>

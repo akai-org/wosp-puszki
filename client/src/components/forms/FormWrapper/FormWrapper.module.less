@@ -2,7 +2,8 @@
 
 .card,
 .blackBorderCard,
-.errorBorder {
+.errorBorder,
+.successBorder {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,6 +22,12 @@
 
 .errorBorder {
   border: 3px solid @red-6;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.successBorder {
+  border: 3px solid @green-1;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
