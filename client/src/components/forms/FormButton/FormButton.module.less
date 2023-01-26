@@ -1,11 +1,12 @@
-@import "less/variables.less";
+@import 'less/variables.less';
 
 .submitBtn {
   align-self: start;
-  height: 2rem;
-  border-radius: 0.125rem;
+  height: 2.625rem;
+  border-radius: 10px !important;
   border: none;
   color: white;
+  min-width: @input-width;
   &:hover {
     background-color: #ed1324;
     color: white;
@@ -13,5 +14,6 @@
 }
 
 .formItem {
-  width: @input-width;
+  min-width: @input-width;
+  margin-bottom: 0;
 }

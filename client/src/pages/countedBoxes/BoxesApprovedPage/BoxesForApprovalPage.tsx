@@ -160,6 +160,7 @@ export const BoxesForApprovalPage = () => {
             columns={columns}
             pagination={false}
             dataSource={data}
+            rowKey="key" // To należy zmienić przy okazji podłączenia API
             scroll={{ y: '70vh' }}
             rowClassName={s.table_row}
           />

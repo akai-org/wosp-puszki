@@ -5,8 +5,9 @@ import {
   UnsettledBoxesPage,
   ListBoxesPage,
   SettleBoxPageCheckout,
-} from '../../pages/boxes';
-import { InnerLayout } from '../../components';
+} from '@/pages';
+import { InnerLayout } from '@/components';
+import { ProtectedRoute } from '@components/ProtectedRoute/ProtectedRoute';
 
 const giveBoxPagePath = '/boxes/give';
 const settleBoxPagePath = '/boxes/settle';
@@ -40,14 +41,16 @@ const boxesSubroutes: RouteObject[] = [
 export const boxesRoute = {
   path: 'boxes',
   element: (
-    <InnerLayout
-      links={[
-        { url: giveBoxPagePath, label: 'Wydaj puszkę' },
-        { url: settleBoxPagePath, label: 'Rozlicz puszkę' },
-        { url: allBoxesPagePath, label: 'Wszystkie puszki' },
-        { url: unsettledBoxesPagePath, label: 'Lista puszek nie rozliczonych' },
-      ]}
-    />
+    <ProtectedRoute>
+      <InnerLayout
+        links={[
+          { url: giveBoxPagePath, label: 'Wydaj puszkę' },
+          { url: settleBoxPagePath, label: 'Rozlicz puszkę' },
+          { url: '', label: 'Wszystkie puszki' },
+          { url: unsettledBoxesPagePath, label: 'Lista puszek nie rozliczonych' },
+        ]}
+      />
+    </ProtectedRoute>
   ),
   children: boxesSubroutes,
 };

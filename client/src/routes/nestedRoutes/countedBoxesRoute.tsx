@@ -1,8 +1,8 @@
 import { RouteObject } from 'react-router-dom';
-import { BoxesApprovedPage, BoxesForApprovalPage } from '../../pages/countedBoxes';
-import { InnerLayout } from '../../components';
+import { BoxesApprovedPage, BoxesForApprovalPage } from '@/pages';
+import { InnerLayout } from '@/components';
+import { ProtectedRoute } from '@components/ProtectedRoute/ProtectedRoute';
 
-const boxesForApprovalPagePath = '/countedBoxes';
 const boxesApprovedPagePath = 'approved';
 
 const countedBoxesSubroutes: RouteObject[] = [
@@ -19,15 +19,17 @@ const countedBoxesSubroutes: RouteObject[] = [
 export const countedBoxesRoute = {
   path: 'countedBoxes',
   element: (
-    <InnerLayout
-      links={[
-        { url: boxesForApprovalPagePath, label: 'Lista puszek do zatwierdzenia' },
-        {
-          url: boxesApprovedPagePath,
-          label: 'Lista puszek zatwierdzonych',
-        },
-      ]}
-    />
+    <ProtectedRoute>
+      <InnerLayout
+        links={[
+          { url: '', label: 'Lista puszek do zatwierdzenia' },
+          {
+            url: boxesApprovedPagePath,
+            label: 'Lista puszek zatwierdzonych',
+          },
+        ]}
+      />
+    </ProtectedRoute>
   ),
   children: countedBoxesSubroutes,
 };

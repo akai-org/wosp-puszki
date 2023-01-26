@@ -5,11 +5,11 @@ import {
   ListUsersPage,
   ListVolunteersPage,
   LogsPage,
-} from '../../pages/admin';
-import { InnerLayout } from '../../components';
+} from '@/pages';
+import { InnerLayout } from '@/components';
+import { ProtectedRoute } from '@components/ProtectedRoute/ProtectedRoute';
 
 const addUserPagePath = 'users/add';
-const listUsersPagePath = '/admin';
 const listVolunteersPagePath = 'volunteers/list';
 const addVolunteerPagePath = 'volunteers/add';
 const logsPagePath = 'logs';
@@ -40,15 +40,17 @@ const adminSubroutes: RouteObject[] = [
 export const adminRoute = {
   path: 'admin',
   element: (
-    <InnerLayout
-      links={[
-        { url: addUserPagePath, label: 'Dodaj użytkownika' },
-        { url: listUsersPagePath, label: 'Lista użytkowników', withDot: true },
-        { url: addVolunteerPagePath, label: 'Dodaj wolontariusza' },
-        { url: listVolunteersPagePath, label: 'Lista wolontariuszy', withDot: true },
-        { url: logsPagePath, label: 'Logi' },
-      ]}
-    />
+    <ProtectedRoute>
+      <InnerLayout
+        links={[
+          { url: addUserPagePath, label: 'Dodaj użytkownika' },
+          { url: '', label: 'Lista użytkowników', withDot: true },
+          { url: addVolunteerPagePath, label: 'Dodaj wolontariusza' },
+          { url: listVolunteersPagePath, label: 'Lista wolontariuszy', withDot: true },
+          { url: logsPagePath, label: 'Logi' },
+        ]}
+      />
+    </ProtectedRoute>
   ),
   children: adminSubroutes,
 };

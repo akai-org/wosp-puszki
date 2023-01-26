@@ -1,0 +1,46 @@
+@import 'less/variables.less';
+
+.container {
+  height: 100vh;
+  gap: 20px;
+}
+
+.container,
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.input,
+.select {
+  width: @input-width;
+}
+
+.input, .inputContainer, .break {
+  position: relative;
+}
+
+.text {
+  position: absolute;
+  top: 3%;
+  left: -80%;
+}
+
+.break {
+  padding: 0 2rem;
+  margin: 0 auto;
+  z-index: 2;
+  align-self: start;
+  height: 2.625rem;
+  border-radius: 10px !important;
+  border: none;
+  color: white;
+  min-width: @input-width;
+  &:hover {
+    background-color: #ed1324;
+    color: white;
+  }
+  margin-bottom: 0;
+}

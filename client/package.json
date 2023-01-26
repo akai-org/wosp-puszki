@@ -12,7 +12,8 @@
     "lint": "yarn lint:format && yarn lint:fix "
   },
   "dependencies": {
-    "@tanstack/react-query": "^4.19.1",
+    "@ant-design/icons": "^5.0.0",
+    "@tanstack/react-query": "^4.20.9",
     "@tanstack/react-query-devtools": "^4.19.1",
     "antd": "^4.24.0",
     "react": "^18.2.0",
@@ -41,6 +42,8 @@
     "typescript": "^4.6.4",
     "vite": "^3.2.0",
     "vite-aliases": "^0.9.7",
-    "vite-plugin-imp": "^2.3.1"
-  }
+    "vite-plugin-imp": "^2.3.1",
+    "vite-plugin-svgr": "^2.4.0"
+  },
+  "packageManager": "yarn@1.22.19"
 }

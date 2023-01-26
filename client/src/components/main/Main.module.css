@@ -10,8 +10,8 @@ body {
   align-items: center;
 }
 .container {
-  height: 100vh;
   gap: 4.25rem;
+  height: 100vh;
 }
 
 .buttons {

@@ -18,13 +18,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['middleware' => ['auth:sanctum']], function (){
+Route::group(['middleware' => ['auth.basic:,name']], function (){
     Route::get('health', function() {
         return response()->json(['hello' => 'world']);
     });
 });
 
-Route::group(['middleware' => ['auth:sanctum', 'collectorcoordinator']], function (){
+Route::group(['middleware' => ['auth.basic:,name', 'collectorcoordinator']], function (){
     Route::post('/collectors/{collectorIdentifier}/boxes', function(Request $request, string $collectorIdentifier) {
         $bo = new BoxOperator($request->user()->id);
 
@@ -38,9 +38,7 @@ Route::group(['middleware' => ['auth:sanctum', 'collectorcoordinator']], functio
 
         return Response::json($box, 200);
     });
-});
 
-Route::group(['middleware' => ['auth:sanctum', 'collectorcoordinator']], function (){
     Route::get('/collectors/{collectorIdentifier}/boxes/latestUncounted', function(Request $request, string $collectorIdentifier) {
         $bo = new BoxOperator($request->user()->id);
 
