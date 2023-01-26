@@ -46,7 +46,11 @@ export const LoginForm = () => {
   };
 
   return (
-    <FormWrapper onFinish={onSubmit} errorMessage={errorMessage}>
+    <FormWrapper
+      disabled={isLoading}
+      onFinish={onSubmit}
+      message={errorMessage ? { type: 'error', content: errorMessage } : undefined}
+    >
       <FormInput
         name="username"
         label="Nazwa użytkownika"
@@ -58,7 +62,7 @@ export const LoginForm = () => {
         label="Hasło"
         rules={[{ required: true, message: PASSWORD_REQUIRED }]}
       />
-      <FormButton disabled={isLoading} type="primary" htmlType="submit">
+      <FormButton type="primary" htmlType="submit">
         {isLoading ? <LoadingOutlined style={{ fontSize: 24 }} spin /> : 'Zaloguj'}
       </FormButton>
     </FormWrapper>
