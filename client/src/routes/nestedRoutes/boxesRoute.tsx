@@ -1,11 +1,19 @@
 import { RouteObject } from 'react-router-dom';
-import { GiveBoxPage, SettleBoxPage, UnsettledBoxesPage, ListBoxesPage } from '@/pages';
+import {
+  GiveBoxPage,
+  SettleBoxPage,
+  UnsettledBoxesPage,
+  ListBoxesPage,
+  SettleBoxPageCheckout,
+} from '@/pages';
 import { InnerLayout } from '@/components';
 import { ProtectedRoute } from '@components/ProtectedRoute/ProtectedRoute';
 
-const giveBoxPagePath = 'boxes/give';
-const settleBoxPagePath = 'boxes/settle';
-const unsettledBoxesPagePath = 'boxes/unsettled';
+const giveBoxPagePath = '/boxes/give';
+const settleBoxPagePath = '/boxes/settle';
+const settleBoxPagePathCheckout = '/boxes/settle/4';
+const allBoxesPagePath = '/boxes';
+const unsettledBoxesPagePath = '/boxes/unsettled';
 
 const boxesSubroutes: RouteObject[] = [
   {
@@ -15,6 +23,10 @@ const boxesSubroutes: RouteObject[] = [
   {
     path: settleBoxPagePath,
     element: <SettleBoxPage />,
+  },
+  {
+    path: settleBoxPagePathCheckout,
+    element: <SettleBoxPageCheckout />,
   },
   {
     index: true,
