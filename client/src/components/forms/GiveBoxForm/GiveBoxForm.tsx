@@ -6,6 +6,7 @@ import {
   APIManager,
   fetcher,
   FormMessage,
+  GIVE_BOX_WRONG_ID_ERROR_RESPONSE,
   ID_NUMBER_REQUIRED,
   NetworkError,
   TYPE_OF_BOX_REQUIRED,
@@ -49,7 +50,7 @@ function handleError(
     }
     function handlerErrorMessage() {
       const errorMessage = errorData.error;
-      if (errorMessage === 'Attempt to read property "identifier" on null') {
+      if (errorMessage === GIVE_BOX_WRONG_ID_ERROR_RESPONSE) {
         setError({ type: 'error', content: 'Podano nieprawidłowy identyfikator' });
       } else {
         setError({ type: 'error', content: errorMessage });
