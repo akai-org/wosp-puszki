@@ -10,8 +10,8 @@ interface Props extends FormProps {
 
 export const DepositColumn: FC<Props> = ({ children }) => {
   return (
-    <Space direction="vertical">
-      <Space>
+    <Space direction="vertical" className={s.container}>
+      <Space size={80} className={s.columnNames}>
         <Text>Nominał</Text>
         <Text>Ilość</Text>
         <Text>Wartość</Text>
