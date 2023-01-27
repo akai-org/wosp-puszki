@@ -4,7 +4,7 @@ import s from './SettleBoxPage.module.less';
 export const SettleBoxPage = () => {
   return (
     <section className={s.container}>
-      <BoxToSettleForm />;
+      <BoxToSettleForm />
     </section>
   );
 };
