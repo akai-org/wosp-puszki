@@ -2,24 +2,18 @@ import { Space } from 'antd';
 import s from './BottomContent.module.less';
 import { Heart } from '@components/Display/MoneyDisplay';
 import { Footer } from '@components/Display/MoneyDisplay/BottomContent/Footer/Footer';
-import { FC } from 'react';
-import { ExchangeRates } from '@pages/DisplayPage';
+import { useAmountsQuery, useStationsQuery } from '@/utils';
 
-interface Props {
-  availableStations: number;
-  volunteersAmount: number;
-  exchangeRates: ExchangeRates;
-}
+export const BottomContent = () => {
+  const { data } = useAmountsQuery();
+  const { data: stationsData } = useStationsQuery();
 
-export const BottomContent: FC<Props> = ({
-  volunteersAmount,
-  availableStations,
-  exchangeRates,
-}) => {
+  const availableStations = stationsData.filter((station) => station.st === 1).length;
+
   return (
     <Space className={s.bottomSection} align="center" direction="vertical">
       <Space className={s.heartsWrapper} align="center">
-        <Heart count={volunteersAmount}>
+        <Heart count={data.collectors_in_city}>
           <div>Wolontariuszy</div>
         </Heart>
         <Heart count={availableStations}>
@@ -27,7 +21,7 @@ export const BottomContent: FC<Props> = ({
           <div>Stanowiska</div>
         </Heart>
       </Space>
-      <Footer exchangeRates={exchangeRates} />
+      <Footer exchangeRates={data.rates} />
     </Space>
   );
 };

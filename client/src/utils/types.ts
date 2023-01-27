@@ -112,3 +112,22 @@ export interface FormMessage {
   type: formMessageType;
   content: ReactNode;
 }
+
+export type ExchangeRates = { EUR: number; GBP: number; USD: number };
+
+export interface IDisplayPageContent {
+  amount_PLN: number;
+  amount_PLN_unconfirmed: number;
+  amount_EUR: string;
+  amount_GBP: string;
+  amount_USD: string;
+  rates: ExchangeRates;
+  amount_total_in_PLN: number;
+  collectors_in_city: number;
+}
+
+export interface IStations {
+  s: number;
+  st: number;
+  t: number | null;
+}

@@ -16,9 +16,9 @@ export const Footer: FC<Props> = ({ exchangeRates }) => {
         <a href="https://akai.org.pl/">AKAI</a>
       </Space>
       <Space className={s.exchangeRate}>
-        kursy: <ExchangeRate exchangeName="eur" exchangeRate={exchangeRates.euro} /> |
-        <ExchangeRate exchangeName="usd" exchangeRate={exchangeRates.dollar} /> |
-        <ExchangeRate exchangeName="gbp" exchangeRate={exchangeRates.pound} />
+        kursy: <ExchangeRate exchangeName="eur" exchangeRate={exchangeRates.EUR} /> |
+        <ExchangeRate exchangeName="usd" exchangeRate={exchangeRates.USD} /> |
+        <ExchangeRate exchangeName="gbp" exchangeRate={exchangeRates.GBP} />
       </Space>
     </Space>
   );
