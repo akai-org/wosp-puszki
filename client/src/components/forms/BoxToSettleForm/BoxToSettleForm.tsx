@@ -2,9 +2,8 @@ import React from 'react';
 import { FormButton, FormWrapper } from '@/components';
 
 export const BoxToSettleForm = () => {
-  const onSubmit = () => {
+  const onSubmit = async () => {
     // TODO: Navigate to another page?
-    return;
   };
 
   return (
