@@ -169,7 +169,8 @@ export interface boxResponse {
     created_at: string;
     updated_at: string;
   };
-  
+}
+
 export type ExchangeRates = { EUR: number; GBP: number; USD: number };
 
 export interface IDisplayPageContent {
