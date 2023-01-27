@@ -2,10 +2,9 @@ import { Typography, Space, Button } from 'antd';
 import s from './AcceptDataCard.module.less';
 
 type AcceptData = {
-  id_box: number;
-  id_number: number;
+  id_box: string;
+  id_number: string;
   volunteer: string;
-  type: 'box' | 'case';
   onAccept: () => void;
 };
 
@@ -15,14 +14,11 @@ export const AcceptDataCard = ({
   id_box,
   id_number,
   volunteer,
-  type,
   onAccept,
 }: AcceptData) => {
   return (
     <div className={s.AcceptDataCard}>
-      <Title level={4}>
-        Znaleziono {type === 'box' ? 'puszkę' : 'skarbonkę'}: {id_box}
-      </Title>
+      <Title level={4}>Znaleziono puszkę: {id_box}</Title>
       <Space className={s.DataLabels}>
         <Space className={s.LabelTop}>
           <Text>Wolontariusz</Text>
