@@ -1,11 +1,22 @@
 import { RouteObject } from 'react-router-dom';
-import { GiveBoxPage, SettleBoxPage, UnsettledBoxesPage, ListBoxesPage } from '@/pages';
-import { InnerLayout } from '@/components';
+import {
+  GiveBoxPage,
+  FindBoxPage,
+  AcceptDataPage,
+  SettleBoxPage,
+  UnsettledBoxesPage,
+  ListBoxesPage,
+  SettleBoxPageCheckout,
+} from '@/pages';
+import { InnerLayoutManager } from '@/components';
 import { ProtectedRoute } from '@components/ProtectedRoute/ProtectedRoute';
 
-const giveBoxPagePath = 'boxes/give';
-const settleBoxPagePath = 'boxes/settle';
-const unsettledBoxesPagePath = 'boxes/unsettled';
+const giveBoxPagePath = 'give';
+const settleBoxPagePath = 'settle';
+const settleBoxPagePathCheckout = 'settle/4';
+const findBoxPagePath = 'settle/1';
+const acceptBoxPagePath = 'settle/2';
+const unsettledBoxesPagePath = 'unsettled';
 
 const boxesSubroutes: RouteObject[] = [
   {
@@ -15,6 +26,18 @@ const boxesSubroutes: RouteObject[] = [
   {
     path: settleBoxPagePath,
     element: <SettleBoxPage />,
+  },
+  {
+    path: findBoxPagePath,
+    element: <FindBoxPage />,
+  },
+  {
+    path: acceptBoxPagePath,
+    element: <AcceptDataPage />,
+  },
+  {
+    path: settleBoxPagePathCheckout,
+    element: <SettleBoxPageCheckout />,
   },
   {
     index: true,
@@ -30,7 +53,9 @@ export const boxesRoute = {
   path: 'boxes',
   element: (
     <ProtectedRoute>
-      <InnerLayout
+      <InnerLayoutManager
+        prefix="/liczymy/boxes"
+        excludingLinks={[findBoxPagePath, acceptBoxPagePath]}
         links={[
           { url: giveBoxPagePath, label: 'Wydaj puszkę' },
           { url: settleBoxPagePath, label: 'Rozlicz puszkę' },

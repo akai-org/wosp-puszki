@@ -1,48 +1,131 @@
 import { FormButton, FormWrapper, FormInput, FormSelect } from '@/components';
-import { ID_NUMBER_REQUIRED, TYPE_OF_BOX_REQUIRED } from '@/utils';
 import { Typography, Space, Button } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 import s from './FindBoxForm.module.less';
+import React, { Dispatch, SetStateAction } from 'react';
 import { useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { useBoxContext, boxResponse } from '@/utils';
+import { Spinner } from '@components/Layout/Spinner/Spinner';
+import { useNavigate } from 'react-router-dom';
+import { useForm } from 'antd/es/form/Form';
+import {
+  APIManager,
+  fetcher,
+  FormMessage,
+  GIVE_BOX_WRONG_ID_ERROR_RESPONSE,
+  ID_NUMBER_REQUIRED,
+  NetworkError,
+  TYPE_OF_BOX_REQUIRED,
+} from '@/utils';
 const { Text } = Typography;
 
 const options = [
-  { value: 'puszka', label: 'Puszka' },
-  { value: 'skarbonka', label: 'Skarbonka' },
+  { value: 'box', label: 'Puszka' },
+  { value: 'case', label: 'Skarbonka' },
 ];
 
+type FormInput = {
+  id_number: string | number;
+  box_type: 'box' | 'case';
+};
+
+function handleError(
+  error: unknown,
+  setError: Dispatch<SetStateAction<FormMessage | undefined>>,
+) {
+  if (error instanceof NetworkError) {
+    handleNetworkError(error);
+  } else {
+    handleDefaultError();
+  }
+
+  function handleDefaultError() {
+    if (typeof error === 'string') {
+      setError({ type: 'error', content: error });
+    } else {
+      setError({ type: 'error', content: 'Wystąpił nieznany błąd' });
+    }
+  }
+
+  function handleNetworkError(error: NetworkError) {
+    const errorData = JSON.parse(error.message);
+
+    if (typeof errorData === 'object' && errorData['error']) {
+      handlerErrorMessage();
+    } else {
+      setError({ type: 'error', content: 'Nie znaleziono puszki' });
+    }
+    function handlerErrorMessage() {
+      const errorMessage = errorData.error;
+      if (errorMessage === GIVE_BOX_WRONG_ID_ERROR_RESPONSE) {
+        setError({ type: 'error', content: 'Podano nieprawidłowy identyfikator' });
+      } else {
+        setError({ type: 'error', content: errorMessage });
+      }
+    }
+  }
+}
+
 export const FindBoxForm = () => {
-  const onSubmit = () => {
-    // TODO: Check if
-    return;
+  const [message, setMessage] = useState<FormMessage | undefined>();
+  const [form] = useForm();
+  const { createBox } = useBoxContext();
+  const navigate = useNavigate();
+  const mutation = useMutation<boxResponse, unknown, number, unknown>({
+    mutationFn: (volunteerId: number) =>
+      fetcher(APIManager.findBoxURL(volunteerId), { method: 'Get' }),
+    onError: (error) => {
+      handleError(error, setMessage);
+    },
+    onSuccess: (data) => {
+      console.log(data);
+      setMessage({
+        type: 'success',
+        content: `Pomyślnie znaleziono puszkę dla identyfikatora: ${data.collectorIdentifier}`,
+      });
+      createBox(
+        [data.collector.firstName, data.collector.lastName].join(' '),
+        data.collectorIdentifier,
+        data.id.toString(),
+      );
+      form.resetFields();
+      navigate('/liczymy/boxes/settle/2');
+    },
+  });
+
+  const onFinish = (values: FormInput) => {
+    let volunteerId = values.id_number;
+    if (typeof volunteerId === 'string') {
+      volunteerId = parseInt(volunteerId);
+    }
+    mutation.mutate(volunteerId);
+    setMessage(undefined);
   };
 
   const handleBreak = () => {
-    // TODO: request ze to stanowisko nie jest gotowe?
+    navigate('/liczymy/boxes/settle');
     return;
   };
-
-  const [error, setError] = useState(true);
 
   return (
     <Content className={s.container}>
       <FormWrapper
-        onFinish={onSubmit}
+        form={form}
+        onFinish={onFinish}
         name="boxToSettleForm"
         className={s.form}
         borderColor="black"
         label="Znajdź puszkę do rozliczenia"
-        errorMessage={
-          error &&
-          'Wszystkie puszki wolontariusza Patrycja Majewski ( 123 ) są rozliczone'
-        }
+        message={message}
+        disabled={mutation.isLoading}
       >
         <Space direction="vertical">
           <Space direction="vertical" className={s.form}>
             <Space className={s.inputContainer} size={0}>
               <Text className={s.text}>Numer Identyfikatora:</Text>
               <FormInput
-                name="idNumber"
+                name="id_number"
                 className={s.input}
                 placeholder="Np. 123"
                 rules={[{ required: true, message: ID_NUMBER_REQUIRED }]}
@@ -56,7 +139,7 @@ export const FindBoxForm = () => {
               rules={[{ required: true, message: TYPE_OF_BOX_REQUIRED }]}
             />
             <FormButton htmlType="submit" type="primary">
-              Wyszukaj puszkę
+              {mutation.isLoading ? <Spinner /> : 'Wyszukaj puszkę'}
             </FormButton>
           </Space>
         </Space>

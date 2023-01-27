@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Lib\AppStatusManager;
 use App\Lib\Rates\CurrentRatesFetcher;
 use App\Lib\Rates\RatesFetcher;
 use App\Lib\Rates\StaticRatesFetcher;
@@ -20,6 +21,8 @@ function totalCollected() {
 }
 
 function totalCollectedArray() {
+    // Eskarbonka
+    $amount_PLN_eskarbonka = AppStatusManager::readStatusValue(AppStatusManager::MONEYBOX_VALUE, 0);
     //Zliczamy rozliczone PLN z puszek
     $amount_PLN = round(CharityBox::where('is_confirmed', '=', 1)->sum('amount_PLN'), 2);
     $amount_PLN_unconfirmed = round(CharityBox::all()->sum('amount_PLN'),2);
@@ -39,6 +42,7 @@ function totalCollectedArray() {
     //Policzenie sumy całości
     $total_PLN = array_sum(
         [
+            (float)$amount_PLN_eskarbonka,
             round($amount_PLN, 2),
             round($amount_USD*$rates['USD'], 2),
             round($amount_EUR*$rates['EUR'], 2),
@@ -51,11 +55,12 @@ function totalCollectedArray() {
     $data = [
         'amount_PLN' => $amount_PLN,
         'amount_PLN_unconfirmed' => $amount_PLN_unconfirmed-$amount_PLN,
+        'amount_PLN_eskarbonka' => (float)$amount_PLN_eskarbonka,
         'amount_EUR' => $amount_EUR,
         'amount_GBP' => $amount_GBP,
         'amount_USD' => $amount_USD,
         'rates' => $rates,
-        'amount_total_in_PLN' => $total_PLN,
+        'amount_total_in_PLN' =>  round($total_PLN, 2),
         'collectors_in_city' => $collectors_in_city
     ];
 

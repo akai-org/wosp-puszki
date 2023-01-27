@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export interface SubNavLink {
   url: string;
   label: string;
@@ -102,4 +104,87 @@ export interface IAuthContext {
   deleteCredentials: () => void;
   credentials: string | null;
   username: string | null;
+}
+
+export interface IBoxContext {
+  createBox: (
+    collectorName: string,
+    collectorIdentifier: string,
+    boxIdentifier: string,
+  ) => Promise<void>;
+  deleteBox: () => void;
+  collectorName: string | null;
+  collectorIdentifier: string | null;
+  boxIdentifier: string | null;
+}
+
+export type formMessageType = 'error' | 'success';
+
+export interface FormMessage {
+  type: formMessageType;
+  content: ReactNode;
+}
+
+export interface boxResponse {
+  id: number;
+  collectorIdentifier: string;
+  collector_id: number;
+  is_given_to_collector: boolean;
+  given_to_collector_user_id: number;
+  time_given: string;
+  is_counted: number;
+  counting_user_id: string | null;
+  time_counted: string | null;
+  is_confirmed: number;
+  user_confirmed_id: string | null;
+  time_confirmed: string | null;
+  count_1gr: number;
+  count_2gr: number;
+  count_5gr: number;
+  count_10gr: number;
+  count_20gr: number;
+  count_50gr: number;
+  count_1zl: number;
+  count_2zl: number;
+  count_5zl: number;
+  count_10zl: number;
+  count_20zl: number;
+  count_50zl: number;
+  count_100zl: number;
+  count_200zl: number;
+  count_500zl: number;
+  amount_PLN: string;
+  amount_EUR: string;
+  amount_USD: string;
+  amount_GBP: string;
+  comment: string;
+  created_at: string;
+  updated_at: string;
+  is_special_box: number;
+  collector: {
+    id: number;
+    identifier: string;
+    firstName: string;
+    lastName: string;
+    created_at: string;
+    updated_at: string;
+  };
+  
+export type ExchangeRates = { EUR: number; GBP: number; USD: number };
+
+export interface IDisplayPageContent {
+  amount_PLN: number;
+  amount_PLN_unconfirmed: number;
+  amount_EUR: string;
+  amount_GBP: string;
+  amount_USD: string;
+  rates: ExchangeRates;
+  amount_total_in_PLN: number;
+  collectors_in_city: number;
+}
+
+export interface IStations {
+  s: number;
+  st: number;
+  t: number | null;
 }

@@ -7,46 +7,50 @@ import {
   WRONG_USER_CREDENTIALS,
 } from '@/utils';
 import { FormButton, FormWrapper, FormInput } from '@/components';
-import { useState } from 'react';
-import { LoadingOutlined } from '@ant-design/icons';
+import { Dispatch, SetStateAction, useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { Spinner } from '@components/Layout/Spinner/Spinner';
 
 interface LoginFormValues {
   username: string;
   password: string;
 }
 
+function handleError(
+  e: unknown,
+  setErrorMessage: Dispatch<SetStateAction<string | undefined>>,
+) {
+  if (e instanceof NetworkError) {
+    handleNetworkError(e);
+  } else {
+    setErrorMessage(LOGIN_EXCEPTION);
+  }
+  function handleNetworkError(e: NetworkError) {
+    if (e.status == 401) {
+      setErrorMessage(WRONG_USER_CREDENTIALS);
+    }
+  }
+}
+
 export const LoginForm = () => {
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
-  const [isLoading, setIsLoading] = useState(false);
   const { createCredentials } = useAuthContext();
+  const mutation = useMutation({
+    mutationFn: (values: LoginFormValues) =>
+      createCredentials(values.username, values.password),
+    onError: (error) => handleError(error, setErrorMessage),
+  });
   const onSubmit = async (values: LoginFormValues) => {
-    setIsLoading(true);
-
-    try {
-      await createCredentials(values.username, values.password);
-    } catch (e) {
-      handleError(e);
-    } finally {
-      setIsLoading(false);
-    }
-
-    function handleNetworkError(e: NetworkError) {
-      if (e.status == 401) {
-        setErrorMessage(WRONG_USER_CREDENTIALS);
-      }
-    }
-
-    function handleError(e: unknown) {
-      if (e instanceof NetworkError) {
-        handleNetworkError(e);
-      } else {
-        setErrorMessage(LOGIN_EXCEPTION);
-      }
-    }
+    setErrorMessage(undefined);
+    mutation.mutate(values);
   };
 
   return (
-    <FormWrapper onFinish={onSubmit} errorMessage={errorMessage}>
+    <FormWrapper
+      disabled={mutation.isLoading}
+      onFinish={onSubmit}
+      message={errorMessage ? { type: 'error', content: errorMessage } : undefined}
+    >
       <FormInput
         name="username"
         label="Nazwa użytkownika"
@@ -58,8 +62,8 @@ export const LoginForm = () => {
         label="Hasło"
         rules={[{ required: true, message: PASSWORD_REQUIRED }]}
       />
-      <FormButton disabled={isLoading} type="primary" htmlType="submit">
-        {isLoading ? <LoadingOutlined style={{ fontSize: 24 }} spin /> : 'Zaloguj'}
+      <FormButton type="primary" htmlType="submit">
+        {mutation.isLoading ? <Spinner /> : 'Zaloguj'}
       </FormButton>
     </FormWrapper>
   );

@@ -40,11 +40,6 @@ Route::get('/raw/pln', ['as' => 'display.raw.pln', 'uses' => 'AmountDisplayContr
 Route::get('/raw/all', ['as' => 'display.raw.all', 'uses' => 'AmountDisplayController@getTotalRawWithForeign']);
 
 
-//API
-//Zwracamy dane z głównej strony w formie JSON
-Route::get('/api/stats', ['uses' => 'AmountDisplayController@displayRawJson']);
-
-
 //Interfejsy admina i superadmina, pod adresem /liczymy
 Route::prefix('liczymy')->group(function () {
 

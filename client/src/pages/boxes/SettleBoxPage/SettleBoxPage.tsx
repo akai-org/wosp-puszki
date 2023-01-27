@@ -1,3 +1,10 @@
+import { BoxToSettleForm } from '@components/forms/BoxToSettleForm';
+import s from './SettleBoxPage.module.less';
+
 export const SettleBoxPage = () => {
-  return <p>SettlePage</p>;
+  return (
+    <section className={s.container}>
+      <BoxToSettleForm />
+    </section>
+  );
 };
