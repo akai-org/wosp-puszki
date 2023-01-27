@@ -1,11 +1,13 @@
 import s from './MapController.module.less';
 import { ReactComponent as MapVertical } from '@assets/map_vertical.svg';
 import { useEffect, useRef } from 'react';
-import { useStationsQuery, volunteerStatusClass } from '@/utils';
+import { stationState, useStationsQuery, volunteerStatusClass } from '@/utils';
 
 export const MapController = () => {
   const { data } = useStationsQuery();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  console.log(data);
 
   const changeVolunteerAvailability = (stationNumber: number, newStatusId: number) => {
     containerRef.current
@@ -26,11 +28,11 @@ export const MapController = () => {
 
 function handleNewStatus(statusId: number): volunteerStatusClass {
   switch (statusId) {
-    case 0:
+    case stationState.unavailable:
       return 'volunteer-unavailable';
-    case 1:
+    case stationState.available:
       return 'volunteer-available';
-    case 2:
+    case stationState.occupied:
       return 'volunteer-occupied';
     default:
       return 'volunteer-unavailable';

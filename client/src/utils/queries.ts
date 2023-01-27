@@ -22,20 +22,26 @@ export const amountsInitData: IDisplayPageContent = {
   },
 };
 
+export const stationState = {
+  unavailable: 0,
+  available: 1,
+  occupied: 2,
+};
+
 export const stationsInitData: IStations[] = Array.from(Array(28)).map(
-  (index): IStations => ({ s: index + 1, st: 1, t: null }),
+  (el, index): IStations => ({ s: index + 1, st: stationState.unavailable, t: null }),
 );
 
 export const useAmountsQuery = () =>
   useQuery(
     AMOUNTS_QUERY_KEY,
     () => fetcher<IDisplayPageContent>(`${APIManager.baseAPIRUrl}`),
-    { initialData: amountsInitData, cacheTime: 20 },
+    { initialData: amountsInitData, refetchInterval: 20 },
   );
 
 export const useStationsQuery = () =>
   useQuery(
     STATIONS_QUERY_KEY,
     () => fetcher<IStations[]>(`${APIManager.baseAPIRUrl}/stations`),
-    { initialData: stationsInitData, cacheTime: 20 },
+    { initialData: stationsInitData, refetchInterval: 20 },
   );
