@@ -7,8 +7,6 @@ export const MapController = () => {
   const { data } = useStationsQuery();
   const containerRef = useRef<HTMLDivElement>(null);
 
-  console.log(data);
-
   const changeVolunteerAvailability = (stationNumber: number, newStatusId: number) => {
     containerRef.current
       ?.querySelector(`#station${stationNumber}`)

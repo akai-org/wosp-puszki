@@ -2,13 +2,15 @@ import { Space } from 'antd';
 import s from './BottomContent.module.less';
 import { Heart } from '@components/Display/MoneyDisplay';
 import { Footer } from '@components/Display/MoneyDisplay/BottomContent/Footer/Footer';
-import { useAmountsQuery, useStationsQuery } from '@/utils';
+import { stationState, useAmountsQuery, useStationsQuery } from '@/utils';
 
 export const BottomContent = () => {
   const { data } = useAmountsQuery();
   const { data: stationsData } = useStationsQuery();
 
-  const availableStations = stationsData.filter((station) => station.st === 1).length;
+  const availableStations = stationsData.filter(
+    (station) => station.st === stationState.available,
+  ).length;
 
   return (
     <Space className={s.bottomSection} align="center" direction="vertical">
