@@ -104,3 +104,4 @@ Route::group(['middleware' => ['auth.basic:,name']], function (){
 Route::get('/stations', [AvailabilityController::class, 'getList']);
 Route::post('/stations/{id}/ready', [AvailabilityController::class, 'postReady']);
 Route::post('/stations/{id}/busy', [AvailabilityController::class, 'postBusy']);
+Route::post('/stations/{id}/unknown', [AvailabilityController::class, 'postUnknown']);

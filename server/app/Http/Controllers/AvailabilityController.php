@@ -39,6 +39,9 @@ class AvailabilityController extends Controller
     public function postBusy(Request $request, int $id) {
         $this->setStationStatus($id, STATUS_BUSY);
     }
+    public function postUnknown(Request $request, int $id) {
+        $this->setStationStatus($id, STATUS_UNKNOWN);
+    }
 
     private function setStationStatus(int $id, int $status){
         Cache::set('station_' . $id . '_status', $status);
