@@ -1,8 +1,8 @@
 import s from './Footer.module.less';
 import { Space } from 'antd';
 import { ExchangeRate } from '@components/Display/MoneyDisplay/BottomContent/Footer/ExchangeRate/ExchangeRate';
-import { ExchangeRates } from '@pages/DisplayPage';
 import { FC } from 'react';
+import { ExchangeRates } from '@/utils';
 
 interface Props {
   exchangeRates: ExchangeRates;

@@ -1,10 +1,12 @@
 import collected from '@assets/collected-text.svg';
+import eskarbonka from '@assets/eskarbonka.svg';
 import { Space, Typography } from 'antd';
 import s from './Currencies.module.less';
 import { currencies, parseMoney, useAmountsQuery } from '@/utils';
 
 export const Currencies = () => {
   const { data } = useAmountsQuery();
+  console.log(data);
 
   const collectedCurrencies: Record<currencies, string> = {
     pln: parseMoney(data.amount_PLN, 'pln'),
@@ -24,6 +26,12 @@ export const Currencies = () => {
         <Typography.Paragraph>{collectedCurrencies.eur}</Typography.Paragraph>
         <Typography.Paragraph>{collectedCurrencies.gbp}</Typography.Paragraph>
         <Typography.Paragraph>{collectedCurrencies.usd}</Typography.Paragraph>
+      </Space>
+      <Space className={s.eBox}>
+        <img height={80} src={eskarbonka} alt="" />
+        <Typography.Paragraph>
+          {parseMoney(data.amount_PLN_eskarbonka, 'pln')}
+        </Typography.Paragraph>
       </Space>
     </>
   );

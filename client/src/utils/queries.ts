@@ -20,6 +20,7 @@ export const amountsInitData: IDisplayPageContent = {
     GBP: 0,
     USD: 0,
   },
+  amount_PLN_eskarbonka: 0,
 };
 
 export const stationState = {
@@ -35,7 +36,7 @@ export const stationsInitData: IStations[] = Array.from(Array(28)).map(
 export const useAmountsQuery = () =>
   useQuery(
     AMOUNTS_QUERY_KEY,
-    () => fetcher<IDisplayPageContent>(`${APIManager.baseAPIRUrl}`),
+    () => fetcher<IDisplayPageContent>(`${APIManager.baseAPIRUrl}/stats`),
     { initialData: amountsInitData, refetchInterval: 20 },
   );
 
