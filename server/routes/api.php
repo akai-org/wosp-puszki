@@ -24,6 +24,10 @@ Route::group(['middleware' => ['auth.basic:,name']], function (){
     });
 });
 
+//API
+//Zwracamy dane z głównej strony w formie JSON
+Route::get('/stats', ['uses' => 'AmountDisplayController@displayRawJson']);
+
 Route::group(['middleware' => ['auth.basic:,name', 'collectorcoordinator']], function (){
     Route::post('/collectors/{collectorIdentifier}/boxes', function(Request $request, string $collectorIdentifier) {
         $bo = new BoxOperator($request->user()->id);
@@ -92,6 +96,5 @@ Route::group(['middleware' => ['auth.basic:,name', 'collectorcoordinator']], fun
 
         return Response::json($box, 200);
     });
-
 
 });

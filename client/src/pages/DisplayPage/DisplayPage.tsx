@@ -2,8 +2,8 @@ import s from './DisplayPage.module.less';
 import { Space } from 'antd';
 import { MapDisplay } from '@components/Display';
 import { MoneyDisplay } from '@components/Display/MoneyDisplay/MoneyDisplay';
-import { useState } from 'react';
-import { volunteerStatusClass } from '@/utils';
+import {useEffect, useState} from 'react';
+import {APIManager, fetcher, volunteerStatusClass} from '@/utils';
 
 export type Amounts = {
   total: number;
@@ -37,13 +37,13 @@ export const DisplayPage = () => {
     stations: initialStations,
   });
 
-  // useEffect(() => {
-  //   fetcher<IDisplayPageContent>((APIManager.baseAPIRUrl = '/some/path/to/data'), {
-  //     public: true,
-  //   })
-  //     .then((data) => setVals(data))
-  //     .catch((e) => console.log(e));
-  // }, []);
+  useEffect(() => {
+    fetcher<IDisplayPageContent>((APIManager.baseAPIRUrl = '/stats'), {
+      public: true,
+    })
+      .then((data) => setVals(data))
+      .catch((e) => console.log(e));
+  }, []);
 
   return (
     <div className={s.wrapper}>
