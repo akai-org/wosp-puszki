@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AvailabilityController;
 use App\Lib\BoxOperator\BoxOperator;
 use Illuminate\Http\Request;
 
@@ -28,7 +29,7 @@ Route::group(['middleware' => ['auth.basic:,name']], function (){
 //Zwracamy dane z głównej strony w formie JSON
 Route::get('/stats', ['uses' => 'AmountDisplayController@displayRawJson']);
 
-Route::group(['middleware' => ['auth.basic:,name', 'collectorcoordinator']], function (){
+Route::group(['middleware' => ['auth.basic:,name']], function (){
     Route::post('/collectors/{collectorIdentifier}/boxes', function(Request $request, string $collectorIdentifier) {
         $bo = new BoxOperator($request->user()->id);
 
@@ -41,7 +42,7 @@ Route::group(['middleware' => ['auth.basic:,name', 'collectorcoordinator']], fun
         }
 
         return Response::json($box, 200);
-    });
+    })->middleware(['collectorcoordinator']);
 
     Route::get('/collectors/{collectorIdentifier}/boxes/latestUncounted', function(Request $request, string $collectorIdentifier) {
         $bo = new BoxOperator($request->user()->id);
@@ -98,3 +99,8 @@ Route::group(['middleware' => ['auth.basic:,name', 'collectorcoordinator']], fun
     });
 
 });
+
+
+Route::get('/stations', [AvailabilityController::class, 'getList']);
+Route::post('/stations/{id}/ready', [AvailabilityController::class, 'postReady']);
+Route::post('/stations/{id}/busy', [AvailabilityController::class, 'postBusy']);
