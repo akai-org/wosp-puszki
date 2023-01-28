@@ -197,7 +197,7 @@ class BoxOperator {
         ]);
 
         if ($validator->fails()) {
-            throw new \Exception('Błąd walidacji puszki');
+            throw new \Exception('Błąd walidacji puszki ' . $validator->errors()->first());
         }
 
         return array_merge(
