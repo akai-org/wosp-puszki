@@ -42,6 +42,7 @@ export const AcceptDataPage = () => {
           volunteer={collectorName}
           id_number={collectorIdentifier}
           onAccept={onAccept}
+          isLoading={mutation.isLoading}
         />
       )}
     </Space>

@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { APIManager, fetcher, useBoxContext, useBoxContextValues } from '@/utils';
 import { useMutation } from '@tanstack/react-query';
 import { useEffect } from 'react';
+import { Spinner } from '@components/Layout/Spinner/Spinner';
 
 const moneyValues = {
   '1gr': 0.01,
@@ -278,7 +279,7 @@ export const SettleBoxPageCheckout = () => {
       <div className={s.action}>
         <p>Nie wydawaj puszki wolontariuszowi</p>
         <Button className={s.confirm} onClick={confirmData}>
-          Potwierdź rozliczenie puszki
+          {mutation.isLoading ? <Spinner /> : 'Potwierdź rozliczenie puszki'}
         </Button>
         <Button className={s.goBack} onClick={goBackToDeposit}>
           Wróć do poprzedniej strony

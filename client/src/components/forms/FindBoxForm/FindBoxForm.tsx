@@ -99,7 +99,7 @@ export const FindBoxForm = () => {
         data.id.toString(),
       );
       form.resetFields();
-      navigate('/liczymy/boxes/settle/2');
+      setTimeout(() => navigate('/liczymy/boxes/settle/2'), 1000);
     },
   });
 

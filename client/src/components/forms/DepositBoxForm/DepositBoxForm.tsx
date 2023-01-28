@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { APIManager, fetcher, useBoxContext } from '@/utils';
 import { useEffect } from 'react';
+import { Spinner } from '@components/Layout/Spinner/Spinner';
 
 const moneyValues = {
   '1gr': 0.01,
@@ -235,7 +236,7 @@ export const DepositBoxForm = () => {
             className={s.submitContainer}
           >
             <FormButton type="primary" onClick={handleSubmit}>
-              Rozlicz Puszkę
+              {mutation.isLoading ? <Spinner /> : 'Rozlicz Puszkę'}
             </FormButton>
           </Space>
         </DepositColumn>
