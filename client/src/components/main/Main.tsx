@@ -9,7 +9,6 @@ const { Content } = Layout;
 export const Main = () => {
   const navigate = useNavigate();
   const { data: amountsData } = useAmountsQuery();
-  console.log(amountsData);
 
   // TODO: Change buttons to links
   return (

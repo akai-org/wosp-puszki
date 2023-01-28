@@ -14,12 +14,12 @@ import { ProtectedRoute } from '@components/ProtectedRoute/ProtectedRoute';
 import { DepositBoxForm } from '@/components/forms/DepositBoxForm';
 import { DepositProvider } from '@/components/forms/DepositBoxForm/DepositContext';
 
-const depositBoxPagePath = 'settle/3';
 const giveBoxPagePath = 'give';
 const settleBoxPagePath = 'settle';
-const settleBoxPagePathCheckout = 'settle/4';
 const findBoxPagePath = 'settle/1';
 const acceptBoxPagePath = 'settle/2';
+const depositBoxPagePath = 'settle/3';
+const settleBoxPagePathCheckout = 'settle/4';
 const unsettledBoxesPagePath = 'unsettled';
 
 const boxesSubroutes: RouteObject[] = [

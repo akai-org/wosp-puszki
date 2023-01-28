@@ -17,6 +17,9 @@ import {
   useSetStationUnavailableQuery,
 } from '@/utils';
 import { CalculatorView } from '@/components/Calculator/View/CalculatorView';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Spinner } from '@components/Layout/Spinner/Spinner';
+import { FormMessage, GIVE_BOX_WRONG_ID_ERROR_RESPONSE, NetworkError } from '@/utils';
 
 const moneyValues = {
   '1gr': 0.01,
@@ -49,12 +52,62 @@ export function sum(amounts: Record<AmountsKeys, number>) {
   return summ;
 }
 
+function handleError(
+  error: unknown,
+  setError: Dispatch<SetStateAction<FormMessage | undefined>>,
+) {
+  if (error instanceof NetworkError) {
+    handleNetworkError(error);
+  } else {
+    handleDefaultError();
+  }
+
+  function handleDefaultError() {
+    if (typeof error === 'string') {
+      setError({ type: 'error', content: error });
+    } else {
+      setError({ type: 'error', content: 'Wystąpił nieznany błąd' });
+    }
+  }
+
+  function handleNetworkError(error: NetworkError) {
+    const errorData = JSON.parse(error.message);
+
+    if (typeof errorData === 'object' && errorData['error']) {
+      handlerErrorMessage();
+    } else {
+      setError({ type: 'error', content: 'Nie znaleziono puszki' });
+    }
+    function handlerErrorMessage() {
+      const errorMessage = errorData.error;
+      if (errorMessage === GIVE_BOX_WRONG_ID_ERROR_RESPONSE) {
+        setError({ type: 'error', content: 'Podano nieprawidłowy identyfikator' });
+      } else {
+        setError({ type: 'error', content: errorMessage });
+      }
+    }
+  }
+}
+
 export const DepositBoxForm = () => {
+  const [message, setMessage] = useState<FormMessage | undefined>();
   const { boxData, setBoxData } = useDepositContext();
   const { boxIdentifier, collectorName, collectorIdentifier } = useBoxContext();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (
+      collectorName === null ||
+      collectorIdentifier === null ||
+      boxIdentifier === null
+    ) {
+      navigate('/liczymy/boxes/settle');
+    }
+  }, [boxIdentifier, collectorName, collectorIdentifier]);
+
   const { username } = useAuthContext();
   useSetStationUnavailableQuery(username);
+
   const mutation = useMutation({
     mutationFn: () =>
       fetcher(`${APIManager.baseAPIRUrl}/boxes/${boxIdentifier}`, {
@@ -62,6 +115,9 @@ export const DepositBoxForm = () => {
         body: { comment: boxData.comment, ...boxData.amounts },
       }),
     onSuccess: () => navigate('/liczymy/boxes/settle/4'),
+    onError: (error) => {
+      handleError(error, setMessage);
+    },
   });
 
   const handleInputChange = (id: string, value: number | string) => {
@@ -77,7 +133,6 @@ export const DepositBoxForm = () => {
   const acc = sum(boxData.amounts);
 
   const handleSubmit = () => {
-    console.log(boxData);
     mutation.mutate();
   };
 
@@ -227,23 +282,14 @@ export const DepositBoxForm = () => {
             <>Suma</>
             <>{acc.toFixed(2).toString() + ' zł'}</>
           </Space>
-          <Space
-            direction="vertical"
-            size={10}
-            align="center"
-            className={s.submitContainer}
-          >
-            <FormButton type="primary" onClick={handleSubmit}>
-              Rozlicz Puszkę
-            </FormButton>
-          </Space>
         </DepositColumn>
         <DepositColumn>
           <Space className={s.foreignContainer}>
             <Text>Euro ( EUR )</Text>
             <InputNumber
-              addonBefore="+"
-              defaultValue="0"
+              defaultValue={0}
+              min={0}
+              max={10000}
               type="number"
               className={s.inputNumber}
               id="amount_EUR"
@@ -260,10 +306,11 @@ export const DepositBoxForm = () => {
               Funt brytyjski <br />( GBP )
             </Text>
             <InputNumber
-              addonBefore="+"
-              defaultValue="0"
+              defaultValue={0}
               type="number"
               className={s.inputNumber}
+              min={0}
+              max={10000}
               id="amount_GBP"
               onChange={(value) => {
                 handleInputChange('amount_GBP', Number(value));
@@ -279,8 +326,9 @@ export const DepositBoxForm = () => {
               amerykański <br />( USD )
             </Text>
             <InputNumber
-              addonBefore="+"
-              defaultValue="0"
+              defaultValue={0}
+              min={0}
+              max={10000}
               type="number"
               className={s.inputNumber}
               id="amount_USD"
@@ -296,6 +344,7 @@ export const DepositBoxForm = () => {
             <Text>Inne</Text>
             <TextArea
               id="other"
+              className={s.otherTextArea}
               onChange={(e) => {
                 const { value } = e.target;
                 handleCommentInput('comment', value);
@@ -304,6 +353,16 @@ export const DepositBoxForm = () => {
           </Space>
         </DepositColumn>
       </Space>
+      <Space direction="vertical" size={10} align="center" className={s.submitContainer}>
+        <FormButton type="primary" onClick={handleSubmit}>
+          {mutation.isLoading ? <Spinner /> : 'Rozlicz Puszkę'}
+        </FormButton>
+      </Space>
+      {message && (
+        <div className={s.error}>
+          <p>{message.content}</p>
+        </div>
+      )}
     </Content>
   );
 };
