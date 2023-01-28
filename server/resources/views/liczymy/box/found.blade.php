@@ -73,14 +73,17 @@
         document.addEventListener("DOMContentLoaded", function() {
             let id = '{{auth()->user()->name}}';
             id = parseInt(id.slice(-2));
+            const updateStatus = () => fetch(`http://${window.location.hostname}/api/stations/${id}/busy`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => console.log(JSON.stringify(response)));
+            updateStatus();
+
             let intervalId = window.setInterval(function(){
-                fetch(`http://${window.location.hostname}/api/stations/${id}/busy`, {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    }
-                }).then(response => console.log(JSON.stringify(response)));
+                updateStatus();
             }, 60000);
         });
     </script>
