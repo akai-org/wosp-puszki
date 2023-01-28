@@ -31,11 +31,7 @@ export async function fetcher<T = object>(
   const response = await fetch(url, configuration);
 
   if (response.ok) {
-    if (customConfiguration.returnVoid) {
-      return '';
-    } else {
-      return (await response.json()) as T;
-    }
+    return (await response.json()) as T;
   } else {
     const errorMessage = await response.text();
     throw new NetworkError(errorMessage, response.status, response.statusText);
