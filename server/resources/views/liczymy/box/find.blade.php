@@ -54,7 +54,7 @@
             const webSocket = new WebSocket('ws://' + window.location.hostname + ':6001/ws/queue');
 
             let intervalLoop;
-            let id = {{auth()->user()->name}};
+            let id = '{{auth()->user()->name}}';
             id = parseInt(id.slice(-2));
 
             const sendReadyMsg = () => fetch(`${window.location.hostname}/api/stations/${id}/ready`, {
@@ -64,7 +64,7 @@
                     'Content-Type': 'application/json'
                 }
             }).then(response => console.log(JSON.stringify(response)));
-            const sendUnknownMsg = fetch(`${window.location.hostname}/api/stations/${id}/unknown`, {
+            const sendUnknownMsg = () => fetch(`${window.location.hostname}/api/stations/${id}/unknown`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
