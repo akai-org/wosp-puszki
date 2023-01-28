@@ -50,7 +50,7 @@ export const useAuthContextValues = () => {
 export const useBoxContext = () => {
   const context = useContext(BoxContext);
   if (!context) {
-    throw new Error('useAuthContext must be used within AuthContext.Provider');
+    throw new Error('useBoxContext must be used within BoxContext.Provider');
   }
   return context;
 };
