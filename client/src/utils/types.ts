@@ -182,6 +182,7 @@ export interface IDisplayPageContent {
   rates: ExchangeRates;
   amount_total_in_PLN: number;
   collectors_in_city: number;
+  amount_PLN_eskarbonka: number;
 }
 
 export interface IStations {
