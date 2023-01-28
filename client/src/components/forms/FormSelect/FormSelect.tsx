@@ -6,7 +6,7 @@ import s from './FormSelect.module.less';
 
 type Props = FormItemProps & SelectProps<VolunteerType>;
 
-export const FormSelect: FC<Props> = ({ ...rest }) => {
+export const FormSelect: FC<Props> = (rest) => {
   return (
     <Form.Item className={s.formItem} {...rest}>
       <Select className={s.select} {...rest} />
