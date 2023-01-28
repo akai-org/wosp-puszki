@@ -2,7 +2,7 @@ import { FormButton, FormWrapper, FormInput, FormSelect } from '@/components';
 import { Typography, Space, Button } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 import s from './FindBoxForm.module.less';
-import React, { Dispatch, SetStateAction, useEffect } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useBoxContext, boxResponse } from '@/utils';
@@ -117,15 +117,6 @@ export const FindBoxForm = () => {
     navigate('/liczymy/boxes/settle');
     return;
   };
-
-  useEffect(() => {
-    form.setFieldsValue({
-      box_type: {
-        value: 0,
-        label: 'Puszka Wolontariusza',
-      },
-    });
-  }, []);
 
   return (
     <Content className={s.container}>
