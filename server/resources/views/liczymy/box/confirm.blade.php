@@ -317,7 +317,7 @@
         let id = '{{auth()->user()->name}}';
         id = parseInt(id.slice(-2));
         let intervalId = window.setInterval(function(){
-            fetch(`${window.location.hostname}/api/stations/${id}/busy`, {
+            fetch(`http://${window.location.hostname}/api/stations/${id}/busy`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
