@@ -185,6 +185,7 @@ const moneyValues = {
 };
 
 export const DepositBoxForm = () => {
+  // @ts-ignore
   const { data, setData } = useContext(DepositContext);
   const [moneyCollected, setMoneyCollected] = useState(defaultValue);
   const navigate = useNavigate();
@@ -194,10 +195,14 @@ export const DepositBoxForm = () => {
       setData(dataBox);
     } else {
       setMoneyCollected((prevMoneyCollected) => {
+        // @ts-ignore
         data.plnAmount.forEach((val) => {
+          // @ts-ignore
           prevMoneyCollected[val.name] = val.quantity;
         });
+        // @ts-ignore
         data.foreignCurrency.forEach((val) => {
+          // @ts-ignore
           prevMoneyCollected[val.name] = val.amount;
         });
         return {
@@ -220,20 +225,25 @@ export const DepositBoxForm = () => {
   );
 
   function handleSubmit() {
+    // @ts-ignore
     setData((prevData) => {
+      // @ts-ignore
       const pln = prevData.plnAmount.map((obj) => {
         const { name } = obj;
 
+        // @ts-ignore
         return {
-          ...obj,
+          ...obj, // @ts-ignore
           quantity: moneyCollected[name],
         };
       });
 
+      // @ts-ignore
       const foreign = prevData.foreignCurrency.map((obj) => {
         const { name } = obj;
+        // @ts-ignore
         return {
-          ...obj,
+          ...obj, // @ts-ignore
           amount: moneyCollected[name],
         };
       });
