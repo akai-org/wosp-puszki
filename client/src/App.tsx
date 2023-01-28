@@ -12,7 +12,7 @@ import {
   useBoxContextValues,
 } from '@/utils';
 
-const router = createBrowserRouter(routes);
+const router = createBrowserRouter(routes, { basename: '/system' });
 
 export const queryClient = new QueryClient();
 
