@@ -44,14 +44,14 @@ export function sum(amounts: Record<AmountsKeys, number>) {
 
 export const DepositBoxForm = () => {
   const { boxData, setBoxData } = useDepositContext();
-  const { boxIdentifier, collectorIdentifier } = useBoxContext();
+  const { boxIdentifier } = useBoxContext();
   console.log(boxIdentifier);
   const navigate = useNavigate();
   const mutation = useMutation({
-    mutationFn: (data: string) =>
+    mutationFn: () =>
       fetcher(`${APIManager.baseAPIRUrl}/boxes/${boxIdentifier}`, {
         method: 'POST',
-        body: data,
+        body: { comment: boxData.comment, ...boxData.amounts },
       }),
     onSuccess: () => navigate('/liczymy/boxes/settle/4'),
   });
@@ -60,7 +60,7 @@ export const DepositBoxForm = () => {
     setBoxData((prevMoneyCollected) => {
       const newAmounts = {
         ...prevMoneyCollected.amounts,
-        [id]: (value as number).toFixed(2),
+        [id]: value as number,
       };
       return { ...prevMoneyCollected, amounts: newAmounts };
     });
@@ -69,10 +69,8 @@ export const DepositBoxForm = () => {
   const acc = sum(boxData.amounts);
 
   const handleSubmit = () => {
-    const stringf = JSON.stringify({ comment: boxData.comment, ...boxData.amounts });
-    const am = Object.values(boxData.amounts);
-    console.log(stringf);
-    mutation.mutate(stringf);
+    console.log(boxData);
+    mutation.mutate();
   };
 
   const handleCommentInput = (id: string, value: number | string) => {
