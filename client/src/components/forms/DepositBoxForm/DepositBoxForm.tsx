@@ -214,7 +214,12 @@ export const DepositBoxForm = () => {
   }, []);
 
   function handleInputChange(id: string, value: number | string) {
-    setMoneyCollected((prevMoneyCollected) => ({ ...prevMoneyCollected, [id]: value }));
+    if (value >= 0) {
+      setMoneyCollected((prevMoneyCollected) => ({ ...prevMoneyCollected, [id]: value }));
+    } else if (id == 'others') {
+      // @ts-ignore
+      setMoneyCollected((prevMoneyCollected) => ({ ...prevMoneyCollected, [id]: value }));
+    }
   }
 
   const collectedValues = Object.values(moneyCollected);
