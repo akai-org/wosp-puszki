@@ -5,7 +5,13 @@ import {
   useDepositContext,
 } from '@/components/forms/DepositBoxForm/DepositContext';
 import { useNavigate } from 'react-router-dom';
-import { APIManager, fetcher, useBoxContext } from '@/utils';
+import {
+  APIManager,
+  fetcher,
+  useAuthContext,
+  useBoxContext,
+  useSetStationUnavailableQuery,
+} from '@/utils';
 import { useMutation } from '@tanstack/react-query';
 
 const moneyValues = {
@@ -44,6 +50,8 @@ export const SettleBoxPageCheckout = () => {
   const { collectorIdentifier, boxIdentifier } = useBoxContext();
   const navigate = useNavigate();
   const totalPLNSum = sum(boxData.amounts);
+  const { username } = useAuthContext();
+  useSetStationUnavailableQuery(username);
   const mutation = useMutation({
     mutationFn: () =>
       fetcher(`${APIManager.baseAPIRUrl}/boxes/${boxIdentifier}/finishCounting`, {
