@@ -54,16 +54,31 @@
             const webSocket = new WebSocket('ws://' + window.location.hostname + ':6001/ws/queue');
 
             let intervalLoop;
+            let id = {{auth()->user()->name}};
+            id = parseInt(id.slice(-2));
 
-            const sendReadyMsg = () => webSocket.send(window.encodeQueueStatusUpdate("READY", "{{ auth()->user()->name }}"));
-            const sendBusyMsg = () => webSocket.send(window.encodeQueueStatusUpdate("BUSY", "{{ auth()->user()->name }}"));
+            const sendReadyMsg = () => fetch(`${window.location.hostname}/api/stations/${id}/ready`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => console.log(JSON.stringify(response)));
+            const sendUnknownMsg = fetch(`${window.location.hostname}/api/stations/${id}/unknown`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => console.log(JSON.stringify(response)));
 
+            sendUnknownMsg();
             joinButton.addEventListener('click', function (e) {
                 clearInterval(intervalLoop);
                 joinButton.classList.add('hidden');
                 leaveButton.classList.remove('hidden');
                 collectorIdentifierForm.classList.remove('hidden');
-                intervalLoop = setInterval(sendReadyMsg, 1500);
+                intervalLoop = setInterval(sendReadyMsg, 60000);
             });
 
             leaveButton.addEventListener('click', function () {
@@ -71,7 +86,7 @@
                 joinButton.classList.remove('hidden');
                 leaveButton.classList.add('hidden');
                 collectorIdentifierForm.classList.add('hidden');
-                intervalLoop = setInterval(sendBusyMsg, 1500);
+                intervalLoop = setInterval(sendUnknownMsg, 60000);
             });
         </script>
 @endpush
