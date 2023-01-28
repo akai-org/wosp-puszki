@@ -71,14 +71,14 @@ export const DepositBoxForm = () => {
     }
 
 export function sum(amounts: Record<AmountsKeys, number>) {
-  let sum = 0;
+  let summ = 0;
   for (const key in amounts) {
     const moneyDen = key.split('_')[1];
-    sum +=
+    summ +=
       amounts[key as AmountsKeys] * moneyValues[moneyDen as keyof typeof moneyValues];
 
   }
-  return sum;
+  return summ;
 }
 
 export const DepositBoxForm = () => {
