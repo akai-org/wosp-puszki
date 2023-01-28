@@ -3,13 +3,12 @@ import s from './Main.module.css';
 import { useEffect, useState } from 'react';
 const { Title } = Typography;
 
-export const Collected = () => {
-  const [data, setData] = useState({});
+interface Collected {
+  pln: number;
+  total: number;
+}
 
-  useEffect(() => {
-    //fetching data here
-  }, []);
-
+export const Collected: React.FC<Collected> = ({ pln, total }) => {
   return (
     <Space direction="vertical" size={40} className={s.collected}>
       <Space direction="vertical" size={10} align="center">
@@ -17,7 +16,7 @@ export const Collected = () => {
           Zebralismy:
         </Title>
         <Title level={2} style={{ margin: 0, fontWeight: 400 }}>
-          5 263 845, 43zł
+          {pln} zł
         </Title>
       </Space>
       <Space direction="vertical" size={10} align="center">
@@ -25,7 +24,7 @@ export const Collected = () => {
           Razem z walutami obcymi:
         </Title>
         <Title level={2} style={{ margin: 0, fontWeight: 400 }}>
-          5 263 845, 43zł
+          {total} zł
         </Title>
       </Space>
     </Space>

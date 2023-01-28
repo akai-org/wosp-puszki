@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import { useState } from 'react';
 import { Space, Typography } from 'antd';
 import s from './GiveBoxForm.module.less';
@@ -102,6 +102,14 @@ export const GiveBoxForm = () => {
     }
   };
 
+  useEffect(() => {
+    form.setFieldsValue({
+      box_type: {
+        value: 0,
+        label: 'Puszka Wolontariusza',
+      },
+    });
+  }, []);
   return (
     <FormWrapper
       form={form}

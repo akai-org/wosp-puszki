@@ -6,7 +6,6 @@ import { APIManager } from '@utils/APIManager';
 export const AMOUNTS_QUERY_KEY = ['amounts'];
 
 export const STATIONS_QUERY_KEY = ['stations'];
-
 export const amountsInitData: IDisplayPageContent = {
   amount_total_in_PLN: 0,
   amount_EUR: '0',

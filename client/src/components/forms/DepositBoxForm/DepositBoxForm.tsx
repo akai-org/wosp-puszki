@@ -32,12 +32,51 @@ const moneyValues = {
   USD: 4.33,
 };
 
+
+export const DepositBoxForm = () => {
+  // @ts-ignore
+  const { data, setData } = useContext(DepositContext);
+  const [moneyCollected, setMoneyCollected] = useState(defaultValue);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!data.needsSave) {
+      setData(dataBox);
+    } else {
+      setMoneyCollected((prevMoneyCollected) => {
+        // @ts-ignore
+        data.plnAmount.forEach((val) => {
+          // @ts-ignore
+          prevMoneyCollected[val.name] = val.quantity;
+        });
+        // @ts-ignore
+        data.foreignCurrency.forEach((val) => {
+          // @ts-ignore
+          prevMoneyCollected[val.name] = val.amount;
+        });
+        return {
+          ...prevMoneyCollected,
+          others: data.others,
+        };
+      });
+    }
+  }, []);
+
+  function handleInputChange(id: string, value: number | string) {
+    if (value >= 0) {
+      setMoneyCollected((prevMoneyCollected) => ({ ...prevMoneyCollected, [id]: value }));
+    } else if (id == 'others') {
+      // @ts-ignore
+      setMoneyCollected((prevMoneyCollected) => ({ ...prevMoneyCollected, [id]: value }));
+    }
+
 export function sum(amounts: Record<AmountsKeys, number>) {
   let sum = 0;
   for (const key in amounts) {
     const moneyDen = key.split('_')[1];
     sum +=
       amounts[key as AmountsKeys] * moneyValues[moneyDen as keyof typeof moneyValues];
+
   }
   return sum;
 }
