@@ -129,6 +129,7 @@ export const FindBoxForm = () => {
         label="Znajdź puszkę do rozliczenia"
         message={message}
         disabled={mutation.isLoading}
+        initialValues={{ box_type: 0 }}
       >
         <Space direction="vertical">
           <Space direction="vertical" className={s.form}>

@@ -36,12 +36,12 @@ export const useAmountsQuery = () =>
   useQuery(
     AMOUNTS_QUERY_KEY,
     () => fetcher<IDisplayPageContent>(`${APIManager.baseAPIRUrl}/stats`),
-    { initialData: amountsInitData, refetchInterval: 20 },
+    { initialData: amountsInitData, refetchInterval: 10000 },
   );
 
 export const useStationsQuery = () =>
   useQuery(
     STATIONS_QUERY_KEY,
     () => fetcher<IStations[]>(`${APIManager.baseAPIRUrl}/stations`),
-    { initialData: stationsInitData, refetchInterval: 20 },
+    { initialData: stationsInitData, refetchInterval: 10000 },
   );
