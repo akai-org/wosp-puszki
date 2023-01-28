@@ -106,11 +106,13 @@ export const FindBoxForm = () => {
         data.id.toString(),
       );
       form.resetFields();
+      // TODO: Probalby can get rid of setTimeout
       setTimeout(() => navigate('/liczymy/boxes/settle/2'), 1000);
     },
   });
+  // TODO: Move that into some mutation - wrapper
   if (!username) {
-    return;
+    return null;
   }
   const id = parseInt(username.slice(-2));
   const goOnABreakMutation = useMutation({

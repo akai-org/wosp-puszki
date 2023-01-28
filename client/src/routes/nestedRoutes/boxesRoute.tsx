@@ -14,7 +14,7 @@ import { ProtectedRoute } from '@components/ProtectedRoute/ProtectedRoute';
 import { DepositBoxForm } from '@/components/forms/DepositBoxForm';
 import { DepositProvider } from '@/components/forms/DepositBoxForm/DepositContext';
 
-const giveBoxPagePath = 'give';
+const giveBoxPagePath = '';
 const settleBoxPagePath = 'settle';
 const findBoxPagePath = 'settle/1';
 const acceptBoxPagePath = 'settle/2';

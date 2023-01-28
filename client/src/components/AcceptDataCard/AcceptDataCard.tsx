@@ -42,7 +42,12 @@ export const AcceptDataCard = ({
           <p>Potwierdź, że puszka nie nosi śladów uszkodzeń.</p>
           <p>Nie oddawaj rozliczonej puszki wolontariuszowi.</p>
         </div>
-        <Button type={'primary'} className={s.AcceptBtn} onClick={onAccept}>
+        <Button
+          type={'primary'}
+          className={s.AcceptBtn}
+          onClick={onAccept}
+          disabled={isLoading}
+        >
           {isLoading ? <Spinner /> : 'Potwierdzam Zgodność z danymi rzeczywistymi'}
         </Button>
       </Space>
