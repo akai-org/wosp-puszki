@@ -19,9 +19,24 @@ import { useForm } from 'antd/es/form/Form';
 
 const { Text } = Typography;
 
+const options = [
+  {
+    value: 0,
+    label: 'Puszka Wolontariusza',
+  },
+  {
+    value: 10000,
+    label: 'Puszka Stacjonarna',
+  },
+  {
+    value: 20000,
+    label: 'Puszka Firmowa',
+  },
+];
+
 type FormInput = {
-  id_number: string | number;
-  box_type: 'box' | 'case';
+  id_number: string;
+  box_type: 0 | 10000 | 20000;
 };
 
 function handleError(
@@ -78,12 +93,13 @@ export const GiveBoxForm = () => {
   );
 
   const onFinish = (values: FormInput) => {
-    let volunteerId = values.id_number;
-    if (typeof volunteerId === 'string') {
-      volunteerId = parseInt(volunteerId);
+    const volunteerId = parseInt(values.id_number) + values.box_type;
+    if (!isNaN(volunteerId)) {
+      mutation.mutate(volunteerId);
+      setMessage(undefined);
+    } else {
+      setMessage({ type: 'error', content: 'Podano nieprawidłowy identyfikator' });
     }
-    mutation.mutate(volunteerId);
-    setMessage(undefined);
   };
 
   return (
@@ -107,16 +123,7 @@ export const GiveBoxForm = () => {
         <FormSelect
           name="box_type"
           placeholder="Wybierz rodzaj"
-          options={[
-            {
-              value: 'box',
-              label: 'Puszka',
-            },
-            {
-              value: 'case',
-              label: 'Skarbonka',
-            },
-          ]}
+          options={options}
           rules={[{ required: true, message: TYPE_OF_BOX_REQUIRED }]}
         />
       </Space>
