@@ -57,14 +57,14 @@
             let id = '{{auth()->user()->name}}';
             id = parseInt(id.slice(-2));
 
-            const sendReadyMsg = () => fetch(`${window.location.hostname}/api/stations/${id}/ready`, {
+            const sendReadyMsg = () => fetch(`://${window.location.hostname}/api/stations/${id}/ready`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 }
             }).then(response => console.log(JSON.stringify(response)));
-            const sendUnknownMsg = () => fetch(`${window.location.hostname}/api/stations/${id}/unknown`, {
+            const sendUnknownMsg = () => fetch(`://${window.location.hostname}/api/stations/${id}/unknown`, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
