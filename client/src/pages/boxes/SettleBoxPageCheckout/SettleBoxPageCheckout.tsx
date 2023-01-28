@@ -1,6 +1,8 @@
 import s from './SettleBoxPageCheckout.module.less';
 import { Button } from 'antd';
-
+import { useContext } from 'react';
+import { DepositContext } from '@/components/forms/DepositBoxForm/DepositContext';
+import { useNavigate } from 'react-router-dom';
 type denomination =
   | '1gr'
   | '2gr'
@@ -34,105 +36,13 @@ interface BoxData {
 }
 
 export const SettleBoxPageCheckout = () => {
-  const data: BoxData = {
-    volunteerId: 123,
-    boxId: 22,
-    plnAmount: [
-      {
-        name: '1gr',
-        quantity: 2,
-        multiplier: 0.01,
-      },
-      {
-        name: '2gr',
-        quantity: 0,
-        multiplier: 0.02,
-      },
-      {
-        name: '5gr',
-        quantity: 0,
-        multiplier: 0.05,
-      },
-      {
-        name: '10gr',
-        quantity: 0,
-        multiplier: 0.1,
-      },
-      {
-        name: '20gr',
-        quantity: 0,
-        multiplier: 0.2,
-      },
-      {
-        name: '50gr',
-        quantity: 0,
-        multiplier: 0.5,
-      },
-      {
-        name: '1zł',
-        quantity: 4,
-        multiplier: 1,
-      },
-      {
-        name: '2zł',
-        quantity: 0,
-        multiplier: 2,
-      },
-      {
-        name: '5zł',
-        quantity: 0,
-        multiplier: 5,
-      },
-      {
-        name: '10zł',
-        quantity: 0,
-        multiplier: 10,
-      },
-      {
-        name: '20zł',
-        quantity: 0,
-        multiplier: 20,
-      },
-      {
-        name: '50zł',
-        quantity: 0,
-        multiplier: 50,
-      },
-      {
-        name: '100zł',
-        quantity: 0,
-        multiplier: 100,
-      },
-      {
-        name: '200zł',
-        quantity: 3,
-        multiplier: 200,
-      },
-      {
-        name: '500zł',
-        quantity: 0,
-        multiplier: 500,
-      },
-    ],
-    foreignCurrency: [
-      {
-        name: 'Euro (EUR)',
-        amount: 52,
-      },
-      {
-        name: 'Funt brytyjski (GBP)',
-        amount: 5,
-      },
-      {
-        name: 'Dolar amerykański (USD)',
-        amount: 100,
-      },
-    ],
-    others:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-  };
-
+  const { data } = useContext(DepositContext);
+  const navigate = useNavigate();
   let totalPLNSum = 0;
+
+  const goBackToDeposit = () => {
+    navigate(-2);
+  };
 
   return (
     <div className={s.pageCheckout}>
@@ -202,7 +112,9 @@ export const SettleBoxPageCheckout = () => {
       <div className={s.action}>
         <p>Nie wydawaj puszki wolontariuszowi</p>
         <Button className={s.confirm}>Potwierdź rozliczenie puszki</Button>
-        <Button className={s.goBack}>Wróć do poprzedniej strony</Button>
+        <Button className={s.goBack} onClick={goBackToDeposit}>
+          Wróć do poprzedniej strony
+        </Button>
       </div>
     </div>
   );

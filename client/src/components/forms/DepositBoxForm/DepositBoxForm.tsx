@@ -6,7 +6,162 @@ import { InputNumberBox } from '../InputNumberBox';
 import { Content } from 'antd/lib/layout/layout';
 import { FormButton } from '../FormButton';
 import TextArea from 'antd/lib/input/TextArea';
-import { useState } from 'react';
+import { useState, ReactNode, useContext, useEffect } from 'react';
+import { DepositContext } from './DepositContext';
+import { useNavigate } from 'react-router-dom';
+
+type denomination =
+  | '1gr'
+  | '2gr'
+  | '5gr'
+  | '10gr'
+  | '20gr'
+  | '50gr'
+  | '1zł'
+  | '2zł'
+  | '5zł'
+  | '10zł'
+  | '20zł'
+  | '50zł'
+  | '100zł'
+  | '200zł'
+  | '500zł';
+
+interface BoxData {
+  volunteerId: number;
+  boxId: number;
+  plnAmount: Array<{
+    name: denomination;
+    quantity: number;
+    multiplier: number;
+  }>;
+  foreignCurrency: Array<{
+    name: string;
+    amount: number;
+  }>;
+  others?: string;
+  needsSave: boolean;
+}
+
+const dataBox: BoxData = {
+  volunteerId: 123,
+  boxId: 22,
+  plnAmount: [
+    {
+      name: '1gr',
+      quantity: 0,
+      multiplier: 0.01,
+    },
+    {
+      name: '2gr',
+      quantity: 0,
+      multiplier: 0.02,
+    },
+    {
+      name: '5gr',
+      quantity: 0,
+      multiplier: 0.05,
+    },
+    {
+      name: '10gr',
+      quantity: 0,
+      multiplier: 0.1,
+    },
+    {
+      name: '20gr',
+      quantity: 0,
+      multiplier: 0.2,
+    },
+    {
+      name: '50gr',
+      quantity: 0,
+      multiplier: 0.5,
+    },
+    {
+      name: '1zł',
+      quantity: 0,
+      multiplier: 1,
+    },
+    {
+      name: '2zł',
+      quantity: 0,
+      multiplier: 2,
+    },
+    {
+      name: '5zł',
+      quantity: 0,
+      multiplier: 5,
+    },
+    {
+      name: '10zł',
+      quantity: 0,
+      multiplier: 10,
+    },
+    {
+      name: '20zł',
+      quantity: 0,
+      multiplier: 20,
+    },
+    {
+      name: '50zł',
+      quantity: 0,
+      multiplier: 50,
+    },
+    {
+      name: '100zł',
+      quantity: 0,
+      multiplier: 100,
+    },
+    {
+      name: '200zł',
+      quantity: 3,
+      multiplier: 200,
+    },
+    {
+      name: '500zł',
+      quantity: 0,
+      multiplier: 500,
+    },
+  ],
+  foreignCurrency: [
+    {
+      name: 'Euro (EUR)',
+      amount: 52,
+    },
+    {
+      name: 'Funt brytyjski (GBP)',
+      amount: 5,
+    },
+    {
+      name: 'Dolar amerykański (USD)',
+      amount: 100,
+    },
+  ],
+  others: '',
+  needsSave: false,
+};
+
+const defaultValue = {
+  '1gr': 0,
+  '2gr': 0,
+  '5gr': 0,
+  '10gr': 0,
+  '20gr': 0,
+  '50gr': 0,
+  '1zł': 0,
+  '2zł': 0,
+  '5zł': 0,
+  '10zł': 0,
+  '20zł': 0,
+  '50zł': 0,
+  '100zł': 0,
+  '200zł': 0,
+  '500zł': 0,
+  'Euro (EUR)': 0,
+  'Funt brytyjski (GBP)': 0,
+  'Dolar amerykański (USD)': 0,
+  others: '',
+};
 
 const moneyValues = {
   '1gr': 0.01,
@@ -15,42 +170,43 @@ const moneyValues = {
   '10gr': 0.1,
   '20gr': 0.2,
   '50gr': 0.5,
-  '1zl': 1,
-  '2zl': 2,
-  '5zl': 5,
-  '10zl': 10,
-  '20zl': 20,
-  '50zl': 50,
-  '100zl': 100,
-  '200zl': 200,
-  '500zl': 500,
+  '1zł': 1,
+  '2zł': 2,
+  '5zł': 5,
+  '10zł': 10,
+  '20zł': 20,
+  '50zł': 50,
+  '100zł': 100,
+  '200zł': 200,
+  '500zł': 500,
   eur: 4.71,
   gbp: 5.37,
   usd: 4.33,
 };
 
 export const DepositBoxForm = () => {
-  const [moneyCollected, setMoneyCollected] = useState({
-    '1gr': 0,
-    '2gr': 0,
-    '5gr': 0,
-    '10gr': 0,
-    '20gr': 0,
-    '50gr': 0,
-    '1zl': 0,
-    '2zl': 0,
-    '5zl': 0,
-    '10zl': 0,
-    '20zl': 0,
-    '50zl': 0,
-    '100zl': 0,
-    '200zl': 0,
-    '500zl': 0,
-    eur: 0,
-    gbp: 0,
-    usd: 0,
-    other: '',
-  });
+  const { data, setData } = useContext(DepositContext);
+  const [moneyCollected, setMoneyCollected] = useState(defaultValue);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!data.needsSave) {
+      setData(dataBox);
+    } else {
+      setMoneyCollected((prevMoneyCollected) => {
+        data.plnAmount.forEach((val) => {
+          prevMoneyCollected[val.name] = val.quantity;
+        });
+        data.foreignCurrency.forEach((val) => {
+          prevMoneyCollected[val.name] = val.amount;
+        });
+        return {
+          ...prevMoneyCollected,
+          others: data.others,
+        };
+      });
+    }
+  }, []);
 
   function handleInputChange(id: string, value: number | string) {
     setMoneyCollected((prevMoneyCollected) => ({ ...prevMoneyCollected, [id]: value }));
@@ -62,6 +218,36 @@ export const DepositBoxForm = () => {
     (acc, curr_val, curr_i) => acc + Number(curr_val * Number(collectedValues[curr_i])),
     0,
   );
+
+  function handleSubmit() {
+    setData((prevData) => {
+      const pln = prevData.plnAmount.map((obj) => {
+        const { name } = obj;
+
+        return {
+          ...obj,
+          quantity: moneyCollected[name],
+        };
+      });
+
+      const foreign = prevData.foreignCurrency.map((obj) => {
+        const { name } = obj;
+        return {
+          ...obj,
+          amount: moneyCollected[name],
+        };
+      });
+
+      return {
+        ...prevData,
+        plnAmount: pln,
+        foreignCurrency: foreign,
+        others: moneyCollected['others'],
+        needsSave: true,
+      };
+    });
+    navigate('/liczymy/boxes/settle/4');
+  }
 
   return (
     <Content className={s.full}>
@@ -76,92 +262,107 @@ export const DepositBoxForm = () => {
             denomination="1gr"
             value={Number((moneyCollected['1gr'] * moneyValues['1gr']).toFixed(2))}
             id="1gr"
+            df={moneyCollected['1gr']}
           />
           <InputNumberBox
             count={handleInputChange}
             denomination="2gr"
             value={Number((moneyCollected['2gr'] * moneyValues['2gr']).toFixed(2))}
             id="2gr"
+            df={moneyCollected['2gr']}
           />
           <InputNumberBox
             count={handleInputChange}
             denomination="5gr"
             value={Number((moneyCollected['5gr'] * moneyValues['5gr']).toFixed(2))}
             id="5gr"
+            df={moneyCollected['5gr']}
           />
           <InputNumberBox
             count={handleInputChange}
             denomination="10gr"
             value={Number((moneyCollected['10gr'] * moneyValues['10gr']).toFixed(2))}
             id="10gr"
+            df={moneyCollected['10gr']}
           />
           <InputNumberBox
             count={handleInputChange}
             denomination="20gr"
             value={Number((moneyCollected['20gr'] * moneyValues['20gr']).toFixed(2))}
             id="20gr"
+            df={moneyCollected['20gr']}
           />
           <InputNumberBox
             count={handleInputChange}
             denomination="50gr"
             value={Number((moneyCollected['50gr'] * moneyValues['50gr']).toFixed(2))}
             id="50gr"
+            df={moneyCollected['50gr']}
           />
           <InputNumberBox
             count={handleInputChange}
             denomination="1zł"
-            value={Number((moneyCollected['1zl'] * moneyValues['1zl']).toFixed(2))}
-            id="1zl"
+            value={Number((moneyCollected['1zł'] * moneyValues['1zł']).toFixed(2))}
+            id="1zł"
+            df={moneyCollected['1zł']}
           />
           <InputNumberBox
             count={handleInputChange}
             denomination="2zł"
-            value={Number((moneyCollected['2zl'] * moneyValues['2zl']).toFixed(2))}
-            id="2zl"
+            value={Number((moneyCollected['2zł'] * moneyValues['2zł']).toFixed(2))}
+            id="2zł"
+            df={moneyCollected['2zł']}
           />
           <InputNumberBox
             count={handleInputChange}
             denomination="5zł"
-            value={Number((moneyCollected['5zl'] * moneyValues['5zl']).toFixed(2))}
-            id="5zl"
+            value={Number((moneyCollected['5zł'] * moneyValues['5zł']).toFixed(2))}
+            id="5zł"
+            df={moneyCollected['5zł']}
           />
         </DepositColumn>
         <DepositColumn>
           <InputNumberBox
             count={handleInputChange}
             denomination="10zł"
-            value={Number((moneyCollected['10zl'] * moneyValues['10zl']).toFixed(2))}
-            id="10zl"
+            value={Number((moneyCollected['10zł'] * moneyValues['10zł']).toFixed(2))}
+            id="10zł"
+            df={moneyCollected['10zł']}
           />
           <InputNumberBox
             count={handleInputChange}
             denomination="20zł"
-            value={Number((moneyCollected['20zl'] * moneyValues['20zl']).toFixed(2))}
-            id="20zl"
+            value={Number((moneyCollected['20zł'] * moneyValues['20zł']).toFixed(2))}
+            id="20zł"
+            df={moneyCollected['20zł']}
           />
           <InputNumberBox
             count={handleInputChange}
             denomination="50zł"
-            value={Number((moneyCollected['50zl'] * moneyValues['50zl']).toFixed(2))}
-            id="50zl"
+            value={Number((moneyCollected['50zł'] * moneyValues['50zł']).toFixed(2))}
+            id="50zł"
+            df={moneyCollected['50zł']}
           />
           <InputNumberBox
             count={handleInputChange}
             denomination="100zł"
-            value={Number((moneyCollected['100zl'] * moneyValues['100zl']).toFixed(2))}
-            id="100zl"
+            value={Number((moneyCollected['100zł'] * moneyValues['100zł']).toFixed(2))}
+            id="100zł"
+            df={moneyCollected['100zł']}
           />
           <InputNumberBox
             count={handleInputChange}
             denomination="200zł"
-            value={Number((moneyCollected['200zl'] * moneyValues['200zl']).toFixed(2))}
-            id="200zl"
+            value={Number((moneyCollected['200zł'] * moneyValues['200zł']).toFixed(2))}
+            id="200zł"
+            df={moneyCollected['200zł']}
           />
           <InputNumberBox
             count={handleInputChange}
-            denomination="500zl"
-            value={Number((moneyCollected['500zl'] * moneyValues['500zl']).toFixed(2))}
-            id="500zl"
+            denomination="500zł"
+            value={Number((moneyCollected['500zł'] * moneyValues['500zł']).toFixed(2))}
+            id="500zł"
+            df={moneyCollected['500zł']}
           />
           <Space className={s.sum}>
             <>Suma</>
@@ -169,12 +370,11 @@ export const DepositBoxForm = () => {
           </Space>
           <Space
             direction="vertical"
-            size={8}
+            size={10}
             align="center"
             className={s.submitContainer}
           >
-            <Checkbox>Potwierdzam poprawność danych</Checkbox>
-            <FormButton htmlType="submit" type="primary">
+            <FormButton type="primary" onClick={handleSubmit}>
               Rozlicz Puszkę
             </FormButton>
           </Space>
@@ -189,11 +389,11 @@ export const DepositBoxForm = () => {
               className={s.inputNumber}
               id="eur"
               onChange={(value) => {
-                handleInputChange('eur', Number(value));
+                handleInputChange('Euro (EUR)', Number(value));
               }}
             />
             <Text>
-              {Number((moneyCollected['eur'] * moneyValues['eur']).toFixed(2))} zł
+              {Number((moneyCollected['Euro (EUR)'] * moneyValues['eur']).toFixed(2))} zł
             </Text>
           </Space>
           <Space className={s.foreignContainer}>
@@ -207,11 +407,14 @@ export const DepositBoxForm = () => {
               className={s.inputNumber}
               id="gbp"
               onChange={(value) => {
-                handleInputChange('gbp', Number(value));
+                handleInputChange('Funt brytyjski (GBP)', Number(value));
               }}
             />
             <Text>
-              {Number((moneyCollected['gbp'] * moneyValues['gbp']).toFixed(2))} zł
+              {Number(
+                (moneyCollected['Funt brytyjski (GBP)'] * moneyValues['gbp']).toFixed(2),
+              )}{' '}
+              zł
             </Text>
           </Space>
           <Space className={s.foreignContainer}>
@@ -226,11 +429,16 @@ export const DepositBoxForm = () => {
               className={s.inputNumber}
               id="usd"
               onChange={(value) => {
-                handleInputChange('usd', Number(value));
+                handleInputChange('Dolar amerykański (USD)', Number(value));
               }}
             />
             <Text>
-              {Number((moneyCollected['usd'] * moneyValues['usd']).toFixed(2))} zł
+              {Number(
+                (moneyCollected['Dolar amerykański (USD)'] * moneyValues['usd']).toFixed(
+                  2,
+                ),
+              )}{' '}
+              zł
             </Text>
           </Space>
           <Space className={s.other} direction={'vertical'}>
@@ -239,7 +447,7 @@ export const DepositBoxForm = () => {
               id="other"
               onChange={(e) => {
                 const { value } = e.target;
-                handleInputChange('other', value);
+                handleInputChange('others', value);
               }}
             ></TextArea>
           </Space>

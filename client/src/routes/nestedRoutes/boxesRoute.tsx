@@ -11,6 +11,11 @@ import {
 import { InnerLayoutManager } from '@/components';
 import { ProtectedRoute } from '@components/ProtectedRoute/ProtectedRoute';
 
+import { DepositBoxForm } from '@/components/forms/DepositBoxForm';
+import { DepositProvider } from '@/components/forms/DepositBoxForm/DepositContext';
+
+
+const depositBoxPagePath = 'settle/3';
 const giveBoxPagePath = 'give';
 const settleBoxPagePath = 'settle';
 const settleBoxPagePathCheckout = 'settle/4';
@@ -37,7 +42,11 @@ const boxesSubroutes: RouteObject[] = [
   },
   {
     path: settleBoxPagePathCheckout,
-    element: <SettleBoxPageCheckout />,
+    element: (
+      <DepositProvider>
+        <SettleBoxPageCheckout />
+      </DepositProvider>
+    ),
   },
   {
     index: true,
@@ -47,6 +56,14 @@ const boxesSubroutes: RouteObject[] = [
     path: unsettledBoxesPagePath,
     element: <UnsettledBoxesPage />,
   },
+  {
+    path: depositBoxPagePath,
+    element: (
+      <DepositProvider>
+        <DepositBoxForm />
+      </DepositProvider>
+    ),
+  },
 ];
 
 export const boxesRoute = {
@@ -55,7 +72,12 @@ export const boxesRoute = {
     <ProtectedRoute>
       <InnerLayoutManager
         prefix="/liczymy/boxes"
-        excludingLinks={[findBoxPagePath, acceptBoxPagePath]}
+        excludingLinks={[
+          findBoxPagePath,
+          acceptBoxPagePath,
+          depositBoxPagePath,
+          settleBoxPagePathCheckout,
+        ]}
         links={[
           { url: giveBoxPagePath, label: 'Wydaj puszkę' },
           { url: settleBoxPagePath, label: 'Rozlicz puszkę' },
