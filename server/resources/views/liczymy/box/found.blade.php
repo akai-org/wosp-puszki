@@ -71,7 +71,7 @@
 @push('scripts')
     <script defer type="text/javascript">
         document.addEventListener("DOMContentLoaded", function() {
-            let id = {{auth()->user()->id}};
+            let id = {{auth()->user()->name}};
             id = parseInt(id.slice(-2));
             let intervalId = window.setInterval(function(){
                 fetch(`${window.location.hostname}/api/stations/${id}/busy`, {

@@ -54,7 +54,7 @@
             const webSocket = new WebSocket('ws://' + window.location.hostname + ':6001/ws/queue');
 
             let intervalLoop;
-            let id = {{auth()->user()->id}};
+            let id = {{auth()->user()->name}};
             id = parseInt(id.slice(-2));
 
             const sendReadyMsg = () => fetch(`${window.location.hostname}/api/stations/${id}/ready`, {
