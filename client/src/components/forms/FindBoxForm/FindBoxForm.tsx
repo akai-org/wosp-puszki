@@ -106,8 +106,19 @@ export const FindBoxForm = () => {
         data.id.toString(),
       );
       form.resetFields();
+      // TODO: Probalby can get rid of setTimeout
       setTimeout(() => navigate('/liczymy/boxes/settle/2'), 1000);
     },
+  });
+  // TODO: Move that into some mutation - wrapper
+  if (!username) {
+    return null;
+  }
+  const id = parseInt(username.slice(-2));
+  const goOnABreakMutation = useMutation({
+    mutationFn: () =>
+      fetcher(`${APIManager.baseAPIRUrl}/stations/${id}/busy`, { method: 'POST' }),
+    onSuccess: () => navigate('/liczymy/boxes/settle'),
   });
 
   const onFinish = (values: FormInput) => {
@@ -121,7 +132,7 @@ export const FindBoxForm = () => {
   };
 
   const handleBreak = () => {
-    navigate('/liczymy/boxes/settle');
+    goOnABreakMutation.mutate();
     return;
   };
 
@@ -135,7 +146,7 @@ export const FindBoxForm = () => {
         borderColor="black"
         label="Znajdź puszkę do rozliczenia"
         message={message}
-        disabled={mutation.isLoading}
+        disabled={mutation.isLoading || goOnABreakMutation.isLoading}
         initialValues={{ box_type: 0 }}
       >
         <Space direction="vertical">
@@ -162,8 +173,17 @@ export const FindBoxForm = () => {
           </Space>
         </Space>
       </FormWrapper>
-      <Button type="primary" className={s.break} onClick={handleBreak}>
-        Nie chcę rozliczać dalej - przerwa
+      <Button
+        disabled={goOnABreakMutation.isLoading}
+        type="primary"
+        className={s.break}
+        onClick={handleBreak}
+      >
+        {goOnABreakMutation.isLoading ? (
+          <Spinner />
+        ) : (
+          'Nie chcę rozliczać dalej - przerwa'
+        )}
       </Button>
     </Content>
   );

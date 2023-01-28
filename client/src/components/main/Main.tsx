@@ -15,11 +15,7 @@ export const Main = () => {
     <Content className={s.container}>
       <Collected pln={amountsData.amount_PLN} total={amountsData.amount_total_in_PLN} />
       <Space size={30}>
-        <Button
-          onClick={() => navigate('boxes/give')}
-          type="primary"
-          className={s.buttons}
-        >
+        <Button onClick={() => navigate('boxes')} type="primary" className={s.buttons}>
           Wydaj puszkę wolontariuszowi
         </Button>
         <Button onClick={() => navigate('boxes/settle')} className={s.buttons}>

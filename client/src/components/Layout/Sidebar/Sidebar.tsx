@@ -4,8 +4,8 @@ import { useAuthContext } from '@/utils';
 
 const links = [
   { label: 'Strona Główna', url: '' },
-  { label: 'Przeliczone puszki', url: 'countedBoxes' },
-  { label: 'Administracja', url: 'admin' },
+  // { label: 'Przeliczone puszki', url: 'countedBoxes' },
+  // { label: 'Administracja', url: 'admin' },
   { label: 'Puszki', url: 'boxes' },
 ];
 

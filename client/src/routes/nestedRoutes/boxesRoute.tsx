@@ -14,7 +14,7 @@ import { ProtectedRoute } from '@components/ProtectedRoute/ProtectedRoute';
 import { DepositBoxForm } from '@/components/forms/DepositBoxForm';
 import { DepositProvider } from '@/components/forms/DepositBoxForm/DepositContext';
 
-const giveBoxPagePath = 'give';
+const giveBoxPagePath = '';
 const settleBoxPagePath = 'settle';
 const findBoxPagePath = 'settle/1';
 const acceptBoxPagePath = 'settle/2';
@@ -24,7 +24,7 @@ const unsettledBoxesPagePath = 'unsettled';
 
 const boxesSubroutes: RouteObject[] = [
   {
-    path: giveBoxPagePath,
+    index: true,
     element: <GiveBoxPage />,
   },
   {
@@ -44,7 +44,7 @@ const boxesSubroutes: RouteObject[] = [
     element: <SettleBoxPageCheckout />,
   },
   {
-    index: true,
+    path: 'listBoxes',
     element: <ListBoxesPage />,
   },
   {
@@ -73,8 +73,8 @@ export const boxesRoute = {
           links={[
             { url: giveBoxPagePath, label: 'Wydaj puszkę' },
             { url: settleBoxPagePath, label: 'Rozlicz puszkę' },
-            { url: '', label: 'Wszystkie puszki' },
-            { url: unsettledBoxesPagePath, label: 'Lista puszek nie rozliczonych' },
+            // { url: '', label: 'Wszystkie puszki' },
+            // { url: unsettledBoxesPagePath, label: 'Lista puszek nie rozliczonych' },
           ]}
         />
       </DepositProvider>
