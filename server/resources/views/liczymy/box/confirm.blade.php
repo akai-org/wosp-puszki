@@ -314,10 +314,17 @@
 @push('scripts')
 <script defer type="text/javascript">
     document.addEventListener("DOMContentLoaded", function() {
-        const webSocket = new WebSocket('ws://' + window.location.hostname + ':6001/ws/queue');
+        let id = {{auth()->user()->id}};
+        id = parseInt(id.slice(-2));
         let intervalId = window.setInterval(function(){
-            webSocket.send(encodeQueueStatusUpdate("BUSY", '{{ auth()->user()->name }}'));
-        }, 1500);
+            fetch(`${window.location.hostname}/api/stations/${id}/busy`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => console.log(JSON.stringify(response)));
+        }, 60000);
     });
 </script>
 @endpush
