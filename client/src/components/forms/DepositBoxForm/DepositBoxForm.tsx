@@ -212,7 +212,6 @@ export const DepositBoxForm = () => {
     setMoneyCollected((prevMoneyCollected) => ({ ...prevMoneyCollected, [id]: value }));
   }
 
-  console.log(moneyCollected['1gr']);
   const collectedValues = Object.values(moneyCollected);
   const moneyVal = Object.values(moneyValues);
   const sum = moneyVal.reduce(
@@ -222,28 +221,31 @@ export const DepositBoxForm = () => {
 
   function handleSubmit() {
     setData((prevData) => {
+      const pln = prevData.plnAmount.map((obj) => {
+        const { name } = obj;
+
+        return {
+          ...obj,
+          quantity: moneyCollected[name],
+        };
+      });
+
+      const foreign = prevData.foreignCurrency.map((obj) => {
+        const { name } = obj;
+        return {
+          ...obj,
+          amount: moneyCollected[name],
+        };
+      });
+
       return {
         ...prevData,
-        plnAmount: prevData.plnAmount.map((obj) => {
-          const { name } = obj;
-
-          return {
-            ...obj,
-            quantity: moneyCollected[name],
-          };
-        }),
-        foreignCurrency: prevData.foreignCurrency.map((obj) => {
-          const { name } = obj;
-          return {
-            ...obj,
-            amount: moneyCollected[name],
-          };
-        }),
+        plnAmount: pln,
+        foreignCurrency: foreign,
         others: moneyCollected['others'],
         needsSave: true,
       };
     });
-    setTimeout(() => {}, 0.1);
     navigate('/liczymy/boxes/settle/4');
   }
 
@@ -368,7 +370,7 @@ export const DepositBoxForm = () => {
           </Space>
           <Space
             direction="vertical"
-            size={8}
+            size={10}
             align="center"
             className={s.submitContainer}
           >

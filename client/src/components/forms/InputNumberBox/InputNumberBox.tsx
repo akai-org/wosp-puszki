@@ -13,7 +13,6 @@ interface Props extends FormProps {
 }
 
 export const InputNumberBox: FC<Props> = ({ denomination, value, count, id, df }) => {
-  console.log(df);
   return (
     <>
       <Space className={s.container} size={50}>
