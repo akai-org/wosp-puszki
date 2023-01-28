@@ -36,6 +36,7 @@ interface BoxData {
 }
 
 export const SettleBoxPageCheckout = () => {
+  // @ts-ignore
   const { data } = useContext(DepositContext);
   const navigate = useNavigate();
   let totalPLNSum = 0;
@@ -44,6 +45,8 @@ export const SettleBoxPageCheckout = () => {
     navigate(-2);
   };
 
+  // @ts-ignore
+  // @ts-ignore
   return (
     <div className={s.pageCheckout}>
       <h3>
@@ -61,18 +64,21 @@ export const SettleBoxPageCheckout = () => {
                 <th className={s.right}>Wartość</th>
               </tr>
             </thead>
-            {data.plnAmount.map((val, key) => {
-              totalPLNSum += val.quantity * val.multiplier;
-              return (
-                <tbody key={key}>
-                  <tr>
-                    <td className={s.left}>{val.name}</td>
-                    <td className={s.middle}>{val.quantity}</td>
-                    <td className={s.right}>{val.quantity * val.multiplier}</td>
-                  </tr>
-                </tbody>
-              );
-            })}
+            {
+              // @ts-ignore
+              data.plnAmount.map((val, key) => {
+                totalPLNSum += val.quantity * val.multiplier;
+                return (
+                  <tbody key={key}>
+                    <tr>
+                      <td className={s.left}>{val.name}</td>
+                      <td className={s.middle}>{val.quantity}</td>
+                      <td className={s.right}>{val.quantity * val.multiplier}</td>
+                    </tr>
+                  </tbody>
+                );
+              })
+            }
             <tfoot>
               <tr>
                 <td className={s.left}>Suma (PLN)</td>
@@ -90,16 +96,19 @@ export const SettleBoxPageCheckout = () => {
                 <th className={s.right}>Ilość</th>
               </tr>
             </thead>
-            {data.foreignCurrency.map((val, key) => {
-              return (
-                <tbody key={key}>
-                  <tr>
-                    <td className={s.left}>{val.name}</td>
-                    <td className={s.right}>{val.amount}</td>
-                  </tr>
-                </tbody>
-              );
-            })}
+            {
+              // @ts-ignore
+              data.foreignCurrency.map((val, key) => {
+                return (
+                  <tbody key={key}>
+                    <tr>
+                      <td className={s.left}>{val.name}</td>
+                      <td className={s.right}>{val.amount}</td>
+                    </tr>
+                  </tbody>
+                );
+              })
+            }
           </table>
           <p className={s.otherTitleParagraph}>Inne</p>
           <p className={s.otherContentParagraph}>{data.others}</p>
