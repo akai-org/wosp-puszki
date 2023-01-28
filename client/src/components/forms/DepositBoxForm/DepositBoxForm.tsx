@@ -16,6 +16,7 @@ import {
   useBoxContext,
   useSetStationUnavailableQuery,
 } from '@/utils';
+import { CalculatorView } from '@/components/Calculator/View/CalculatorView';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { Spinner } from '@components/Layout/Spinner/Spinner';
 import { FormMessage, GIVE_BOX_WRONG_ID_ERROR_RESPONSE, NetworkError } from '@/utils';
@@ -144,6 +145,7 @@ export const DepositBoxForm = () => {
 
   return (
     <Content className={s.full}>
+      <CalculatorView />
       <Title level={4} className={s.title}>
         Rozliczenie puszki wolontariusza {collectorName} ( {collectorIdentifier} ) ( ID
         puszki w bazie:
