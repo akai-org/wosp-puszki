@@ -6,7 +6,6 @@ import { APIManager } from '@utils/APIManager';
 export const AMOUNTS_QUERY_KEY = ['amounts'];
 
 export const STATIONS_QUERY_KEY = ['stations'];
-export const API_QUERY_KEY = ['api'];
 export const amountsInitData: IDisplayPageContent = {
   amount_total_in_PLN: 0,
   amount_EUR: '0',
@@ -46,5 +45,3 @@ export const useStationsQuery = () =>
     () => fetcher<IStations[]>(`${APIManager.baseAPIRUrl}/stations`),
     { initialData: stationsInitData, refetchInterval: 20 },
   );
-
-
