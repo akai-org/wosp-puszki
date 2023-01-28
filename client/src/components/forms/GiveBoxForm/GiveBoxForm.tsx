@@ -110,6 +110,7 @@ export const GiveBoxForm = () => {
       onFinish={onFinish}
       message={message}
       disabled={mutation.isLoading}
+      initialValues={{ box_type: 0 }}
     >
       <Space className={s.formInputs}>
         <Space className={s.inputField} size={0}>
