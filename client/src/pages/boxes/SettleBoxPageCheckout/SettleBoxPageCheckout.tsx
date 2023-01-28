@@ -5,7 +5,14 @@ import {
   useDepositContext,
 } from '@/components/forms/DepositBoxForm/DepositContext';
 import { useNavigate } from 'react-router-dom';
-import { APIManager, fetcher, useBoxContext, useBoxContextValues } from '@/utils';
+import {
+  APIManager,
+  fetcher,
+  useAuthContext,
+  useBoxContext, 
+  useBoxContextValues,
+  useSetStationUnavailableQuery,
+} from '@/utils';
 import { useMutation } from '@tanstack/react-query';
 
 import { Spinner } from '@components/Layout/Spinner/Spinner';
@@ -56,6 +63,8 @@ export const SettleBoxPageCheckout = () => {
   }, [boxIdentifier, collectorIdentifier]);
 
   const totalPLNSum = sum(boxData.amounts);
+  const { username } = useAuthContext();
+  useSetStationUnavailableQuery(username);
   const mutation = useMutation({
     mutationFn: () =>
       fetcher(`${APIManager.baseAPIRUrl}/boxes/${boxIdentifier}/finishCounting`, {

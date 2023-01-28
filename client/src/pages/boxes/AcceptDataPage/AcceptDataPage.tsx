@@ -1,7 +1,13 @@
 import { AcceptDataCard } from '@/components/AcceptDataCard/AcceptDataCard';
 import s from './AcceptDataPage.module.less';
 import { Space } from 'antd';
-import { APIManager, fetcher, useBoxContext } from '@/utils';
+import {
+  APIManager,
+  fetcher,
+  useAuthContext,
+  useBoxContext,
+  useSetStationUnavailableQuery,
+} from '@/utils';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { useEffect } from 'react';
@@ -19,6 +25,9 @@ export const AcceptDataPage = () => {
       navigate('/liczymy/boxes/settle');
     }
   }, [boxIdentifier, collectorName, collectorIdentifier]);
+
+  const { username } = useAuthContext();
+  useSetStationUnavailableQuery(username);
 
   const mutation = useMutation({
     mutationFn: () =>

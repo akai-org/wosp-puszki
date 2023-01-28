@@ -9,7 +9,13 @@ import TextArea from 'antd/lib/input/TextArea';
 import { AmountsKeys, useDepositContext } from './DepositContext';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import { APIManager, fetcher, useBoxContext } from '@/utils';
+import {
+  APIManager,
+  fetcher,
+  useAuthContext,
+  useBoxContext,
+  useSetStationUnavailableQuery,
+} from '@/utils';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { Spinner } from '@components/Layout/Spinner/Spinner';
 import { FormMessage, GIVE_BOX_WRONG_ID_ERROR_RESPONSE, NetworkError } from '@/utils';
@@ -97,6 +103,9 @@ export const DepositBoxForm = () => {
       navigate('/liczymy/boxes/settle');
     }
   }, [boxIdentifier, collectorName, collectorIdentifier]);
+
+  const { username } = useAuthContext();
+  useSetStationUnavailableQuery(username);
 
   const mutation = useMutation({
     mutationFn: () =>
