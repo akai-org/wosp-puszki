@@ -78,6 +78,7 @@
                 joinButton.classList.add('hidden');
                 leaveButton.classList.remove('hidden');
                 collectorIdentifierForm.classList.remove('hidden');
+                sendReadyMsg();
                 intervalLoop = setInterval(sendReadyMsg, 60000);
             });
 
@@ -86,6 +87,7 @@
                 joinButton.classList.remove('hidden');
                 leaveButton.classList.add('hidden');
                 collectorIdentifierForm.classList.add('hidden');
+                sendUnknownMsg();
                 intervalLoop = setInterval(sendUnknownMsg, 60000);
             });
         </script>
