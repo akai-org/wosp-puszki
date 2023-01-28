@@ -10,6 +10,7 @@ import { AmountsKeys, useDepositContext } from './DepositContext';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { APIManager, fetcher, useBoxContext } from '@/utils';
+import { useEffect } from 'react';
 
 const moneyValues = {
   '1gr': 0.01,
@@ -46,6 +47,17 @@ export const DepositBoxForm = () => {
   const { boxData, setBoxData } = useDepositContext();
   const { boxIdentifier, collectorName, collectorIdentifier } = useBoxContext();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (
+      collectorName === null ||
+      collectorIdentifier === null ||
+      boxIdentifier === null
+    ) {
+      navigate('/liczymy/boxes/settle');
+    }
+  }, [boxIdentifier, collectorName, collectorIdentifier]);
+
   const mutation = useMutation({
     mutationFn: () =>
       fetcher(`${APIManager.baseAPIRUrl}/boxes/${boxIdentifier}`, {
@@ -68,7 +80,6 @@ export const DepositBoxForm = () => {
   const acc = sum(boxData.amounts);
 
   const handleSubmit = () => {
-    console.log(boxData);
     mutation.mutate();
   };
 

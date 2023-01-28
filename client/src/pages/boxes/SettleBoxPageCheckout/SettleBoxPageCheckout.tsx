@@ -5,8 +5,9 @@ import {
   useDepositContext,
 } from '@/components/forms/DepositBoxForm/DepositContext';
 import { useNavigate } from 'react-router-dom';
-import { APIManager, fetcher, useBoxContext } from '@/utils';
+import { APIManager, fetcher, useBoxContext, useBoxContextValues } from '@/utils';
 import { useMutation } from '@tanstack/react-query';
+import { useEffect } from 'react';
 
 const moneyValues = {
   '1gr': 0.01,
@@ -42,7 +43,16 @@ export function sum(amounts: Record<AmountsKeys, number>) {
 export const SettleBoxPageCheckout = () => {
   const { boxData } = useDepositContext();
   const { collectorIdentifier, boxIdentifier } = useBoxContext();
+  const { deleteBox } = useBoxContextValues();
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (collectorIdentifier === null || boxIdentifier === null) {
+      navigate('/liczymy/boxes/settle');
+    }
+  }, [boxIdentifier, collectorIdentifier]);
+
   const totalPLNSum = sum(boxData.amounts);
   const mutation = useMutation({
     mutationFn: () =>
@@ -58,6 +68,7 @@ export const SettleBoxPageCheckout = () => {
 
   const confirmData = () => {
     mutation.mutate();
+    deleteBox();
   };
 
   return (
