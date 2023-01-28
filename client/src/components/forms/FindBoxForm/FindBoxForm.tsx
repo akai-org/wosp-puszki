@@ -89,7 +89,6 @@ export const FindBoxForm = () => {
       handleError(error, setMessage);
     },
     onSuccess: (data) => {
-      console.log(data);
       setMessage({
         type: 'success',
         content: `Pomyślnie znaleziono puszkę dla identyfikatora: ${data.collectorIdentifier}`,
@@ -105,7 +104,6 @@ export const FindBoxForm = () => {
   });
 
   const onFinish = (values: FormInput) => {
-    console.log(values);
     const volunteerId = parseInt(values.id_number) + values.box_type;
     if (!isNaN(volunteerId)) {
       mutation.mutate(volunteerId);
