@@ -73,8 +73,8 @@ export const boxesRoute = {
           links={[
             { url: giveBoxPagePath, label: 'Wydaj puszkę' },
             { url: settleBoxPagePath, label: 'Rozlicz puszkę' },
-            { url: '', label: 'Wszystkie puszki' },
-            { url: unsettledBoxesPagePath, label: 'Lista puszek nie rozliczonych' },
+            // { url: '', label: 'Wszystkie puszki' },
+            // { url: unsettledBoxesPagePath, label: 'Lista puszek nie rozliczonych' },
           ]}
         />
       </DepositProvider>
