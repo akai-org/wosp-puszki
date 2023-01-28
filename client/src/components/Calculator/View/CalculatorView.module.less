@@ -1,0 +1,95 @@
+@import 'less/variables.less';
+
+.calculator {
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  top: 10%;
+  right: -20rem;
+  z-index: 10;
+}
+.calculator.show {
+  transform: translateX(-20rem);
+}
+
+.iconBox,
+.body {
+  background-color: @cyan-10;
+}
+.calculator,
+.iconBox {
+  transition: all 1s ease-in-out;
+}
+
+.iconBox {
+  height: 4.5rem;
+  width: 4.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 1rem 0 0 1rem;
+  ::after {
+    content: '';
+    -webkit-mask-image: radial-gradient(
+      circle 10px at 0 1rem,
+      transparent 0,
+      transparent 1rem,
+      black 10px
+    );
+    width: 1rem;
+    height: 1rem;
+    background-color: @cyan-10;
+    position: absolute;
+    top: 4.5rem;
+    left: 3.5rem;
+  }
+}
+
+
+.icon {
+  color: white;
+  cursor: pointer;
+  :hover{
+    color: @red-6;
+  }
+  > svg {
+    height: 2.5rem;
+    width: 2.5rem;
+  }
+}
+
+.body {
+  padding: 0rem 2rem;
+  width: 20rem;
+  border-bottom-left-radius: 2rem;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.bodyTop {
+  display: flex;
+  width: 100%;
+  height: 4.5rem;
+  align-items: center;
+  text-align: center;
+  justify-content: space-between;
+
+  :first-child {
+    font-weight: 600;
+  }
+  > p {
+    margin: 0;
+  }
+}
+
+.bodyBottom {
+  margin-bottom: 2rem;
+}
+
+.calcButton {
+  width: 100%;
+  margin-top: 0.5rem;
+  border-radius: 16px;
+}

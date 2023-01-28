@@ -16,6 +16,7 @@ import {
   useBoxContext,
   useSetStationUnavailableQuery,
 } from '@/utils';
+import { CalculatorView } from '@/components/Calculator/View/CalculatorView';
 
 const moneyValues = {
   '1gr': 0.01,
@@ -89,6 +90,7 @@ export const DepositBoxForm = () => {
 
   return (
     <Content className={s.full}>
+      <CalculatorView />
       <Title level={4} className={s.title}>
         Rozliczenie puszki wolontariusza {collectorName} ( {collectorIdentifier} ) ( ID
         puszki w bazie:
