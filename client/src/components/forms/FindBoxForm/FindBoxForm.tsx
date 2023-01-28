@@ -5,7 +5,12 @@ import s from './FindBoxForm.module.less';
 import React, { Dispatch, SetStateAction } from 'react';
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { useBoxContext, boxResponse } from '@/utils';
+import {
+  useBoxContext,
+  boxResponse,
+  useSetStationAvailableQuery,
+  useAuthContext,
+} from '@/utils';
 import { Spinner } from '@components/Layout/Spinner/Spinner';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'antd/es/form/Form';
@@ -18,6 +23,7 @@ import {
   NetworkError,
   TYPE_OF_BOX_REQUIRED,
 } from '@/utils';
+
 const { Text } = Typography;
 
 const options = [
@@ -82,6 +88,12 @@ export const FindBoxForm = () => {
   const [form] = useForm();
   const { createBox } = useBoxContext();
   const navigate = useNavigate();
+  const { username } = useAuthContext();
+  if (!username) {
+    navigate('/system/liczymy/login');
+    return;
+  }
+  useSetStationAvailableQuery(parseInt(username.slice(-2)));
   const mutation = useMutation<boxResponse, unknown, number, unknown>({
     mutationFn: (volunteerId: number) =>
       fetcher(APIManager.findBoxURL(volunteerId), { method: 'Get' }),

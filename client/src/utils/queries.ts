@@ -4,6 +4,7 @@ import { fetcher } from '@utils/fetcher';
 import { APIManager } from '@utils/APIManager';
 
 export const AMOUNTS_QUERY_KEY = ['amounts'];
+export const STATION_AVAILABLE_QUERY_KEY = ['station-available'];
 
 export const STATIONS_QUERY_KEY = ['stations'];
 export const amountsInitData: IDisplayPageContent = {
@@ -44,4 +45,9 @@ export const useStationsQuery = () =>
     STATIONS_QUERY_KEY,
     () => fetcher<IStations[]>(`${APIManager.baseAPIRUrl}/stations`),
     { initialData: stationsInitData, refetchInterval: 10000 },
+  );
+
+export const useSetStationAvailableQuery = (id: number) =>
+  useQuery(STATION_AVAILABLE_QUERY_KEY, () =>
+    fetcher(`${APIManager.baseAPIRUrl}/stations/${id}/ready`, { method: 'POST' }),
   );
