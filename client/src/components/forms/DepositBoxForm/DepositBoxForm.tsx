@@ -44,7 +44,7 @@ export function sum(amounts: Record<AmountsKeys, number>) {
 
 export const DepositBoxForm = () => {
   const { boxData, setBoxData } = useDepositContext();
-  const { boxIdentifier } = useBoxContext();
+  const { boxIdentifier, collectorName, collectorIdentifier } = useBoxContext();
   console.log(boxIdentifier);
   const navigate = useNavigate();
   const mutation = useMutation({
@@ -83,8 +83,9 @@ export const DepositBoxForm = () => {
   return (
     <Content className={s.full}>
       <Title level={4} className={s.title}>
-        Rozliczenie puszki wolontariusza Patrycja Majewski ( 123 ) ( ID puszki w bazie: 22
-        )
+        Rozliczenie puszki wolontariusza {collectorName} ( {collectorIdentifier} ) ( ID
+        puszki w bazie:
+        {boxIdentifier} )
       </Title>
       <Space className={s.columns}>
         <DepositColumn>
