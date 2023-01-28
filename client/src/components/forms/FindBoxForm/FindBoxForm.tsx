@@ -89,14 +89,9 @@ export const FindBoxForm = () => {
   const { createBox } = useBoxContext();
   const navigate = useNavigate();
   const { username } = useAuthContext();
-  if (!username) {
-    navigate('/system/liczymy/login');
-    return;
-  }
-  useSetStationAvailableQuery(parseInt(username.slice(-2)));
+  useSetStationAvailableQuery(username);
   const mutation = useMutation<boxResponse, unknown, number, unknown>({
-    mutationFn: (volunteerId: number) =>
-      fetcher(APIManager.findBoxURL(volunteerId), { method: 'Get' }),
+    mutationFn: (volunteerId: number) => fetcher(APIManager.findBoxURL(volunteerId)),
     onError: (error) => {
       handleError(error, setMessage);
     },

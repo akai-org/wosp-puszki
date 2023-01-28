@@ -1,13 +1,21 @@
 import { AcceptDataCard } from '@/components/AcceptDataCard/AcceptDataCard';
 import s from './AcceptDataPage.module.less';
 import { Space } from 'antd';
-import { APIManager, fetcher, useBoxContext } from '@/utils';
+import {
+  APIManager,
+  fetcher,
+  useAuthContext,
+  useBoxContext,
+  useSetStationUnavailableQuery,
+} from '@/utils';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 
 export const AcceptDataPage = () => {
   const navigate = useNavigate();
   const { collectorName, collectorIdentifier, boxIdentifier } = useBoxContext();
+  const { username } = useAuthContext();
+  useSetStationUnavailableQuery(username);
   const mutation = useMutation({
     mutationFn: () =>
       fetcher(`${APIManager.baseAPIRUrl}/boxes/${boxIdentifier}/startCounting`, {
