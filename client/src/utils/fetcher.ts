@@ -29,9 +29,10 @@ export async function fetcher<T = object>(
   };
 
   const response = await fetch(url, configuration);
-
-  if (response.ok) {
+  if (response.ok && response.headers.get('Content-Type') === 'application/json') {
     return (await response.json()) as T;
+  } else if (response.ok) {
+    return (await response.text()) as T;
   } else {
     const errorMessage = await response.text();
     throw new NetworkError(errorMessage, response.status, response.statusText);
