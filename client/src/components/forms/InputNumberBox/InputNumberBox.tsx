@@ -16,19 +16,20 @@ export const InputNumberBox: FC<Props> = ({ denomination, value, count, id, df }
   return (
     <>
       <Space className={s.container} size={50}>
-        <Text>{denomination}</Text>
+        <Text className={s.denomination}>{denomination}</Text>
         <InputNumber
-          addonBefore="+"
           placeholder="0"
           type="number"
           id={id}
+          min={0}
+          max={10000}
           value={df}
           className={s.inputNumber}
           onChange={(val) => {
             count(id, val);
           }}
         />
-        <Text>{value} zł</Text>
+        <Text className={s.value}>{value} zł</Text>
       </Space>
     </>
   );
