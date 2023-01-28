@@ -14,7 +14,6 @@ import { ProtectedRoute } from '@components/ProtectedRoute/ProtectedRoute';
 import { DepositBoxForm } from '@/components/forms/DepositBoxForm';
 import { DepositProvider } from '@/components/forms/DepositBoxForm/DepositContext';
 
-
 const depositBoxPagePath = 'settle/3';
 const giveBoxPagePath = 'give';
 const settleBoxPagePath = 'settle';
@@ -42,11 +41,7 @@ const boxesSubroutes: RouteObject[] = [
   },
   {
     path: settleBoxPagePathCheckout,
-    element: (
-      <DepositProvider>
-        <SettleBoxPageCheckout />
-      </DepositProvider>
-    ),
+    element: <SettleBoxPageCheckout />,
   },
   {
     index: true,
