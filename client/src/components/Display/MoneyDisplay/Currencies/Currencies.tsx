@@ -6,7 +6,6 @@ import { currencies, parseMoney, useAmountsQuery } from '@/utils';
 
 export const Currencies = () => {
   const { data } = useAmountsQuery();
-  console.log(data);
 
   const collectedCurrencies: Record<currencies, string> = {
     pln: parseMoney(data.amount_PLN, 'pln'),
