@@ -36,7 +36,6 @@ export const CalculatorView = () => {
   const [show, setShow] = useState(false);
 
   const onFinish = (values: any) => {
-    console.log('Success:', values);
     setValue((values.mass / values.type) * 100);
   };
 
@@ -48,12 +47,12 @@ export const CalculatorView = () => {
       <div className={s.body}>
         <div className={s.bodyTop}>
           <p>Ilość monet:</p>
-          <p>{round(value, 2)}</p>
+          <p>{round(value ? value : 0, 2)}</p>
         </div>
         <div className={s.bodyBottom}>
           <Form name="calculator" onFinish={onFinish} autoComplete="off">
             <Form.Item name="mass">
-              <InputNumber min="0" step="0.01" addonAfter="g" />
+              <InputNumber min="0" step="0.01" addonAfter="g" placeholder="0" />
             </Form.Item>
             <Form.Item name="type">
               <Select
