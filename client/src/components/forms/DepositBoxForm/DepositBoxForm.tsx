@@ -9,7 +9,7 @@ import TextArea from 'antd/lib/input/TextArea';
 import { AmountsKeys, useDepositContext } from './DepositContext';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import { APIManager, fetcher } from '@/utils';
+import { APIManager, fetcher, useBoxContext } from '@/utils';
 
 const moneyValues = {
   '1gr': 0.01,
@@ -44,23 +44,43 @@ export function sum(amounts: Record<AmountsKeys, number>) {
 
 export const DepositBoxForm = () => {
   const { boxData, setBoxData } = useDepositContext();
+  const { boxIdentifier, collectorIdentifier } = useBoxContext();
+  console.log(boxIdentifier);
   const navigate = useNavigate();
   const mutation = useMutation({
-    mutationFn: () => fetcher(`${APIManager.baseAPIRUrl}`),
+    mutationFn: (data: string) =>
+      fetcher(`${APIManager.baseAPIRUrl}/boxes/${boxIdentifier}`, {
+        method: 'POST',
+        body: data,
+      }),
+    onSuccess: () => navigate('/liczymy/boxes/settle/4'),
   });
 
-  function handleInputChange(id: string, value: number | string) {
+  const handleInputChange = (id: string, value: number | string) => {
     setBoxData((prevMoneyCollected) => {
-      const newAmounts = { ...prevMoneyCollected.amounts, [id]: value };
+      const newAmounts = {
+        ...prevMoneyCollected.amounts,
+        [id]: (value as number).toFixed(2),
+      };
       return { ...prevMoneyCollected, amounts: newAmounts };
     });
-  }
+  };
 
   const acc = sum(boxData.amounts);
 
-  function handleSubmit() {
-    navigate('/liczymy/boxes/settle/4');
-  }
+  const handleSubmit = () => {
+    const stringf = JSON.stringify({ comment: boxData.comment, ...boxData.amounts });
+    const am = Object.values(boxData.amounts);
+    console.log(stringf);
+    mutation.mutate(stringf);
+  };
+
+  const handleCommentInput = (id: string, value: number | string) => {
+    setBoxData((state) => {
+      const amountsCopy = { ...state.amounts };
+      return { amounts: amountsCopy, comment: value.toString() };
+    });
+  };
 
   return (
     <Content className={s.full}>
@@ -270,7 +290,7 @@ export const DepositBoxForm = () => {
               id="other"
               onChange={(e) => {
                 const { value } = e.target;
-                handleInputChange('others', value);
+                handleCommentInput('comment', value);
               }}
             ></TextArea>
           </Space>
