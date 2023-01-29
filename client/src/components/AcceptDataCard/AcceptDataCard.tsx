@@ -1,10 +1,12 @@
 import { Typography, Space, Button } from 'antd';
+import { Spinner } from '@components/Layout/Spinner/Spinner';
 import s from './AcceptDataCard.module.less';
 
 type AcceptData = {
   id_box: string;
   id_number: string;
   volunteer: string;
+  isLoading: boolean;
   onAccept: () => void;
 };
 
@@ -15,6 +17,7 @@ export const AcceptDataCard = ({
   id_number,
   volunteer,
   onAccept,
+  isLoading,
 }: AcceptData) => {
   return (
     <div className={s.AcceptDataCard}>
@@ -39,8 +42,13 @@ export const AcceptDataCard = ({
           <p>Potwierdź, że puszka nie nosi śladów uszkodzeń.</p>
           <p>Nie oddawaj rozliczonej puszki wolontariuszowi.</p>
         </div>
-        <Button type={'primary'} className={s.AcceptBtn} onClick={onAccept}>
-          Potwierdzam Zgodność z danymi rzeczywistymi
+        <Button
+          type={'primary'}
+          className={s.AcceptBtn}
+          onClick={onAccept}
+          disabled={isLoading}
+        >
+          {isLoading ? <Spinner /> : 'Potwierdzam Zgodność z danymi rzeczywistymi'}
         </Button>
       </Space>
     </div>

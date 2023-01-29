@@ -5,8 +5,18 @@ import {
   useDepositContext,
 } from '@/components/forms/DepositBoxForm/DepositContext';
 import { useNavigate } from 'react-router-dom';
-import { APIManager, fetcher, useBoxContext } from '@/utils';
+import {
+  APIManager,
+  fetcher,
+  useAuthContext,
+  useBoxContext, 
+  useBoxContextValues,
+  useSetStationUnavailableQuery,
+} from '@/utils';
 import { useMutation } from '@tanstack/react-query';
+
+import { Spinner } from '@components/Layout/Spinner/Spinner';
+import { useEffect } from 'react';
 
 const moneyValues = {
   '1gr': 0.01,
@@ -42,8 +52,19 @@ export function sum(amounts: Record<AmountsKeys, number>) {
 export const SettleBoxPageCheckout = () => {
   const { boxData } = useDepositContext();
   const { collectorIdentifier, boxIdentifier } = useBoxContext();
+  const { deleteBox } = useBoxContextValues();
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (collectorIdentifier === null || boxIdentifier === null) {
+      navigate('/liczymy/boxes/settle');
+    }
+  }, [boxIdentifier, collectorIdentifier]);
+
   const totalPLNSum = sum(boxData.amounts);
+  const { username } = useAuthContext();
+  useSetStationUnavailableQuery(username);
   const mutation = useMutation({
     mutationFn: () =>
       fetcher(`${APIManager.baseAPIRUrl}/boxes/${boxIdentifier}/finishCounting`, {
@@ -58,6 +79,7 @@ export const SettleBoxPageCheckout = () => {
 
   const confirmData = () => {
     mutation.mutate();
+    deleteBox();
   };
 
   return (
@@ -267,7 +289,7 @@ export const SettleBoxPageCheckout = () => {
       <div className={s.action}>
         <p>Nie wydawaj puszki wolontariuszowi</p>
         <Button className={s.confirm} onClick={confirmData}>
-          Potwierdź rozliczenie puszki
+          {mutation.isLoading ? <Spinner /> : 'Potwierdź rozliczenie puszki'}
         </Button>
         <Button className={s.goBack} onClick={goBackToDeposit}>
           Wróć do poprzedniej strony

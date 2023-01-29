@@ -10,6 +10,15 @@ export const MapController = () => {
   const changeVolunteerAvailability = (stationNumber: number, newStatusId: number) => {
     containerRef.current
       ?.querySelector(`#station${stationNumber}`)
+      ?.classList.remove('volunteer-occupied');
+    containerRef.current
+      ?.querySelector(`#station${stationNumber}`)
+      ?.classList.remove('volunteer-available');
+    containerRef.current
+      ?.querySelector(`#station${stationNumber}`)
+      ?.classList.remove('volunteer-unavailable');
+    containerRef.current
+      ?.querySelector(`#station${stationNumber}`)
       ?.classList.add(handleNewStatus(newStatusId));
   };
 
