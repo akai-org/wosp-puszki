@@ -15,10 +15,11 @@ interface Props extends FormProps {
 export const InputNumberBox: FC<Props> = ({ denomination, value, count, id, df }) => {
   return (
     <>
-      <Space className={s.container} size={50}>
+      <Space className={s.container} size={40}>
         <Text className={s.denomination}>{denomination}</Text>
         <InputNumber
           placeholder="0"
+          size="small"
           type="number"
           id={id}
           min={0}
