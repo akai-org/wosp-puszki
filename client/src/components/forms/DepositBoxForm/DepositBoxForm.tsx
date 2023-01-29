@@ -288,6 +288,7 @@ export const DepositBoxForm = () => {
             <Text>Euro ( EUR )</Text>
             <InputNumber
               defaultValue={0}
+              size="small"
               min={0}
               max={10000}
               type="number"
@@ -307,6 +308,7 @@ export const DepositBoxForm = () => {
             </Text>
             <InputNumber
               defaultValue={0}
+              size="small"
               type="number"
               className={s.inputNumber}
               min={0}
@@ -321,12 +323,13 @@ export const DepositBoxForm = () => {
             </Text>
           </Space>
           <Space className={s.foreignContainer}>
-            <Text>
+            <Text className={s.foreignText}>
               Dolar <br />
               amerykański <br />( USD )
             </Text>
             <InputNumber
               defaultValue={0}
+              size="small"
               min={0}
               max={10000}
               type="number"
@@ -336,7 +339,7 @@ export const DepositBoxForm = () => {
                 handleInputChange('amount_USD', Number(value));
               }}
             />
-            <Text>
+            <Text className={s.foreignText}>
               {Number((boxData.amounts['amount_USD'] * moneyValues['USD']).toFixed(2))} zł
             </Text>
           </Space>
