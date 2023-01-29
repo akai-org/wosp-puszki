@@ -153,7 +153,7 @@ class CharityBoxController extends Controller
         $event->comment = '';
         $event->save();
 
-        BoxConfirmed::dispatch();
+        //BoxConfirmed::dispatch();
 
         return json_encode(
             [

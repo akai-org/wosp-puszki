@@ -33,7 +33,7 @@
     </table>
     @if($box->collector->identifier == 620)
         <h1 class="text-danger">
-           Prosimy, żeby DYSKRETNE zwrócenie się osób liczących do Antka Zienkiewicza (Szefa sztabu) z tą puszką. (506751312)
+           Prosimy, o DYSKRETNE zwrócenie się osób liczących do Antka Zienkiewicza (Szefa sztabu) z tą puszką. (506751312)
         </h1>
     @endif
     <ul style="text-align: center; font-size: 2em;list-style-type: none;">

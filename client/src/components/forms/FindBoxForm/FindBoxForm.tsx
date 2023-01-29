@@ -2,10 +2,15 @@ import { FormButton, FormWrapper, FormInput, FormSelect } from '@/components';
 import { Typography, Space, Button } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 import s from './FindBoxForm.module.less';
-import React, { Dispatch, SetStateAction, useEffect } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { useBoxContext, boxResponse } from '@/utils';
+import {
+  useBoxContext,
+  boxResponse,
+  useSetStationAvailableQuery,
+  useAuthContext,
+} from '@/utils';
 import { Spinner } from '@components/Layout/Spinner/Spinner';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'antd/es/form/Form';
@@ -18,6 +23,7 @@ import {
   NetworkError,
   TYPE_OF_BOX_REQUIRED,
 } from '@/utils';
+
 const { Text } = Typography;
 
 const options = [
@@ -82,9 +88,10 @@ export const FindBoxForm = () => {
   const [form] = useForm();
   const { createBox } = useBoxContext();
   const navigate = useNavigate();
+  const { username } = useAuthContext();
+  useSetStationAvailableQuery(username);
   const mutation = useMutation<boxResponse, unknown, number, unknown>({
-    mutationFn: (volunteerId: number) =>
-      fetcher(APIManager.findBoxURL(volunteerId), { method: 'Get' }),
+    mutationFn: (volunteerId: number) => fetcher(APIManager.findBoxURL(volunteerId)),
     onError: (error) => {
       handleError(error, setMessage);
     },
@@ -99,8 +106,19 @@ export const FindBoxForm = () => {
         data.id.toString(),
       );
       form.resetFields();
-      navigate('/liczymy/boxes/settle/2');
+      // TODO: Probalby can get rid of setTimeout
+      setTimeout(() => navigate('/liczymy/boxes/settle/2'), 1000);
     },
+  });
+  // TODO: Move that into some mutation - wrapper
+  if (!username) {
+    return null;
+  }
+  const id = parseInt(username.slice(-2));
+  const goOnABreakMutation = useMutation({
+    mutationFn: () =>
+      fetcher(`${APIManager.baseAPIRUrl}/stations/${id}/busy`, { method: 'POST' }),
+    onSuccess: () => navigate('/liczymy/boxes/settle'),
   });
 
   const onFinish = (values: FormInput) => {
@@ -114,18 +132,9 @@ export const FindBoxForm = () => {
   };
 
   const handleBreak = () => {
-    navigate('/liczymy/boxes/settle');
+    goOnABreakMutation.mutate();
     return;
   };
-
-  useEffect(() => {
-    form.setFieldsValue({
-      box_type: {
-        value: 0,
-        label: 'Puszka Wolontariusza',
-      },
-    });
-  }, []);
 
   return (
     <Content className={s.container}>
@@ -137,7 +146,8 @@ export const FindBoxForm = () => {
         borderColor="black"
         label="Znajdź puszkę do rozliczenia"
         message={message}
-        disabled={mutation.isLoading}
+        disabled={mutation.isLoading || goOnABreakMutation.isLoading}
+        initialValues={{ box_type: 0 }}
       >
         <Space direction="vertical">
           <Space direction="vertical" className={s.form}>
@@ -163,8 +173,17 @@ export const FindBoxForm = () => {
           </Space>
         </Space>
       </FormWrapper>
-      <Button type="primary" className={s.break} onClick={handleBreak}>
-        Nie chcę rozliczać dalej - przerwa
+      <Button
+        disabled={goOnABreakMutation.isLoading}
+        type="primary"
+        className={s.break}
+        onClick={handleBreak}
+      >
+        {goOnABreakMutation.isLoading ? (
+          <Spinner />
+        ) : (
+          'Nie chcę rozliczać dalej - przerwa'
+        )}
       </Button>
     </Content>
   );
