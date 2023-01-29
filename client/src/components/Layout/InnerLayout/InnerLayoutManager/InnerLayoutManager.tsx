@@ -12,7 +12,6 @@ interface Props {
 export const InnerLayoutManager: FC<Props> = ({ excludingLinks, links, prefix = '' }) => {
   const location = useLocation();
   const { username } = useAuthContext();
-  console.log(username);
 
   const prefixedExcludingLinks = excludingLinks.map((link) => `${prefix}/${link}`);
 
