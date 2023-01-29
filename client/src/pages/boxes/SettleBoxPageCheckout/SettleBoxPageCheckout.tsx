@@ -1,5 +1,5 @@
 import s from './SettleBoxPageCheckout.module.less';
-import { Button } from 'antd';
+import { Button, Space } from 'antd';
 import {
   AmountsKeys,
   useDepositContext,
@@ -9,7 +9,7 @@ import {
   APIManager,
   fetcher,
   useAuthContext,
-  useBoxContext, 
+  useBoxContext,
   useBoxContextValues,
   useSetStationUnavailableQuery,
 } from '@/utils';
@@ -281,19 +281,20 @@ export const SettleBoxPageCheckout = () => {
           <p className={s.otherTitleParagraph}>Inne</p>
           <p className={s.otherContentParagraph}>{boxData.comment}</p>
         </div>
+
         <div className={s.sum}>
           <h4>Suma (bez walut obcych):</h4>
           <h4>{totalPLNSum} zł</h4>
+          <div className={s.action}>
+            <p>Nie wydawaj puszki wolontariuszowi</p>
+            <Button className={s.confirm} onClick={confirmData}>
+              {mutation.isLoading ? <Spinner /> : 'Potwierdź rozliczenie puszki'}
+            </Button>
+            <Button className={s.goBack} onClick={goBackToDeposit}>
+              Wróć do poprzedniej strony
+            </Button>
+          </div>
         </div>
-      </div>
-      <div className={s.action}>
-        <p>Nie wydawaj puszki wolontariuszowi</p>
-        <Button className={s.confirm} onClick={confirmData}>
-          {mutation.isLoading ? <Spinner /> : 'Potwierdź rozliczenie puszki'}
-        </Button>
-        <Button className={s.goBack} onClick={goBackToDeposit}>
-          Wróć do poprzedniej strony
-        </Button>
       </div>
     </div>
   );
