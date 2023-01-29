@@ -26,7 +26,7 @@
                     <div class="col-md-4">
                         <input id="collectorIdentifier" name="collectorIdentifier" type="text" placeholder="Np. 235" class="form-control input-md" required="" autocomplete="new-password">
                         <span class="help-block">Z puszki (przed ukośnikiem)</span>
-                        <h3 class="warning">Jeśli puszka ma prefix PF, do numeru na puszce dodaj 10 000, a jeśli PS to 20 000</h3>
+                        <h3 class="text-danger">Jeśli puszka ma prefix PF, do numeru na puszce dodaj 10 000, a jeśli PS to 20 000</h3>
                     </div>
                 </div>
 
