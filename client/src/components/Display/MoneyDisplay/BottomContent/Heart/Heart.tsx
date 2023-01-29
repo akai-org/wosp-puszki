@@ -7,7 +7,7 @@ interface Props extends PropsWithChildren {
 }
 export const Heart: FC<Props> = ({ count, children }) => {
   return (
-    <Space align="center" direction="vertical" className={s.heartContainer}>
+    <Space id="rescale" align="center" direction="vertical" className={s.heartContainer}>
       <section className={s.heart}>{count}</section>
       <div className={s.label}>{children}</div>
     </Space>

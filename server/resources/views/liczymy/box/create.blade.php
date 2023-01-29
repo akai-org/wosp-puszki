@@ -20,6 +20,7 @@
                                class="form-control input-md" required="" value="{{  old('collectorIdentifier') }}"
                                autocomplete="nope">
                         <span class="help-block">Z identyfikatora (Na puszce <b>przed ukośnikiem</b>)</span>
+                        <h3 class="warning">Jeśli puszka ma mieć prefix PF, do numeru na puszce dodaj 10 000, a jeśli PS to 20 000</h3>
                     </div>
                 </div>
 

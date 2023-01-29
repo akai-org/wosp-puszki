@@ -39,7 +39,7 @@ class CharityBoxController extends Controller
                 ->with('error', $e->getMessage());
         }
 
-        return view('liczymy.box.create')->with('success', 'Wydano puszkę wolontariuszowi ' . $box->collector->display . $box->display_id);
+        return view('liczymy.box.create')->with('message', 'Wydano puszkę wolontariuszowi ' . $box->collector->display . $box->display_id);
     }
 
     //Znajdź puszkę (formularz)
@@ -153,7 +153,7 @@ class CharityBoxController extends Controller
         $event->comment = '';
         $event->save();
 
-        BoxConfirmed::dispatch();
+        //BoxConfirmed::dispatch();
 
         return json_encode(
             [

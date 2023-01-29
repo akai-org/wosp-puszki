@@ -36,14 +36,14 @@ export const ListUsersPage = () => {
   const columnsOptions: TableColumns[] = [
     {
       titleName: 'Nazwa użytkownika',
-      keyName: 'user_id',
+      keyName: 'name',
       sortType: 'string',
       search: true,
       width: 100,
     },
     {
       titleName: 'Rola',
-      keyName: 'name',
+      keyName: 'role',
       sortType: 'string',
       search: true,
       width: 150,
@@ -80,6 +80,7 @@ export const ListUsersPage = () => {
             columns={columns}
             pagination={false}
             dataSource={data}
+            rowKey="user_id" // To należy zmienić przy okazji podłączenia API
             scroll={{ y: '70vh' }}
             rowClassName={s.table_row}
           />

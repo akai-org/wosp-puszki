@@ -1,9 +1,11 @@
 import React from 'react';
 import { FormButton, FormWrapper } from '@/components';
+import { useNavigate } from 'react-router-dom';
 
 export const BoxToSettleForm = () => {
+  const navigate = useNavigate();
   const onSubmit = () => {
-    // TODO: Navigate to another page?
+    navigate('/liczymy/boxes/settle/1');
     return;
   };
 

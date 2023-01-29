@@ -400,10 +400,19 @@
 @push('scripts')
     <script defer type="text/javascript">
         document.addEventListener("DOMContentLoaded", function() {
-            const webSocket = new WebSocket('ws://' + window.location.hostname + ':6001/ws/queue');
+            let id = '{{auth()->user()->name}}';
+            id = parseInt(id.slice(-2));
+            const updateStatus = () => fetch(`http://${window.location.hostname}/api/stations/${id}/busy`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => console.log(JSON.stringify(response)));
+            updateStatus();
             let intervalId = window.setInterval(function(){
-                webSocket.send(encodeQueueStatusUpdate("BUSY", '{{ auth()->user()->name }}'));
-            }, 1500);
+                updateStatus();
+            }, 60000);
         });
     </script>
 @endpush

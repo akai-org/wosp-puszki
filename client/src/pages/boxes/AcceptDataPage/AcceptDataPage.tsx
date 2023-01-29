@@ -1,29 +1,59 @@
 import { AcceptDataCard } from '@/components/AcceptDataCard/AcceptDataCard';
-import { useState } from 'react';
 import s from './AcceptDataPage.module.less';
 import { Space } from 'antd';
+import {
+  APIManager,
+  fetcher,
+  useAuthContext,
+  useBoxContext,
+  useSetStationUnavailableQuery,
+} from '@/utils';
+import { useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+import { useEffect } from 'react';
 
 export const AcceptDataPage = () => {
-  const [data] = useState({
-    id_box: 22,
-    volunteer: 'Pan Paweł',
-    id_number: 123,
-    type: 'box' as 'box' | 'case',
+  const navigate = useNavigate();
+  const { collectorName, collectorIdentifier, boxIdentifier } = useBoxContext();
+
+  useEffect(() => {
+    if (
+      collectorName === null ||
+      collectorIdentifier === null ||
+      boxIdentifier === null
+    ) {
+      navigate('/liczymy/boxes/settle');
+    }
+  }, [boxIdentifier, collectorName, collectorIdentifier]);
+
+  const { username } = useAuthContext();
+  useSetStationUnavailableQuery(username);
+
+  const mutation = useMutation({
+    mutationFn: () =>
+      fetcher(`${APIManager.baseAPIRUrl}/boxes/${boxIdentifier}/startCounting`, {
+        method: 'POST',
+      }),
+    onSuccess: () => {
+      navigate('/liczymy/boxes/settle/3');
+    },
   });
 
   const onAccept = () => {
-    console.log('Zaakceptowano dane');
+    mutation.mutate();
   };
 
   return (
     <Space className={s.AcceptDataPage}>
-      <AcceptDataCard
-        id_box={data.id_box}
-        volunteer={data.volunteer}
-        id_number={data.id_number}
-        type={data.type}
-        onAccept={onAccept}
-      />
+      {collectorName && collectorIdentifier && boxIdentifier && (
+        <AcceptDataCard
+          id_box={boxIdentifier}
+          volunteer={collectorName}
+          id_number={collectorIdentifier}
+          onAccept={onAccept}
+          isLoading={mutation.isLoading}
+        />
+      )}
     </Space>
   );
 };

@@ -7,6 +7,7 @@ import {
   LogsPage,
 } from '@/pages';
 import { InnerLayout } from '@/components';
+import { ProtectedRoute } from '@components/ProtectedRoute/ProtectedRoute';
 
 const addUserPagePath = 'users/add';
 const listVolunteersPagePath = 'volunteers/list';
@@ -39,15 +40,17 @@ const adminSubroutes: RouteObject[] = [
 export const adminRoute = {
   path: 'admin',
   element: (
-    <InnerLayout
-      links={[
-        { url: addUserPagePath, label: 'Dodaj użytkownika' },
-        { url: '', label: 'Lista użytkowników', withDot: true },
-        { url: addVolunteerPagePath, label: 'Dodaj wolontariusza' },
-        { url: listVolunteersPagePath, label: 'Lista wolontariuszy', withDot: true },
-        { url: logsPagePath, label: 'Logi' },
-      ]}
-    />
+    <ProtectedRoute>
+      <InnerLayout
+        links={[
+          { url: addUserPagePath, label: 'Dodaj użytkownika' },
+          { url: '', label: 'Lista użytkowników', withDot: true },
+          { url: addVolunteerPagePath, label: 'Dodaj wolontariusza' },
+          { url: listVolunteersPagePath, label: 'Lista wolontariuszy', withDot: true },
+          { url: logsPagePath, label: 'Logi' },
+        ]}
+      />
+    </ProtectedRoute>
   ),
   children: adminSubroutes,
 };

@@ -26,6 +26,7 @@
                     <div class="col-md-4">
                         <input id="collectorIdentifier" name="collectorIdentifier" type="text" placeholder="Np. 235" class="form-control input-md" required="" autocomplete="new-password">
                         <span class="help-block">Z puszki (przed ukośnikiem)</span>
+                        <h3 class="text-danger">Jeśli puszka ma prefix PF, do numeru na puszce dodaj 10 000, a jeśli PS to 20 000</h3>
                     </div>
                 </div>
 
@@ -54,16 +55,32 @@
             const webSocket = new WebSocket('ws://' + window.location.hostname + ':6001/ws/queue');
 
             let intervalLoop;
+            let id = '{{auth()->user()->name}}';
+            id = parseInt(id.slice(-2));
 
-            const sendReadyMsg = () => webSocket.send(window.encodeQueueStatusUpdate("READY", "{{ auth()->user()->name }}"));
-            const sendBusyMsg = () => webSocket.send(window.encodeQueueStatusUpdate("BUSY", "{{ auth()->user()->name }}"));
+            const sendReadyMsg = () => fetch(`http://${window.location.hostname}/api/stations/${id}/ready`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => console.log(JSON.stringify(response)));
+            const sendUnknownMsg = () => fetch(`http://${window.location.hostname}/api/stations/${id}/unknown`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => console.log(JSON.stringify(response)));
 
+            sendUnknownMsg();
             joinButton.addEventListener('click', function (e) {
                 clearInterval(intervalLoop);
                 joinButton.classList.add('hidden');
                 leaveButton.classList.remove('hidden');
                 collectorIdentifierForm.classList.remove('hidden');
-                intervalLoop = setInterval(sendReadyMsg, 1500);
+                sendReadyMsg();
+                intervalLoop = setInterval(sendReadyMsg, 60000);
             });
 
             leaveButton.addEventListener('click', function () {
@@ -71,7 +88,8 @@
                 joinButton.classList.remove('hidden');
                 leaveButton.classList.add('hidden');
                 collectorIdentifierForm.classList.add('hidden');
-                intervalLoop = setInterval(sendBusyMsg, 1500);
+                sendUnknownMsg();
+                intervalLoop = setInterval(sendUnknownMsg, 60000);
             });
         </script>
 @endpush

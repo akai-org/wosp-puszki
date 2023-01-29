@@ -7,14 +7,19 @@ import { Navbar } from '../Navbar/Navbar';
 
 interface Props {
   links: SubNavLink[];
+  hideNavbar?: boolean;
 }
 
-export const InnerLayout: FC<Props> = ({ links }) => {
+export const InnerLayout: FC<Props> = ({ links, hideNavbar }) => {
+  const layoutHeader = hideNavbar ? null : (
+    <Layout.Header className={s.customNavbar}>
+      <Navbar links={links} />
+    </Layout.Header>
+  );
+
   return (
     <Layout>
-      <Layout.Header className={s.customNavbar}>
-        <Navbar links={links} />
-      </Layout.Header>
+      {layoutHeader}
       <Layout.Content>
         <Outlet />
       </Layout.Content>

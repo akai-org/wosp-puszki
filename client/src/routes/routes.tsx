@@ -3,15 +3,24 @@ import { adminRoute, boxesRoute, countedBoxesRoute } from './nestedRoutes';
 import { LoginPage, HomePage, NotFoundPage } from '@/pages';
 import { MainLayout } from '@/components';
 import { DisplayPage } from '@pages/DisplayPage';
+import { ProtectedRoute } from '@components/ProtectedRoute/ProtectedRoute';
 
 const rootRoutes: RouteObject[] = [
   {
     path: 'login',
-    element: <LoginPage />,
+    element: (
+      <ProtectedRoute redirectTo="/liczymy" reversed>
+        <LoginPage />
+      </ProtectedRoute>
+    ),
   },
   {
     index: true,
-    element: <HomePage />,
+    element: (
+      <ProtectedRoute>
+        <HomePage />
+      </ProtectedRoute>
+    ),
   },
   { path: '*', element: <NotFoundPage /> },
 ];

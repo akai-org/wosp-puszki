@@ -1,19 +1,23 @@
 import { FC } from 'react';
 import { SidebarSmall, SidebarBig } from './SidebarVariants';
+import { useAuthContext } from '@/utils';
 
 const links = [
   { label: 'Strona Główna', url: '' },
-  { label: 'Przeliczone puszki', url: 'countedBoxes' },
-  { label: 'Administracja', url: 'admin' },
+  // { label: 'Przeliczone puszki', url: 'countedBoxes' },
+  // { label: 'Administracja', url: 'admin' },
   { label: 'Puszki', url: 'boxes' },
 ];
 
-interface Props {
-  isLoggedIn: boolean;
-}
-
-const userName = 'superadmin';
-
-export const Sidebar: FC<Props> = ({ isLoggedIn }) => {
-  return isLoggedIn ? <SidebarBig links={links} userName={userName} /> : <SidebarSmall />;
+export const Sidebar: FC = () => {
+  const { deleteCredentials, username, credentials } = useAuthContext();
+  return credentials ? (
+    <SidebarBig
+      deleteCredentials={deleteCredentials}
+      links={links}
+      userName={username as string}
+    />
+  ) : (
+    <SidebarSmall />
+  );
 };

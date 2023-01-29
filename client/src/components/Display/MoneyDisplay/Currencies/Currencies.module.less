@@ -1,14 +1,14 @@
-@import "./src/less/variables";
+@import './src/less/variables';
 
 .currencies {
   text-shadow: @currencies-test-shadow;
   display: flex;
   font-family: 'Oswald-Bold', sans-serif;
-  font-size: 35px !important;
+  font-size: 2.1875rem !important;
   font-weight: 700 !important;
   font-style: italic;
   & > div {
-    margin: 0 30px;
+    margin: 0 1.875rem;
     & > div {
       color: white !important;
     }
@@ -18,18 +18,35 @@
 .collectedText {
   & span {
     display: block;
-    margin-right: 40px;
+    margin-right: 2.5rem;
   }
   display: flex;
   font-family: 'Oswald-Bold', sans-serif;
-  font-size: 8.75rem !important;
+  font-size: 7.5rem !important;
   font-weight: 700 !important;
   color: white !important;
-  margin: 10px 0 !important;
+  margin: 0.625rem 0 !important;
   text-shadow: @main-text-shadow;
 }
 
 .collectedImage {
-  margin-top: 1.5rem
+  margin-top: 1.5rem;
 }
 
+.eBox {
+  text-shadow: @currencies-test-shadow;
+  display: flex;
+  font-family: 'Oswald-Bold', sans-serif;
+  font-size: 2.1875rem !important;
+  font-weight: 700 !important;
+  font-style: italic;
+  justify-content: center;
+  align-items: center;
+  & > div {
+    margin: 0;
+    & > div {
+      color: white !important;
+      margin-bottom: 0 !important;
+    }
+  }
+}

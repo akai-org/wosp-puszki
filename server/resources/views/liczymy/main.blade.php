@@ -9,7 +9,7 @@
         </h1>
         <br>
         <h1 style="text-align: center;font-size: 3em">
-            Razem z walutami obcymi:<br>
+            Razem z walutami obcymi i eSkarbonką:<br>
             <span style="">{{ \App\totalCollectedWithForeign() }}zł</span>
         </h1>
     </div>

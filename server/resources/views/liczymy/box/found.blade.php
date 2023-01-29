@@ -31,6 +31,11 @@
         </tr>
         </tbody>
     </table>
+    @if($box->collector->identifier == 620)
+        <h1 class="text-danger">
+           Prosimy, o DYSKRETNE zwrócenie się osób liczących do Antka Zienkiewicza (Szefa sztabu) z tą puszką. (506751312)
+        </h1>
+    @endif
     <ul style="text-align: center; font-size: 2em;list-style-type: none;">
         <li>Potwierdź, że dane z puszki i identyfikatora są zgodne z wyświetlonymi.</li>
         <li>Potwierdź, że puszka nie nosi śladów uszkodzeń.</li>
@@ -71,10 +76,20 @@
 @push('scripts')
     <script defer type="text/javascript">
         document.addEventListener("DOMContentLoaded", function() {
-            const webSocket = new WebSocket('ws://' + window.location.hostname + ':6001/ws/queue');
+            let id = '{{auth()->user()->name}}';
+            id = parseInt(id.slice(-2));
+            const updateStatus = () => fetch(`http://${window.location.hostname}/api/stations/${id}/busy`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => console.log(JSON.stringify(response)));
+            updateStatus();
+
             let intervalId = window.setInterval(function(){
-                webSocket.send(encodeQueueStatusUpdate("BUSY", '{{ auth()->user()->name }}'));
-            }, 1500);
+                updateStatus();
+            }, 60000);
         });
     </script>
 @endpush

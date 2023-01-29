@@ -3,16 +3,17 @@ import { Card, Form, Space, Typography } from 'antd';
 import type { FormProps } from 'antd';
 import type { FC, ReactNode } from 'react';
 import { FormError } from '../FormError';
+import { FormMessage } from '@/utils';
 interface Props extends FormProps {
   label?: ReactNode;
   borderColor?: ReactNode;
-  errorMessage?: ReactNode;
+  message?: FormMessage;
   children: ReactNode;
 }
 
 export const FormWrapper: FC<Props> = ({
   borderColor = 'red',
-  errorMessage,
+  message,
   label,
   children,
   ...rest
@@ -24,16 +25,19 @@ export const FormWrapper: FC<Props> = ({
     return s.card;
   };
 
+  const messageBorderStyle =
+    message?.type === 'success' ? s.successBorder : s.errorBorder;
+
   return (
     <Space direction="vertical" align="center">
       <Space.Compact direction="vertical" block={true}>
         <Typography.Text className={s.title}>{label}</Typography.Text>
-        <Card size="small" className={errorMessage ? s.errorBorder : typeOfBorder()}>
+        <Card size="small" className={message ? messageBorderStyle : typeOfBorder()}>
           <Form className={s.form} {...rest}>
             {children}
           </Form>
         </Card>
-        {errorMessage && <FormError message={errorMessage} />}
+        {message && <FormError message={message} />}
       </Space.Compact>
     </Space>
   );

@@ -10,9 +10,14 @@ const { Header, Footer } = Layout;
 type SidebarData = {
   links: SubNavLink[];
   userName: string;
+  deleteCredentials: () => void;
 };
 
 export const SidebarBig: React.FC<SidebarData> = (props) => {
+  const handleLogout = () => {
+    props.deleteCredentials();
+  };
+
   return (
     <Layout className={[s.sidebar, s.sidebarLayout].join(' ')}>
       <Header className={[s.sidebar, s.sidebarHeader].join(' ')}>
@@ -26,7 +31,9 @@ export const SidebarBig: React.FC<SidebarData> = (props) => {
       <Footer className={[s.sidebar, s.sidebarFooter].join(' ')}>
         <p>Użytkownik:</p>
         <p className={s.userName}>{props.userName}</p>
-        <Button type="primary">Wyloguj</Button>
+        <Button onClick={handleLogout} type="primary">
+          Wyloguj
+        </Button>
       </Footer>
     </Layout>
   );

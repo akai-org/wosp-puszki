@@ -1,37 +1,116 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { useState } from 'react';
 import { Space, Typography } from 'antd';
 import s from './GiveBoxForm.module.less';
-import { ID_NUMBER_REQUIRED, TYPE_OF_BOX_REQUIRED } from '@/utils';
+import {
+  APIManager,
+  fetcher,
+  FormMessage,
+  GIVE_BOX_WRONG_ID_ERROR_RESPONSE,
+  ID_NUMBER_REQUIRED,
+  NetworkError,
+  TYPE_OF_BOX_REQUIRED,
+} from '@/utils';
 
 import { FormWrapper, FormInput, FormSelect, FormButton } from '@/components';
+import { useMutation } from '@tanstack/react-query';
+import { Spinner } from '@components/Layout/Spinner/Spinner';
+import { useForm } from 'antd/es/form/Form';
 
 const { Text } = Typography;
 
+const options = [
+  {
+    value: 0,
+    label: 'Puszka Wolontariusza',
+  },
+  {
+    value: 10000,
+    label: 'Puszka Stacjonarna',
+  },
+  {
+    value: 20000,
+    label: 'Puszka Firmowa',
+  },
+];
+
 type FormInput = {
-  id_number: string | number;
-  box_type: 'box' | 'case';
+  id_number: string;
+  box_type: 0 | 10000 | 20000;
 };
 
+function handleError(
+  error: unknown,
+  setError: Dispatch<SetStateAction<FormMessage | undefined>>,
+) {
+  if (error instanceof NetworkError) {
+    handleNetworkError(error);
+  } else {
+    handleDefaultError();
+  }
+
+  function handleDefaultError() {
+    if (typeof error === 'string') {
+      setError({ type: 'error', content: error });
+    } else {
+      setError({ type: 'error', content: 'Wystąpił nieznany błąd' });
+    }
+  }
+
+  function handleNetworkError(error: NetworkError) {
+    const errorData = JSON.parse(error.message);
+
+    if (typeof errorData === 'object' && errorData['error']) {
+      handlerErrorMessage();
+    }
+    function handlerErrorMessage() {
+      const errorMessage = errorData.error;
+      if (errorMessage === GIVE_BOX_WRONG_ID_ERROR_RESPONSE) {
+        setError({ type: 'error', content: 'Podano nieprawidłowy identyfikator' });
+      } else {
+        setError({ type: 'error', content: errorMessage });
+      }
+    }
+  }
+}
+
 export const GiveBoxForm = () => {
-  const [error, setError] = useState(false);
+  const [message, setMessage] = useState<FormMessage | undefined>();
+  const [form] = useForm();
+  const mutation = useMutation<{ collectorIdentifier: number }, unknown, number, unknown>(
+    {
+      mutationFn: (volunteerId: number) =>
+        fetcher(APIManager.giveBoxURL(volunteerId), { method: 'POST' }),
+      onError: (error) => handleError(error, setMessage),
+      onSuccess: (data) => {
+        setMessage({
+          type: 'success',
+          content: `Pomyślnie wydano puszkę dla identyfikatora: ${data.collectorIdentifier}`,
+        });
+        form.resetFields();
+      },
+    },
+  );
 
   const onFinish = (values: FormInput) => {
-    console.log('Success:', values);
-  };
-
-  const onFinishFailed = () => {
-    console.log('Coś poszło nie tak przy wydawaniu puszki');
-    setError(true);
+    const volunteerId = parseInt(values.id_number) + values.box_type;
+    if (!isNaN(volunteerId)) {
+      mutation.mutate(volunteerId);
+      setMessage(undefined);
+    } else {
+      setMessage({ type: 'error', content: 'Podano nieprawidłowy identyfikator' });
+    }
   };
 
   return (
     <FormWrapper
+      form={form}
       label="Wydawanie Puszki"
       name="giveBoxForm"
       onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-      errorMessage={error && 'Brak wolontariusza o takim identyfikatorze'}
+      message={message}
+      disabled={mutation.isLoading}
+      initialValues={{ box_type: 0 }}
     >
       <Space className={s.formInputs}>
         <Space className={s.inputField} size={0}>
@@ -45,21 +124,12 @@ export const GiveBoxForm = () => {
         <FormSelect
           name="box_type"
           placeholder="Wybierz rodzaj"
-          options={[
-            {
-              value: 'box',
-              label: 'Puszka',
-            },
-            {
-              value: 'case',
-              label: 'Skarbonka',
-            },
-          ]}
+          options={options}
           rules={[{ required: true, message: TYPE_OF_BOX_REQUIRED }]}
         />
       </Space>
       <FormButton htmlType="submit" type="primary">
-        Dodaj Puszkę
+        {mutation.isLoading ? <Spinner /> : 'Dodaj Puszkę'}
       </FormButton>
     </FormWrapper>
   );

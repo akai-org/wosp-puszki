@@ -6,9 +6,9 @@ import akaiLogo from '@assets/akai-logo.svg';
 export const Logos = () => {
   return (
     <article className={s.logosContainer}>
-      <img src={samorzadLogo} alt="" />
-      <img src={finalLogo} alt="" />
-      <img src={akaiLogo} alt="" />
+      <img src={samorzadLogo} id="rescale" alt="" />
+      <img src={finalLogo} id="rescale" alt="" />
+      <img src={akaiLogo} id="rescale" alt="" />
     </article>
   );
 };
