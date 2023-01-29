@@ -382,8 +382,17 @@
             $("#total").text(sum.toFixed(2));
 
         }
+        @if(Auth::user()->hasAnyRole(['admin', 'superadmin']))
+        document.getElementById('amount_EUR').addEventListener('change', replaceComa);
+        document.getElementById('amount_GBP').addEventListener('change', replaceComa);
+        document.getElementById('amount_USD').addEventListener('change', replaceComa);
         {{-- skrypt zapobiegający enterom --}}
         {{-- Enterom zapobiega wymagany checkbox --}}
+        function replaceComa(input) {
+            const input_value = input.target.value;
+            input.target.value = input_value.replace('.', ',');
+        }
+        @endif
 
     </script>
 @endpush
