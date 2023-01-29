@@ -16,7 +16,7 @@ export const Main = () => {
     <Content className={s.container}>
       <Collected pln={amountsData.amount_PLN} total={amountsData.amount_total_in_PLN} />
       <Space size={30}>
-        {username && parseInt(username?.slice(-2)) ? null : (
+        {username && username?.slice(0, 4) == 'wosp' ? null : (
           <Button onClick={() => navigate('boxes')} type="primary" className={s.buttons}>
             Wydaj puszkę wolontariuszowi
           </Button>

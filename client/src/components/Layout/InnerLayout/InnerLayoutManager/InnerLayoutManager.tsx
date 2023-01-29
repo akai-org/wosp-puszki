@@ -12,13 +12,14 @@ interface Props {
 export const InnerLayoutManager: FC<Props> = ({ excludingLinks, links, prefix = '' }) => {
   const location = useLocation();
   const { username } = useAuthContext();
+  console.log(username);
 
   const prefixedExcludingLinks = excludingLinks.map((link) => `${prefix}/${link}`);
 
   const hideNavbar = prefixedExcludingLinks.includes(location.pathname);
   let modifiedLinks = links;
 
-  if (username && parseInt(username?.slice(-2))) {
+  if (username && username?.slice(0, 4) == 'wosp') {
     modifiedLinks = modifiedLinks.filter((link) => link.label !== 'Wydaj puszkę');
   }
 
