@@ -12,10 +12,15 @@ export const Footer: FC<Props> = ({ exchangeRates }) => {
     <Space direction="vertical" className={s.footer}>
       <Space align="center">
         © 2017-2023
-        <a href="http://wosp.put.poznan.pl/">SZTAB WOŚP PRZY POLITECHNICE POZNAŃSKIEJ</a>I
-        <a href="https://akai.org.pl/">AKAI</a>
+        <a id="rescale" href="http://wosp.put.poznan.pl/">
+          SZTAB WOŚP PRZY POLITECHNICE POZNAŃSKIEJ
+        </a>
+        I
+        <a id="rescale" href="https://akai.org.pl/">
+          AKAI
+        </a>
       </Space>
-      <Space className={s.exchangeRate}>
+      <Space id="rescale" className={s.exchangeRate}>
         kursy: <ExchangeRate exchangeName="eur" exchangeRate={exchangeRates.EUR} /> |
         <ExchangeRate exchangeName="usd" exchangeRate={exchangeRates.USD} /> |
         <ExchangeRate exchangeName="gbp" exchangeRate={exchangeRates.GBP} />

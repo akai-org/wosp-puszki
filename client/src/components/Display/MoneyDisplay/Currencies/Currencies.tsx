@@ -16,19 +16,27 @@ export const Currencies = () => {
 
   return (
     <>
-      <img height={80} src={collected} alt="" className={s.collectedImage} />
-      <Typography.Title className={s.collectedText}>
+      <img id="rescale" height={80} src={collected} alt="" className={s.collectedImage} />
+      <Typography.Title id="rescale" className={s.collectedText}>
         {parseMoney(data.amount_total_in_PLN, 'pln')}
       </Typography.Title>
       <Space className={s.currencies}>
-        <Typography.Paragraph>{collectedCurrencies.pln}</Typography.Paragraph>
-        <Typography.Paragraph>{collectedCurrencies.eur}</Typography.Paragraph>
-        <Typography.Paragraph>{collectedCurrencies.gbp}</Typography.Paragraph>
-        <Typography.Paragraph>{collectedCurrencies.usd}</Typography.Paragraph>
+        <Typography.Paragraph id="rescale">
+          {collectedCurrencies.pln}
+        </Typography.Paragraph>
+        <Typography.Paragraph id="rescale">
+          {collectedCurrencies.eur}
+        </Typography.Paragraph>
+        <Typography.Paragraph id="rescale">
+          {collectedCurrencies.gbp}
+        </Typography.Paragraph>
+        <Typography.Paragraph id="rescale">
+          {collectedCurrencies.usd}
+        </Typography.Paragraph>
       </Space>
       <Space className={s.eBox}>
         <img height={80} src={eskarbonka} alt="" />
-        <Typography.Paragraph>
+        <Typography.Paragraph id="rescale">
           {parseMoney(data.amount_PLN_eskarbonka, 'pln')}
         </Typography.Paragraph>
       </Space>
