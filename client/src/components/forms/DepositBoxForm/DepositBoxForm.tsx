@@ -219,7 +219,7 @@ export const DepositBoxForm = () => {
             count={handleInputChange}
             denomination="5zł"
             value={Number((boxData.amounts['count_5zl'] * moneyValues['5zl']).toFixed(2))}
-            id="count_5zł"
+            id="count_5zl"
             df={boxData.amounts['count_5zl']}
           />
         </DepositColumn>
