@@ -26,7 +26,6 @@ use App\Http\Controllers\LogsApiController;
 use App\Http\Controllers\LogsController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
-use BeyondCode\LaravelWebSockets\Facades\WebSocketsRouter;
 
 Route::get('/', ['uses' => 'AmountDisplayController@display']);
 Route::get('/outside', ['uses' => 'AmountDisplayController@displayFromStoredJsonGreen']);
@@ -160,11 +159,6 @@ Route::prefix('liczymy')->group(function () {
             Route::post('modify/{boxID}', [CharityBoxController::class, 'postModify'])->name('box.modify.post');
 
         });
-
-
-
-
-
     });
 
     //Logi
@@ -172,7 +166,6 @@ Route::prefix('liczymy')->group(function () {
         Route::get('all', [LogsController::class, 'getAll'])->name('logs.all');
 
         Route::get('box/{boxID}', [LogsController::class, 'getBox'])->name('logs.box');
-
     });
 
     //API
@@ -193,13 +186,4 @@ Route::prefix('liczymy')->group(function () {
             Route::get('box/{boxID}', [LogsApiController::class, 'getBox'])->name('api.logs.box');
         });
     });
-
-
-
-
-
 });
-
-//Websockets
-WebSocketsRouter::webSocket('/ws/queue', \App\Websockets\QueueSystemWebsocketsHandler::class);
-

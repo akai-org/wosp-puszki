@@ -6,7 +6,3 @@
  */
 
 require('./bootstrap');
-
-require('./pusher_setup');
-
-require('./queue_websockets')

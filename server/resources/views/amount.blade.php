@@ -98,7 +98,6 @@
     <script defer type="text/javascript">
         const svg_map = document.querySelector(".map_site > svg");
         const station_prefix = "station";
-        const webSocket = new WebSocket('ws://' + window.location.hostname + ':6001/ws/queue');
         const STATUS_UNKNOWN = 0;
         const STATUS_READY = 1;
         const STATUS_BUSY = 2;
@@ -135,28 +134,6 @@
 
 
 	}
-
-        webSocket.onmessage = function (message) {
-            // let stationsStatus = JSON.parse(message);
-            for (const [key, value] of Object.entries(JSON.parse(message.data))) {
-                process_station_status(key, value.st);
-            }
-            let active_stations = 0;
-            for (const [key, value] of Object.entries(JSON.parse(message.data))) {
-                if (value.st === STATUS_READY) {
-                    active_stations++;
-                }
-            }
-            open_counting_stations.textContent = active_stations;
-        }
-
-        let intervalId = window.setInterval(function () {
-            webSocket.send(JSON.stringify({
-                s: "STATUS",
-                st: "guest",
-                t: Date.now()
-            }));
-        }, 1500);
 
         function loadDoc() {
             var xhttp = new XMLHttpRequest();

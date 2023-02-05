@@ -124,13 +124,17 @@ $event->save();
 
 ### Websockets
 
-https://github.com/beyondcode/laravel-websockets/issues/102
-https://github.com/beyondcode/laravel-websockets/issues/266
-https://alex.bouma.dev/posts/installing-laravel-websockets-on-forge/
-https://github.com/beyondcode/laravel-websockets/issues/92#issuecomment-455192084
-https://beyondco.de/docs/laravel-websockets/basic-usage/starting
-https://github.com/beyondcode/laravel-websockets/issues/148
-https://laracasts.com/discuss/channels/laravel/laravel-nuxt-nginx-websocket-is-closed-before-the-connection-is-established
+Websockets were previously used to display station availability, but they were replaced with a RESTish API.
+
+Sample routes:
+(See AvailabilityController for response description and data format)
+```
+Route::get('/stations', [AvailabilityController::class, 'getList']);
+Route::post('/stations/{id}/ready', [AvailabilityController::class, 'postReady']);
+Route::post('/stations/{id}/busy', [AvailabilityController::class, 'postBusy']);
+Route::post('/stations/{id}/unknown', [AvailabilityController::class, 'postUnknown']);
+```
+
 
 ### Import wolontariuszy
 

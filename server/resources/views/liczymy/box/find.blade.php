@@ -48,11 +48,9 @@
 
 @push('scripts')
         <script defer type="text/javascript">
-
             const joinButton = document.querySelector('#join');
             const leaveButton = document.querySelector('#leave');
             const collectorIdentifierForm = document.querySelector('#collectorIdentifierForm');
-            const webSocket = new WebSocket('ws://' + window.location.hostname + ':6001/ws/queue');
 
             let intervalLoop;
             let id = '{{auth()->user()->name}}';
@@ -65,6 +63,7 @@
                     'Content-Type': 'application/json'
                 }
             }).then(response => console.log(JSON.stringify(response)));
+
             const sendUnknownMsg = () => fetch(`http://${window.location.hostname}/api/stations/${id}/unknown`, {
                 method: 'POST',
                 headers: {
@@ -74,6 +73,7 @@
             }).then(response => console.log(JSON.stringify(response)));
 
             sendUnknownMsg();
+
             joinButton.addEventListener('click', function (e) {
                 clearInterval(intervalLoop);
                 joinButton.classList.add('hidden');
