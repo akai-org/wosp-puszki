@@ -1,4 +1,4 @@
-import { InputNumber, Space, Typography } from 'antd';
+import { Space, Typography } from 'antd';
 import s from './DepositBoxForm.module.less';
 const { Title, Text } = Typography;
 import { DepositColumn } from '../DepositFormColumn';
@@ -6,7 +6,7 @@ import { InputNumberBox } from '../InputNumberBox';
 import { Content } from 'antd/lib/layout/layout';
 import { FormButton } from '@/components';
 import TextArea from 'antd/lib/input/TextArea';
-import { AmountsKeys, useDepositContext } from './DepositContext';
+import { AmountsKeys, BoxData, useDepositContext } from './DepositContext';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import {
@@ -41,7 +41,7 @@ const moneyValues = {
   GBP: 5.37,
   USD: 4.33,
 };
-
+type moneyValuesType = typeof moneyValues;
 export function sum(amounts: Record<AmountsKeys, number>) {
   let summ = 0;
   for (const key in amounts) {
@@ -91,10 +91,9 @@ function handleError(
 
 export const DepositBoxForm = () => {
   const [message, setMessage] = useState<FormMessage | undefined>();
-  const { boxData, setBoxData } = useDepositContext();
+  const { boxData, handleAmountsChange } = useDepositContext();
   const { boxIdentifier, collectorName, collectorIdentifier } = useBoxContext();
   const navigate = useNavigate();
-
   useEffect(() => {
     if (
       collectorName === null ||
@@ -120,28 +119,32 @@ export const DepositBoxForm = () => {
     },
   });
 
-  const handleInputChange = (id: string, value: number | string) => {
-    setBoxData((prevMoneyCollected) => {
-      const newAmounts = {
-        ...prevMoneyCollected.amounts,
-        [id]: value as number,
-      };
-      return { ...prevMoneyCollected, amounts: newAmounts };
-    });
-  };
-
   const acc = sum(boxData.amounts);
 
   const handleSubmit = () => {
     mutation.mutate();
   };
 
-  const handleCommentInput = (id: string, value: number | string) => {
-    setBoxData((state) => {
-      const amountsCopy = { ...state.amounts };
-      return { amounts: amountsCopy, comment: value.toString() };
-    });
-  };
+  const amounts = Object.keys(boxData['amounts']);
+  const values = Object.keys(moneyValues);
+
+  const inputs = amounts.map((key, index) => {
+    const value: string = values[index];
+
+    return (
+      <InputNumberBox
+        count={handleAmountsChange}
+        value={Number(
+          (
+            boxData.amounts[key as keyof Record<AmountsKeys, number>] *
+            moneyValues[value as keyof moneyValuesType]
+          ).toFixed(2),
+        )}
+        id={key}
+        df={boxData.amounts[key as keyof Record<AmountsKeys, number>]}
+      />
+    );
+  });
 
   return (
     <Content className={s.full}>
@@ -153,206 +156,14 @@ export const DepositBoxForm = () => {
       </Title>
       <Space className={s.columns}>
         <DepositColumn>
-          <InputNumberBox
-            count={handleInputChange}
-            denomination="1gr"
-            value={Number((boxData.amounts['count_1gr'] * moneyValues['1gr']).toFixed(2))}
-            id="count_1gr"
-            df={boxData.amounts['count_1gr']}
-          />
-          <InputNumberBox
-            count={handleInputChange}
-            denomination="2gr"
-            value={Number((boxData.amounts['count_2gr'] * moneyValues['2gr']).toFixed(2))}
-            id="count_2gr"
-            df={boxData.amounts['count_2gr']}
-          />
-          <InputNumberBox
-            count={handleInputChange}
-            denomination="5gr"
-            value={Number((boxData.amounts['count_5gr'] * moneyValues['5gr']).toFixed(2))}
-            id="count_5gr"
-            df={boxData.amounts['count_5gr']}
-          />
-          <InputNumberBox
-            count={handleInputChange}
-            denomination="10gr"
-            value={Number(
-              (boxData.amounts['count_10gr'] * moneyValues['10gr']).toFixed(2),
-            )}
-            id="count_10gr"
-            df={boxData.amounts['count_10gr']}
-          />
-          <InputNumberBox
-            count={handleInputChange}
-            denomination="20gr"
-            value={Number(
-              (boxData.amounts['count_20gr'] * moneyValues['20gr']).toFixed(2),
-            )}
-            id="count_20gr"
-            df={boxData.amounts['count_20gr']}
-          />
-          <InputNumberBox
-            count={handleInputChange}
-            denomination="50gr"
-            value={Number(
-              (boxData.amounts['count_50gr'] * moneyValues['50gr']).toFixed(2),
-            )}
-            id="count_50gr"
-            df={boxData.amounts['count_50gr']}
-          />
-          <InputNumberBox
-            count={handleInputChange}
-            denomination="1zł"
-            value={Number((boxData.amounts['count_1zl'] * moneyValues['1zl']).toFixed(2))}
-            id="count_1zl"
-            df={boxData.amounts['count_1zl']}
-          />
-          <InputNumberBox
-            count={handleInputChange}
-            denomination="2zł"
-            value={Number((boxData.amounts['count_2zl'] * moneyValues['2zl']).toFixed(2))}
-            id="count_2zl"
-            df={boxData.amounts['count_2zl']}
-          />
-          <InputNumberBox
-            count={handleInputChange}
-            denomination="5zł"
-            value={Number((boxData.amounts['count_5zl'] * moneyValues['5zl']).toFixed(2))}
-            id="count_5zl"
-            df={boxData.amounts['count_5zl']}
-          />
+          {inputs.slice(0, 10).map((input) => {
+            return input;
+          })}
         </DepositColumn>
         <DepositColumn>
-          <InputNumberBox
-            count={handleInputChange}
-            denomination="10zł"
-            value={Number(
-              (boxData.amounts['count_10zl'] * moneyValues['10zl']).toFixed(2),
-            )}
-            id="count_10zl"
-            df={boxData.amounts['count_10zl']}
-          />
-          <InputNumberBox
-            count={handleInputChange}
-            denomination="20zł"
-            value={Number(
-              (boxData.amounts['count_20zl'] * moneyValues['20zl']).toFixed(2),
-            )}
-            id="count_20zl"
-            df={boxData.amounts['count_20zl']}
-          />
-          <InputNumberBox
-            count={handleInputChange}
-            denomination="50zł"
-            value={Number(
-              (boxData.amounts['count_50zl'] * moneyValues['50zl']).toFixed(2),
-            )}
-            id="count_50zl"
-            df={boxData.amounts['count_50zl']}
-          />
-          <InputNumberBox
-            count={handleInputChange}
-            denomination="100zł"
-            value={Number(
-              (boxData.amounts['count_100zl'] * moneyValues['100zl']).toFixed(2),
-            )}
-            id="count_100zl"
-            df={boxData.amounts['count_100zl']}
-          />
-          <InputNumberBox
-            count={handleInputChange}
-            denomination="200zł"
-            value={Number(
-              (boxData.amounts['count_200zl'] * moneyValues['200zl']).toFixed(2),
-            )}
-            id="count_200zl"
-            df={boxData.amounts['count_200zl']}
-          />
-          <InputNumberBox
-            count={handleInputChange}
-            denomination="500zł"
-            value={Number(
-              (boxData.amounts['count_500zl'] * moneyValues['500zl']).toFixed(2),
-            )}
-            id="count_500zl"
-            df={boxData.amounts['count_500zl']}
-          />
           <Space className={s.sum}>
             <>Suma</>
             <>{acc.toFixed(2).toString() + ' zł'}</>
-          </Space>
-        </DepositColumn>
-        <DepositColumn>
-          <Space className={s.foreignContainer}>
-            <Text>Euro ( EUR )</Text>
-            <InputNumber
-              defaultValue={0}
-              size="small"
-              min={0}
-              max={10000}
-              type="number"
-              className={s.inputNumber}
-              id="amount_EUR"
-              onChange={(value) => {
-                handleInputChange('amount_EUR', Number(value));
-              }}
-            />
-            <Text>
-              {Number((boxData.amounts['amount_EUR'] * moneyValues['EUR']).toFixed(2))} zł
-            </Text>
-          </Space>
-          <Space className={s.foreignContainer}>
-            <Text className={s.foreignText}>
-              Funt brytyjski <br />( GBP )
-            </Text>
-            <InputNumber
-              defaultValue={0}
-              size="small"
-              type="number"
-              className={s.inputNumber}
-              min={0}
-              max={10000}
-              id="amount_GBP"
-              onChange={(value) => {
-                handleInputChange('amount_GBP', Number(value));
-              }}
-            />
-            <Text>
-              {Number((boxData.amounts['amount_GBP'] * moneyValues['GBP']).toFixed(2))} zł
-            </Text>
-          </Space>
-          <Space className={s.foreignContainer}>
-            <Text className={s.foreignText}>
-              Dolar <br />
-              amerykański <br />( USD )
-            </Text>
-            <InputNumber
-              defaultValue={0}
-              size="small"
-              min={0}
-              max={10000}
-              type="number"
-              className={s.inputNumber}
-              id="amount_USD"
-              onChange={(value) => {
-                handleInputChange('amount_USD', Number(value));
-              }}
-            />
-            <Text className={s.foreignText}>
-              {Number((boxData.amounts['amount_USD'] * moneyValues['USD']).toFixed(2))} zł
-            </Text>
-          </Space>
-          <Space className={s.other} direction={'vertical'}>
-            <Text>Inne</Text>
-            <TextArea
-              id="other"
-              className={s.otherTextArea}
-              onChange={(e) => {
-                const { value } = e.target;
-                handleCommentInput('comment', value);
-              }}
-            ></TextArea>
           </Space>
         </DepositColumn>
       </Space>

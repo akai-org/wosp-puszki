@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { createContext, ReactNode } from 'react';
 
 export const DepositContext = createContext<IDepositContext | null>(null);
@@ -29,7 +29,7 @@ export interface BoxData {
 
 export interface IDepositContext {
   boxData: BoxData;
-  setBoxData: Dispatch<SetStateAction<BoxData>>;
+  setBoxData: React.Dispatch<React.SetStateAction<BoxData>>;
 }
 
 interface ProviderProps {
@@ -41,22 +41,22 @@ export const DepositProvider: React.FC<ProviderProps> = ({ children }) => {
     amounts: {
       count_1gr: 0,
       count_2gr: 0,
-      count_2zl: 0,
       count_5gr: 0,
-      count_5zl: 0,
-      count_1zl: 0,
-      count_10zl: 0,
-      count_20gr: 0,
       count_10gr: 0,
+      count_20gr: 0,
       count_50gr: 0,
+      count_1zl: 0,
+      count_2zl: 0,
+      count_5zl: 0,
+      count_10zl: 0,
+      count_20zl: 0,
       count_50zl: 0,
       count_100zl: 0,
-      amount_EUR: 0,
-      count_20zl: 0,
       count_200zl: 0,
       count_500zl: 0,
-      amount_GBP: 0,
+      amount_EUR: 0,
       amount_USD: 0,
+      amount_GBP: 0,
     },
     comment: '',
   });
@@ -73,5 +73,21 @@ export const useDepositContext = () => {
   if (!context) {
     throw new Error('useDepositContext must be used within DepositContext.Provider');
   }
-  return context;
+  const { boxData, setBoxData } = context;
+
+  const handleAmountsChange = (id: string, value: number | string) => {
+    console.log(value);
+    id != 'comment'
+      ? setBoxData((prevBoxData) => ({
+          ...prevBoxData,
+          amounts: { ...prevBoxData.amounts, [id]: value },
+        }))
+      : setBoxData((prevBoxData) => ({
+          ...prevBoxData,
+          comment: value as string,
+        }));
+  };
+  return { boxData, handleAmountsChange };
 };
+
+export type useDepositContextType = ReturnType<typeof useDepositContext>;
