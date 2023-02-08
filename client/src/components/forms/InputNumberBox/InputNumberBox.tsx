@@ -9,18 +9,19 @@ interface Props extends FormProps {
   df: number;
   count: (id: string, value: number) => void;
   id: string;
+  name: string;
 }
 
-export const InputNumberBox: FC<Props> = ({ value, count, id, df }) => {
-  console.log(value);
+export const InputNumberBox: FC<Props> = ({ value, count, id, df, name }) => {
   return (
     <>
       <Space className={s.container} size={40}>
-        <Text className={s.denomination}>{id}</Text>
+        <Text className={s.denomination}>{name}</Text>
         <InputNumber
           placeholder="0"
           size="small"
           type="number"
+          name={name}
           id={id}
           min={0}
           max={10000}
