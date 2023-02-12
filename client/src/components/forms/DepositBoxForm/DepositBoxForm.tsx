@@ -6,7 +6,7 @@ import { InputNumberBox } from '../InputNumberBox';
 import { Content } from 'antd/lib/layout/layout';
 import { FormButton } from '@/components';
 import TextArea from 'antd/lib/input/TextArea';
-import { AmountsKeys, moneyValuesType, useDepositContext } from './DepositContext';
+import { AmountsKeys, useDepositContext, useDepositContextType } from './DepositContext';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import {
@@ -20,9 +20,7 @@ import { CalculatorView } from '@/components/Calculator/View/CalculatorView';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { Spinner } from '@components/Layout/Spinner/Spinner';
 import { FormMessage, GIVE_BOX_WRONG_ID_ERROR_RESPONSE, NetworkError } from '@/utils';
-
-
-
+import { moneyValuesType, useSum } from './useSum';
 function handleError(
   error: unknown,
   setError: Dispatch<SetStateAction<FormMessage | undefined>>,
@@ -62,7 +60,8 @@ function handleError(
 
 export const DepositBoxForm = () => {
   const [message, setMessage] = useState<FormMessage | undefined>();
-  const { boxData, handleAmountsChange, sum, moneyValues } = useDepositContext();
+  const { boxData, handleAmountsChange } = useDepositContext();
+  const { sum, moneyValues } = useSum();
   const { boxIdentifier, collectorName, collectorIdentifier } = useBoxContext();
   const navigate = useNavigate();
   useEffect(() => {
@@ -101,9 +100,9 @@ export const DepositBoxForm = () => {
 
   const inputs = amounts.map((key, index) => {
     const value: string = values[index];
-
     return (
       <InputNumberBox
+        key={value}
         count={handleAmountsChange}
         name={value}
         value={Number(

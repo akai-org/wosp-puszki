@@ -27,7 +27,7 @@ export const InputNumberBox: FC<Props> = ({ value, count, id, df, name }) => {
           max={10000}
           value={df}
           className={s.inputNumber}
-          onChange={(val) => count(id, val as number)}
+          onChange={(val) => { if (val != null )  count(id, val as number)} }
         />
         <Text className={s.value}>{value} zł</Text>
       </Space>

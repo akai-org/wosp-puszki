@@ -22,6 +22,7 @@ export type AmountsKeys =
   | 'amount_EUR'
   | 'amount_USD'
   | 'amount_GBP';
+
 export interface BoxData {
   amounts: Record<AmountsKeys, number>;
   comment: string;
@@ -29,7 +30,7 @@ export interface BoxData {
 
 export interface IDepositContext {
   boxData: BoxData;
-  setBoxData: React.Dispatch<React.SetStateAction<BoxData>>;
+  handleAmountsChange: (id: string, value: number | string) => void;
 }
 
 interface ProviderProps {
@@ -61,56 +62,6 @@ export const DepositProvider: React.FC<ProviderProps> = ({ children }) => {
     comment: '',
   });
 
-  return (
-    <DepositContext.Provider value={{ boxData, setBoxData }}>
-      {children}
-    </DepositContext.Provider>
-  );
-};
-
-
-const moneyValues = {
-  '1gr': 0.01,
-  '2gr': 0.02,
-  '5gr': 0.05,
-  '10gr': 0.1,
-  '20gr': 0.2,
-  '50gr': 0.5,
-  '1zł': 1,
-  '2zł': 2,
-  '5zł': 5,
-  '10zł': 10,
-  '20zł': 20,
-  '50zł': 50,
-  '100zł': 100,
-  '200zł': 200,
-  '500zł': 500,
-  EUR: 4.71,
-  GBP: 5.37,
-  USD: 4.33,
-};
-export type moneyValuesType = typeof moneyValues;
-
-
-export const useDepositContext = () => {
-  const context = useContext(DepositContext);
-  if (!context) {
-    throw new Error('useDepositContext must be used within DepositContext.Provider');
-  }
-  const { boxData, setBoxData } = context;
-
-  function sum(amounts: Record<AmountsKeys, number>) {
-    let summ = 0;
-    let i = 0;
-    const values = Object.keys(moneyValues);
-    for (const key in amounts) {
-      summ +=
-        amounts[key as AmountsKeys] * moneyValues[values[i] as keyof typeof moneyValues];
-      i += 1;
-    }
-    return summ;
-  }
-
   const handleAmountsChange = (id: string, value: number | string) => {
     console.log(value);
     id != 'comment'
@@ -123,7 +74,19 @@ export const useDepositContext = () => {
           comment: value as string,
         }));
   };
-  return { boxData, handleAmountsChange, sum, moneyValues };
+  return (
+    <DepositContext.Provider value={{ boxData, handleAmountsChange }}>
+      {children}
+    </DepositContext.Provider>
+  );
+};
+
+export const useDepositContext = () => {
+  const context = useContext(DepositContext);
+  if (!context) {
+    throw new Error('useDepositContext must be used within DepositContext.Provider');
+  }
+  return context;
 };
 
 export type useDepositContextType = ReturnType<typeof useDepositContext>;
