@@ -6,10 +6,11 @@ import { InputNumberBox } from '../InputNumberBox';
 import { Content } from 'antd/lib/layout/layout';
 import { FormButton } from '@/components';
 import TextArea from 'antd/lib/input/TextArea';
-import { AmountsKeys, useDepositContext, useDepositContextType } from './DepositContext';
+import { useDepositContext } from './DepositContext';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import {
+  AmountsKeys,
   APIManager,
   fetcher,
   useAuthContext,
@@ -21,6 +22,25 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { Spinner } from '@components/Layout/Spinner/Spinner';
 import { FormMessage, GIVE_BOX_WRONG_ID_ERROR_RESPONSE, NetworkError } from '@/utils';
 import { moneyValuesType, useSum } from './useSum';
+import { uid } from 'uid';
+
+const moneySlice = {
+  from_1gr: 0,
+  to_5zl: 9,
+  from_10zl: 10,
+  to_500zl: 15,
+};
+
+const getIDs = () => {
+  let arr = [];
+  for (let i = moneySlice['from_1gr']; i < moneySlice['to_500zl']; i++) {
+    arr.push(uid());
+  }
+  return arr;
+};
+
+const IDs: string[] = getIDs();
+
 function handleError(
   error: unknown,
   setError: Dispatch<SetStateAction<FormMessage | undefined>>,
@@ -95,14 +115,14 @@ export const DepositBoxForm = () => {
     mutation.mutate();
   };
 
-  const amounts = Object.keys(boxData['amounts']);
-  const values = Object.keys(moneyValues);
+  const amounts: string[] = Object.keys(boxData['amounts']);
+  const values: string[] = Object.keys(moneyValues);
 
-  const inputs = amounts.map((key, index) => {
+  const inputs: JSX.Element[] = amounts.map((key, index) => {
     const value: string = values[index];
     return (
       <InputNumberBox
-        key={value}
+        key={IDs[index]}
         count={handleAmountsChange}
         name={value}
         value={Number(
@@ -127,11 +147,14 @@ export const DepositBoxForm = () => {
       </Title>
       <Space className={s.columns}>
         <DepositColumn>
-          {inputs.slice(0, 10).map((input) => {
+          {inputs.slice(moneySlice['from_1gr'], moneySlice['to_5zl']).map((input) => {
             return input;
           })}
         </DepositColumn>
         <DepositColumn>
+          {inputs.slice(moneySlice['from_10zl'], moneySlice['to_500zl']).map((input) => {
+            return input;
+          })}
           <Space className={s.sum}>
             <>Suma</>
             <>{acc.toFixed(2).toString() + ' zł'}</>

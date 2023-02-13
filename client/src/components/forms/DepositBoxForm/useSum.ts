@@ -1,4 +1,4 @@
-import { AmountsKeys } from './DepositContext';
+import { AmountsKeys } from "@/utils";
 
 const moneyValues = {
   '1gr': 0.01,

@@ -190,3 +190,35 @@ export interface IStations {
   st: number;
   t: number | null;
 }
+
+
+
+export type AmountsKeys =
+  | 'count_1gr'
+  | 'count_2gr'
+  | 'count_5gr'
+  | 'count_10gr'
+  | 'count_20gr'
+  | 'count_50gr'
+  | 'count_1zl'
+  | 'count_2zl'
+  | 'count_5zl'
+  | 'count_10zl'
+  | 'count_20zl'
+  | 'count_50zl'
+  | 'count_100zl'
+  | 'count_200zl'
+  | 'count_500zl'
+  | 'amount_EUR'
+  | 'amount_USD'
+  | 'amount_GBP';
+
+export interface BoxData {
+  amounts: Record<AmountsKeys, number>;
+  comment: string;
+}
+
+export interface IDepositContext {
+  boxData: BoxData;
+  handleAmountsChange: (id: string, value: number | string) => void;
+}
