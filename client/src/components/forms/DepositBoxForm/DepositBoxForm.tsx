@@ -7,7 +7,7 @@ import { Content } from 'antd/lib/layout/layout';
 import { FormButton } from '@/components';
 import TextArea from 'antd/lib/input/TextArea';
 import { useDepositContext } from './DepositContext';
-import { useNavigate } from 'react-router-dom';
+import { Form, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import {
   AmountsKeys,
@@ -125,6 +125,7 @@ export const DepositBoxForm = () => {
         key={IDs[index]}
         count={handleAmountsChange}
         name={value}
+        dis={mutation.isLoading}
         value={Number(
           (
             boxData.amounts[key as keyof Record<AmountsKeys, number>] *
@@ -140,37 +141,46 @@ export const DepositBoxForm = () => {
   return (
     <Content className={s.full}>
       <CalculatorView />
-      <Title level={4} className={s.title}>
-        Rozliczenie puszki wolontariusza {collectorName} ( {collectorIdentifier} ) ( ID
-        puszki w bazie:
-        {boxIdentifier} )
-      </Title>
-      <Space className={s.columns}>
-        <DepositColumn>
-          {inputs.slice(moneySlice['from_1gr'], moneySlice['to_5zl']).map((input) => {
-            return input;
-          })}
-        </DepositColumn>
-        <DepositColumn>
-          {inputs.slice(moneySlice['from_10zl'], moneySlice['to_500zl']).map((input) => {
-            return input;
-          })}
-          <Space className={s.sum}>
-            <>Suma</>
-            <>{acc.toFixed(2).toString() + ' zł'}</>
-          </Space>
-        </DepositColumn>
-      </Space>
-      <Space direction="vertical" size={10} align="center" className={s.submitContainer}>
-        <FormButton type="primary" onClick={handleSubmit}>
-          {mutation.isLoading ? <Spinner /> : 'Rozlicz Puszkę'}
-        </FormButton>
-      </Space>
-      {message && (
-        <div className={s.error}>
-          <p>{message.content}</p>
-        </div>
-      )}
+      <Form>
+        <Title level={4} className={s.title}>
+          Rozliczenie puszki wolontariusza {collectorName} ( {collectorIdentifier} ) ( ID
+          puszki w bazie:
+          {boxIdentifier} )
+        </Title>
+        <Space className={s.columns}>
+          <DepositColumn>
+            {inputs.slice(moneySlice['from_1gr'], moneySlice['to_5zl']).map((input) => {
+              return input;
+            })}
+          </DepositColumn>
+          <DepositColumn>
+            {inputs
+              .slice(moneySlice['from_10zl'], moneySlice['to_500zl'])
+              .map((input) => {
+                return input;
+              })}
+            <Space className={s.sum}>
+              <>Suma</>
+              <>{acc.toFixed(2).toString() + ' zł'}</>
+            </Space>
+          </DepositColumn>
+        </Space>
+        <Space
+          direction="vertical"
+          size={10}
+          align="center"
+          className={s.submitContainer}
+        >
+          <FormButton type="primary" onClick={handleSubmit}>
+            {mutation.isLoading ? <Spinner /> : 'Rozlicz Puszkę'}
+          </FormButton>
+        </Space>
+        {message && (
+          <div className={s.error}>
+            <p>{message.content}</p>
+          </div>
+        )}
+      </Form>
     </Content>
   );
 };
