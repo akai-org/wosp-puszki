@@ -1,4 +1,16 @@
-import { NetworkError } from '@/utils';
+import {
+  NetworkError,
+  UNKNOWN_ERROR,
+  NO_CONNECT_WITH_SERVER,
+  SERVER_SIDE_ERROR,
+  WRONG_DATA,
+  WRONG_LOGIN_DATA,
+  NOT_FOUND_DATA,
+  FAILED_FETCH,
+  BAD_REQUEST,
+  UNAUTHORIZED,
+  NOT_FOUND,
+} from '@/utils';
 
 export function recognizeError(error: unknown) {
   if (error instanceof NetworkError) {
@@ -12,30 +24,29 @@ export function recognizeError(error: unknown) {
 
   function handleDefaultError(error: unknown) {
     if (typeof error === 'string') return error;
-    return 'Wystąpił nieznany błąd';
+    return UNKNOWN_ERROR;
   }
 
   function handleFetchError() {
-    return 'Brak komunikacji z serwerem';
+    return NO_CONNECT_WITH_SERVER;
   }
 
   function handleServerError() {
-    return 'Błąd po stronie servera';
+    return SERVER_SIDE_ERROR;
   }
 
   function handleClientError(error: NetworkError) {
-    if (error.status === 400 && error.statusText === 'Bad Request')
-      return 'Nieprawidłowe dane';
-    if (error.status === 401 && error.statusText === 'Unauthorized')
-      return 'Nieprawidłowe dane logowania';
-    if (error.status === 404 && error.statusText === 'Not Found') return 'Nie znaleziono';
+    if (error.status === 400 && error.statusText === BAD_REQUEST) return WRONG_DATA;
+    if (error.status === 401 && error.statusText === UNAUTHORIZED)
+      return WRONG_LOGIN_DATA;
+    if (error.status === 404 && error.statusText === NOT_FOUND) return NOT_FOUND_DATA;
 
     return `Błąd po stronie klienta: ${error.statusText}`;
   }
 }
 
 export function isFailedFetched(error: Error) {
-  if (error.message === 'Failed to fetch') return true;
+  if (error.message === FAILED_FETCH) return true;
   return false;
 }
 
