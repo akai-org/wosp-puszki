@@ -71,6 +71,7 @@ export const useSetStationAvailableQuery = (username: string | null | undefined)
     return;
   }
   const id = parseInt(username.slice(-2));
+  if (isNaN(id)) return;
   return useQuery(
     STATION_AVAILABLE_QUERY_KEY,
     () =>
@@ -91,6 +92,7 @@ export const useSetStationUnavailableQuery = (username: string | null | undefine
     return;
   }
   const id = parseInt(username.slice(-2));
+  if (isNaN(id)) return;
   return useQuery(
     STATION_UNAVAILABLE_QUERY_KEY,
     () =>

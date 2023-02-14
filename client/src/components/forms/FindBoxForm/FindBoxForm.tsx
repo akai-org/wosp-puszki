@@ -97,8 +97,11 @@ export const FindBoxForm = () => {
   };
 
   const handleBreak = () => {
-    goOnABreakMutation.mutate();
-    return;
+    if (isNaN(id)) {
+      navigate('/liczymy/boxes/settle');
+    } else {
+      goOnABreakMutation.mutate();
+    }
   };
 
   return (
