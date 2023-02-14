@@ -45,8 +45,8 @@ export function recognizeError(error: unknown) {
   }
 }
 
-export function isFailedFetched(error: Error) {
-  if (error.message === FAILED_FETCH) return true;
+export function isFailedFetched(error: unknown) {
+  if (error instanceof Error && error.message === FAILED_FETCH) return true;
   return false;
 }
 

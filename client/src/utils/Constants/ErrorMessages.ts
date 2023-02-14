@@ -5,6 +5,11 @@ export const WRONG_DATA = 'Nieprawidłowe dane';
 export const WRONG_LOGIN_DATA = 'Nieprawidłowe dane logowania';
 export const NOT_FOUND_DATA = 'Nie znaleziono';
 
+export const STATUS_CANT_BE_UPDATED =
+  'Status stanowiska nie może zostać zsynchronizowany';
+export const MULTIPLE_STATUS_CANT_BE_UPDATED =
+  'Status stanowisk nie może zostać zsynchronizowany';
+
 export const FAILED_FETCH = 'Failed to fetch';
 
 export const BAD_REQUEST = 'Bad Request';

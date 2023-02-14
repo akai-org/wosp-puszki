@@ -15,6 +15,9 @@ import {
   ID_NUMBER_REQUIRED,
   TYPE_OF_BOX_REQUIRED,
   recognizeError,
+  isFailedFetched,
+  openNotification,
+  NO_CONNECT_WITH_SERVER,
 } from '@/utils';
 import { Spinner } from '@components/Layout/Spinner/Spinner';
 import { useNavigate } from 'react-router-dom';
@@ -78,6 +81,9 @@ export const FindBoxForm = () => {
     mutationFn: () =>
       fetcher(`${APIManager.baseAPIRUrl}/stations/${id}/busy`, { method: 'POST' }),
     onSuccess: () => navigate('/liczymy/boxes/settle'),
+    onError: (error) => {
+      if (isFailedFetched(error)) openNotification('error', NO_CONNECT_WITH_SERVER);
+    },
   });
 
   const onFinish = (values: FormInput) => {
