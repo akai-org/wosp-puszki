@@ -1,6 +1,7 @@
 export * from './APIManager';
 export * from './CreateColumns';
 export * from './errors';
+export * from './ErrorsUtils';
 export * from './fetcher';
 export * from './formsErrorMessages';
 export * from './hooks';

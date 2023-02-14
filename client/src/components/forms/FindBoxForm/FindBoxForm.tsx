@@ -2,7 +2,6 @@ import { FormButton, FormWrapper, FormInput, FormSelect } from '@/components';
 import { Typography, Space, Button } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 import s from './FindBoxForm.module.less';
-import React, { Dispatch, SetStateAction } from 'react';
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import {
@@ -18,10 +17,9 @@ import {
   APIManager,
   fetcher,
   FormMessage,
-  GIVE_BOX_WRONG_ID_ERROR_RESPONSE,
   ID_NUMBER_REQUIRED,
-  NetworkError,
   TYPE_OF_BOX_REQUIRED,
+  recognizeError,
 } from '@/utils';
 
 const { Text } = Typography;
@@ -46,43 +44,6 @@ type FormInput = {
   box_type: 0 | 10000 | 20000;
 };
 
-function handleError(
-  error: unknown,
-  setError: Dispatch<SetStateAction<FormMessage | undefined>>,
-) {
-  if (error instanceof NetworkError) {
-    handleNetworkError(error);
-  } else {
-    handleDefaultError();
-  }
-
-  function handleDefaultError() {
-    if (typeof error === 'string') {
-      setError({ type: 'error', content: error });
-    } else {
-      setError({ type: 'error', content: 'Wystąpił nieznany błąd' });
-    }
-  }
-
-  function handleNetworkError(error: NetworkError) {
-    const errorData = JSON.parse(error.message);
-
-    if (typeof errorData === 'object' && errorData['error']) {
-      handlerErrorMessage();
-    } else {
-      setError({ type: 'error', content: 'Nie znaleziono puszki' });
-    }
-    function handlerErrorMessage() {
-      const errorMessage = errorData.error;
-      if (errorMessage === GIVE_BOX_WRONG_ID_ERROR_RESPONSE) {
-        setError({ type: 'error', content: 'Podano nieprawidłowy identyfikator' });
-      } else {
-        setError({ type: 'error', content: errorMessage });
-      }
-    }
-  }
-}
-
 export const FindBoxForm = () => {
   const [message, setMessage] = useState<FormMessage | undefined>();
   const [form] = useForm();
@@ -93,7 +54,7 @@ export const FindBoxForm = () => {
   const mutation = useMutation<boxResponse, unknown, number, unknown>({
     mutationFn: (volunteerId: number) => fetcher(APIManager.findBoxURL(volunteerId)),
     onError: (error) => {
-      handleError(error, setMessage);
+      setMessage({ type: 'error', content: recognizeError(error) });
     },
     onSuccess: (data) => {
       setMessage({

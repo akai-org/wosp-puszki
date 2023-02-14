@@ -1,4 +1,3 @@
-import React, { Dispatch, SetStateAction } from 'react';
 import { useState } from 'react';
 import { Space, Typography } from 'antd';
 import s from './GiveBoxForm.module.less';
@@ -6,9 +5,8 @@ import {
   APIManager,
   fetcher,
   FormMessage,
-  GIVE_BOX_WRONG_ID_ERROR_RESPONSE,
   ID_NUMBER_REQUIRED,
-  NetworkError,
+  recognizeError,
   TYPE_OF_BOX_REQUIRED,
 } from '@/utils';
 
@@ -39,41 +37,6 @@ type FormInput = {
   box_type: 0 | 10000 | 20000;
 };
 
-function handleError(
-  error: unknown,
-  setError: Dispatch<SetStateAction<FormMessage | undefined>>,
-) {
-  if (error instanceof NetworkError) {
-    handleNetworkError(error);
-  } else {
-    handleDefaultError();
-  }
-
-  function handleDefaultError() {
-    if (typeof error === 'string') {
-      setError({ type: 'error', content: error });
-    } else {
-      setError({ type: 'error', content: 'Wystąpił nieznany błąd' });
-    }
-  }
-
-  function handleNetworkError(error: NetworkError) {
-    const errorData = JSON.parse(error.message);
-
-    if (typeof errorData === 'object' && errorData['error']) {
-      handlerErrorMessage();
-    }
-    function handlerErrorMessage() {
-      const errorMessage = errorData.error;
-      if (errorMessage === GIVE_BOX_WRONG_ID_ERROR_RESPONSE) {
-        setError({ type: 'error', content: 'Podano nieprawidłowy identyfikator' });
-      } else {
-        setError({ type: 'error', content: errorMessage });
-      }
-    }
-  }
-}
-
 export const GiveBoxForm = () => {
   const [message, setMessage] = useState<FormMessage | undefined>();
   const [form] = useForm();
@@ -81,7 +44,7 @@ export const GiveBoxForm = () => {
     {
       mutationFn: (volunteerId: number) =>
         fetcher(APIManager.giveBoxURL(volunteerId), { method: 'POST' }),
-      onError: (error) => handleError(error, setMessage),
+      onError: (error) => setMessage({ type: 'error', content: recognizeError(error) }),
       onSuccess: (data) => {
         setMessage({
           type: 'success',
