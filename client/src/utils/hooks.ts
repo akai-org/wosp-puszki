@@ -6,9 +6,9 @@ import {
   STORAGE_BOX_IDENTIFIER,
   STORAGE_COLLECTOR_IDENTIFIER,
   STORAGE_COLLECTOR_NAME,
-} from '@utils/storageKeys';
-import { fetcher } from '@utils/fetcher';
-import { APIManager } from '@utils/APIManager';
+  fetcher,
+  APIManager,
+} from '@/utils';
 
 export const useAuthContext = () => {
   const context = useContext(AuthContext);

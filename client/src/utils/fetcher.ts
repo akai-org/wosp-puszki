@@ -1,5 +1,4 @@
-import { NetworkError } from '@utils/errors';
-import { STORAGE_CREDENTIALS } from '@utils/storageKeys';
+import { NetworkError, STORAGE_CREDENTIALS } from '@/utils';
 
 export interface FetcherRequestInit extends Omit<RequestInit, 'body'> {
   body?: object | string | number | boolean;

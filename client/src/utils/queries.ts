@@ -1,7 +1,15 @@
-import { IDisplayPageContent, IStations } from '@utils/types';
+import {
+  IDisplayPageContent,
+  IStations,
+  fetcher,
+  APIManager,
+  isFailedFetched,
+  NO_CONNECT_WITH_SERVER,
+  STATUS_CANT_BE_UPDATED,
+  openNotification,
+  MULTIPLE_STATUS_CANT_BE_UPDATED,
+} from '@/utils';
 import { useQuery } from '@tanstack/react-query';
-import { fetcher } from '@utils/fetcher';
-import { APIManager } from '@utils/APIManager';
 
 export const AMOUNTS_QUERY_KEY = ['amounts'];
 export const STATION_AVAILABLE_QUERY_KEY = ['station-available'];
@@ -45,7 +53,16 @@ export const useAmountsQuery = () =>
 export const useStationsQuery = () =>
   useQuery(
     STATIONS_QUERY_KEY,
-    () => fetcher<IStations[]>(`${APIManager.baseAPIRUrl}/stations`),
+    () =>
+      fetcher<IStations[]>(`${APIManager.baseAPIRUrl}/stations`).catch((error) => {
+        if (isFailedFetched(error))
+          openNotification(
+            'error',
+            NO_CONNECT_WITH_SERVER,
+            MULTIPLE_STATUS_CANT_BE_UPDATED,
+          );
+        throw error;
+      }),
     { initialData: stationsInitData, refetchInterval: 3000, cacheTime: 3000 },
   );
 
@@ -54,12 +71,17 @@ export const useSetStationAvailableQuery = (username: string | null | undefined)
     return;
   }
   const id = parseInt(username.slice(-2));
+  if (isNaN(id)) return;
   return useQuery(
     STATION_AVAILABLE_QUERY_KEY,
     () =>
       fetcher(`${APIManager.baseAPIRUrl}/stations/${id}/ready`, {
         method: 'POST',
         returnVoid: true,
+      }).catch((error) => {
+        if (isFailedFetched(error))
+          openNotification('error', NO_CONNECT_WITH_SERVER, STATUS_CANT_BE_UPDATED);
+        throw error;
       }),
     { refetchInterval: THREE_MINUTES, cacheTime: THREE_MINUTES },
   );
@@ -70,12 +92,17 @@ export const useSetStationUnavailableQuery = (username: string | null | undefine
     return;
   }
   const id = parseInt(username.slice(-2));
+  if (isNaN(id)) return;
   return useQuery(
     STATION_UNAVAILABLE_QUERY_KEY,
     () =>
       fetcher(`${APIManager.baseAPIRUrl}/stations/${id}/busy`, {
         method: 'POST',
         returnVoid: true,
+      }).catch((error) => {
+        if (isFailedFetched(error))
+          openNotification('error', NO_CONNECT_WITH_SERVER, STATUS_CANT_BE_UPDATED);
+        throw error;
       }),
     { refetchInterval: THREE_MINUTES, cacheTime: THREE_MINUTES },
   );
