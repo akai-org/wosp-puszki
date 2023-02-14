@@ -1,9 +1,13 @@
-import { PASSWORD_REQUIRED, useAuthContext, USERNAME_REQUIRED } from '@/utils';
+import {
+  PASSWORD_REQUIRED,
+  useAuthContext,
+  USERNAME_REQUIRED,
+  recognizeError,
+} from '@/utils';
 import { FormButton, FormWrapper, FormInput } from '@/components';
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { Spinner } from '@components/Layout/Spinner/Spinner';
-import { recognizeError } from '@/utils/ErrorsUtils/errors';
 
 interface LoginFormValues {
   username: string;

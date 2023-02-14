@@ -1,7 +1,5 @@
-import { IDisplayPageContent, IStations } from '@utils/types';
+import { IDisplayPageContent, IStations, fetcher, APIManager } from '@/utils';
 import { useQuery } from '@tanstack/react-query';
-import { fetcher } from '@utils/fetcher';
-import { APIManager } from '@utils/APIManager';
 
 export const AMOUNTS_QUERY_KEY = ['amounts'];
 export const STATION_AVAILABLE_QUERY_KEY = ['station-available'];

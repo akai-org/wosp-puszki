@@ -9,11 +9,6 @@ import {
   boxResponse,
   useSetStationAvailableQuery,
   useAuthContext,
-} from '@/utils';
-import { Spinner } from '@components/Layout/Spinner/Spinner';
-import { useNavigate } from 'react-router-dom';
-import { useForm } from 'antd/es/form/Form';
-import {
   APIManager,
   fetcher,
   FormMessage,
@@ -21,6 +16,9 @@ import {
   TYPE_OF_BOX_REQUIRED,
   recognizeError,
 } from '@/utils';
+import { Spinner } from '@components/Layout/Spinner/Spinner';
+import { useNavigate } from 'react-router-dom';
+import { useForm } from 'antd/es/form/Form';
 
 const { Text } = Typography;
 
