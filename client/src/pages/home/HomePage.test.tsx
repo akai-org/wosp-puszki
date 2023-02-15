@@ -1,20 +1,13 @@
 import { describe, it } from 'vitest';
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import { fireEvent, waitFor } from '@testing-library/react';
 import { HomePage } from '@/pages';
-import { ReactElement } from 'react';
-import { AllRootProvidersWrapper } from '../../../tests/utils/wrappers';
-import { AuthProviderConfig } from '../../../tests/utils/types';
+import {
+  AllRootProvidersWrapper,
+  renderWithWrapper,
+} from '../../../tests/utils/wrappers';
 import { baseAuthContextValues } from '../../../tests/utils/basicMockupValues';
 import { mockEndpoint } from '../../../tests/utils/MSWSetup';
 import { APIManager } from '@/utils';
-
-const renderWithRouter = (ui: ReactElement, config?: AuthProviderConfig) => {
-  return {
-    ...render(ui, {
-      wrapper: AllRootProvidersWrapper(config),
-    }),
-  };
-};
 
 describe('Testing HomePage', () => {
   beforeEach(() => {
@@ -28,7 +21,10 @@ describe('Testing HomePage', () => {
     });
   });
   it.concurrent('Testing proper rendering when superadmin logged in', ({ expect }) => {
-    const { getByTestId, getByText } = renderWithRouter(<HomePage />);
+    const { getByTestId, getByText } = renderWithWrapper(
+      <HomePage />,
+      AllRootProvidersWrapper(),
+    );
     expect(getByText('Wydaj puszkę wolontariuszowi')).toBeInTheDocument();
     expect(getByText('Rozlicz puszkę')).toBeInTheDocument();
     expect(getByTestId('collected-pln-test-id')).toBeInTheDocument();
@@ -36,38 +32,39 @@ describe('Testing HomePage', () => {
   });
 
   it.concurrent('Testing proper rendering when wosp01 is logged in', ({ expect }) => {
-    const { getByTestId, getByText, queryByText } = renderWithRouter(<HomePage />, {
-      authContextValues: () => ({
-        ...baseAuthContextValues,
-        username: 'wosp01',
+    const { getByTestId, queryByText, getByText } = renderWithWrapper(
+      <HomePage />,
+      AllRootProvidersWrapper({
+        authContextValues: () => ({
+          ...baseAuthContextValues,
+          username: 'wosp01',
+        }),
       }),
-    });
+    );
 
     expect(queryByText('Wydaj puszkę wolontariuszowi')).toBeNull();
     expect(getByText('Rozlicz puszkę')).toBeInTheDocument();
 
-    expect(getByTestId('collected-pln-test-id')).toBeInTheDocument();
-    expect(getByTestId('collected-total-test-id')).toBeInTheDocument();
     expect(getByTestId('collected-pln-test-id')).toHaveTextContent('0 zł');
     expect(getByTestId('collected-total-test-id')).toHaveTextContent('0 zł');
   });
 
   it.concurrent("Test clicking 'Wydaj puszkę wolontariuszowi' links", ({ expect }) => {
-    const { getByText } = renderWithRouter(<HomePage />);
+    const { getByText } = renderWithWrapper(<HomePage />, AllRootProvidersWrapper());
     const button = getByText('Wydaj puszkę wolontariuszowi');
     fireEvent.click(button);
     expect(window.location.pathname).toBe('/boxes');
   });
 
   it.concurrent("Test clicking 'Rozlicz puszkę' links", ({ expect }) => {
-    const { getByText } = renderWithRouter(<HomePage />);
+    const { getByText } = renderWithWrapper(<HomePage />, AllRootProvidersWrapper());
     const button = getByText('Rozlicz puszkę');
     fireEvent.click(button);
     expect(window.location.pathname).toBe('/boxes/settle');
   });
 
   it.concurrent('Test displaying data returned from API', async ({ expect }) => {
-    const { getByText } = renderWithRouter(<HomePage />);
+    const { getByText } = renderWithWrapper(<HomePage />, AllRootProvidersWrapper());
     await waitFor(() => expect(getByText('100 zł')).toBeInTheDocument());
     await waitFor(() => expect(getByText('200 zł')).toBeInTheDocument());
   });

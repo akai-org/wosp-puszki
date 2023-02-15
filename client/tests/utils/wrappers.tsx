@@ -1,4 +1,4 @@
-import { AuthProviderConfig, CustomWrapperInput, Providers } from './types';
+import { CustomWrapperInput, Providers } from './types';
 import { AllRootProviders } from './providers';
 import { ReactElement } from 'react';
 import { render } from '@testing-library/react';
@@ -11,12 +11,15 @@ export function createCustomWrapper<ProvidersConfig extends object>(
   };
 }
 
-export const renderWithWrapper = (ui: ReactElement, config?: AuthProviderConfig) => {
+export function renderWithWrapper<Config extends object>(
+  ui: ReactElement,
+  provider: Providers<Config>,
+) {
   return {
     ...render(ui, {
-      wrapper: AllRootProvidersWrapper(config),
+      wrapper: provider,
     }),
   };
-};
+}
 
 export const AllRootProvidersWrapper = createCustomWrapper(AllRootProviders);
