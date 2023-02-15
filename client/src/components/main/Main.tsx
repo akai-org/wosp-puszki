@@ -26,7 +26,11 @@ export const Main = () => {
             Wydaj puszkę wolontariuszowi
           </Button>
         )}
-        <Button onClick={() => navigate('boxes/settle')} className={s.buttons}>
+        <Button
+          data-testid="settle-box-test-id"
+          onClick={() => navigate('boxes/settle')}
+          className={s.buttons}
+        >
           Rozlicz puszkę
         </Button>
       </Space>

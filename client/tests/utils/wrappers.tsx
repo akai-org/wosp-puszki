@@ -1,33 +1,18 @@
 import { ReactElement, ReactNode } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useAuthContextValues } from '@/utils';
-import { vi } from 'vitest';
 import { AuthContext } from '@/App';
 import { BrowserRouter } from 'react-router-dom';
-
-type CustomWrapperInput = {
-  children: ReactNode;
-};
-
-const baseAuthContextValues: typeof useAuthContextValues = () => ({
-  credentials: 'superpassword',
-  deleteCredentials: vi.fn(),
-  createCredentials: vi.fn(),
-  username: 'superadmin',
-});
-
-type UseAuthContextValues = typeof useAuthContextValues;
-
-type AuthProviderConfig = { authContextValues: UseAuthContextValues };
+import { getBaseAuthContextValues } from './basicMockupValues';
+import { CustomWrapperInput } from './types';
 
 type Providers<ConfigType extends object> = (
   input: CustomWrapperInput,
   config?: ConfigType,
 ) => ReactElement;
 
-export const AllProviders: Providers<AuthProviderConfig> = (
-  { children },
-  config = { authContextValues: baseAuthContextValues },
+export const AllProviders = (
+  { children }: { children: ReactNode },
+  config = { authContextValues: getBaseAuthContextValues },
 ) => {
   const queryClient = new QueryClient();
 

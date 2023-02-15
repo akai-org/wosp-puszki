@@ -1,6 +1,5 @@
 import { Typography, Space } from 'antd';
 import s from './Main.module.css';
-import { useEffect, useState } from 'react';
 const { Title } = Typography;
 
 interface Collected {
@@ -15,7 +14,11 @@ export const Collected: React.FC<Collected> = ({ pln, total }) => {
         <Title level={2} style={{ margin: 0, fontWeight: 400 }}>
           Zebralismy:
         </Title>
-        <Title level={2} style={{ margin: 0, fontWeight: 400 }}>
+        <Title
+          data-testid="collected-pln-test-id"
+          level={2}
+          style={{ margin: 0, fontWeight: 400 }}
+        >
           {pln} zł
         </Title>
       </Space>
@@ -23,7 +26,11 @@ export const Collected: React.FC<Collected> = ({ pln, total }) => {
         <Title level={2} style={{ margin: 0, fontWeight: 400 }}>
           Razem z walutami obcymi:
         </Title>
-        <Title level={2} style={{ margin: 0, fontWeight: 400 }}>
+        <Title
+          data-testid="collected-total-test-id"
+          level={2}
+          style={{ margin: 0, fontWeight: 400 }}
+        >
           {total} zł
         </Title>
       </Space>
