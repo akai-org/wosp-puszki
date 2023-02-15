@@ -191,8 +191,6 @@ export interface IStations {
   t: number | null;
 }
 
-
-
 export type AmountsKeys =
   | 'count_1gr'
   | 'count_2gr'

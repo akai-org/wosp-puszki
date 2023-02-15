@@ -21,9 +21,10 @@ import { CalculatorView } from '@/components/Calculator/View/CalculatorView';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { Spinner } from '@components/Layout/Spinner/Spinner';
 import { FormMessage, GIVE_BOX_WRONG_ID_ERROR_RESPONSE, NetworkError } from '@/utils';
-import { moneyValuesType, useSum } from './useSum';
+import { moneyValuesType, sum, moneyValues } from './Sum';
 import { uid } from 'uid';
 
+//indexes that are used for splitting array of inputs to match our design
 const moneySlice = {
   from_1gr: 0,
   to_5zl: 9,
@@ -81,7 +82,6 @@ function handleError(
 export const DepositBoxForm = () => {
   const [message, setMessage] = useState<FormMessage | undefined>();
   const { boxData, handleAmountsChange } = useDepositContext();
-  const { sum, moneyValues } = useSum();
   const { boxIdentifier, collectorName, collectorIdentifier } = useBoxContext();
   const navigate = useNavigate();
   useEffect(() => {
