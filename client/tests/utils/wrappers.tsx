@@ -1,29 +1,7 @@
-import { ReactElement, ReactNode } from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { AuthContext } from '@/App';
-import { BrowserRouter } from 'react-router-dom';
-import { getBaseAuthContextValues } from './basicMockupValues';
-import { CustomWrapperInput } from './types';
-
-type Providers<ConfigType extends object> = (
-  input: CustomWrapperInput,
-  config?: ConfigType,
-) => ReactElement;
-
-export const AllProviders = (
-  { children }: { children: ReactNode },
-  config = { authContextValues: getBaseAuthContextValues },
-) => {
-  const queryClient = new QueryClient();
-
-  return (
-    <AuthContext.Provider value={config.authContextValues()}>
-      <QueryClientProvider client={queryClient}>
-        <BrowserRouter>{children}</BrowserRouter>
-      </QueryClientProvider>
-    </AuthContext.Provider>
-  );
-};
+import { AuthProviderConfig, CustomWrapperInput, Providers } from './types';
+import { AllRootProviders } from './providers';
+import { ReactElement } from 'react';
+import { render } from '@testing-library/react';
 
 export function createCustomWrapper<ProvidersConfig extends object>(
   providers: Providers<ProvidersConfig>,
@@ -33,4 +11,12 @@ export function createCustomWrapper<ProvidersConfig extends object>(
   };
 }
 
-export const AllProvidersWrapper = createCustomWrapper(AllProviders);
+export const renderWithWrapper = (ui: ReactElement, config?: AuthProviderConfig) => {
+  return {
+    ...render(ui, {
+      wrapper: AllRootProvidersWrapper(config),
+    }),
+  };
+};
+
+export const AllRootProvidersWrapper = createCustomWrapper(AllRootProviders);

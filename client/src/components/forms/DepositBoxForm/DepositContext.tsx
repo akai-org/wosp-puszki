@@ -4,7 +4,6 @@ import { createContext, ReactNode } from 'react';
 
 export const DepositContext = createContext<IDepositContext | null>(null);
 
-
 interface ProviderProps {
   children: ReactNode;
 }

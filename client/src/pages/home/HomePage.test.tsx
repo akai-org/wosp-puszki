@@ -2,7 +2,7 @@ import { describe, it } from 'vitest';
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import { HomePage } from '@/pages';
 import { ReactElement } from 'react';
-import { AllProvidersWrapper } from '../../../tests/utils/wrappers';
+import { AllRootProvidersWrapper } from '../../../tests/utils/wrappers';
 import { AuthProviderConfig } from '../../../tests/utils/types';
 import { baseAuthContextValues } from '../../../tests/utils/basicMockupValues';
 import { mockEndpoint } from '../../../tests/utils/MSWSetup';
@@ -11,7 +11,7 @@ import { APIManager } from '@/utils';
 const renderWithRouter = (ui: ReactElement, config?: AuthProviderConfig) => {
   return {
     ...render(ui, {
-      wrapper: AllProvidersWrapper(config),
+      wrapper: AllRootProvidersWrapper(config),
     }),
   };
 };
