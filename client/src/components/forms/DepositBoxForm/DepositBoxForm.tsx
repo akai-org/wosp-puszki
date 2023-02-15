@@ -16,13 +16,16 @@ import {
   useAuthContext,
   useBoxContext,
   useSetStationUnavailableQuery,
+  recognizeError,
+  FormMessage,
 } from '@/utils';
 import { CalculatorView } from '@/components/Calculator/View/CalculatorView';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Spinner } from '@components/Layout/Spinner/Spinner';
 import { FormMessage, GIVE_BOX_WRONG_ID_ERROR_RESPONSE, NetworkError } from '@/utils';
 import { moneyValuesType, sum, moneyValues } from './Sum';
 import { uid } from 'uid';
+
 
 //indexes that are used for splitting array of inputs to match our design
 const moneySlice = {
@@ -41,43 +44,6 @@ const getIDs = () => {
 };
 
 const IDs: string[] = getIDs();
-
-function handleError(
-  error: unknown,
-  setError: Dispatch<SetStateAction<FormMessage | undefined>>,
-) {
-  if (error instanceof NetworkError) {
-    handleNetworkError(error);
-  } else {
-    handleDefaultError();
-  }
-
-  function handleDefaultError() {
-    if (typeof error === 'string') {
-      setError({ type: 'error', content: error });
-    } else {
-      setError({ type: 'error', content: 'Wystąpił nieznany błąd' });
-    }
-  }
-
-  function handleNetworkError(error: NetworkError) {
-    const errorData = JSON.parse(error.message);
-
-    if (typeof errorData === 'object' && errorData['error']) {
-      handlerErrorMessage();
-    } else {
-      setError({ type: 'error', content: 'Nie znaleziono puszki' });
-    }
-    function handlerErrorMessage() {
-      const errorMessage = errorData.error;
-      if (errorMessage === GIVE_BOX_WRONG_ID_ERROR_RESPONSE) {
-        setError({ type: 'error', content: 'Podano nieprawidłowy identyfikator' });
-      } else {
-        setError({ type: 'error', content: errorMessage });
-      }
-    }
-  }
-}
 
 export const DepositBoxForm = () => {
   const [message, setMessage] = useState<FormMessage | undefined>();
@@ -105,7 +71,7 @@ export const DepositBoxForm = () => {
       }),
     onSuccess: () => navigate('/liczymy/boxes/settle/4'),
     onError: (error) => {
-      handleError(error, setMessage);
+      setMessage({ type: 'error', content: recognizeError(error) });
     },
   });
 

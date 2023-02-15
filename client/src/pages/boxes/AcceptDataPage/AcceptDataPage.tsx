@@ -4,9 +4,12 @@ import { Space } from 'antd';
 import {
   APIManager,
   fetcher,
+  isFailedFetched,
   useAuthContext,
   useBoxContext,
   useSetStationUnavailableQuery,
+  openNotification,
+  NO_CONNECT_WITH_SERVER,
 } from '@/utils';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
@@ -36,6 +39,9 @@ export const AcceptDataPage = () => {
       }),
     onSuccess: () => {
       navigate('/liczymy/boxes/settle/3');
+    },
+    onError: (error) => {
+      if (isFailedFetched(error)) openNotification('error', NO_CONNECT_WITH_SERVER);
     },
   });
 
