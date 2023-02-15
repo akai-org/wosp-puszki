@@ -18,13 +18,13 @@ import {
   useSetStationUnavailableQuery,
   recognizeError,
   FormMessage,
+  useAmountsQuery,
 } from '@/utils';
 import { CalculatorView } from '@/components/Calculator/View/CalculatorView';
 import { useEffect, useState } from 'react';
 import { Spinner } from '@components/Layout/Spinner/Spinner';
 import { moneyValuesType, sum, moneyValues } from './Sum';
 import { uid } from 'uid';
-
 
 //indexes that are used for splitting array of inputs to match our design
 const moneySlice = {
@@ -49,6 +49,7 @@ export const DepositBoxForm = () => {
   const { boxData, handleAmountsChange } = useDepositContext();
   const { boxIdentifier, collectorName, collectorIdentifier } = useBoxContext();
   const navigate = useNavigate();
+  const { data } = useAmountsQuery();
   useEffect(() => {
     if (
       collectorName === null ||
@@ -58,6 +59,13 @@ export const DepositBoxForm = () => {
       navigate('/liczymy/boxes/settle');
     }
   }, [boxIdentifier, collectorName, collectorIdentifier]);
+
+  useEffect(() => {
+    const { USD, GBP, EUR } = data.rates;
+    moneyValues['USD'] = USD;
+    moneyValues['GBP'] = GBP;
+    moneyValues['EUR'] = EUR;
+  }, [data.rates]);
 
   const { username } = useAuthContext();
   useSetStationUnavailableQuery(username);
