@@ -5,29 +5,32 @@ import s from './InputNumberBox.module.less';
 const { Text } = Typography;
 
 interface Props extends FormProps {
-  denomination: string;
   value: number;
   df: number;
-  count: (den: string, val: any) => void;
+  count: (id: string, value: number) => void;
   id: string;
+  name: string;
+  dis: boolean;
 }
 
-export const InputNumberBox: FC<Props> = ({ denomination, value, count, id, df }) => {
+export const InputNumberBox: FC<Props> = ({ value, count, id, df, name, dis }) => {
   return (
     <>
       <Space className={s.container} size={40}>
-        <Text className={s.denomination}>{denomination}</Text>
+        <Text className={s.denomination}>{name}</Text>
         <InputNumber
           placeholder="0"
           size="small"
           type="number"
+          name={name}
           id={id}
           min={0}
+          disabled={dis}
           max={10000}
           value={df}
           className={s.inputNumber}
           onChange={(val) => {
-            count(id, val);
+            if (val != null) count(id, val as number);
           }}
         />
         <Text className={s.value}>{value} zł</Text>
