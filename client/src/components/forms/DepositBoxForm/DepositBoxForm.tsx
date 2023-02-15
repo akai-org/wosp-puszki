@@ -22,10 +22,9 @@ import {
 import { CalculatorView } from '@/components/Calculator/View/CalculatorView';
 import { useEffect, useState } from 'react';
 import { Spinner } from '@components/Layout/Spinner/Spinner';
-import { FormMessage, GIVE_BOX_WRONG_ID_ERROR_RESPONSE, NetworkError } from '@/utils';
+
 import { moneyValuesType, sum, moneyValues } from './Sum';
 import { uid } from 'uid';
-
 
 //indexes that are used for splitting array of inputs to match our design
 const moneySlice = {
