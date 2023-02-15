@@ -1,5 +1,7 @@
 import { Typography, Space } from 'antd';
 import s from './Main.module.css';
+import { COLLECTED_PLN_ID, COLLECTED_TOTAL_ID } from '@tests/utils';
+import { FC } from 'react';
 const { Title } = Typography;
 
 interface Collected {
@@ -7,7 +9,7 @@ interface Collected {
   total: number;
 }
 
-export const Collected: React.FC<Collected> = ({ pln, total }) => {
+export const Collected: FC<Collected> = ({ pln, total }) => {
   return (
     <Space direction="vertical" size={40} className={s.collected}>
       <Space direction="vertical" size={10} align="center">
@@ -15,7 +17,7 @@ export const Collected: React.FC<Collected> = ({ pln, total }) => {
           Zebralismy:
         </Title>
         <Title
-          data-testid="collected-pln-test-id"
+          data-testid={COLLECTED_PLN_ID}
           level={2}
           style={{ margin: 0, fontWeight: 400 }}
         >
@@ -27,7 +29,7 @@ export const Collected: React.FC<Collected> = ({ pln, total }) => {
           Razem z walutami obcymi:
         </Title>
         <Title
-          data-testid="collected-total-test-id"
+          data-testid={COLLECTED_TOTAL_ID}
           level={2}
           style={{ margin: 0, fontWeight: 400 }}
         >

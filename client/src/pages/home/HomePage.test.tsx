@@ -5,6 +5,8 @@ import { APIManager } from '@/utils';
 import {
   AllRootProvidersWrapper,
   baseAuthContextValues,
+  COLLECTED_PLN_ID,
+  COLLECTED_TOTAL_ID,
   mockEndpoint,
   renderWithWrapper,
 } from '@tests/utils';
@@ -45,18 +47,18 @@ describe('Testing HomePage', () => {
     expect(queryByText('Wydaj puszkę wolontariuszowi')).toBeNull();
     expect(getByText('Rozlicz puszkę')).toBeInTheDocument();
 
-    expect(getByTestId('collected-pln-test-id')).toHaveTextContent('0 zł');
-    expect(getByTestId('collected-total-test-id')).toHaveTextContent('0 zł');
+    expect(getByTestId(COLLECTED_PLN_ID)).toHaveTextContent('0 zł');
+    expect(getByTestId(COLLECTED_TOTAL_ID)).toHaveTextContent('0 zł');
   });
 
-  it.concurrent("Test clicking 'Wydaj puszkę wolontariuszowi' links", ({ expect }) => {
+  it.concurrent("Test clicking 'Wydaj puszkę wolontariuszowi' link", ({ expect }) => {
     const { getByText } = renderWithWrapper(<HomePage />, AllRootProvidersWrapper());
     const button = getByText('Wydaj puszkę wolontariuszowi');
     fireEvent.click(button);
     expect(window.location.pathname).toBe('/boxes');
   });
 
-  it.concurrent("Test clicking 'Rozlicz puszkę' links", ({ expect }) => {
+  it.concurrent("Test clicking 'Rozlicz puszkę' link", ({ expect }) => {
     const { getByText } = renderWithWrapper(<HomePage />, AllRootProvidersWrapper());
     const button = getByText('Rozlicz puszkę');
     fireEvent.click(button);

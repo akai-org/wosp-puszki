@@ -17,20 +17,11 @@ export const Main = () => {
       <Collected pln={amountsData.amount_PLN} total={amountsData.amount_total_in_PLN} />
       <Space size={30}>
         {username && username?.slice(0, 4) == 'wosp' ? null : (
-          <Button
-            data-testid="give-box-test-id"
-            onClick={() => navigate('boxes')}
-            type="primary"
-            className={s.buttons}
-          >
+          <Button onClick={() => navigate('boxes')} type="primary" className={s.buttons}>
             Wydaj puszkę wolontariuszowi
           </Button>
         )}
-        <Button
-          data-testid="settle-box-test-id"
-          onClick={() => navigate('boxes/settle')}
-          className={s.buttons}
-        >
+        <Button onClick={() => navigate('boxes/settle')} className={s.buttons}>
           Rozlicz puszkę
         </Button>
       </Space>

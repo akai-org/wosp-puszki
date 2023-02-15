@@ -1,4 +1,6 @@
 import { ReactNode } from 'react';
+import { useAuthContextValues, useBoxContextValues } from '@utils/hooks';
+import { useDepositContext } from '@components/forms/DepositBoxForm/DepositContext';
 
 export interface SubNavLink {
   url: string;
@@ -220,3 +222,9 @@ export interface IDepositContext {
   boxData: BoxData;
   handleAmountsChange: (id: string, value: number | string) => void;
 }
+
+export type UseAuthContextValues = typeof useAuthContextValues;
+
+export type UseBoxContextValues = typeof useBoxContextValues;
+
+export type UseDepositContextValues = typeof useDepositContext;
