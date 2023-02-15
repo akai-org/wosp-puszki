@@ -32,7 +32,7 @@ const moneySlice = {
 };
 
 const getIDs = () => {
-  let arr = [];
+  const arr = [];
   for (let i = moneySlice['from_1gr']; i < moneySlice['to_500zl']; i++) {
     arr.push(uid());
   }
