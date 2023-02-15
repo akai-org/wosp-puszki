@@ -30,7 +30,6 @@ export const InputNumberBox: FC<Props> = ({ value, count, id, df, name, dis }) =
           value={df}
           className={s.inputNumber}
           onChange={(val) => {
-            console.log(val);
             val != null ? count(id, val as number) : count(id, 0);
           }}
         />
