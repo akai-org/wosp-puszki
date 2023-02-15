@@ -1,13 +1,13 @@
 import { describe, it } from 'vitest';
 import { fireEvent, waitFor } from '@testing-library/react';
 import { HomePage } from '@/pages';
+import { APIManager } from '@/utils';
 import {
   AllRootProvidersWrapper,
+  baseAuthContextValues,
+  mockEndpoint,
   renderWithWrapper,
-} from '../../../tests/utils/wrappers';
-import { baseAuthContextValues } from '../../../tests/utils/basicMockupValues';
-import { mockEndpoint } from '../../../tests/utils/MSWSetup';
-import { APIManager } from '@/utils';
+} from '@tests/utils';
 
 describe('Testing HomePage', () => {
   beforeEach(() => {
