@@ -30,13 +30,15 @@ import { uid } from 'uid';
 const moneySlice = {
   from_1gr: 0,
   to_5zl: 9,
-  from_10zl: 10,
+  from_10zl: 9,
   to_500zl: 15,
+  from_EUR: 15,
+  to_USD: 19,
 };
 
 const getIDs = () => {
   const arr = [];
-  for (let i = moneySlice['from_1gr']; i < moneySlice['to_500zl']; i++) {
+  for (let i = moneySlice['from_1gr']; i < moneySlice['to_USD']; i++) {
     arr.push(uid());
   }
   return arr;
@@ -90,7 +92,7 @@ export const DepositBoxForm = () => {
 
   const amounts: string[] = Object.keys(boxData['amounts']);
   const values: string[] = Object.keys(moneyValues);
-
+  console.log(values);
   const inputs: JSX.Element[] = amounts.map((key, index) => {
     const value: string = values[index];
     return (
@@ -135,6 +137,22 @@ export const DepositBoxForm = () => {
             <Space className={s.sum}>
               <>Suma</>
               <>{acc.toFixed(2).toString() + ' zł'}</>
+            </Space>
+          </DepositColumn>
+          <DepositColumn foreign={true}>
+            {inputs.slice(moneySlice['from_EUR'], moneySlice['to_USD']).map((input) => {
+              return input;
+            })}
+            <Space className={s.other}>
+              Inne
+              <TextArea
+                className={s.textArea}
+                value={boxData['comment']}
+                onChange={(e) => {
+                  const { value } = e.target;
+                  handleAmountsChange('comment', value);
+                }}
+              ></TextArea>
             </Space>
           </DepositColumn>
         </Space>

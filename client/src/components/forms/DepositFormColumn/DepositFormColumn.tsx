@@ -6,15 +6,16 @@ const { Text } = Typography;
 
 interface Props extends FormProps {
   children: ReactNode;
+  foreign?: boolean;
 }
 
-export const DepositColumn: FC<Props> = ({ children }) => {
+export const DepositColumn: FC<Props> = ({ children, foreign }) => {
   return (
     <Space direction="vertical" className={s.container}>
       <Space size={60} className={s.columnNames}>
-        <Text>Nominał</Text>
+        <Text>{foreign ? 'Waluta' : 'Nominał'}</Text>
         <Text>Ilość</Text>
-        <Text>Wartość</Text>
+        {!foreign && <Text>Wartość</Text>}
       </Space>
 
       {children}
