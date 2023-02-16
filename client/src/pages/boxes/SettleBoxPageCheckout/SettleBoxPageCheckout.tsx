@@ -1,11 +1,9 @@
 import s from './SettleBoxPageCheckout.module.less';
 import { Button, Space } from 'antd';
-import {
-  AmountsKeys,
-  useDepositContext,
-} from '@/components/forms/DepositBoxForm/DepositContext';
+import { useDepositContext } from '@/components/forms/DepositBoxForm/DepositContext';
 import { useNavigate } from 'react-router-dom';
 import {
+  AmountsKeys,
   APIManager,
   fetcher,
   useAuthContext,

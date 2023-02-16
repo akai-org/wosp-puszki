@@ -1,4 +1,4 @@
-import { Space, Typography } from 'antd';
+import { Space, Typography, Form } from 'antd';
 import s from './DepositBoxForm.module.less';
 const { Title } = Typography;
 import { DepositColumn } from '../DepositFormColumn';
@@ -7,7 +7,7 @@ import { Content } from 'antd/lib/layout/layout';
 import { FormButton } from '@/components';
 import TextArea from 'antd/lib/input/TextArea';
 import { useDepositContext } from './DepositContext';
-import { Form, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import {
   AmountsKeys,
@@ -94,28 +94,31 @@ export const DepositBoxForm = () => {
   const values: string[] = Object.keys(moneyValues);
   const inputs: JSX.Element[] = amounts.map((key, index) => {
     const value: string = values[index];
+    const foreign = ['amount_EUR', 'amount_USD', 'amount_GBP'];
     return (
-      <InputNumberBox
-        key={IDs[index]}
-        count={handleAmountsChange}
-        name={value}
-        dis={mutation.isLoading}
-        value={Number(
-          (
-            boxData.amounts[key as keyof Record<AmountsKeys, number>] *
-            moneyValues[value as keyof moneyValuesType]
-          ).toFixed(2),
-        )}
-        id={key}
-        df={boxData.amounts[key as keyof Record<AmountsKeys, number>]}
-      />
+      <Form.Item style={{ marginBottom: 0 }}>
+        <InputNumberBox
+          key={IDs[index]}
+          count={handleAmountsChange}
+          name={value}
+          value={Number(
+            (
+              boxData.amounts[key as keyof Record<AmountsKeys, number>] *
+              moneyValues[value as keyof moneyValuesType]
+            ).toFixed(2),
+          )}
+          id={key}
+          quantity={boxData.amounts[key as keyof Record<AmountsKeys, number>]}
+          foreign={foreign.includes(key) ? true : false}
+        />
+      </Form.Item>
     );
   });
 
   return (
     <Content className={s.full}>
       <CalculatorView />
-      <Form>
+      <Form disabled={mutation.isLoading}>
         <Title level={4} className={s.title}>
           Rozliczenie puszki wolontariusza {collectorName} ( {collectorIdentifier} ) ( ID
           puszki w bazie:
@@ -144,14 +147,16 @@ export const DepositBoxForm = () => {
             })}
             <Space className={s.other}>
               Inne
-              <TextArea
-                className={s.textArea}
-                value={boxData['comment']}
-                onChange={(e) => {
-                  const { value } = e.target;
-                  handleAmountsChange('comment', value);
-                }}
-              ></TextArea>
+              <Form.Item style={{ marginBottom: 0 }}>
+                <TextArea
+                  className={s.textArea}
+                  value={boxData['comment']}
+                  onChange={(e) => {
+                    const { value } = e.target;
+                    handleAmountsChange('comment', value);
+                  }}
+                ></TextArea>
+              </Form.Item>
             </Space>
           </DepositColumn>
         </Space>

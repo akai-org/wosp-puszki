@@ -35,7 +35,6 @@ export const DepositProvider: React.FC<ProviderProps> = ({ children }) => {
   });
 
   const handleAmountsChange = (id: string, value: number | string) => {
-    console.log(value);
     id != 'comment'
       ? setBoxData((prevBoxData) => ({
           ...prevBoxData,
