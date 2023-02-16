@@ -1,6 +1,6 @@
 import { Typography, Space } from 'antd';
 import s from './Main.module.css';
-import { COLLECTED_PLN_ID, COLLECTED_TOTAL_ID } from '@tests/utils';
+import { COLLECTED_PLN_ID, COLLECTED_TOTAL_ID } from '@tests/utils/testIDs';
 import { FC } from 'react';
 const { Title } = Typography;
 

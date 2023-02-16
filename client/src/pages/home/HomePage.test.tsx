@@ -2,14 +2,10 @@ import { describe, it } from 'vitest';
 import { fireEvent, waitFor } from '@testing-library/react';
 import { HomePage } from '@/pages';
 import { APIManager } from '@/utils';
-import {
-  AllRootProvidersWrapper,
-  baseAuthContextValues,
-  COLLECTED_PLN_ID,
-  COLLECTED_TOTAL_ID,
-  mockEndpoint,
-  renderWithWrapper,
-} from '@tests/utils';
+import { mockEndpoint } from '@tests/utils/MSWSetup';
+import { COLLECTED_PLN_ID, COLLECTED_TOTAL_ID } from '@tests/utils/testIDs';
+import { AllRootProvidersWrapper, renderWithWrapper } from '@tests/utils/wrappers';
+import { baseAuthContextValues } from '@tests/utils/basicMockupValues';
 
 describe('Testing HomePage', () => {
   beforeEach(() => {
