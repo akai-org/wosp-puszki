@@ -1,8 +1,7 @@
 import type { FormProps } from 'antd';
-import { FC, useRef } from 'react';
+import { FC } from 'react';
 import { Space, Typography, InputNumber } from 'antd';
 import s from './InputNumberBox.module.less';
-import { displayValue } from '@tanstack/react-query-devtools/build/lib/utils';
 const { Text } = Typography;
 
 interface Props extends FormProps {
