@@ -92,7 +92,6 @@ export const DepositBoxForm = () => {
 
   const amounts: string[] = Object.keys(boxData['amounts']);
   const values: string[] = Object.keys(moneyValues);
-  console.log(values);
   const inputs: JSX.Element[] = amounts.map((key, index) => {
     const value: string = values[index];
     return (
