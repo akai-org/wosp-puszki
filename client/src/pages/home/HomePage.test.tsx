@@ -1,10 +1,14 @@
 import { describe, it } from 'vitest';
-import { fireEvent, waitFor } from '@testing-library/react';
+import { waitFor } from '@testing-library/react';
 import { HomePage } from '@/pages';
 import { APIManager } from '@/utils';
 import { mockEndpoint } from '@tests/utils/MSWSetup';
 import { COLLECTED_PLN_ID, COLLECTED_TOTAL_ID } from '@tests/utils/testIDs';
-import { AllRootProvidersWrapper, renderWithWrapper } from '@tests/utils/wrappers';
+import {
+  AllRootProvidersWrapper,
+  renderWithUser,
+  renderWithWrapper,
+} from '@tests/utils/wrappers';
 import { baseAuthContextValues } from '@tests/utils/basicMockupValues';
 
 describe('Testing HomePage', () => {
@@ -18,7 +22,7 @@ describe('Testing HomePage', () => {
       },
     });
   });
-  it.concurrent('Testing proper rendering when superadmin logged in', ({ expect }) => {
+  it('Testing proper rendering when superadmin is logged in', ({ expect }) => {
     const { getByTestId, getByText } = renderWithWrapper(
       <HomePage />,
       AllRootProvidersWrapper(),
@@ -29,7 +33,7 @@ describe('Testing HomePage', () => {
     expect(getByTestId('collected-total-test-id')).toBeInTheDocument();
   });
 
-  it.concurrent('Testing proper rendering when wosp01 is logged in', ({ expect }) => {
+  it('Testing proper rendering when wosp01 is logged in', ({ expect }) => {
     const { getByTestId, queryByText, getByText } = renderWithWrapper(
       <HomePage />,
       AllRootProvidersWrapper({
@@ -47,21 +51,21 @@ describe('Testing HomePage', () => {
     expect(getByTestId(COLLECTED_TOTAL_ID)).toHaveTextContent('0 zł');
   });
 
-  it.concurrent("Test clicking 'Wydaj puszkę wolontariuszowi' link", ({ expect }) => {
-    const { getByText } = renderWithWrapper(<HomePage />, AllRootProvidersWrapper());
+  it("Test clicking 'Wydaj puszkę wolontariuszowi' link", async ({ expect }) => {
+    const { getByText, user } = renderWithUser(<HomePage />, AllRootProvidersWrapper());
     const button = getByText('Wydaj puszkę wolontariuszowi');
-    fireEvent.click(button);
+    await user.click(button);
     expect(window.location.pathname).toBe('/boxes');
   });
 
-  it.concurrent("Test clicking 'Rozlicz puszkę' link", ({ expect }) => {
-    const { getByText } = renderWithWrapper(<HomePage />, AllRootProvidersWrapper());
+  it("Test clicking 'Rozlicz puszkę' link", async ({ expect }) => {
+    const { getByText, user } = renderWithUser(<HomePage />, AllRootProvidersWrapper());
     const button = getByText('Rozlicz puszkę');
-    fireEvent.click(button);
-    expect(window.location.pathname).toBe('/boxes/settle');
+    await user.click(button);
+    await waitFor(() => expect(window.location.pathname).toBe('/boxes/settle'));
   });
 
-  it.concurrent('Test displaying data returned from API', async ({ expect }) => {
+  it('Test displaying data returned from API', async ({ expect }) => {
     const { getByText } = renderWithWrapper(<HomePage />, AllRootProvidersWrapper());
     await waitFor(() => expect(getByText('100 zł')).toBeInTheDocument());
     await waitFor(() => expect(getByText('200 zł')).toBeInTheDocument());
