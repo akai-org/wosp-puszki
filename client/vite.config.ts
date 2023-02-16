@@ -1,10 +1,15 @@
 /** @type {import('vite').UserConfig} */
-import { defineConfig } from 'vite';
+import { defineConfig, UserConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import vitePluginImp from 'vite-plugin-imp';
 import path from 'path';
-
 import svgr from 'vite-plugin-svgr';
+import { InlineConfig } from 'vitest';
+
+interface VitestConfigExport extends UserConfig {
+  test: InlineConfig;
+}
+
 export default defineConfig({
   base: '/system/',
   plugins: [
@@ -19,6 +24,7 @@ export default defineConfig({
       ],
     }),
   ],
+  test: { globals: true, environment: 'jsdom', setupFiles: './tests/setup.ts' },
   resolve: {
     alias: [
       { find: 'less', replacement: path.resolve(__dirname, './src/less/') },
@@ -26,6 +32,7 @@ export default defineConfig({
       { find: '@utils', replacement: path.resolve(__dirname, './src/utils/') },
       { find: '@assets', replacement: path.resolve(__dirname, './src/assets/') },
       { find: '@pages', replacement: path.resolve(__dirname, './src/pages/') },
+      { find: '@tests', replacement: path.resolve(__dirname, './tests/') },
       { find: '@', replacement: path.resolve(__dirname, './src/') },
     ],
   },
@@ -47,4 +54,4 @@ export default defineConfig({
       },
     },
   },
-});
+} as VitestConfigExport);

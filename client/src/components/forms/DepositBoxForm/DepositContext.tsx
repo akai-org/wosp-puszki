@@ -4,7 +4,6 @@ import { createContext, ReactNode } from 'react';
 
 export const DepositContext = createContext<IDepositContext | null>(null);
 
-
 interface ProviderProps {
   children: ReactNode;
 }
@@ -35,7 +34,6 @@ export const DepositProvider: React.FC<ProviderProps> = ({ children }) => {
   });
 
   const handleAmountsChange = (id: string, value: number | string) => {
-    console.log(value);
     id != 'comment'
       ? setBoxData((prevBoxData) => ({
           ...prevBoxData,

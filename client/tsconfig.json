@@ -22,7 +22,8 @@
       "@less/*": ["./src/less/*"],
       "@pages/*": ["./src/pages/*"],
       "@utils/*": ["./src/utils/*"],
-      "@assets/*": ["./src/assets/*"]
+      "@assets/*": ["./src/assets/*"],
+      "@tests/*": ["./tests/*"]
     }
   },
   "include": ["src"],

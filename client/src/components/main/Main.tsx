@@ -21,7 +21,13 @@ export const Main = () => {
             Wydaj puszkę wolontariuszowi
           </Button>
         )}
-        <Button onClick={() => navigate('boxes/settle')} className={s.buttons}>
+        <Button
+          onClick={() => {
+            console.log('dupa');
+            navigate('boxes/settle');
+          }}
+          className={s.buttons}
+        >
           Rozlicz puszkę
         </Button>
       </Space>
