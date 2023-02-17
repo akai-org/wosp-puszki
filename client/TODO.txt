@@ -1,7 +1,7 @@
 ============== Do obu stron / Inne ==============
 - podłączyć wartości walut obcych do API bo jest na sztywno podany kurs - useAmountsQuery z utils wystarczy tylko podpiąć
   - walnąć to gdzieś w osobnym miejscu, przykładowo utils
-  - musi się to wykonać to załadowaniu strony
+  - musi się to wykonać po załadowaniu strony
 1/2 - ogarnąć responsywność obu stron aby administracja w krytycznych momentach mogła coś ogarnąć z telefonu ( przykładowo zastosować grid )
   1/2 - obczaić te skalowanie windowsowe bo psuje sporo rzeczy 
 - porobić do wszystkiego komentarze by zrobić czytelność lvl 1000.
@@ -9,14 +9,6 @@ if ( Patryk zrobi setup testów ) - walnąć testy
 
 ============== Deposit Box Page ==============
 - Zrobić osobną stronę dla depositBoxPagePath a nie przekazywać routowi jedynie component,
-- W formularzu używać name i zmienić sposób pozyskiwania wartości z inputów,
-- Wyświetlanie sumy walnąć w useEffect który będzie się odpalał z każdą zmianą czegoś co przechowuje dane z formularza
-
-============== Settle Box Page Checkout ==============
-- Porozdzielać na ładne componenty
-  - stronka
-  - Lista
-  - element listy
 
 ============== Rzeczy do zrobienia poza naszym issue, raczej zrobił bym nowe ==============
 - ogarnąć katalogowanie w @/components/forms bo jest za dużo rzeczy i poruszanie się po plikach nie jest przyjemne
