@@ -1,9 +1,6 @@
 import s from './SettleBoxPageCheckout.module.less';
-import { Button, Space } from 'antd';
-import {
-  AmountsKeys,
-  useDepositContext,
-} from '@/components/forms/DepositBoxForm/DepositContext';
+import { Button } from 'antd';
+import { useDepositContext } from '@/utils/Contexts/DepositContext';
 import { useNavigate } from 'react-router-dom';
 import {
   APIManager,
@@ -13,6 +10,7 @@ import {
   useBoxContextValues,
   useSetStationUnavailableQuery,
 } from '@/utils';
+import type { AmountsKeys } from '@/utils';
 import { useMutation } from '@tanstack/react-query';
 
 import { Spinner } from '@components/Layout/Spinner/Spinner';

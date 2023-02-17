@@ -12,7 +12,6 @@ import { InnerLayoutManager } from '@/components';
 import { ProtectedRoute } from '@components/ProtectedRoute/ProtectedRoute';
 
 import { DepositBoxForm } from '@/components/forms/DepositBoxForm';
-import { DepositProvider } from '@/components/forms/DepositBoxForm/DepositContext';
 
 const giveBoxPagePath = '';
 const settleBoxPagePath = 'settle';
@@ -61,23 +60,21 @@ export const boxesRoute = {
   path: 'boxes',
   element: (
     <ProtectedRoute>
-      <DepositProvider>
-        <InnerLayoutManager
-          prefix="/liczymy/boxes"
-          excludingLinks={[
-            findBoxPagePath,
-            acceptBoxPagePath,
-            depositBoxPagePath,
-            settleBoxPagePathCheckout,
-          ]}
-          links={[
-            { url: giveBoxPagePath, label: 'Wydaj puszkę' },
-            { url: settleBoxPagePath, label: 'Rozlicz puszkę' },
-            // { url: '', label: 'Wszystkie puszki' },
-            // { url: unsettledBoxesPagePath, label: 'Lista puszek nie rozliczonych' },
-          ]}
-        />
-      </DepositProvider>
+      <InnerLayoutManager
+        prefix="/liczymy/boxes"
+        excludingLinks={[
+          findBoxPagePath,
+          acceptBoxPagePath,
+          depositBoxPagePath,
+          settleBoxPagePathCheckout,
+        ]}
+        links={[
+          { url: giveBoxPagePath, label: 'Wydaj puszkę' },
+          { url: settleBoxPagePath, label: 'Rozlicz puszkę' },
+          // { url: '', label: 'Wszystkie puszki' },
+          // { url: unsettledBoxesPagePath, label: 'Lista puszek nie rozliczonych' },
+        ]}
+      />
     </ProtectedRoute>
   ),
   children: boxesSubroutes,

@@ -5,8 +5,7 @@ import { DepositColumn } from '../DepositFormColumn';
 import { InputNumberBox } from '../InputNumberBox';
 import { Content } from 'antd/lib/layout/layout';
 import { FormButton } from '@/components';
-import TextArea from 'antd/lib/input/TextArea';
-import { useDepositContext } from './DepositContext';
+import { useDepositContext } from '../../../utils/Contexts/DepositContext';
 import { Form, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import {
@@ -18,12 +17,12 @@ import {
   useSetStationUnavailableQuery,
   recognizeError,
   FormMessage,
+  MONEY_VALUES,
+  moneyValuesType,
 } from '@/utils';
 import { CalculatorView } from '@/components/Calculator/View/CalculatorView';
 import { useEffect, useState } from 'react';
 import { Spinner } from '@components/Layout/Spinner/Spinner';
-
-import { moneyValuesType, sum, moneyValues } from './Sum';
 import { uid } from 'uid';
 
 //indexes that are used for splitting array of inputs to match our design
@@ -46,7 +45,7 @@ const IDs: string[] = getIDs();
 
 export const DepositBoxForm = () => {
   const [message, setMessage] = useState<FormMessage | undefined>();
-  const { boxData, handleAmountsChange } = useDepositContext();
+  const { boxData, zlotySum, handleAmountsChange } = useDepositContext();
   const { boxIdentifier, collectorName, collectorIdentifier } = useBoxContext();
   const navigate = useNavigate();
   useEffect(() => {
@@ -74,14 +73,12 @@ export const DepositBoxForm = () => {
     },
   });
 
-  const acc = sum(boxData.amounts);
-
   const handleSubmit = () => {
     mutation.mutate();
   };
 
   const amounts: string[] = Object.keys(boxData['amounts']);
-  const values: string[] = Object.keys(moneyValues);
+  const values: string[] = Object.keys(MONEY_VALUES);
 
   const inputs: JSX.Element[] = amounts.map((key, index) => {
     const value: string = values[index];
@@ -94,7 +91,7 @@ export const DepositBoxForm = () => {
         value={Number(
           (
             boxData.amounts[key as keyof Record<AmountsKeys, number>] *
-            moneyValues[value as keyof moneyValuesType]
+            MONEY_VALUES[value as keyof moneyValuesType]
           ).toFixed(2),
         )}
         id={key}
@@ -126,7 +123,7 @@ export const DepositBoxForm = () => {
               })}
             <Space className={s.sum}>
               <>Suma</>
-              <>{acc.toFixed(2).toString() + ' zł'}</>
+              <>{zlotySum.toFixed(2).toString() + ' zł'}</>
             </Space>
           </DepositColumn>
         </Space>

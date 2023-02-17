@@ -12,7 +12,7 @@ import {
   DepositProviderConfig,
   Providers,
 } from './types';
-import { DepositContext } from '@components/forms/DepositBoxForm/DepositContext';
+import { DepositContext } from '@/utils/Contexts/DepositContext';
 import { AuthContext, BoxContext } from '@/App';
 
 export const BaseProvider = ({ children }: { children: ReactNode }) => {
