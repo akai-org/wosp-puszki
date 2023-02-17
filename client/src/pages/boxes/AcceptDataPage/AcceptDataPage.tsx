@@ -5,32 +5,24 @@ import {
   APIManager,
   fetcher,
   isFailedFetched,
-  useAuthContext,
   useBoxContext,
-  useSetStationUnavailableQuery,
+  setStationUnavailable,
   openNotification,
   NO_CONNECT_WITH_SERVER,
 } from '@/utils';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import { useEffect } from 'react';
 
 export const AcceptDataPage = () => {
   const navigate = useNavigate();
-  const { collectorName, collectorIdentifier, boxIdentifier } = useBoxContext();
+  const { collectorName, collectorIdentifier, boxIdentifier, isBoxExists } =
+    useBoxContext();
 
-  useEffect(() => {
-    if (
-      collectorName === null ||
-      collectorIdentifier === null ||
-      boxIdentifier === null
-    ) {
-      navigate('/liczymy/boxes/settle');
-    }
-  }, [boxIdentifier, collectorName, collectorIdentifier]);
+  if (!isBoxExists()) {
+    navigate('/liczymy/boxes/settle');
+  }
 
-  const { username } = useAuthContext();
-  useSetStationUnavailableQuery(username);
+  setStationUnavailable();
 
   const mutation = useMutation({
     mutationFn: () =>

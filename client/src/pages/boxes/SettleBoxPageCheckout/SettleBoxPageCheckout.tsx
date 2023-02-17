@@ -5,70 +5,41 @@ import { useNavigate } from 'react-router-dom';
 import {
   APIManager,
   fetcher,
-  useAuthContext,
   useBoxContext,
-  useBoxContextValues,
-  useSetStationUnavailableQuery,
+  setStationUnavailable,
+  MONEY_VALUES,
+  isFailedFetched,
+  openNotification,
+  NO_CONNECT_WITH_SERVER,
 } from '@/utils';
-import type { AmountsKeys } from '@/utils';
 import { useMutation } from '@tanstack/react-query';
 
 import { Spinner } from '@components/Layout/Spinner/Spinner';
-import { useEffect } from 'react';
-
-const moneyValues = {
-  '1gr': 0.01,
-  '2gr': 0.02,
-  '5gr': 0.05,
-  '10gr': 0.1,
-  '20gr': 0.2,
-  '50gr': 0.5,
-  '1zl': 1,
-  '2zl': 2,
-  '5zl': 5,
-  '10zl': 10,
-  '20zl': 20,
-  '50zl': 50,
-  '100zl': 100,
-  '200zl': 200,
-  '500zl': 500,
-  EUR: 4.71,
-  GBP: 5.37,
-  USD: 4.33,
-};
-
-export function sum(amounts: Record<AmountsKeys, number>) {
-  let sum = 0;
-  for (const key in amounts) {
-    const moneyDen = key.split('_')[1];
-    sum +=
-      amounts[key as AmountsKeys] * moneyValues[moneyDen as keyof typeof moneyValues];
-  }
-  return sum;
-}
 
 export const SettleBoxPageCheckout = () => {
-  const { boxData } = useDepositContext();
-  const { collectorIdentifier, boxIdentifier } = useBoxContext();
-  const { deleteBox } = useBoxContextValues();
-
   const navigate = useNavigate();
+  const { boxData, zlotySum, cleanAmounts } = useDepositContext();
+  const { isBoxExists, deleteBox, boxIdentifier, collectorIdentifier } = useBoxContext();
 
-  useEffect(() => {
-    if (collectorIdentifier === null || boxIdentifier === null) {
-      navigate('/liczymy/boxes/settle');
-    }
-  }, [boxIdentifier, collectorIdentifier]);
+  if (!isBoxExists()) {
+    navigate('/liczymy/boxes/settle');
+  }
 
-  const totalPLNSum = sum(boxData.amounts);
-  const { username } = useAuthContext();
-  useSetStationUnavailableQuery(username);
+  setStationUnavailable();
+
   const mutation = useMutation({
     mutationFn: () =>
       fetcher(`${APIManager.baseAPIRUrl}/boxes/${boxIdentifier}/finishCounting`, {
         method: 'POST',
       }),
-    onSuccess: () => navigate('/liczymy/boxes/settle'),
+    onSuccess: () => {
+      deleteBox();
+      cleanAmounts();
+      navigate('/liczymy/boxes/settle');
+    },
+    onError: (error) => {
+      if (isFailedFetched(error)) openNotification('error', NO_CONNECT_WITH_SERVER);
+    },
   });
 
   const goBackToDeposit = () => {
@@ -77,7 +48,6 @@ export const SettleBoxPageCheckout = () => {
 
   const confirmData = () => {
     mutation.mutate();
-    deleteBox();
   };
 
   return (
@@ -103,7 +73,7 @@ export const SettleBoxPageCheckout = () => {
                 <td className={s.left}>1gr</td>
                 <td className={s.middle}>{boxData.amounts.count_1gr}</td>
                 <td className={s.right}>
-                  {boxData.amounts.count_1gr * moneyValues['1gr']}
+                  {boxData.amounts.count_1gr * MONEY_VALUES['1gr']}
                 </td>
               </tr>
             </tbody>
@@ -112,7 +82,7 @@ export const SettleBoxPageCheckout = () => {
                 <td className={s.left}>2gr</td>
                 <td className={s.middle}>{boxData.amounts.count_2gr}</td>
                 <td className={s.right}>
-                  {boxData.amounts.count_2gr * moneyValues['2gr']}
+                  {boxData.amounts.count_2gr * MONEY_VALUES['2gr']}
                 </td>
               </tr>
             </tbody>
@@ -121,7 +91,7 @@ export const SettleBoxPageCheckout = () => {
                 <td className={s.left}>5gr</td>
                 <td className={s.middle}>{boxData.amounts.count_5gr}</td>
                 <td className={s.right}>
-                  {boxData.amounts.count_5gr * moneyValues['5gr']}
+                  {boxData.amounts.count_5gr * MONEY_VALUES['5gr']}
                 </td>
               </tr>
             </tbody>
@@ -130,7 +100,7 @@ export const SettleBoxPageCheckout = () => {
                 <td className={s.left}>10gr</td>
                 <td className={s.middle}>{boxData.amounts.count_10gr}</td>
                 <td className={s.right}>
-                  {boxData.amounts.count_10gr * moneyValues['10gr']}
+                  {boxData.amounts.count_10gr * MONEY_VALUES['10gr']}
                 </td>
               </tr>
             </tbody>
@@ -139,7 +109,7 @@ export const SettleBoxPageCheckout = () => {
                 <td className={s.left}>20gr</td>
                 <td className={s.middle}>{boxData.amounts.count_20gr}</td>
                 <td className={s.right}>
-                  {boxData.amounts.count_20gr * moneyValues['20gr']}
+                  {boxData.amounts.count_20gr * MONEY_VALUES['20gr']}
                 </td>
               </tr>
             </tbody>
@@ -148,7 +118,7 @@ export const SettleBoxPageCheckout = () => {
                 <td className={s.left}>50gr</td>
                 <td className={s.middle}>{boxData.amounts.count_50gr}</td>
                 <td className={s.right}>
-                  {boxData.amounts.count_50gr * moneyValues['50gr']}
+                  {boxData.amounts.count_50gr * MONEY_VALUES['50gr']}
                 </td>
               </tr>
             </tbody>
@@ -157,7 +127,7 @@ export const SettleBoxPageCheckout = () => {
                 <td className={s.left}>1zl</td>
                 <td className={s.middle}>{boxData.amounts.count_1zl}</td>
                 <td className={s.right}>
-                  {boxData.amounts.count_1zl * moneyValues['1zl']}
+                  {boxData.amounts.count_1zl * MONEY_VALUES['1zl']}
                 </td>
               </tr>
             </tbody>
@@ -166,7 +136,7 @@ export const SettleBoxPageCheckout = () => {
                 <td className={s.left}>2zl</td>
                 <td className={s.middle}>{boxData.amounts.count_2zl}</td>
                 <td className={s.right}>
-                  {boxData.amounts.count_2zl * moneyValues['2zl']}
+                  {boxData.amounts.count_2zl * MONEY_VALUES['2zl']}
                 </td>
               </tr>
             </tbody>
@@ -175,7 +145,7 @@ export const SettleBoxPageCheckout = () => {
                 <td className={s.left}>5zl</td>
                 <td className={s.middle}>{boxData.amounts.count_5zl}</td>
                 <td className={s.right}>
-                  {boxData.amounts.count_5zl * moneyValues['5zl']}
+                  {boxData.amounts.count_5zl * MONEY_VALUES['5zl']}
                 </td>
               </tr>
             </tbody>
@@ -184,7 +154,7 @@ export const SettleBoxPageCheckout = () => {
                 <td className={s.left}>10zl</td>
                 <td className={s.middle}>{boxData.amounts.count_10zl}</td>
                 <td className={s.right}>
-                  {boxData.amounts.count_10zl * moneyValues['10zl']}
+                  {boxData.amounts.count_10zl * MONEY_VALUES['10zl']}
                 </td>
               </tr>
             </tbody>
@@ -193,7 +163,7 @@ export const SettleBoxPageCheckout = () => {
                 <td className={s.left}>20zl</td>
                 <td className={s.middle}>{boxData.amounts.count_20zl}</td>
                 <td className={s.right}>
-                  {boxData.amounts.count_20zl * moneyValues['20zl']}
+                  {boxData.amounts.count_20zl * MONEY_VALUES['20zl']}
                 </td>
               </tr>
             </tbody>
@@ -202,7 +172,7 @@ export const SettleBoxPageCheckout = () => {
                 <td className={s.left}>50zl</td>
                 <td className={s.middle}>{boxData.amounts.count_50zl}</td>
                 <td className={s.right}>
-                  {boxData.amounts.count_50zl * moneyValues['50zl']}
+                  {boxData.amounts.count_50zl * MONEY_VALUES['50zl']}
                 </td>
               </tr>
             </tbody>
@@ -211,7 +181,7 @@ export const SettleBoxPageCheckout = () => {
                 <td className={s.left}>100zl</td>
                 <td className={s.middle}>{boxData.amounts.count_100zl}</td>
                 <td className={s.right}>
-                  {boxData.amounts.count_100zl * moneyValues['100zl']}
+                  {boxData.amounts.count_100zl * MONEY_VALUES['100zl']}
                 </td>
               </tr>
             </tbody>
@@ -220,7 +190,7 @@ export const SettleBoxPageCheckout = () => {
                 <td className={s.left}>200zl</td>
                 <td className={s.middle}>{boxData.amounts.count_200zl}</td>
                 <td className={s.right}>
-                  {boxData.amounts.count_200zl * moneyValues['200zl']}
+                  {boxData.amounts.count_200zl * MONEY_VALUES['200zl']}
                 </td>
               </tr>
             </tbody>
@@ -229,7 +199,7 @@ export const SettleBoxPageCheckout = () => {
                 <td className={s.left}>500zl</td>
                 <td className={s.middle}>{boxData.amounts.count_500zl}</td>
                 <td className={s.right}>
-                  {boxData.amounts.count_500zl * moneyValues['500zl']}
+                  {boxData.amounts.count_500zl * MONEY_VALUES['500zl']}
                 </td>
               </tr>
             </tbody>
@@ -238,7 +208,7 @@ export const SettleBoxPageCheckout = () => {
               <tr>
                 <td className={s.left}>Suma (PLN)</td>
                 <td></td>
-                <td className={s.right}>{totalPLNSum} zł</td>
+                <td className={s.right}>{zlotySum} zł</td>
               </tr>
             </tfoot>
           </table>
@@ -255,7 +225,7 @@ export const SettleBoxPageCheckout = () => {
               <tr>
                 <td className={s.left}>Euro</td>
                 <td className={s.right}>
-                  {boxData.amounts.amount_EUR * moneyValues['EUR']}
+                  {boxData.amounts.amount_EUR * MONEY_VALUES['EUR']}
                 </td>
               </tr>
             </tbody>
@@ -263,7 +233,7 @@ export const SettleBoxPageCheckout = () => {
               <tr>
                 <td className={s.left}>GBP</td>
                 <td className={s.right}>
-                  {boxData.amounts.amount_GBP * moneyValues['GBP']}
+                  {boxData.amounts.amount_GBP * MONEY_VALUES['GBP']}
                 </td>
               </tr>
             </tbody>
@@ -271,7 +241,7 @@ export const SettleBoxPageCheckout = () => {
               <tr>
                 <td className={s.left}>USD</td>
                 <td className={s.right}>
-                  {boxData.amounts.amount_USD * moneyValues['USD']}
+                  {boxData.amounts.amount_USD * MONEY_VALUES['USD']}
                 </td>
               </tr>
             </tbody>
@@ -282,7 +252,7 @@ export const SettleBoxPageCheckout = () => {
 
         <div className={s.sum}>
           <h4>Suma (bez walut obcych):</h4>
-          <h4>{totalPLNSum} zł</h4>
+          <h4>{zlotySum} zł</h4>
           <div className={s.action}>
             <p>Nie wydawaj puszki wolontariuszowi</p>
             <Button className={s.confirm} onClick={confirmData}>

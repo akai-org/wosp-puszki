@@ -114,6 +114,7 @@ export interface IBoxContext {
     collectorIdentifier: string,
     boxIdentifier: string,
   ) => Promise<void>;
+  isBoxExists: () => boolean;
   deleteBox: () => void;
   collectorName: string | null;
   collectorIdentifier: string | null;
@@ -224,6 +225,7 @@ export interface IDepositContext {
   zlotySum: number;
   total: number;
   handleAmountsChange: (id: string, value: number | string) => void;
+  cleanAmounts: () => void;
 }
 
 export type UseAuthContextValues = typeof useAuthContextValues;

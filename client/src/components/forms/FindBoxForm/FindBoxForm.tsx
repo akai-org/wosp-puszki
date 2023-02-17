@@ -7,8 +7,7 @@ import { useMutation } from '@tanstack/react-query';
 import {
   useBoxContext,
   boxResponse,
-  useSetStationAvailableQuery,
-  useAuthContext,
+  setStationAvailable,
   APIManager,
   fetcher,
   FormMessage,
@@ -18,6 +17,7 @@ import {
   isFailedFetched,
   openNotification,
   NO_CONNECT_WITH_SERVER,
+  useAuthContext,
 } from '@/utils';
 import { Spinner } from '@components/Layout/Spinner/Spinner';
 import { useNavigate } from 'react-router-dom';
@@ -46,12 +46,15 @@ type FormInput = {
 };
 
 export const FindBoxForm = () => {
+  const navigate = useNavigate();
+
   const [message, setMessage] = useState<FormMessage | undefined>();
   const [form] = useForm();
   const { createBox } = useBoxContext();
-  const navigate = useNavigate();
   const { username } = useAuthContext();
-  useSetStationAvailableQuery(username);
+
+  setStationAvailable();
+
   const mutation = useMutation<boxResponse, unknown, number, unknown>({
     mutationFn: (volunteerId: number) => fetcher(APIManager.findBoxURL(volunteerId)),
     onError: (error) => {
@@ -72,14 +75,19 @@ export const FindBoxForm = () => {
       setTimeout(() => navigate('/liczymy/boxes/settle/2'), 1000);
     },
   });
+
   // TODO: Move that into some mutation - wrapper
   if (!username) {
+    navigate('/liczymy/boxes/settle');
     return null;
   }
+
   const id = parseInt(username.slice(-2));
   const goOnABreakMutation = useMutation({
     mutationFn: () =>
-      fetcher(`${APIManager.baseAPIRUrl}/stations/${id}/busy`, { method: 'POST' }),
+      fetcher(`${APIManager.baseAPIRUrl}/stations/${id}/unknown`, {
+        method: 'POST',
+      }),
     onSuccess: () => navigate('/liczymy/boxes/settle'),
     onError: (error) => {
       if (isFailedFetched(error)) openNotification('error', NO_CONNECT_WITH_SERVER);
