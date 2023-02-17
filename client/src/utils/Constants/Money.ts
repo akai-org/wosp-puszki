@@ -1,4 +1,4 @@
-import { AmountsKeys, ZlotyAmountsKeys } from '@/utils';
+import { AmountsKeys, ForeignAmountsKeys, ZlotyAmountsKeys } from '@/utils';
 
 export const JEDEN_GR = 1.64;
 export const DWA_GR = 2.13;
@@ -17,15 +17,15 @@ export const MONEY_VALUES = {
   '10gr': 0.1,
   '20gr': 0.2,
   '50gr': 0.5,
-  '1zl': 1,
-  '2zl': 2,
-  '5zl': 5,
-  '10zl': 10,
-  '20zl': 20,
-  '50zl': 50,
-  '100zl': 100,
-  '200zl': 200,
-  '500zl': 500,
+  '1zł': 1,
+  '2zł': 2,
+  '5zł': 5,
+  '10zł': 10,
+  '20zł': 20,
+  '50zł': 50,
+  '100zł': 100,
+  '200zł': 200,
+  '500zł': 500,
   EUR: 4.76,
   GBP: 5.36,
   USD: 4.45,
@@ -47,6 +47,12 @@ export const AMOUNTS_KEYS: AmountsKeys[] = [
   'count_100zl',
   'count_200zl',
   'count_500zl',
+  'amount_EUR',
+  'amount_USD',
+  'amount_GBP',
+];
+
+export const FOREIGN_AMOUNTS_KEYS: ForeignAmountsKeys[] = [
   'amount_EUR',
   'amount_USD',
   'amount_GBP',
