@@ -1,42 +1,23 @@
 ============== Do obu stron / Inne ==============
-- uzgodnić jeden typ danych na obu stronach ( weźmy to z read.me BE ),
-- handle Error przenieść gdzieś dalej i zrobić z niego funkcję użyteczną w paru miejscach,
-- Ogarnąć contexty ( pomysł: walnąć w App.tsx jeden provider który będzie posiadał inne, ułatwi to czytelność i zarządzanie tym wszystkim, bo jest ich kilka ),
-  - zrobić osobny folder w src dla contextów
-  - wywalić DepositContext z folderu od formularza,
-  - może jakiś jeden objekt który będzie zwracał wszystkie contexty by nie importować tony rzeczy ? #propozycja 
 - podłączyć wartości walut obcych do API bo jest na sztywno podany kurs - useAmountsQuery z utils wystarczy tylko podpiąć
   - walnąć to gdzieś w osobnym miejscu, przykładowo utils
-- ogarnąć typowanie by takie krzaczki jak pomylone zł i zl nie przechodziło nigdy więcej
-- ogarnąć responsywność obu stron aby administracja w krytycznych momentach mogła coś ogarnąć z telefonu ( przykładowo zastosować grid )
-  - obczaić te skalowanie windowsowe bo psuje sporo rzeczy 
+  - musi się to wykonać to załadowaniu strony
+1/2 - ogarnąć responsywność obu stron aby administracja w krytycznych momentach mogła coś ogarnąć z telefonu ( przykładowo zastosować grid )
+  1/2 - obczaić te skalowanie windowsowe bo psuje sporo rzeczy 
 - porobić do wszystkiego komentarze by zrobić czytelność lvl 1000.
-- przenieść funkcję sum do osobnego miejsca bo się powtarza na obu stronach, może będzie potrzebna w przyszłości i spoko mieć to wyodrębnione 
-- ogarnąć to by context się resetował, czasem można wrócić i zostają poprzednie dane
-if ( Paweł zrobi setup testów ) - walnąć testy 
+if ( Patryk zrobi setup testów ) - walnąć testy 
 
 ============== Deposit Box Page ==============
 - Zrobić osobną stronę dla depositBoxPagePath a nie przekazywać routowi jedynie component,
-  - Porozdzielać na ładne componenty
-    - stronka
-    - Lista
-    - element listy
 - W formularzu używać name i zmienić sposób pozyskiwania wartości z inputów,
-- Przebudować całą strukturę DepositBoxForm, 
-  - użyć map z objektu by się samo robiło a nie mamy się produkować i pisać 20 razy to samo,
 - Wyświetlanie sumy walnąć w useEffect który będzie się odpalał z każdą zmianą czegoś co przechowuje dane z formularza
 
 ============== Settle Box Page Checkout ==============
-- Walnąć strukturę z antd bo jest tu mocny misz masz 
-- Przebudować całą strukturę Settle Box Page Checkout, 
-  - użyć map z objektu by się samo robiło a nie mamy się produkować i pisać 20 razy to samo,
-  - Porozdzielać na ładne componenty
-    - stronka
-    - Lista
-    - element listy
-- przy okazji mutation dodać przechwytywanie błędów bo tego brakuje
+- Porozdzielać na ładne componenty
+  - stronka
+  - Lista
+  - element listy
 
 ============== Rzeczy do zrobienia poza naszym issue, raczej zrobił bym nowe ==============
-- za dużo rzeczy się robi w utils i trzeba tam trochę posprzątać, zrobić i ładnie opisać odpowiednie katalogi
 - ogarnąć katalogowanie w @/components/forms bo jest za dużo rzeczy i poruszanie się po plikach nie jest przyjemne
 
