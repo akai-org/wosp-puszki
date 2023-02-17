@@ -6,6 +6,7 @@ import s from './FormButton.module.less';
 type Props = ButtonProps & FormItemProps;
 
 export const FormButton: FC<Props> = ({
+  onClick,
   htmlType = 'submit',
   type = 'primary',
   children,
@@ -13,7 +14,13 @@ export const FormButton: FC<Props> = ({
 }) => {
   return (
     <Form.Item className={s.formItem} {...rest}>
-      <Button htmlType={htmlType} type={type} className={s.submitBtn} {...rest}>
+      <Button
+        htmlType={htmlType}
+        onClick={onClick}
+        type={type}
+        className={s.submitBtn}
+        {...rest}
+      >
         {children}
       </Button>
     </Form.Item>
