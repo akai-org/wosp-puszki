@@ -3,17 +3,17 @@ import { Button, Space, Typography } from 'antd';
 import { useDepositContext } from '@/utils/Contexts/DepositContext';
 import { useNavigate } from 'react-router-dom';
 import {
+  NO_CONNECT_WITH_SERVER,
+  FOREIGN_AMOUNTS_KEYS,
+  ZLOTY_AMOUNTS_KEYS,
+  MONEY_VALUES,
   APIManager,
   fetcher,
   useBoxContext,
-  setStationUnavailable,
-  MONEY_VALUES,
-  ZLOTY_AMOUNTS_KEYS,
-  FOREIGN_AMOUNTS_KEYS,
   isFailedFetched,
-  openNotification,
-  NO_CONNECT_WITH_SERVER,
   moneyValuesType,
+  openNotification,
+  setStationUnavailable,
 } from '@/utils';
 import { useMutation } from '@tanstack/react-query';
 
@@ -24,7 +24,7 @@ const { Title, Text } = Typography;
 export const SettleBoxPageCheckout = () => {
   const navigate = useNavigate();
 
-  const { boxData, zlotySum, cleanAmounts } = useDepositContext();
+  const { boxData, zlotyTotal, cleanAmounts } = useDepositContext();
   const { isBoxExists, deleteBox, boxIdentifier, collectorIdentifier } = useBoxContext();
 
   if (!isBoxExists()) {
@@ -85,7 +85,7 @@ export const SettleBoxPageCheckout = () => {
             ))}
             <Space className={s.columnBottom}>
               <Text>Suma (PLN)</Text>
-              <Text>{zlotySum} zł</Text>
+              <Text>{zlotyTotal} zł</Text>
             </Space>
           </Space>
           <Space className={s.contentColumn} direction="vertical">
@@ -107,7 +107,7 @@ export const SettleBoxPageCheckout = () => {
         </Space>
         <Space className={s.sum}>
           <Title level={4}>Suma (bez walut obcych):</Title>
-          <Title level={4}>{zlotySum} zł</Title>
+          <Title level={4}>{zlotyTotal} zł</Title>
         </Space>
       </Space>
       <Space className={s.action}>
