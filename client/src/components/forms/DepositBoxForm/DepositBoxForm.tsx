@@ -53,7 +53,7 @@ export const DepositBoxForm = () => {
   setStationUnavailable();
 
   // TODO:
-  // at the beggining values are set to 0, after the fetching data user have to manually change the amount of foreign money to see correct values
+  // at the beggining values are set to 0, after the fetching data user have to manually change the amount of any money to see correct values
   // idea: context with money values, which start with opening login screen and updating data using useAmountsQuery
   //        or just remove value of foreign money, only amount
 
@@ -66,7 +66,6 @@ export const DepositBoxForm = () => {
 
   useEffect(() => {
     setTotal(sum(boxData, ZLOTY_AMOUNTS_KEYS, MONEY_VALUES));
-    console.log(MONEY_VALUES);
   }, [boxData]);
 
   const mutation = useMutation({
