@@ -96,9 +96,8 @@ export const DepositBoxForm = () => {
     const value: string = values[index];
     const foreign = ['amount_EUR', 'amount_USD', 'amount_GBP'];
     return (
-      <Form.Item style={{ marginBottom: 0 }}>
+      <Form.Item style={{ marginBottom: 0 }} key={IDs[index]}>
         <InputNumberBox
-          key={IDs[index]}
           count={handleAmountsChange}
           name={value}
           value={Number(
