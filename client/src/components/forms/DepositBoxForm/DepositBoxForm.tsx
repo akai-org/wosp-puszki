@@ -1,4 +1,4 @@
-import { Space, Typography } from 'antd';
+import { Space, Typography, Form } from 'antd';
 import s from './DepositBoxForm.module.less';
 const { Title } = Typography;
 import { DepositColumn } from '../DepositFormColumn';
@@ -7,7 +7,7 @@ import { Content } from 'antd/lib/layout/layout';
 import { FormButton } from '@/components';
 import TextArea from 'antd/lib/input/TextArea';
 import { useDepositContext } from './DepositContext';
-import { Form, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import {
   AmountsKeys,
@@ -18,10 +18,12 @@ import {
   useSetStationUnavailableQuery,
   recognizeError,
   FormMessage,
+  useAmountsQuery,
 } from '@/utils';
 import { CalculatorView } from '@/components/Calculator/View/CalculatorView';
 import { useEffect, useState } from 'react';
 import { Spinner } from '@components/Layout/Spinner/Spinner';
+
 
 import { moneyValuesType, sum, moneyValues } from './Sum';
 import { uid } from 'uid';
@@ -30,13 +32,15 @@ import { uid } from 'uid';
 const moneySlice = {
   from_1gr: 0,
   to_5zl: 9,
-  from_10zl: 10,
+  from_10zl: 9,
   to_500zl: 15,
+  from_EUR: 15,
+  to_USD: 19,
 };
 
 const getIDs = () => {
   const arr = [];
-  for (let i = moneySlice['from_1gr']; i < moneySlice['to_500zl']; i++) {
+  for (let i = moneySlice['from_1gr']; i < moneySlice['to_USD']; i++) {
     arr.push(uid());
   }
   return arr;
@@ -49,6 +53,7 @@ export const DepositBoxForm = () => {
   const { boxData, handleAmountsChange } = useDepositContext();
   const { boxIdentifier, collectorName, collectorIdentifier } = useBoxContext();
   const navigate = useNavigate();
+  const { data } = useAmountsQuery();
   useEffect(() => {
     if (
       collectorName === null ||
@@ -58,6 +63,13 @@ export const DepositBoxForm = () => {
       navigate('/liczymy/boxes/settle');
     }
   }, [boxIdentifier, collectorName, collectorIdentifier]);
+
+  useEffect(() => {
+    const { USD, GBP, EUR } = data.rates;
+    moneyValues['USD'] = USD;
+    moneyValues['GBP'] = GBP;
+    moneyValues['EUR'] = EUR;
+  }, [data.rates]);
 
   const { username } = useAuthContext();
   useSetStationUnavailableQuery(username);
@@ -82,31 +94,32 @@ export const DepositBoxForm = () => {
 
   const amounts: string[] = Object.keys(boxData['amounts']);
   const values: string[] = Object.keys(moneyValues);
-
   const inputs: JSX.Element[] = amounts.map((key, index) => {
     const value: string = values[index];
+    const foreign = ['amount_EUR', 'amount_USD', 'amount_GBP'];
     return (
-      <InputNumberBox
-        key={IDs[index]}
-        count={handleAmountsChange}
-        name={value}
-        dis={mutation.isLoading}
-        value={Number(
-          (
-            boxData.amounts[key as keyof Record<AmountsKeys, number>] *
-            moneyValues[value as keyof moneyValuesType]
-          ).toFixed(2),
-        )}
-        id={key}
-        df={boxData.amounts[key as keyof Record<AmountsKeys, number>]}
-      />
+      <Form.Item style={{ marginBottom: 0 }} key={IDs[index]}>
+        <InputNumberBox
+          count={handleAmountsChange}
+          name={value}
+          value={Number(
+            (
+              boxData.amounts[key as keyof Record<AmountsKeys, number>] *
+              moneyValues[value as keyof moneyValuesType]
+            ).toFixed(2),
+          )}
+          id={key}
+          quantity={boxData.amounts[key as keyof Record<AmountsKeys, number>]}
+          foreign={foreign.includes(key) ? true : false}
+        />
+      </Form.Item>
     );
   });
 
   return (
     <Content className={s.full}>
       <CalculatorView />
-      <Form>
+      <Form disabled={mutation.isLoading}>
         <Title level={4} className={s.title}>
           Rozliczenie puszki wolontariusza {collectorName} ( {collectorIdentifier} ) ( ID
           puszki w bazie:
@@ -127,6 +140,24 @@ export const DepositBoxForm = () => {
             <Space className={s.sum}>
               <>Suma</>
               <>{acc.toFixed(2).toString() + ' zł'}</>
+            </Space>
+          </DepositColumn>
+          <DepositColumn foreign={true}>
+            {inputs.slice(moneySlice['from_EUR'], moneySlice['to_USD']).map((input) => {
+              return input;
+            })}
+            <Space className={s.other}>
+              Inne
+              <Form.Item style={{ marginBottom: 0 }}>
+                <TextArea
+                  className={s.textArea}
+                  value={boxData['comment']}
+                  onChange={(e) => {
+                    const { value } = e.target;
+                    handleAmountsChange('comment', value);
+                  }}
+                ></TextArea>
+              </Form.Item>
             </Space>
           </DepositColumn>
         </Space>

@@ -1,4 +1,6 @@
-import { AmountsKeys } from '@/utils';
+import { AmountsKeys, useAmountsQuery } from '@/utils';
+
+
 
 export const moneyValues = {
   '1gr': 0.01,
