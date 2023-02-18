@@ -120,7 +120,7 @@ export const SettleBoxPageCheckout = () => {
       </Space>
       <Space className={s.action}>
         <Text>Nie oddawaj puszki wolontariuszowi</Text>
-        <Button className={s.confirm} onClick={confirmData}>
+        <Button className={s.confirm} onClick={confirmData} disabled={mutation.isLoading}>
           {mutation.isLoading ? <Spinner /> : 'Potwierdź rozliczenie puszki'}
         </Button>
         <Button

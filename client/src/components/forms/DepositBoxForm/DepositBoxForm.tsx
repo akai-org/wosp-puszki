@@ -145,6 +145,7 @@ export const DepositBoxForm = () => {
                 <TextArea
                   className={s.textArea}
                   value={boxData['comment']}
+                  disabled={mutation.isLoading}
                   onChange={(e) => {
                     const { value } = e.target;
                     handleAmountsChange('comment', value);
