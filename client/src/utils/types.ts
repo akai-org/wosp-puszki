@@ -222,8 +222,6 @@ export interface BoxData {
 
 export interface IDepositContext {
   boxData: BoxData;
-  zlotySum: number;
-  total: number;
   handleAmountsChange: (id: string, value: number | string) => void;
   cleanAmounts: () => void;
 }

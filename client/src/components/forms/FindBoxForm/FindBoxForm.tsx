@@ -150,7 +150,7 @@ export const FindBoxForm = () => {
         </Space>
       </FormWrapper>
       <Button
-        disabled={goOnABreakMutation.isLoading}
+        disabled={goOnABreakMutation.isLoading || mutation.isLoading}
         type="primary"
         className={s.break}
         onClick={handleBreak}

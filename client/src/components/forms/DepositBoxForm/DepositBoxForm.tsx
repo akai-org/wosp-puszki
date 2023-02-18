@@ -1,31 +1,32 @@
-import { Space, Typography, Form } from 'antd';
-import s from './DepositBoxForm.module.less';
-const { Title } = Typography;
+import { FormButton } from '@/components';
+import { CalculatorView } from '@/components/Calculator/View/CalculatorView';
+import {
+  APIManager,
+  AmountsKeys,
+  FormMessage,
+  MONEY_VALUES,
+  ZLOTY_AMOUNTS_KEYS,
+  fetcher,
+  moneyValuesType,
+  recognizeError,
+  setStationUnavailable,
+  sum,
+  useAmountsQuery,
+  useBoxContext,
+  useDepositContext,
+} from '@/utils';
+import { Spinner } from '@components/Layout/Spinner/Spinner';
+import { useMutation } from '@tanstack/react-query';
+import { Form, Space, Typography } from 'antd';
+import TextArea from 'antd/lib/input/TextArea';
+import { Content } from 'antd/lib/layout/layout';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { DepositColumn } from '../DepositFormColumn';
 import { InputNumberBox } from '../InputNumberBox';
-import { Content } from 'antd/lib/layout/layout';
-import { FormButton } from '@/components';
-import TextArea from 'antd/lib/input/TextArea';
-import { useNavigate } from 'react-router-dom';
-import { useMutation } from '@tanstack/react-query';
-import {
-  AmountsKeys,
-  APIManager,
-  fetcher,
-  useBoxContext,
-  setStationUnavailable,
-  recognizeError,
-  FormMessage,
-  useDepositContext,
-  MONEY_VALUES,
-  moneyValuesType,
-  useAmountsQuery,
-  sum,
-  ZLOTY_AMOUNTS_KEYS,
-} from '@/utils';
-import { CalculatorView } from '@/components/Calculator/View/CalculatorView';
-import { useEffect, useState } from 'react';
-import { Spinner } from '@components/Layout/Spinner/Spinner';
+import s from './DepositBoxForm.module.less';
+
+const { Title } = Typography;
 
 //indexes that are used for splitting array of inputs to match our design
 const moneySlice = {
@@ -51,6 +52,11 @@ export const DepositBoxForm = () => {
   }
   setStationUnavailable();
 
+  // TODO:
+  // at the beggining values are set to 0, after the fetching data user have to manually change the amount of foreign money to see correct values
+  // idea: context with money values, which start with opening login screen and updating data using useAmountsQuery
+  //        or just remove value of foreign money, only amount
+
   useEffect(() => {
     const { USD, GBP, EUR } = data.rates;
     MONEY_VALUES['USD'] = USD;
@@ -59,7 +65,8 @@ export const DepositBoxForm = () => {
   }, [data.rates]);
 
   useEffect(() => {
-    setTotal(sum(boxData, ZLOTY_AMOUNTS_KEYS));
+    setTotal(sum(boxData, ZLOTY_AMOUNTS_KEYS, MONEY_VALUES));
+    console.log(MONEY_VALUES);
   }, [boxData]);
 
   const mutation = useMutation({

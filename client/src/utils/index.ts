@@ -8,4 +8,5 @@ export * from './Notification';
 export * from './parsers';
 export * from './queries';
 export * from './records';
+export * from './Sum';
 export * from './types';

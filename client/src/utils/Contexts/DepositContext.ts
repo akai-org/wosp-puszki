@@ -1,13 +1,5 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-import {
-  IDepositContext,
-  BoxData,
-  AmountsKeys,
-  ZlotyAmountsKeys,
-  MONEY_VALUES,
-  AMOUNTS_KEYS,
-  ZLOTY_AMOUNTS_KEYS,
-} from '@/utils';
+import { createContext, useContext, useState } from 'react';
+import { IDepositContext, BoxData } from '@/utils';
 
 export const DepositContext = createContext<IDepositContext | null>(null);
 
@@ -43,26 +35,6 @@ export const useDepositContextValues = () => {
     },
     comment: '',
   });
-
-  const [zlotySum, setZlotySum] = useState(0);
-  const [total, setTotal] = useState(0);
-
-  useEffect(() => {
-    setZlotySum(sum(ZLOTY_AMOUNTS_KEYS));
-    setTotal(sum(AMOUNTS_KEYS));
-  }, [boxData]);
-
-  const sum = (keys: AmountsKeys[] | ZlotyAmountsKeys[]) => {
-    let total = 0;
-    let i = 0;
-    const values = Object.keys(MONEY_VALUES);
-    for (const key in keys) {
-      total +=
-        boxData.amounts[keys[key]] * MONEY_VALUES[values[i] as keyof typeof MONEY_VALUES];
-      i += 1;
-    }
-    return total;
-  };
 
   const handleAmountsChange = (id: string, value: number | string) => {
     id != 'comment'
@@ -103,8 +75,6 @@ export const useDepositContextValues = () => {
   };
   return {
     boxData,
-    zlotySum,
-    total,
     cleanAmounts,
     handleAmountsChange,
   };

@@ -1,30 +1,34 @@
-import s from './SettleBoxPageCheckout.module.less';
-import { Button, Space, Typography } from 'antd';
-import { useDepositContext } from '@/utils/Contexts/DepositContext';
-import { useNavigate } from 'react-router-dom';
 import {
-  NO_CONNECT_WITH_SERVER,
-  FOREIGN_AMOUNTS_KEYS,
-  ZLOTY_AMOUNTS_KEYS,
-  MONEY_VALUES,
   APIManager,
+  FOREIGN_AMOUNTS_KEYS,
+  MONEY_VALUES,
+  NO_CONNECT_WITH_SERVER,
+  ZLOTY_AMOUNTS_KEYS,
   fetcher,
-  useBoxContext,
   isFailedFetched,
   moneyValuesType,
   openNotification,
   setStationUnavailable,
+  sum,
+  useBoxContext,
 } from '@/utils';
+import { useDepositContext } from '@/utils/Contexts/DepositContext';
 import { useMutation } from '@tanstack/react-query';
+import { Button, Space, Typography } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import s from './SettleBoxPageCheckout.module.less';
 
 import { Spinner } from '@components/Layout/Spinner/Spinner';
 import { Content } from 'antd/lib/layout/layout';
+import { useEffect, useState } from 'react';
 const { Title, Text } = Typography;
 
 export const SettleBoxPageCheckout = () => {
   const navigate = useNavigate();
 
-  const { boxData, zlotyTotal, cleanAmounts } = useDepositContext();
+  const [total, setTotal] = useState(0);
+
+  const { boxData, cleanAmounts } = useDepositContext();
   const { isBoxExists, deleteBox, boxIdentifier, collectorIdentifier } = useBoxContext();
 
   if (!isBoxExists()) {
@@ -32,6 +36,10 @@ export const SettleBoxPageCheckout = () => {
   }
 
   setStationUnavailable();
+
+  useEffect(() => {
+    setTotal(sum(boxData, ZLOTY_AMOUNTS_KEYS, MONEY_VALUES));
+  }, [boxData]);
 
   const mutation = useMutation({
     mutationFn: () =>
@@ -49,7 +57,7 @@ export const SettleBoxPageCheckout = () => {
   });
 
   const goBackToDeposit = () => {
-    navigate(-2);
+    navigate(-1);
   };
 
   const confirmData = () => {
@@ -85,7 +93,7 @@ export const SettleBoxPageCheckout = () => {
             ))}
             <Space className={s.columnBottom}>
               <Text>Suma (PLN)</Text>
-              <Text>{zlotyTotal} zł</Text>
+              <Text>{total} zł</Text>
             </Space>
           </Space>
           <Space className={s.contentColumn} direction="vertical">
@@ -107,7 +115,7 @@ export const SettleBoxPageCheckout = () => {
         </Space>
         <Space className={s.sum}>
           <Title level={4}>Suma (bez walut obcych):</Title>
-          <Title level={4}>{zlotyTotal} zł</Title>
+          <Title level={4}>{total} zł</Title>
         </Space>
       </Space>
       <Space className={s.action}>
