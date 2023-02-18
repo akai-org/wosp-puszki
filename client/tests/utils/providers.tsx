@@ -13,7 +13,7 @@ import {
   Providers,
 } from './types';
 import { DepositContext } from '@/utils/Contexts/DepositContext';
-import { AuthContext, BoxContext } from '@/App';
+import { AuthContext, BoxContext } from '@/utils';
 
 export const BaseProvider = ({ children }: { children: ReactNode }) => {
   const queryClient = new QueryClient();

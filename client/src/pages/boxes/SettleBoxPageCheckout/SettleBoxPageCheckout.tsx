@@ -9,15 +9,15 @@ import {
   setStationUnavailable,
   sum,
   useBoxContext,
+  useDepositContext,
 } from '@/utils';
-import { useDepositContext } from '@/utils/Contexts/DepositContext';
 import { useMutation } from '@tanstack/react-query';
 import { Button, Space, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import s from './SettleBoxPageCheckout.module.less';
 
 import { Header } from '@/components/Layout/Header/Header';
-import { ContentColumns } from '@/components/boxes/SettleBoxCheckout/ContentColumns';
+import { ContentColumns } from '@/components/boxes/SettleBoxCheckout/ContentColumns/ContentColumns';
 import { Spinner } from '@components/Layout/Spinner/Spinner';
 import { Content } from 'antd/lib/layout/layout';
 import { useEffect, useState } from 'react';

@@ -9,8 +9,8 @@ import {
 import { Space, Typography } from 'antd';
 import { FC } from 'react';
 import s from './ContentColumns.module.less';
-import { ContentLine_Three } from './Line_Three';
-import { ContentLine_Two } from './Line_Two';
+import { ContentLine_Three } from '../Lines/Line_Three';
+import { ContentLine_Two } from '../Lines/Line_Two';
 
 const { Text, Title } = Typography;
 

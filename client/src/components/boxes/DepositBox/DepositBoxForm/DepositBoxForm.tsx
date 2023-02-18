@@ -1,5 +1,5 @@
 import { FormButton } from '@/components';
-import { CalculatorView } from '@/components/Calculator/View/CalculatorView';
+import { CalculatorView } from '@/components/Calculator/CalculatorView';
 import {
   APIManager,
   AmountsKeys,

@@ -8,10 +8,8 @@ import {
   ListBoxesPage,
   SettleBoxPageCheckout,
 } from '@/pages';
-import { InnerLayoutManager } from '@/components';
+import { InnerLayoutManager, DepositBoxForm } from '@/components';
 import { ProtectedRoute } from '@components/ProtectedRoute/ProtectedRoute';
-
-import { DepositBoxForm } from '@/components/forms/DepositBoxForm';
 
 const giveBoxPagePath = '';
 const settleBoxPagePath = 'settle';

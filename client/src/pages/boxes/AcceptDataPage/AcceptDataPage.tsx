@@ -1,4 +1,4 @@
-import { AcceptDataCard } from '@/components/AcceptDataCard/AcceptDataCard';
+import { AcceptDataCard } from '@/components';
 import s from './AcceptDataPage.module.less';
 import { Space } from 'antd';
 import {
