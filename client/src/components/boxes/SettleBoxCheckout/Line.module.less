@@ -1,0 +1,46 @@
+.columnLine {
+  width: 100%;
+  border-bottom: 1px solid rgba(0, 35, 41, 0.5);
+  display: flex;
+  position: relative;
+  padding: 0rem 1rem 0.1rem 1rem;
+  height: 1.5rem;
+  justify-content: space-between;
+}
+
+.amount {
+  position: absolute;
+  right: 42.5%;
+  top: 50%;
+  font-size: 1rem;
+  transform: translatey(-50%);
+}
+
+.denomination {
+  display: flex;
+  position: absolute;
+  font-size: 1rem;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.value {
+  display: flex;
+  justify-content: flex-end;
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  font-size: 1rem;
+  transform: translateY(-50%);
+}
+
+@media (-webkit-device-pixel-ratio: 1.25) {
+  .amount,
+  .denomination,
+  .value {
+    font-size: 0.8rem;
+  }
+  .columnLine {
+    height: 1.1rem;
+  }
+}

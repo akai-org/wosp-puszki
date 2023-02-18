@@ -1,12 +1,10 @@
 import {
   APIManager,
-  FOREIGN_AMOUNTS_KEYS,
   MONEY_VALUES,
   NO_CONNECT_WITH_SERVER,
   ZLOTY_AMOUNTS_KEYS,
   fetcher,
   isFailedFetched,
-  moneyValuesType,
   openNotification,
   setStationUnavailable,
   sum,
@@ -18,114 +16,88 @@ import { Button, Space, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import s from './SettleBoxPageCheckout.module.less';
 
+import { Header } from '@/components/Layout/Header/Header';
+import { ContentColumns } from '@/components/boxes/SettleBoxCheckout/ContentColumns';
 import { Spinner } from '@components/Layout/Spinner/Spinner';
 import { Content } from 'antd/lib/layout/layout';
 import { useEffect, useState } from 'react';
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 export const SettleBoxPageCheckout = () => {
   const navigate = useNavigate();
 
+  // state for sum of values
   const [total, setTotal] = useState(0);
 
+  // get data and functions from contexts
   const { boxData, cleanAmounts } = useDepositContext();
   const { isBoxExists, deleteBox, boxIdentifier, collectorIdentifier } = useBoxContext();
 
+  // if we dont have information about the box, then go back to the start of the settle process
   if (!isBoxExists()) {
     navigate('/liczymy/boxes/settle');
   }
 
+  // set station status to unavailable
   setStationUnavailable();
 
+  // when we get data, calculate the total value
   useEffect(() => {
     setTotal(sum(boxData, ZLOTY_AMOUNTS_KEYS, MONEY_VALUES));
   }, [boxData]);
 
-  const mutation = useMutation({
+  // POST data to server
+  const confirmMutation = useMutation({
     mutationFn: () =>
       fetcher(`${APIManager.baseAPIRUrl}/boxes/${boxIdentifier}/finishCounting`, {
         method: 'POST',
       }),
+    // on success clean context and return to the start of the settle process
     onSuccess: () => {
       deleteBox();
       cleanAmounts();
       navigate('/liczymy/boxes/settle');
     },
+    // if we get error about failed fetching, open the notification about that
     onError: (error) => {
       if (isFailedFetched(error)) openNotification('error', NO_CONNECT_WITH_SERVER);
     },
   });
 
+  // go to the previous page
   const goBackToDeposit = () => {
     navigate(-1);
   };
 
+  // submit whole process, send data to server
   const confirmData = () => {
-    mutation.mutate();
+    confirmMutation.mutate();
   };
-
-  const values: string[] = Object.keys(MONEY_VALUES);
 
   return (
     <Content className={s.pageCheckout}>
-      <Title level={4} className={s.title}>
-        Potwierdzenie rozliczenia puszki {collectorIdentifier} ( ID puszki w bazie:
-        {boxIdentifier} )
-      </Title>
-      <Space className={s.contentColumns}>
-        <Space className={s.contentSection}>
-          <Space className={s.contentColumn} direction="vertical">
-            <Space size={60} className={s.columnNames}>
-              <p>Nominał</p>
-              <p>Ilość</p>
-              <p>Wartość</p>
-            </Space>
-            {ZLOTY_AMOUNTS_KEYS.map((key, index) => (
-              <Space size={60} key={key} className={s.columnLine}>
-                <Text className={s.denomination}>{values[index]}</Text>
-                <Text className={s.amount}>{boxData.amounts[key]}</Text>
-                <Text className={s.value}>
-                  {boxData.amounts[key] *
-                    MONEY_VALUES[values[index] as keyof moneyValuesType]}{' '}
-                  zł
-                </Text>
-              </Space>
-            ))}
-            <Space className={s.columnBottom}>
-              <Text>Suma (PLN)</Text>
-              <Text>{total} zł</Text>
-            </Space>
-          </Space>
-          <Space className={s.contentColumn} direction="vertical">
-            <Space size={60} className={s.columnNames}>
-              <p>Nominał</p>
-              <p>Ilość</p>
-            </Space>
-            {FOREIGN_AMOUNTS_KEYS.map((key, index) => (
-              <Space size={60} key={key} className={s.columnLine}>
-                <Text>{values[index + 15]}</Text>
-                <Text>{boxData.amounts[key]}</Text>
-              </Space>
-            ))}
-            <Space className={s.columnBottom}>
-              <Text>Inne</Text>
-              <Text>{boxData.comment}</Text>
-            </Space>
-          </Space>
-        </Space>
-        <Space className={s.sum}>
-          <Title level={4}>Suma (bez walut obcych):</Title>
-          <Title level={4}>{total} zł</Title>
-        </Space>
-      </Space>
+      <Header
+        title={
+          'Potwierdzenie rozliczenia puszki wolontariusza ' +
+          collectorIdentifier +
+          ' ( ID puszki w bazie: ' +
+          boxIdentifier +
+          ' )'
+        }
+      />
+      <ContentColumns boxData={boxData} total={total} />
       <Space className={s.action}>
         <Text>Nie oddawaj puszki wolontariuszowi</Text>
-        <Button className={s.confirm} onClick={confirmData} disabled={mutation.isLoading}>
-          {mutation.isLoading ? <Spinner /> : 'Potwierdź rozliczenie puszki'}
+        <Button
+          className={s.confirm}
+          onClick={confirmData}
+          disabled={confirmMutation.isLoading}
+        >
+          {confirmMutation.isLoading ? <Spinner /> : 'Potwierdź rozliczenie puszki'}
         </Button>
         <Button
           className={s.goBack}
-          disabled={mutation.isLoading}
+          disabled={confirmMutation.isLoading}
           onClick={goBackToDeposit}
         >
           Wróć do poprzedniej strony

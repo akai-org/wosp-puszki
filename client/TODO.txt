@@ -2,10 +2,10 @@
 - podłączyć wartości walut obcych do API bo jest na sztywno podany kurs - useAmountsQuery z utils wystarczy tylko podpiąć
   - walnąć to gdzieś w osobnym miejscu, przykładowo utils
   - musi się to wykonać po załadowaniu strony
-1/2 - ogarnąć responsywność obu stron aby administracja w krytycznych momentach mogła coś ogarnąć z telefonu ( przykładowo zastosować grid )
-  1/2 - obczaić te skalowanie windowsowe bo psuje sporo rzeczy 
+  -
+- ogarnąć responsywność obu stron aby administracja w krytycznych momentach mogła coś ogarnąć z telefonu ( przykładowo zastosować grid )
 - porobić do wszystkiego komentarze by zrobić czytelność lvl 1000.
-if ( Patryk zrobi setup testów ) - walnąć testy 
+- walnąć testy 
 
 ============== Deposit Box Page ==============
 - Zrobić osobną stronę dla depositBoxPagePath a nie przekazywać routowi jedynie component,
