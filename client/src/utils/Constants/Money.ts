@@ -1,5 +1,6 @@
 import { AmountsKeys, ForeignAmountsKeys, ZlotyAmountsKeys } from '@/utils';
 
+// Money mass
 export const JEDEN_GR = 1.64;
 export const DWA_GR = 2.13;
 export const PIEC_GR = 2.59;
