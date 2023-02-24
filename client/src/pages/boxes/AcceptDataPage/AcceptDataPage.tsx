@@ -9,16 +9,17 @@ import {
   setStationUnavailable,
   openNotification,
   NO_CONNECT_WITH_SERVER,
+  isBoxExists,
 } from '@/utils';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 
 export const AcceptDataPage = () => {
   const navigate = useNavigate();
-  const { collectorName, collectorIdentifier, boxIdentifier, isBoxExists } =
-    useBoxContext();
+  const { collectorName, collectorIdentifier, boxIdentifier } = useBoxContext();
 
-  if (!isBoxExists()) {
+  // if we dont have information about the box, then go back to the start of the settle process
+  if (!isBoxExists(collectorName, collectorIdentifier, boxIdentifier)) {
     navigate('/liczymy/boxes/settle');
   }
 

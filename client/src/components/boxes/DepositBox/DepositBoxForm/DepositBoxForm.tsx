@@ -7,6 +7,7 @@ import {
   MONEY_VALUES,
   ZLOTY_AMOUNTS_KEYS,
   fetcher,
+  isBoxExists,
   moneyValuesType,
   recognizeError,
   setStationUnavailable,
@@ -42,12 +43,12 @@ export const DepositBoxForm = () => {
   const [message, setMessage] = useState<FormMessage | undefined>();
   const [total, setTotal] = useState(0);
   const { boxData, handleAmountsChange } = useDepositContext();
-  const { boxIdentifier, collectorName, collectorIdentifier, isBoxExists } =
-    useBoxContext();
+  const { boxIdentifier, collectorName, collectorIdentifier } = useBoxContext();
   const navigate = useNavigate();
   const { data } = useAmountsQuery();
 
-  if (!isBoxExists()) {
+  // if we dont have information about the box, then go back to the start of the settle process
+  if (!isBoxExists(collectorName, collectorIdentifier, boxIdentifier)) {
     navigate('/liczymy/boxes/settle');
   }
   setStationUnavailable();

@@ -6,14 +6,13 @@ import {
   ZLOTY_AMOUNTS_KEYS,
   sum,
 } from '@/utils';
-import { act, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import {
   baseAuthContextValues,
   baseBoxContextValues,
   baseDepositContextValues,
 } from '@tests/utils/basicMockupValues';
 import { SettleBoxProvidersWrapper, renderWithWrapper } from '@tests/utils/wrappers';
-import { vi } from 'vitest';
 import { SettleBoxPageCheckout } from './SettleBoxPageCheckout';
 import { mockEndpoint } from '@tests/utils/MSWSetup';
 
@@ -40,12 +39,6 @@ const testData = {
   },
   comment: '',
 };
-
-vi.mock('@/utils/useFinishCounting.ts', () => {
-  return {
-    useFinishCounting: vi.fn(),
-  };
-});
 
 beforeEach(() => {
   renderWithWrapper(
@@ -125,9 +118,7 @@ describe('Settle Box Page Checkout work correctly', () => {
   it('Should can go back to previous page', () => {
     const BackButton = screen.getByTestId('backButton');
 
-    act(() => {
-      BackButton.click();
-    });
+    BackButton.click();
 
     expect(window.location.pathname).toBe('/liczymy/boxes/settle/3');
   });
@@ -135,9 +126,7 @@ describe('Settle Box Page Checkout work correctly', () => {
   it('Should go to the start of settle process after success submiting', async () => {
     const SubmitButton = screen.getByTestId('submitButton');
 
-    act(() => {
-      SubmitButton.click();
-    });
+    SubmitButton.click();
 
     mockEndpoint(
       `${APIManager.baseAPIRUrl}/boxes/${baseBoxContextValues.boxIdentifier}/finishCounting`,
