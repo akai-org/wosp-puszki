@@ -49,17 +49,10 @@ export const useBoxContextValues = () => {
     updateBoxIdentifier(null);
   };
 
-  const isBoxExists = () => {
-    if (collectorName === null || collectorIdentifier === null || boxIdentifier === null)
-      return false;
-    return true;
-  };
-
   return {
     collectorName,
     collectorIdentifier,
     boxIdentifier,
-    isBoxExists,
     createBox,
     deleteBox,
   };

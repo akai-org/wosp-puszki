@@ -1,17 +1,16 @@
 import {
-  APIManager,
   MONEY_VALUES,
   NO_CONNECT_WITH_SERVER,
   ZLOTY_AMOUNTS_KEYS,
-  fetcher,
   isFailedFetched,
   openNotification,
   setStationUnavailable,
   sum,
   useBoxContext,
   useDepositContext,
+  isBoxExists,
+  useFinishCounting,
 } from '@/utils';
-import { useMutation } from '@tanstack/react-query';
 import { Button, Space, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import s from './SettleBoxPageCheckout.module.less';
@@ -31,10 +30,14 @@ export const SettleBoxPageCheckout = () => {
 
   // get data and functions from contexts
   const { boxData, cleanAmounts } = useDepositContext();
-  const { isBoxExists, deleteBox, boxIdentifier, collectorIdentifier } = useBoxContext();
+  const { deleteBox, boxIdentifier, collectorIdentifier, collectorName } =
+    useBoxContext();
+
+  const { error, isError, isLoading, isSuccess, mutateAsync } =
+    useFinishCounting(boxIdentifier);
 
   // if we dont have information about the box, then go back to the start of the settle process
-  if (!isBoxExists()) {
+  if (!isBoxExists(collectorName, collectorIdentifier, boxIdentifier)) {
     navigate('/liczymy/boxes/settle');
   }
 
@@ -46,32 +49,26 @@ export const SettleBoxPageCheckout = () => {
     setTotal(sum(boxData, ZLOTY_AMOUNTS_KEYS, MONEY_VALUES));
   }, [boxData]);
 
-  // POST data to server
-  const confirmMutation = useMutation({
-    mutationFn: () =>
-      fetcher(`${APIManager.baseAPIRUrl}/boxes/${boxIdentifier}/finishCounting`, {
-        method: 'POST',
-      }),
-    // on success clean context and return to the start of the settle process
-    onSuccess: () => {
+  // react to the behavior of the useFinishCounting hook
+  useEffect(() => {
+    if (isError) {
+      if (isFailedFetched(error)) openNotification('error', NO_CONNECT_WITH_SERVER);
+    }
+    if (isSuccess) {
       deleteBox();
       cleanAmounts();
       navigate('/liczymy/boxes/settle');
-    },
-    // if we get error about failed fetching, open the notification about that
-    onError: (error) => {
-      if (isFailedFetched(error)) openNotification('error', NO_CONNECT_WITH_SERVER);
-    },
-  });
+    }
+  }, [isError, isSuccess]);
 
   // go to the previous page
   const goBackToDeposit = () => {
-    navigate(-1);
+    navigate('/liczymy/boxes/settle/3');
   };
 
   // submit whole process, send data to server
-  const confirmData = () => {
-    confirmMutation.mutate();
+  const confirmData = async () => {
+    await mutateAsync();
   };
 
   return (
@@ -89,15 +86,17 @@ export const SettleBoxPageCheckout = () => {
       <Space className={s.action}>
         <Text>Nie oddawaj puszki wolontariuszowi</Text>
         <Button
+          data-testid="submitButton"
           className={s.confirm}
           onClick={confirmData}
-          disabled={confirmMutation.isLoading}
+          disabled={isLoading}
         >
-          {confirmMutation.isLoading ? <Spinner /> : 'Potwierdź rozliczenie puszki'}
+          {isLoading ? <Spinner /> : 'Potwierdź rozliczenie puszki'}
         </Button>
         <Button
+          data-testid="backButton"
           className={s.goBack}
-          disabled={confirmMutation.isLoading}
+          disabled={isLoading}
           onClick={goBackToDeposit}
         >
           Wróć do poprzedniej strony

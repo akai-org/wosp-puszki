@@ -114,7 +114,6 @@ export interface IBoxContext {
     collectorIdentifier: string,
     boxIdentifier: string,
   ) => Promise<void>;
-  isBoxExists: () => boolean;
   deleteBox: () => void;
   collectorName: string | null;
   collectorIdentifier: string | null;

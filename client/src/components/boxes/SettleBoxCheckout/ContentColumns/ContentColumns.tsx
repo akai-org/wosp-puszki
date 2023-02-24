@@ -36,12 +36,13 @@ export const ContentColumns: FC<Props> = ({ boxData, total }) => {
               boxData.amounts[key] *
               MONEY_VALUES[MONEY_AMOUNTS_VALUES[key] as keyof moneyValuesType]
             }
+            data_testid={key}
             key={key}
           />
         ))}
         <Space className={s.columnBottom}>
           <Text>Suma (PLN)</Text>
-          <Text>{total} zł</Text>
+          <Text data-testid={'sm_total'}>{total} zł</Text>
         </Space>
       </Space>
       <Space className={s.contentColumn} direction="vertical">
@@ -53,6 +54,7 @@ export const ContentColumns: FC<Props> = ({ boxData, total }) => {
           <ContentLine_Two
             denomination={MONEY_AMOUNTS_VALUES[key]}
             amount={boxData.amounts[key]}
+            data_testid={key}
             key={key}
           />
         ))}
@@ -63,7 +65,9 @@ export const ContentColumns: FC<Props> = ({ boxData, total }) => {
       </Space>
       <Space className={s.sum}>
         <Title level={4}>Suma (bez walut obcych):</Title>
-        <Title level={4}>{total} zł</Title>
+        <Title data-testid={'total'} level={4}>
+          {total} zł
+        </Title>
       </Space>
     </Space>
   );

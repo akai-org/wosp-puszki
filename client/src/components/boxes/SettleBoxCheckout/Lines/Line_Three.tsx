@@ -7,15 +7,26 @@ interface Props {
   denomination: string;
   amount: number;
   value: number;
-  key: string;
+  data_testid: string;
 }
 
-export const ContentLine_Three: FC<Props> = ({ denomination, amount, value, key }) => {
+export const ContentLine_Three: FC<Props> = ({
+  denomination,
+  amount,
+  value,
+  data_testid,
+}) => {
   return (
-    <Space size={60} key={key} className={s.columnLine}>
-      <Text className={s.denomination}>{denomination}</Text>
-      <Text className={s.amount}>{amount}</Text>
-      <Text className={s.value}>{value} zł</Text>
+    <Space size={60} data-testid={'columnLine'} className={s.columnLine}>
+      <Text data-testid={['denomination', data_testid]} className={s.denomination}>
+        {denomination}
+      </Text>
+      <Text data-testid={['amount', data_testid]} className={s.amount}>
+        {amount}
+      </Text>
+      <Text data-testid={['value', data_testid]} className={s.value}>
+        {`${value} zł`}
+      </Text>
     </Space>
   );
 };
