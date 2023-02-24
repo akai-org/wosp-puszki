@@ -15,6 +15,7 @@ import {
 import { SettleBoxProvidersWrapper, renderWithWrapper } from '@tests/utils/wrappers';
 import { SettleBoxPageCheckout } from './SettleBoxPageCheckout';
 import { mockEndpoint } from '@tests/utils/MSWSetup';
+import { act } from 'react-dom/test-utils';
 
 const testData = {
   amounts: {
@@ -118,7 +119,7 @@ describe('Settle Box Page Checkout work correctly', () => {
   it('Should can go back to previous page', () => {
     const BackButton = screen.getByTestId('backButton');
 
-    BackButton.click();
+    act(() => BackButton.click());
 
     expect(window.location.pathname).toBe('/liczymy/boxes/settle/3');
   });
@@ -126,7 +127,7 @@ describe('Settle Box Page Checkout work correctly', () => {
   it('Should go to the start of settle process after success submiting', async () => {
     const SubmitButton = screen.getByTestId('submitButton');
 
-    SubmitButton.click();
+    act(() => SubmitButton.click());
 
     mockEndpoint(
       `${APIManager.baseAPIRUrl}/boxes/${baseBoxContextValues.boxIdentifier}/finishCounting`,
