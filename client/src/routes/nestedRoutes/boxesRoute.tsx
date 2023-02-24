@@ -7,8 +7,9 @@ import {
   UnsettledBoxesPage,
   ListBoxesPage,
   SettleBoxPageCheckout,
+  DepositBoxPage,
 } from '@/pages';
-import { InnerLayoutManager, DepositBoxForm } from '@/components';
+import { InnerLayoutManager } from '@/components';
 import { ProtectedRoute } from '@components/ProtectedRoute/ProtectedRoute';
 
 const giveBoxPagePath = '';
@@ -50,7 +51,7 @@ const boxesSubroutes: RouteObject[] = [
   },
   {
     path: depositBoxPagePath,
-    element: <DepositBoxForm />,
+    element: <DepositBoxPage />,
   },
 ];
 

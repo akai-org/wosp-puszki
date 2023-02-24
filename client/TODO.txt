@@ -1,15 +1,6 @@
-============== Do obu stron / Inne ==============
-- podłączyć wartości walut obcych do API bo jest na sztywno podany kurs - useAmountsQuery z utils wystarczy tylko podpiąć
-  - walnąć to gdzieś w osobnym miejscu, przykładowo utils
-  - musi się to wykonać po załadowaniu strony
-  -
-- ogarnąć responsywność obu stron aby administracja w krytycznych momentach mogła coś ogarnąć z telefonu ( przykładowo zastosować grid )
-- porobić do wszystkiego komentarze by zrobić czytelność lvl 1000.
-- walnąć testy 
+============== TODO ==============
+- ogarnąć responsywność stron aby administracja w krytycznych momentach mogła coś ogarnąć z telefonu
+- walnąć testy do DepositBoxForm
 
-============== Deposit Box Page ==============
-- Zrobić osobną stronę dla depositBoxPagePath a nie przekazywać routowi jedynie component,
 
-============== Rzeczy do zrobienia poza naszym issue, raczej zrobił bym nowe ==============
-- ogarnąć katalogowanie w @/components/forms bo jest za dużo rzeczy i poruszanie się po plikach nie jest przyjemne
 
