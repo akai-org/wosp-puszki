@@ -8,7 +8,6 @@ import {
   STATUS_CANT_BE_UPDATED,
   openNotification,
   MULTIPLE_STATUS_CANT_BE_UPDATED,
-  useAuthContext,
 } from '@/utils';
 import { useQuery } from '@tanstack/react-query';
 
@@ -108,15 +107,3 @@ export const useSetStationUnavailableQuery = (username: string | null | undefine
     { refetchInterval: THREE_MINUTES, cacheTime: THREE_MINUTES },
   );
 };
-
-export function setStationAvailable() {
-  const { username } = useAuthContext();
-  useSetStationAvailableQuery(username);
-  return 'Available';
-}
-
-export function setStationUnavailable() {
-  const { username } = useAuthContext();
-  useSetStationUnavailableQuery(username);
-  return 'Available';
-}
