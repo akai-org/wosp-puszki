@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
-import { useAuthContextValues, useBoxContextValues } from '@utils/hooks';
-import { useDepositContext } from '@components/forms/DepositBoxForm/DepositContext';
+import { MONEY_VALUES, useAuthContextValues, useBoxContextValues } from '@/utils';
+import { useDepositContext } from '@/utils/Contexts/DepositContext';
 
 export interface SubNavLink {
   url: string;
@@ -193,7 +193,9 @@ export interface IStations {
   t: number | null;
 }
 
-export type AmountsKeys =
+export type AmountsKeys = ZlotyAmountsKeys | ForeignAmountsKeys;
+
+export type ZlotyAmountsKeys =
   | 'count_1gr'
   | 'count_2gr'
   | 'count_5gr'
@@ -208,10 +210,9 @@ export type AmountsKeys =
   | 'count_50zl'
   | 'count_100zl'
   | 'count_200zl'
-  | 'count_500zl'
-  | 'amount_EUR'
-  | 'amount_USD'
-  | 'amount_GBP';
+  | 'count_500zl';
+
+export type ForeignAmountsKeys = 'amount_EUR' | 'amount_USD' | 'amount_GBP';
 
 export interface BoxData {
   amounts: Record<AmountsKeys, number>;
@@ -221,6 +222,7 @@ export interface BoxData {
 export interface IDepositContext {
   boxData: BoxData;
   handleAmountsChange: (id: string, value: number | string) => void;
+  cleanAmounts: () => void;
 }
 
 export type UseAuthContextValues = typeof useAuthContextValues;
@@ -228,3 +230,5 @@ export type UseAuthContextValues = typeof useAuthContextValues;
 export type UseBoxContextValues = typeof useBoxContextValues;
 
 export type UseDepositContextValues = typeof useDepositContext;
+
+export type moneyValuesType = typeof MONEY_VALUES;

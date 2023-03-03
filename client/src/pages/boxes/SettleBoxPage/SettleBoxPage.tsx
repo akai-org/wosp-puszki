@@ -1,4 +1,4 @@
-import { BoxToSettleForm } from '@components/forms/BoxToSettleForm';
+import { BoxToSettleForm } from '@/components';
 import s from './SettleBoxPage.module.less';
 
 export const SettleBoxPage = () => {

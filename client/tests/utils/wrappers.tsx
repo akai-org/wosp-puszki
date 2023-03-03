@@ -1,5 +1,5 @@
 import { CustomWrapperInput, Providers } from './types';
-import { AllRootProviders } from './providers';
+import { AllRootProviders, SettleBoxRoutesProviders } from './providers';
 import { ReactElement } from 'react';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -35,3 +35,4 @@ export function renderWithUser<Config extends object>(
 }
 
 export const AllRootProvidersWrapper = createCustomWrapper(AllRootProviders);
+export const SettleBoxProvidersWrapper = createCustomWrapper(SettleBoxRoutesProviders);
