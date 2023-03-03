@@ -3,27 +3,27 @@ import { Select, Form, InputNumber, Button } from 'antd';
 import s from './CalculatorView.module.less';
 import { CalculatorOutlined } from '@ant-design/icons';
 import {
-  JEDEN_GR,
-  DWA_GR,
-  PIEC_GR,
-  DZIESIEC_GR,
-  DWADZIESCIA_GR,
-  PIECDZIESIAT_GR,
-  JEDEN_ZL,
-  DWA_ZL,
-  PIEC_ZL,
+  ONE_GR_MASS_IN_GRAMS,
+  TWO_GR_MASS_IN_GRAMS,
+  FIVE_GR_MASS_IN_GRAMS,
+  TEN_GR_MASS_IN_GRAMS,
+  TWENTY_GR_MASS_IN_GRAMS,
+  FIFTY_GR_MASS_IN_GRAMS,
+  ONE_ZL_MASS_IN_GRAMS,
+  TWO_ZL_MASS_IN_GRAMS,
+  FIVE_ZL_MASS_IN_GRAMS,
 } from '@/utils';
 
 const options = [
-  { value: JEDEN_GR, label: '1gr' },
-  { value: DWA_GR, label: '2gr' },
-  { value: PIEC_GR, label: '5gr' },
-  { value: DZIESIEC_GR, label: '10gr' },
-  { value: DWADZIESCIA_GR, label: '20gr' },
-  { value: PIECDZIESIAT_GR, label: '50gr' },
-  { value: JEDEN_ZL, label: '1zl' },
-  { value: DWA_ZL, label: '2zl' },
-  { value: PIEC_ZL, label: '5zl' },
+  { value: ONE_GR_MASS_IN_GRAMS, label: '1gr' },
+  { value: TWO_GR_MASS_IN_GRAMS, label: '2gr' },
+  { value: FIVE_GR_MASS_IN_GRAMS, label: '5gr' },
+  { value: TEN_GR_MASS_IN_GRAMS, label: '10gr' },
+  { value: TWENTY_GR_MASS_IN_GRAMS, label: '20gr' },
+  { value: FIFTY_GR_MASS_IN_GRAMS, label: '50gr' },
+  { value: ONE_ZL_MASS_IN_GRAMS, label: '1zl' },
+  { value: TWO_ZL_MASS_IN_GRAMS, label: '2zl' },
+  { value: FIVE_ZL_MASS_IN_GRAMS, label: '5zl' },
 ];
 
 function round(num: number, decimalPlaces = 0) {
@@ -35,7 +35,7 @@ export const CalculatorView = () => {
   const [value, setValue] = useState(0);
   const [show, setShow] = useState(false);
 
-  const onFinish = (values: any) => {
+  const onFinish = (values: { mass: number; type: number }) => {
     setValue((values.mass / values.type) * 100);
   };
 

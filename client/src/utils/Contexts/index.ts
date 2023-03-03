@@ -1,4 +1,4 @@
 export * from './AuthContext';
 export * from './BoxContext';
-export * from './ContextsProvider';
+export * from './SettleProcessProvider';
 export * from './DepositContext';

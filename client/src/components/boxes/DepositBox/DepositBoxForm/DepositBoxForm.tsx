@@ -3,9 +3,12 @@ import { CalculatorView } from '@/components/Calculator/CalculatorView';
 import {
   APIManager,
   AmountsKeys,
+  CHECKOUT_BOX_PAGE_ROUTE,
   FormMessage,
   MONEY_VALUES,
+  SETTLE_PROCESS_PATH,
   ZLOTY_AMOUNTS_KEYS,
+  createFullRoutePath,
   fetcher,
   isBoxExists,
   moneyValuesType,
@@ -49,7 +52,7 @@ export const DepositBoxForm = () => {
 
   // if we dont have information about the box, then go back to the start of the settle process
   if (!isBoxExists(collectorName, collectorIdentifier, boxIdentifier)) {
-    navigate('/liczymy/boxes/settle');
+    navigate(SETTLE_PROCESS_PATH);
   }
   setStationUnavailable();
 
@@ -75,7 +78,8 @@ export const DepositBoxForm = () => {
         method: 'POST',
         body: { comment: boxData.comment, ...boxData.amounts },
       }),
-    onSuccess: () => navigate('/liczymy/boxes/settle/4'),
+    onSuccess: () =>
+      navigate(createFullRoutePath(SETTLE_PROCESS_PATH, CHECKOUT_BOX_PAGE_ROUTE)),
     onError: (error) => {
       setMessage({ type: 'error', content: recognizeError(error) });
     },
@@ -132,7 +136,7 @@ export const DepositBoxForm = () => {
                 return input;
               })}
             <Space className={s.sum}>
-              <>Suma</>
+              <>Suma ( tylko PLN )</>
               <>{total.toFixed(2).toString() + ' zł'}</>
             </Space>
           </DepositColumn>

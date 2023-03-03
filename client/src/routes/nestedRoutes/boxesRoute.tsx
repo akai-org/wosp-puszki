@@ -1,24 +1,14 @@
 import { RouteObject } from 'react-router-dom';
-import {
-  GiveBoxPage,
-  FindBoxPage,
-  AcceptDataPage,
-  SettleBoxPage,
-  UnsettledBoxesPage,
-  ListBoxesPage,
-  SettleBoxPageCheckout,
-  DepositBoxPage,
-} from '@/pages';
+import { GiveBoxPage, UnsettledBoxesPage, ListBoxesPage } from '@/pages';
 import { InnerLayoutManager } from '@/components';
 import { ProtectedRoute } from '@components/ProtectedRoute/ProtectedRoute';
-
-const giveBoxPagePath = '';
-const settleBoxPagePath = 'settle';
-const findBoxPagePath = 'settle/1';
-const acceptBoxPagePath = 'settle/2';
-const depositBoxPagePath = 'settle/3';
-const settleBoxPagePathCheckout = 'settle/4';
-const unsettledBoxesPagePath = 'unsettled';
+import {
+  BOXES_LIST_PAGE_ROUTE,
+  BOXES_PATH,
+  BOXES_ROUTE,
+  SETTLE_PROCESS_PATH,
+  UNSETTLED_BOXES_LIST_PAGE_ROUTE,
+} from '@/utils';
 
 const boxesSubroutes: RouteObject[] = [
   {
@@ -26,50 +16,26 @@ const boxesSubroutes: RouteObject[] = [
     element: <GiveBoxPage />,
   },
   {
-    path: settleBoxPagePath,
-    element: <SettleBoxPage />,
-  },
-  {
-    path: findBoxPagePath,
-    element: <FindBoxPage />,
-  },
-  {
-    path: acceptBoxPagePath,
-    element: <AcceptDataPage />,
-  },
-  {
-    path: settleBoxPagePathCheckout,
-    element: <SettleBoxPageCheckout />,
-  },
-  {
-    path: 'listBoxes',
+    path: BOXES_LIST_PAGE_ROUTE,
     element: <ListBoxesPage />,
   },
   {
-    path: unsettledBoxesPagePath,
+    path: UNSETTLED_BOXES_LIST_PAGE_ROUTE,
     element: <UnsettledBoxesPage />,
-  },
-  {
-    path: depositBoxPagePath,
-    element: <DepositBoxPage />,
   },
 ];
 
 export const boxesRoute = {
-  path: 'boxes',
+  path: BOXES_ROUTE,
   element: (
     <ProtectedRoute>
       <InnerLayoutManager
-        prefix="/liczymy/boxes"
-        excludingLinks={[
-          findBoxPagePath,
-          acceptBoxPagePath,
-          depositBoxPagePath,
-          settleBoxPagePathCheckout,
-        ]}
+        prefix={BOXES_PATH}
+        excludingLinks={[]}
         links={[
-          { url: giveBoxPagePath, label: 'Wydaj puszkę' },
-          { url: settleBoxPagePath, label: 'Rozlicz puszkę' },
+          { url: BOXES_PATH, label: 'Wydaj puszkę' },
+          { url: SETTLE_PROCESS_PATH, label: 'Rozlicz puszkę' },
+          // TODO: hide this when user is not logged in as admin
           // { url: '', label: 'Wszystkie puszki' },
           // { url: unsettledBoxesPagePath, label: 'Lista puszek nie rozliczonych' },
         ]}

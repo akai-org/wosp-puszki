@@ -10,6 +10,9 @@ import {
   openNotification,
   NO_CONNECT_WITH_SERVER,
   isBoxExists,
+  SETTLE_PROCESS_PATH,
+  createFullRoutePath,
+  DEPOSIT_BOX_PAGE_ROUTE,
 } from '@/utils';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
@@ -20,7 +23,7 @@ export const AcceptDataPage = () => {
 
   // if we dont have information about the box, then go back to the start of the settle process
   if (!isBoxExists(collectorName, collectorIdentifier, boxIdentifier)) {
-    navigate('/liczymy/boxes/settle');
+    navigate(SETTLE_PROCESS_PATH);
   }
 
   setStationUnavailable();
@@ -31,7 +34,7 @@ export const AcceptDataPage = () => {
         method: 'POST',
       }),
     onSuccess: () => {
-      navigate('/liczymy/boxes/settle/3');
+      navigate(createFullRoutePath(SETTLE_PROCESS_PATH, DEPOSIT_BOX_PAGE_ROUTE));
     },
     onError: (error) => {
       if (isFailedFetched(error)) openNotification('error', NO_CONNECT_WITH_SERVER);

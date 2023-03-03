@@ -1,15 +1,15 @@
 import { AmountsKeys, ForeignAmountsKeys, ZlotyAmountsKeys } from '@/utils';
 
 // Money mass
-export const JEDEN_GR = 1.64;
-export const DWA_GR = 2.13;
-export const PIEC_GR = 2.59;
-export const DZIESIEC_GR = 2.51;
-export const DWADZIESCIA_GR = 3.22;
-export const PIECDZIESIAT_GR = 3.94;
-export const JEDEN_ZL = 5;
-export const DWA_ZL = 5.21;
-export const PIEC_ZL = 6.54;
+export const ONE_GR_MASS_IN_GRAMS = 1.64;
+export const TWO_GR_MASS_IN_GRAMS = 2.13;
+export const FIVE_GR_MASS_IN_GRAMS = 2.59;
+export const TEN_GR_MASS_IN_GRAMS = 2.51;
+export const TWENTY_GR_MASS_IN_GRAMS = 3.22;
+export const FIFTY_GR_MASS_IN_GRAMS = 3.94;
+export const ONE_ZL_MASS_IN_GRAMS = 5;
+export const TWO_ZL_MASS_IN_GRAMS = 5.21;
+export const FIVE_ZL_MASS_IN_GRAMS = 6.54;
 
 export const MONEY_VALUES = {
   '1gr': 0.01,

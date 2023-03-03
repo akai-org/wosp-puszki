@@ -10,6 +10,9 @@ import {
   useDepositContext,
   isBoxExists,
   useFinishCounting,
+  SETTLE_PROCESS_PATH,
+  createFullRoutePath,
+  DEPOSIT_BOX_PAGE_ROUTE,
 } from '@/utils';
 import { Button, Space, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
@@ -38,7 +41,7 @@ export const SettleBoxPageCheckout = () => {
 
   // if we dont have information about the box, then go back to the start of the settle process
   if (!isBoxExists(collectorName, collectorIdentifier, boxIdentifier)) {
-    navigate('/liczymy/boxes/settle');
+    navigate(SETTLE_PROCESS_PATH);
   }
 
   // set station status to unavailable
@@ -57,13 +60,13 @@ export const SettleBoxPageCheckout = () => {
     if (isSuccess) {
       deleteBox();
       cleanAmounts();
-      navigate('/liczymy/boxes/settle');
+      navigate(SETTLE_PROCESS_PATH);
     }
   }, [isError, isSuccess]);
 
   // go to the previous page
   const goBackToDeposit = () => {
-    navigate('/liczymy/boxes/settle/3');
+    navigate(createFullRoutePath(SETTLE_PROCESS_PATH, DEPOSIT_BOX_PAGE_ROUTE));
   };
 
   // submit whole process, send data to server

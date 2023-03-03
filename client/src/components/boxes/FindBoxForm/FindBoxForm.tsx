@@ -19,7 +19,11 @@ import {
   NO_CONNECT_WITH_SERVER,
   useAuthContext,
   setStationUnknown,
-  getID,
+  getIDfromUsername,
+  createFullRoutePath,
+  SETTLE_PROCESS_PATH,
+  ACCEPT_BOX_PAGE_ROUTE,
+  LOGIN_PATH,
 } from '@/utils';
 import { Spinner } from '@components/Layout/Spinner/Spinner';
 import { useNavigate } from 'react-router-dom';
@@ -51,7 +55,7 @@ export const FindBoxForm = () => {
   const navigate = useNavigate();
   const { username } = useAuthContext();
   if (username === null) {
-    navigate('/liczymy/login');
+    navigate(LOGIN_PATH);
     return null;
   } else {
     const [message, setMessage] = useState<FormMessage | undefined>();
@@ -77,7 +81,10 @@ export const FindBoxForm = () => {
         );
         form.resetFields();
         // TODO: Probalby can get rid of setTimeout
-        setTimeout(() => navigate('/liczymy/boxes/settle/2'), 1000);
+        setTimeout(
+          () => navigate(createFullRoutePath(SETTLE_PROCESS_PATH, ACCEPT_BOX_PAGE_ROUTE)),
+          1000,
+        );
       },
     });
 
@@ -104,13 +111,13 @@ export const FindBoxForm = () => {
       if (isErrorBreak && isFailedFetched(errorBreak))
         openNotification('error', NO_CONNECT_WITH_SERVER);
 
-      if (isSuccessBreak) navigate('/liczymy/boxes/settle');
+      if (isSuccessBreak) navigate(SETTLE_PROCESS_PATH);
     }, [isErrorBreak, isSuccessBreak]);
 
     const handleBreak = () => {
       // if u are admin then fast go through, You dont need to set station status
-      if (isNaN(getID(username))) {
-        navigate('/liczymy/boxes/settle');
+      if (isNaN(getIDfromUsername(username))) {
+        navigate(SETTLE_PROCESS_PATH);
       } else {
         mutateGoOnABreak();
       }

@@ -1,8 +1,8 @@
-import { getID } from './getID';
+import { getIDfromUsername } from './getIDfromUsername';
 
 it('should return correct id', () => {
-  expect(getID('test01')).toEqual(1);
+  expect(getIDfromUsername('test01')).toEqual(1);
 });
 it('should return NaN if no breadman', () => {
-  expect(getID('superadmin')).toEqual(NaN);
+  expect(getIDfromUsername('superadmin')).toEqual(NaN);
 });

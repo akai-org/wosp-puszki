@@ -1,9 +1,12 @@
 import {
   APIManager,
   AmountsKeys,
+  DEPOSIT_BOX_PAGE_ROUTE,
   MONEY_AMOUNTS_VALUES,
   MONEY_VALUES,
+  SETTLE_PROCESS_PATH,
   ZLOTY_AMOUNTS_KEYS,
+  createFullRoutePath,
   sum,
 } from '@/utils';
 import { screen, waitFor } from '@testing-library/react';
@@ -121,7 +124,9 @@ describe('Settle Box Page Checkout work correctly', () => {
 
     act(() => BackButton.click());
 
-    expect(window.location.pathname).toBe('/liczymy/boxes/settle/3');
+    expect(window.location.pathname).toBe(
+      createFullRoutePath(SETTLE_PROCESS_PATH, DEPOSIT_BOX_PAGE_ROUTE),
+    );
   });
 
   it('Should go to the start of settle process after success submiting', async () => {
@@ -138,7 +143,7 @@ describe('Settle Box Page Checkout work correctly', () => {
     );
 
     await waitFor(() => {
-      expect(window.location.pathname).toBe('/liczymy/boxes/settle');
+      expect(window.location.pathname).toBe(SETTLE_PROCESS_PATH);
     });
   });
 });

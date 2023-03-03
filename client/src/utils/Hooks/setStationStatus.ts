@@ -3,22 +3,20 @@ import { useAuthContext } from '../Contexts';
 import { useSetStationAvailableQuery, useSetStationUnavailableQuery } from '../queries';
 import { APIManager } from '../Classes';
 import { fetcher } from '../fetcher';
-import { getID } from '../Functions';
+import { getIDfromUsername } from '../Functions';
 
 export function setStationAvailable() {
   const { username } = useAuthContext();
   useSetStationAvailableQuery(username);
-  return 'Available';
 }
 
 export function setStationUnavailable() {
   const { username } = useAuthContext();
   useSetStationUnavailableQuery(username);
-  return 'Unavailable';
 }
 
 export function setStationUnknown(username: string) {
-  const id = getID(username);
+  const id = getIDfromUsername(username);
 
   const { error, isError, isLoading, isSuccess, mutateAsync } = useMutation({
     mutationFn: () =>
