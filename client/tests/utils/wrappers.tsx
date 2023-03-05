@@ -1,5 +1,5 @@
 import { CustomWrapperInput, Providers, Wrapper } from './types';
-import { AllRootProviders } from './providers';
+import { AllRootProvidersFactory } from './providers';
 import { ReactElement } from 'react';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -34,4 +34,4 @@ export function renderWithUser<Config extends object>(
   };
 }
 
-export const AllRootProvidersWrapper = createCustomWrapper(AllRootProviders);
+export const AllRootProvidersWrapper = createCustomWrapper(AllRootProvidersFactory);
