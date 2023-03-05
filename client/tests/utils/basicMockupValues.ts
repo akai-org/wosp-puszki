@@ -21,6 +21,7 @@ export const baseBoxContextValues = {
 
 export const baseDepositContextValues = {
   handleAmountsChange: vi.fn(),
+  cleanAmounts: vi.fn(),
   boxData: {
     comment: '',
     amounts: {

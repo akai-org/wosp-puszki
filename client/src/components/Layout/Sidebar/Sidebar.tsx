@@ -1,12 +1,12 @@
 import { FC } from 'react';
 import { SidebarSmall, SidebarBig } from './SidebarVariants';
-import { useAuthContext } from '@/utils';
+import { SETTLE_PROCESS_PATH, useAuthContext } from '@/utils';
 
 const links = [
   { label: 'Strona Główna', url: '' },
   // { label: 'Przeliczone puszki', url: 'countedBoxes' },
   // { label: 'Administracja', url: 'admin' },
-  { label: 'Puszki', url: 'boxes' },
+  { label: 'Puszki', url: SETTLE_PROCESS_PATH },
 ];
 
 export const Sidebar: FC = () => {

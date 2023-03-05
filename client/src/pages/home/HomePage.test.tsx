@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest';
 import { waitFor } from '@testing-library/react';
 import { HomePage } from '@/pages';
-import { APIManager } from '@/utils';
+import { APIManager, BOXES_PATH, SETTLE_PROCESS_PATH } from '@/utils';
 import { mockEndpoint } from '@tests/utils/MSWSetup';
 import { COLLECTED_PLN_ID, COLLECTED_TOTAL_ID } from '@tests/utils/testIDs';
 import {
@@ -55,14 +55,15 @@ describe('Testing HomePage', () => {
     const { getByText, user } = renderWithUser(<HomePage />, AllRootProvidersWrapper());
     const button = getByText('Wydaj puszkę wolontariuszowi');
     await user.click(button);
-    expect(window.location.pathname).toBe('/boxes');
+    await waitFor(() => expect(window.location.pathname).toBe(BOXES_PATH));
+    // expect(location.pathname).toBe(BOXES_PATH);
   });
 
   it("Test clicking 'Rozlicz puszkę' link", async ({ expect }) => {
     const { getByText, user } = renderWithUser(<HomePage />, AllRootProvidersWrapper());
     const button = getByText('Rozlicz puszkę');
     await user.click(button);
-    await waitFor(() => expect(window.location.pathname).toBe('/boxes/settle'));
+    await waitFor(() => expect(window.location.pathname).toBe(SETTLE_PROCESS_PATH));
   });
 
   it('Test displaying data returned from API', async ({ expect }) => {
