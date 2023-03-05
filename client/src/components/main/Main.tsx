@@ -23,7 +23,6 @@ export const Main = () => {
         )}
         <Button
           onClick={() => {
-            console.log('dupa');
             navigate('boxes/settle');
           }}
           className={s.buttons}

@@ -32,3 +32,4 @@ docs
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+public/mockServiceWorker.js

@@ -20,3 +20,5 @@ export type Providers<ConfigType extends object> = (
   input: CustomWrapperInput,
   config?: ConfigType,
 ) => ReactElement;
+
+export type Wrapper<ConfigType extends object> = Providers<ConfigType>;
