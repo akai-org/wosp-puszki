@@ -35,4 +35,6 @@ export function renderWithUser<Config extends object>(
 }
 
 export const AllRootProvidersWrapper = createCustomWrapper(AllRootProvidersFactory);
-export const SettleBoxProvidersWrapper = createCustomWrapper(SettleBoxRoutesProvidersFactory);
+export const SettleBoxProvidersWrapper = createCustomWrapper(
+  SettleBoxRoutesProvidersFactory,
+);
