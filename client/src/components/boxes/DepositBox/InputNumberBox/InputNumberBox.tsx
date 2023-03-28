@@ -32,16 +32,15 @@ export const InputNumberBox: FC<Props> = ({
           name={name}
           id={id}
           min={0}
-          precision={foreign ? 2 : undefined}
+          precision={undefined}
           max={10000}
           value={quantity == 0 ? '' : quantity}
-          className={s.inputNumber}
+          className={[s.inputNumber, foreign ? s.foreign : ''].join(' ')}
           onChange={(val) => {
             val != null ? count(id, val as number) : count(id, 0);
           }}
         />
-
-        <Text className={s.value}>{value} zł</Text>
+        {!foreign && <Text className={s.value}>{value} zł</Text>}
       </Space>
     </>
   );
