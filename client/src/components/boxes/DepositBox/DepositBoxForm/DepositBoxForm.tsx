@@ -15,7 +15,6 @@ import {
   recognizeError,
   setStationUnavailable,
   sum,
-  useAmountsQuery,
   useBoxContext,
   useDepositContext,
 } from '@/utils';
@@ -48,25 +47,12 @@ export const DepositBoxForm = () => {
   const { boxData, handleAmountsChange } = useDepositContext();
   const { boxIdentifier, collectorName, collectorIdentifier } = useBoxContext();
   const navigate = useNavigate();
-  const { data } = useAmountsQuery();
 
   // if we dont have information about the box, then go back to the start of the settle process
   if (!isBoxExists(collectorName, collectorIdentifier, boxIdentifier)) {
     navigate(SETTLE_PROCESS_PATH);
   }
   setStationUnavailable();
-
-  // TODO:
-  // at the beggining foreign values are set to 0, after the fetching data user have to manually change the amount of any money to see correct values
-  // idea: context with money values, which start with opening login screen and updating data using useAmountsQuery
-  //        or just remove value of foreign money, only amount
-
-  useEffect(() => {
-    const { USD, GBP, EUR } = data.rates;
-    MONEY_VALUES['USD'] = USD;
-    MONEY_VALUES['GBP'] = GBP;
-    MONEY_VALUES['EUR'] = EUR;
-  }, [data.rates]);
 
   useEffect(() => {
     setTotal(sum(boxData, ZLOTY_AMOUNTS_KEYS, MONEY_VALUES));
