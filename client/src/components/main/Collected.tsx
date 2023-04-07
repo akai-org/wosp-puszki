@@ -1,32 +1,20 @@
 import { Typography, Space } from 'antd';
 import s from './Main.module.css';
-import { COLLECTED_PLN_ID, COLLECTED_TOTAL_ID } from '@tests/utils/testIDs';
+import { COLLECTED_ESKARBONKA_ID, COLLECTED_TOTAL_ID } from '@tests/utils/testIDs';
 import { FC } from 'react';
 const { Title } = Typography;
 
 interface Collected {
-  pln: number;
+  piggy: number;
   total: number;
 }
 
-export const Collected: FC<Collected> = ({ pln, total }) => {
+export const Collected: FC<Collected> = ({ piggy, total }) => {
   return (
     <Space direction="vertical" size={40} className={s.collected}>
       <Space direction="vertical" size={10} align="center">
         <Title level={2} style={{ margin: 0, fontWeight: 400 }}>
-          Zebralismy:
-        </Title>
-        <Title
-          data-testid={COLLECTED_PLN_ID}
-          level={2}
-          style={{ margin: 0, fontWeight: 400 }}
-        >
-          {pln} zł
-        </Title>
-      </Space>
-      <Space direction="vertical" size={10} align="center">
-        <Title level={2} style={{ margin: 0, fontWeight: 400 }}>
-          Razem z walutami obcymi:
+          Zebraliśmy z puszek
         </Title>
         <Title
           data-testid={COLLECTED_TOTAL_ID}
@@ -34,6 +22,19 @@ export const Collected: FC<Collected> = ({ pln, total }) => {
           style={{ margin: 0, fontWeight: 400 }}
         >
           {total} zł
+        </Title>
+      </Space>
+
+      <Space direction="vertical" size={10} align="center">
+        <Title level={2} style={{ margin: 0, fontWeight: 400 }}>
+          Zebraliśmy w eSkarbonce:
+        </Title>
+        <Title
+          data-testid={COLLECTED_ESKARBONKA_ID}
+          level={2}
+          style={{ margin: 0, fontWeight: 400 }}
+        >
+          {piggy} zł
         </Title>
       </Space>
     </Space>
