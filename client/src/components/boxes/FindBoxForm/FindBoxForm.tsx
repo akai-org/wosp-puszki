@@ -154,8 +154,8 @@ export const FindBoxForm = () => {
                 className={s.select}
                 rules={[{ required: true, message: TYPE_OF_BOX_REQUIRED }]}
               />
-              <FormButton htmlType="submit" type="primary">
-                {mutation.isLoading ? <Spinner /> : 'Wyszukaj puszkę'}
+              <FormButton htmlType="submit" type="primary" isLoading={mutation.isLoading}>
+                Wyszukaj puszkę
               </FormButton>
             </Space>
           </Space>

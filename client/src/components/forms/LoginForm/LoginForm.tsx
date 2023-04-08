@@ -7,7 +7,6 @@ import {
 import { FormButton, FormWrapper, FormInput } from '@/components';
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { Spinner } from '@components/Layout/Spinner/Spinner';
 
 interface LoginFormValues {
   username: string;
@@ -46,8 +45,8 @@ export const LoginForm = () => {
         label="Hasło"
         rules={[{ required: true, message: PASSWORD_REQUIRED }]}
       />
-      <FormButton type="primary" htmlType="submit">
-        {mutation.isLoading ? <Spinner /> : 'Zaloguj'}
+      <FormButton type="primary" htmlType="submit" isLoading={mutation.isLoading}>
+        Zaloguj
       </FormButton>
     </FormWrapper>
   );
