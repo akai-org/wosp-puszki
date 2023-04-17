@@ -1,5 +1,5 @@
 import { FormButton, FormWrapper, FormInput, FormSelect } from '@/components';
-import { Typography, Space, Button } from 'antd';
+import { Typography, Space } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 import s from './FindBoxForm.module.less';
 import { useEffect, useState } from 'react';
@@ -25,7 +25,6 @@ import {
   ACCEPT_BOX_PAGE_ROUTE,
   LOGIN_PATH,
 } from '@/utils';
-import { Spinner } from '@components/Layout/Spinner/Spinner';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'antd/es/form/Form';
 
@@ -154,20 +153,24 @@ export const FindBoxForm = () => {
                 className={s.select}
                 rules={[{ required: true, message: TYPE_OF_BOX_REQUIRED }]}
               />
-              <FormButton htmlType="submit" type="primary" isLoading={mutation.isLoading}>
+              <FormButton
+                variant={'form'}
+                htmlType="submit"
+                type="primary"
+                isLoading={mutation.isLoading}
+              >
                 Wyszukaj puszkę
               </FormButton>
             </Space>
           </Space>
         </FormWrapper>
-        <Button
+        <FormButton
           disabled={isLoadingBreak || mutation.isLoading}
           type="primary"
-          className={s.break}
           onClick={handleBreak}
         >
-          {isLoadingBreak ? <Spinner /> : 'Nie chcę rozliczać dalej - przerwa'}
-        </Button>
+          Nie chcę rozliczać dalej - przerwa
+        </FormButton>
       </Content>
     );
   }
