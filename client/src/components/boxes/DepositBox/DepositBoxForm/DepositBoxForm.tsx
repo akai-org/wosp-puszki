@@ -18,15 +18,14 @@ import {
   useBoxContext,
   useDepositContext,
 } from '@/utils';
-import { Spinner } from '@components/Layout/Spinner/Spinner';
 import { useMutation } from '@tanstack/react-query';
 import { Form, Space, Typography } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import { Content } from 'antd/lib/layout/layout';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { DepositColumn } from '../DepositFormColumn';
-import { InputNumberBox } from '../InputNumberBox';
+import { DepositColumn } from '@/components';
+import { InputNumberBox } from '@/components';
 import s from './DepositBoxForm.module.less';
 
 const { Title } = Typography;
@@ -94,7 +93,7 @@ export const DepositBoxForm = () => {
           )}
           id={key}
           quantity={boxData.amounts[key as keyof Record<AmountsKeys, number>]}
-          foreign={foreign.includes(key) ? true : false}
+          foreign={foreign.includes(key)}
         />
       </Form.Item>
     );
@@ -152,8 +151,12 @@ export const DepositBoxForm = () => {
           align="center"
           className={s.submitContainer}
         >
-          <FormButton type="primary" onClick={handleSubmit}>
-            {mutation.isLoading ? <Spinner /> : 'Rozlicz Puszkę'}
+          <FormButton
+            type="primary"
+            onClick={handleSubmit}
+            isLoading={mutation.isLoading}
+          >
+            Rozlicz Puszkę
           </FormButton>
         </Space>
         {message && (

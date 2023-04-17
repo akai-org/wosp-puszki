@@ -12,7 +12,6 @@ import {
 
 import { FormWrapper, FormInput, FormSelect, FormButton } from '@/components';
 import { useMutation } from '@tanstack/react-query';
-import { Spinner } from '@components/Layout/Spinner/Spinner';
 import { useForm } from 'antd/es/form/Form';
 
 const { Text } = Typography;
@@ -91,8 +90,8 @@ export const GiveBoxForm = () => {
           rules={[{ required: true, message: TYPE_OF_BOX_REQUIRED }]}
         />
       </Space>
-      <FormButton htmlType="submit" type="primary">
-        {mutation.isLoading ? <Spinner /> : 'Dodaj Puszkę'}
+      <FormButton htmlType="submit" type="primary" isLoading={mutation.isLoading}>
+        Dodaj Puszkę
       </FormButton>
     </FormWrapper>
   );
