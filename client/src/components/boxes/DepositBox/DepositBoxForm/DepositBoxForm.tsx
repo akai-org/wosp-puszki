@@ -10,13 +10,12 @@ import {
   ZLOTY_AMOUNTS_KEYS,
   createFullRoutePath,
   fetcher,
-  isBoxExists,
   moneyValuesType,
   recognizeError,
   setStationUnavailable,
   sum,
-  useBoxContext,
   useDepositContext,
+  useGetBoxData,
 } from '@/utils';
 import { useMutation } from '@tanstack/react-query';
 import { Form, Space, Typography } from 'antd';
@@ -44,13 +43,9 @@ export const DepositBoxForm = () => {
   const [message, setMessage] = useState<FormMessage | undefined>();
   const [total, setTotal] = useState(0);
   const { boxData, handleAmountsChange } = useDepositContext();
-  const { boxIdentifier, collectorName, collectorIdentifier } = useBoxContext();
+  const { boxIdentifier, collectorName, collectorIdentifier } = useGetBoxData();
   const navigate = useNavigate();
 
-  // if we dont have information about the box, then go back to the start of the settle process
-  if (!isBoxExists(collectorName, collectorIdentifier, boxIdentifier)) {
-    navigate(SETTLE_PROCESS_PATH);
-  }
   setStationUnavailable();
 
   useEffect(() => {
