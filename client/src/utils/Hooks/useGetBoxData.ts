@@ -4,11 +4,11 @@ import { isBoxExists } from '../Functions';
 import { useNavigate } from 'react-router-dom';
 
 export const useGetBoxData = () => {
+  const navigate = useNavigate();
   const { boxIdentifier, collectorName, collectorIdentifier, createBox, deleteBox } =
     useBoxContext();
 
   if (!isBoxExists(collectorName, collectorIdentifier, boxIdentifier)) {
-    const navigate = useNavigate();
     navigate(SETTLE_PROCESS_PATH);
   }
 
