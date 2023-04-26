@@ -8,16 +8,20 @@ import { SubNavLink } from '@/utils';
 const { Header, Footer } = Layout;
 
 type SidebarData = {
-  links: SubNavLink[];
+  show: boolean;
   userName: string;
+  links: SubNavLink[];
+  toggleSidebar: () => void;
   deleteCredentials: () => void;
 };
 
-export const SidebarBig: React.FC<SidebarData> = (props) => {
+// Zrobić jakąś destrukturyzacje propsów
+export const Logged: React.FC<SidebarData> = (props) => {
   const handleLogout = () => {
     props.deleteCredentials();
   };
 
+  // Ogarnąć by to wyglądało tak jak w Figmie, ikony itp.
   return (
     <Layout className={[s.sidebar, s.sidebarLayout].join(' ')}>
       <Header className={[s.sidebar, s.sidebarHeader].join(' ')}>
