@@ -4,6 +4,8 @@ import s from '../Sidebar.module.less';
 import Logo from '@/assets/wosp.svg';
 import { SidebarItem } from '@components/Layout/Sidebar/SidebarItem/SidebarItem';
 import { SubNavLink } from '@/utils';
+import { Icon } from '@iconify/react';
+import { Tooltip } from 'antd';
 
 const { Header, Footer } = Layout;
 
@@ -16,29 +18,91 @@ type SidebarData = {
 };
 
 // Zrobić jakąś destrukturyzacje propsów
-export const Logged: React.FC<SidebarData> = (props) => {
+export const Logged: React.FC<SidebarData> = ({
+  show,
+  userName,
+  links,
+  toggleSidebar,
+  deleteCredentials,
+}) => {
   const handleLogout = () => {
-    props.deleteCredentials();
+    deleteCredentials();
   };
 
   // Ogarnąć by to wyglądało tak jak w Figmie, ikony itp.
   return (
-    <Layout className={[s.sidebar, s.sidebarLayout].join(' ')}>
-      <Header className={[s.sidebar, s.sidebarHeader].join(' ')}>
+    <Layout className={[s.sidebarLayout, !show ? s.showSidebar : null].join(' ')}>
+      <Header className={s.sidebarHeader}>
         <img src={Logo} alt="WOSP Logo" />
       </Header>
-      <Layout className={[s.sidebar, s.sidebarContent].join(' ')}>
-        {props.links.map((item) => (
-          <SidebarItem label={item.label} url={item.url} key={item.label} />
+      <Layout className={s.sidebarContent}>
+        {links.map((item) => (
+          <SidebarItem label={item.label} url={item.url} key={item.label} show={show} />
         ))}
       </Layout>
-      <Footer className={[s.sidebar, s.sidebarFooter].join(' ')}>
-        <p>Użytkownik:</p>
-        <p className={s.userName}>{props.userName}</p>
-        <Button onClick={handleLogout} type="primary">
-          Wyloguj
+      <Footer className={s.sidebarFooter}>
+        {show ? (
+          <div className={s.userNameDescription}>
+            <p className={s.userNameTitle}>Użytkownik:</p>
+            <p className={s.userName}>{userName}</p>
+          </div>
+        ) : (
+          <Tooltip title={userName} placement="right">
+            <Icon
+              icon="material-symbols:person-outline-rounded"
+              color="white"
+              width="24"
+              height="24"
+            />
+          </Tooltip>
+        )}
+        <Button className={s.logOutButton} onClick={handleLogout} type="primary" block>
+          <div className={s.logOutButtonInside}>
+            <Icon
+              className={s.logOutButtonInside_icon}
+              icon="ic:round-log-out"
+              color="#002329"
+              width="20"
+              height="20"
+            />
+            {show ? <p>Wyloguj</p> : null}
+          </div>
+        </Button>
+        <Button className={s.toggleSidebarButton} onClick={toggleSidebar} type="text">
+          <div className={s.logOutButtonInside}>
+            {show ? (
+              <Icon icon="majesticons:eye-line" color="white" width="20" height="20" />
+            ) : (
+              <Icon
+                icon="majesticons:eye-off-line"
+                color="white"
+                width="20"
+                height="20"
+              />
+            )}
+          </div>
         </Button>
       </Footer>
     </Layout>
   );
 };
+
+// return (
+//   <Layout className={[].join(' ')}>
+//     <Header className={[].join(' ')}>
+//       <img src={Logo} alt="WOSP Logo" />
+//     </Header>
+//     <Layout className={[].join(' ')}>
+//       {links.map((item) => (
+//         <SidebarItem label={item.label} url={item.url} key={item.label} />
+//       ))}
+//     </Layout>
+//     <Footer className={[].join(' ')}>
+//       <p>Użytkownik:</p>
+//       <p className={}>{userName}</p>
+//       <Button onClick={handleLogout} type="primary">
+//         Wyloguj
+//       </Button>
+//     </Footer>
+//   </Layout>
+// );

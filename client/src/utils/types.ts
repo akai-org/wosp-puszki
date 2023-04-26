@@ -5,6 +5,7 @@ import { useDepositContext } from '@/utils/Contexts/DepositContext';
 export interface SubNavLink {
   url: string;
   label: string;
+  show?: boolean;
   withDot?: boolean;
 }
 
