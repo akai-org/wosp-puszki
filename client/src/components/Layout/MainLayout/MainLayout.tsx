@@ -3,23 +3,31 @@ import { Outlet } from 'react-router-dom';
 import s from './MainLayout.module.less';
 import { Sidebar } from '@components/Layout/Sidebar/Sidebar';
 import { useState } from 'react';
-import { useAuthContext, useSidebarStateContext } from '@/utils';
+import { getSidebarLinks, useAuthContext, useSidebarStateContext } from '@/utils';
 
 export const MainLayout = () => {
   // const isLoggedIn = true;
   const [isLoggedIn, setLoggedState] = useState(false);
 
-  const { username } = useAuthContext();
+  const { username, credentials, deleteCredentials } = useAuthContext();
   if (username !== null && !isLoggedIn) {
     setLoggedState(true);
   }
 
-  const { show } = useSidebarStateContext();
-  console.log(show);
+  const { show, toggleSidebar } = useSidebarStateContext();
+
+  const links = getSidebarLinks(username);
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Sidebar />
+      <Sidebar
+        username={username}
+        links={links}
+        credentials={credentials}
+        show={show}
+        toggleSidebar={toggleSidebar}
+        deleteCredentials={deleteCredentials}
+      />
       <Layout.Content
         className={[
           isLoggedIn ? s.layoutContentWide : s.layoutContentNarrow,

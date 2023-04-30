@@ -1,13 +1,26 @@
 import { FC } from 'react';
 import { Logged, NoLogged } from './SidebarVariants';
-import { useAuthContext, getSidebarLinks, useSidebarStateContext } from '@/utils';
 
-export const Sidebar: FC = () => {
-  const { deleteCredentials, username, credentials } = useAuthContext();
-  const links = getSidebarLinks(username);
+interface SidebarTypes {
+  links: {
+    label: string;
+    url: string;
+  }[];
+  username: string | null;
+  show: boolean;
+  credentials: string | null;
+  deleteCredentials: () => void;
+  toggleSidebar: () => void;
+}
 
-  const { show, toggleSidebar } = useSidebarStateContext();
-
+export const Sidebar: FC<SidebarTypes> = ({
+  links,
+  username,
+  show,
+  credentials,
+  deleteCredentials,
+  toggleSidebar,
+}) => {
   return credentials ? (
     <Logged
       deleteCredentials={deleteCredentials}
