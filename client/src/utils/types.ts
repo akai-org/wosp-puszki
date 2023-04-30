@@ -109,6 +109,11 @@ export interface IAuthContext {
   username: string | null;
 }
 
+export interface ISidebarStateContext {
+  show: boolean;
+  toggleSidebar: () => void;
+}
+
 export interface IBoxContext {
   createBox: (
     collectorName: string,

@@ -17,7 +17,6 @@ type SidebarData = {
   deleteCredentials: () => void;
 };
 
-// Zrobić jakąś destrukturyzacje propsów
 export const Logged: React.FC<SidebarData> = ({
   show,
   userName,
@@ -31,13 +30,13 @@ export const Logged: React.FC<SidebarData> = ({
 
   // Ogarnąć by to wyglądało tak jak w Figmie, ikony itp.
   return (
-    <Layout className={[s.sidebarLayout, !show ? s.showSidebar : null].join(' ')}>
+    <Layout className={[s.sidebarLayout, !show ? s.narrow : null].join(' ')}>
       <Header className={s.sidebarHeader}>
         <img src={Logo} alt="WOSP Logo" />
       </Header>
-      <Layout className={s.sidebarContent}>
-        {links.map((item) => (
-          <SidebarItem label={item.label} url={item.url} key={item.label} show={show} />
+      <Layout className={[s.sidebarContent, !show ? s.narrow : null].join(' ')}>
+        {links.map(({ label, url }) => (
+          <SidebarItem label={label} url={url} key={label} show={show} />
         ))}
       </Layout>
       <Footer className={s.sidebarFooter}>

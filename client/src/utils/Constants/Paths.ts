@@ -36,3 +36,10 @@ export const SETTLE_PROCESS_PATH = `${BOXES_PATH}/${SETTLE_PROCESS_ROUTE}`;
 export const ADMIN_PATH = `/${MAIN_ROUTE}/${ADMIN_ROUTE}`;
 export const LOGIN_PATH = `/${MAIN_ROUTE}/${LOGIN_ROUTE}`;
 export const COUNTED_BOXES_PATH = `/${MAIN_ROUTE}/${COUNTED_BOXES_ROUTE}`;
+
+// Sidebar links names
+
+export const ADMIN_ROUTE_NAME = 'Admin';
+export const BOXES_ROUTE_NAME = 'Puszki';
+export const MAIN_ROUTE_NAME = 'Strona Główna';
+export const COUNTED_BOXES_ROUTE_NAME = 'Przeliczone puszki';

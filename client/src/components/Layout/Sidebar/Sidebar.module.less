@@ -28,13 +28,10 @@ body {
   left: 0;
 }
 
-.sidebarLayout.showSidebar {
+.sidebarLayout.narrow, .sidebarLoginPage {
   width: 5rem;
 }
 
-.sidebarLoginPage {
-  width: 7.5rem;
-}
 
 .sidebarHeader {
   padding: 1.25rem 0 0 0;
@@ -46,10 +43,15 @@ body {
   object-fit: cover;
 }
 
-.sidebarContent {
+.sidebarContent:not(.narrow) {
   margin-top: 3.125rem;
   text-align: left;
-  width: 12.5rem;
+  overflow-y: auto;
+  width: 85%;
+}
+.sidebarContent.narrow {
+  margin-top: 3.125rem;
+  text-align: left;
   overflow-y: auto;
 }
 
