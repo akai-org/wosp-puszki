@@ -35,18 +35,26 @@ export const Logged: React.FC<SidebarData> = ({
         <img src={Logo} alt="WOSP Logo" />
       </Header>
       <Layout className={[s.sidebarContent, !show ? s.narrow : null].join(' ')}>
-        {links.map(({ label, url }) => (
-          <SidebarItem label={label} url={url} key={label} show={show} />
-        ))}
+        {links.map(({ label, url }) =>
+          show ? (
+            <SidebarItem label={label} url={url} key={label} show={show} />
+          ) : (
+            <Tooltip key={label} title={label} placement="right">
+              <span>
+                <SidebarItem label={label} url={url} show={show} />
+              </span>
+            </Tooltip>
+          ),
+        )}
       </Layout>
       <Footer className={s.sidebarFooter}>
         {show ? (
-          <div className={s.userNameDescription}>
+          <div data-testid="userNameDescription" className={s.userNameDescription}>
             <p className={s.userNameTitle}>Użytkownik:</p>
             <p className={s.userName}>{userName}</p>
           </div>
         ) : (
-          <Tooltip title={userName} placement="right">
+          <Tooltip data-testid="userNameDescription" title={userName} placement="right">
             <Icon
               icon="material-symbols:person-outline-rounded"
               color="white"
@@ -55,7 +63,13 @@ export const Logged: React.FC<SidebarData> = ({
             />
           </Tooltip>
         )}
-        <Button className={s.logOutButton} onClick={handleLogout} type="primary" block>
+        <Button
+          data-testid="logOutButton"
+          className={s.logOutButton}
+          onClick={handleLogout}
+          type="primary"
+          block
+        >
           <div className={s.logOutButtonInside}>
             <Icon
               className={s.logOutButtonInside_icon}
@@ -67,7 +81,12 @@ export const Logged: React.FC<SidebarData> = ({
             {show ? <p>Wyloguj</p> : null}
           </div>
         </Button>
-        <Button className={s.toggleSidebarButton} onClick={toggleSidebar} type="text">
+        <Button
+          data-testid="toggleSidebarButton"
+          className={s.toggleSidebarButton}
+          onClick={toggleSidebar}
+          type="text"
+        >
           <div className={s.logOutButtonInside}>
             {show ? (
               <Icon icon="majesticons:eye-line" color="white" width="20" height="20" />

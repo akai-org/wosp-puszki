@@ -13,6 +13,23 @@ export default {
       </StaticRouter>
     ),
   ],
+  args: {
+    credentials: 'credentials',
+  },
+  argTypes: {
+    credentials: {
+      table: { disable: true },
+    },
+    deleteCredentials: {
+      table: { disable: true },
+    },
+    toggleSidebar: {
+      table: { disable: true },
+    },
+    links: {
+      table: { disable: true },
+    },
+  },
 };
 
 type Story = StoryObj<typeof Sidebar>;
@@ -39,7 +56,6 @@ export const Admin: Story = {
     ],
     username: 'superadmin',
     show: true,
-    credentials: 'testCredentials',
   },
 };
 export const User: Story = {
@@ -56,6 +72,29 @@ export const User: Story = {
     ],
     username: 'User',
     show: true,
-    credentials: 'testCredentials',
+  },
+};
+export const NarrowAdmin: Story = {
+  args: {
+    links: [
+      {
+        label: 'Strona Główna',
+        url: '',
+      },
+      {
+        label: 'Przeliczone puszki',
+        url: 'counted_boxes',
+      },
+      {
+        label: 'Admin',
+        url: 'admin',
+      },
+      {
+        label: 'Puszki',
+        url: 'boxes',
+      },
+    ],
+    username: 'superadmin',
+    show: false,
   },
 };
