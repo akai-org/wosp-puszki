@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Virtual\Resources;
 
+use Illuminate\Http\Resources\Json\JsonResource;
+
 /**
  * @author kabix09
  *
