@@ -104,23 +104,3 @@ export const Logged: React.FC<SidebarData> = ({
     </Layout>
   );
 };
-
-// return (
-//   <Layout className={[].join(' ')}>
-//     <Header className={[].join(' ')}>
-//       <img src={Logo} alt="WOSP Logo" />
-//     </Header>
-//     <Layout className={[].join(' ')}>
-//       {links.map((item) => (
-//         <SidebarItem label={item.label} url={item.url} key={item.label} />
-//       ))}
-//     </Layout>
-//     <Footer className={[].join(' ')}>
-//       <p>Użytkownik:</p>
-//       <p className={}>{userName}</p>
-//       <Button onClick={handleLogout} type="primary">
-//         Wyloguj
-//       </Button>
-//     </Footer>
-//   </Layout>
-// );

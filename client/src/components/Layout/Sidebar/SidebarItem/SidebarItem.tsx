@@ -6,7 +6,6 @@ import { Icon } from '@iconify/react';
 import { LINKS_ICONS } from '@/utils/Constants/LinksIcons';
 
 export const SidebarItem: React.FC<SubNavLink> = ({ url, label, show }) => {
-  console.log(url, label);
   return (
     <NavLink
       to={url}
