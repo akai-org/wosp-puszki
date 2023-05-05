@@ -1,9 +1,0 @@
-.layoutContentWide  {
-    width: calc(100% - 15rem);
-    margin-left: 15rem;
-}
-
-.layoutContentNarrow {
-    width: calc(100% - 7.5rem);
-    margin-left: 7.5rem;
-}

@@ -4,19 +4,41 @@
   font-size: 1rem;
   margin: 0.9375rem 0;
   width: 100%;
-  padding: 0.625rem 1.25rem;
+  min-height: 3rem;
+  padding: 0.625rem;
   border-radius: 0.625rem;
-  transition: all 0.3s ease-in-out;
+  // transition: all 0.3s ease-in-out;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 0.2rem;
 }
 
-.sideBarItem:hover {
+.sideBarItem:not(.active):hover, .sideBarItem:not(.active):hover .sidebarItemContent {
   background-color: var(--color-red-background);
   color: var(--color-dark-primary);
   font-weight: bold;
+  > svg > path,
+  > svg > g > path {
+    background-color: var(--color-red-background);
+    color: var(--color-dark-primary);
+    transition: color 0.5s;
+  }
 }
 
 .sideBarItem.active {
   background-color: var(--color-red-background);
   color: var(--color-white-primary);
   font-weight: bold;
+}
+.sideBarItem:not(.show) {
+  justify-content: center;
+  width: 3rem;
+}
+
+.sidebarItemContent {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.2rem;
 }

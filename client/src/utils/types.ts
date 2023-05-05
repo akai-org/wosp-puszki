@@ -5,6 +5,7 @@ import { useDepositContext } from '@/utils/Contexts/DepositContext';
 export interface SubNavLink {
   url: string;
   label: string;
+  show?: boolean;
   withDot?: boolean;
 }
 
@@ -106,6 +107,11 @@ export interface IAuthContext {
   deleteCredentials: () => void;
   credentials: string | null;
   username: string | null;
+}
+
+export interface ISidebarStateContext {
+  show: boolean;
+  toggleSidebar: () => void;
 }
 
 export interface IBoxContext {

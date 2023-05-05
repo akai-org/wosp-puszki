@@ -1,2 +1,2 @@
-export * from './SidebarBig';
-export * from './SidebarSmall';
+export * from './Logged';
+export * from './NoLogged';
