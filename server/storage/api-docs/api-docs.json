@@ -1,0 +1,1007 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "WOSP API Documentation",
+        "description": "WOSP API in Swagger OpenApi description",
+        "contact": {
+            "email": "admin@admin.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "3.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api/",
+            "description": "WOSP API Server"
+        }
+    ],
+    "paths": {
+        "/charityBoxes": {
+            "get": {
+                "tags": [
+                    "CharityBoxes"
+                ],
+                "summary": "Get list of charity boxes",
+                "description": "Returns list of charity boxes",
+                "operationId": "getCharityBoxList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CharityBoxResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/charityBoxes/{id}": {
+            "get": {
+                "tags": [
+                    "CharityBoxes"
+                ],
+                "summary": "Get charity box information",
+                "description": "Returns chrity box data",
+                "operationId": "getCharityBoxById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Charity box id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CharityBox"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "CharityBoxes"
+                ],
+                "summary": "Update charity box",
+                "description": "Returns information about modified charity box",
+                "operationId": "updateCharityBox",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateCharityBoxRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CharityBox"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "CharityBoxes"
+                ],
+                "summary": "Create charity box for volunteer (collector)",
+                "description": "Returns information about realse charity box for volunteer (collector)",
+                "operationId": "createCharityBox",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CollectorCharityBoxRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CharityBox"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/charityBoxes/unverified": {
+            "get": {
+                "tags": [
+                    "CharityBoxes"
+                ],
+                "summary": "Get list of unverified charity boxes",
+                "description": "Returns list of charity boxes",
+                "operationId": "getUnverifiedList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CharityBoxResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/charityBoxes/verified": {
+            "get": {
+                "tags": [
+                    "CharityBoxes"
+                ],
+                "summary": "Get list of verified charity boxes",
+                "description": "Returns list of charity boxes",
+                "operationId": "getVerifiedList",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Enter token in format (Basic base64(username:password))",
+                        "schema": {
+                            "type": "basic"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CharityBoxResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/charityBoxes/unverified/{id}": {
+            "post": {
+                "tags": [
+                    "CharityBoxes"
+                ],
+                "summary": "Unverify Charity Box",
+                "description": "Return message of operation result",
+                "operationId": "postUnverifyCharityBoxById",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BoxCharityBoxRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer",
+                                            "example": "200"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/charityBoxes/{id}/startCounting": {
+            "post": {
+                "tags": [
+                    "CharityBoxes"
+                ],
+                "summary": "Start counting Charity Box",
+                "description": "Return charity box instance",
+                "operationId": "stratCountngCharityBoxById",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BoxCharityBoxRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CharityBox"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/charityBoxes/{id}/finishCounting": {
+            "post": {
+                "tags": [
+                    "CharityBoxes"
+                ],
+                "summary": "Finish counting Charity Box",
+                "description": "Return charity box instance",
+                "operationId": "finishCountngCharityBoxById",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BoxCharityBoxRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CharityBox"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "BoxEvent": {
+                "title": "BoxEvent",
+                "description": "Box Event model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "Primary Key",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "created_at": {
+                        "title": "Created At",
+                        "description": "Time of created record",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2023-03-18 10:22:25.323"
+                    },
+                    "updated_at": {
+                        "title": "Updated At",
+                        "description": "Time of last record update",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2023-03-18 10:22:25.323"
+                    },
+                    "type": {
+                        "title": "Type",
+                        "description": "Box status",
+                        "type": "string",
+                        "example": "unverified"
+                    },
+                    "box": {
+                        "$ref": "#/components/schemas/CharityBox"
+                    },
+                    "user": {
+                        "$ref": "#/components/schemas/User"
+                    },
+                    "comment": {
+                        "title": "Comment",
+                        "description": "Comment",
+                        "type": "string",
+                        "example": "Lorem ipsum"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "BoxEvent"
+                }
+            },
+            "CharityBox": {
+                "title": "CharityBox",
+                "description": "CharityBox model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "Primary Key",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "created_at": {
+                        "title": "Created At",
+                        "description": "Time of created record",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2023-03-18 10:22:25.323"
+                    },
+                    "updated_at": {
+                        "title": "Updated At",
+                        "description": "Time of last record update",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2023-03-18 10:22:25.323"
+                    },
+                    "collectorIdentifier": {
+                        "title": "Collector Identifier",
+                        "description": "Identifier of volunteer's identification badge",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 299
+                    },
+                    "collector": {
+                        "$ref": "#/components/schemas/Collector"
+                    },
+                    "is_given_to_collector": {
+                        "title": "Is Given To Collector",
+                        "description": "Flag whether charity box has been issued",
+                        "type": "boolean",
+                        "example": 1
+                    },
+                    "given_to_collector_user_id": {
+                        "$ref": "#/components/schemas/User"
+                    },
+                    "time_given": {
+                        "title": "Time Given",
+                        "description": "Time of giving charity box to volunter",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2023-03-18 10:22:25.323"
+                    },
+                    "is_counted": {
+                        "title": "Is Counted",
+                        "description": "Flag whether charity box were counted",
+                        "type": "boolean",
+                        "example": 0
+                    },
+                    "counting_user_id": {
+                        "$ref": "#/components/schemas/User"
+                    },
+                    "time_counted": {
+                        "title": "Time Counted",
+                        "description": "Time of settlement charity box",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2023-03-18 10:22:25.323"
+                    },
+                    "is_confirmed": {
+                        "title": "Is Confirmed",
+                        "description": "Flag wheteher settlement of charity box were confirmed by other person",
+                        "type": "boolean"
+                    },
+                    "user_confirmed_id": {
+                        "title": "User Confirmed",
+                        "description": "Id of user who confirmed charity box settlement",
+                        "type": "integer"
+                    },
+                    "time_confirmed": {
+                        "title": "TimeConfirmed",
+                        "description": "Date confirmation of charity box settlement",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2023-03-18 9:57:30.196"
+                    },
+                    "count_1gr": {
+                        "title": "Count_1gr",
+                        "description": "Number of coins",
+                        "type": "int64",
+                        "example": 120
+                    },
+                    "count_2gr": {
+                        "title": "Count_2gr",
+                        "description": "Number of coins",
+                        "type": "int64",
+                        "example": 245
+                    },
+                    "count_5gr": {
+                        "title": "Count_5gr",
+                        "description": "Number of coins",
+                        "type": "int64",
+                        "example": 300
+                    },
+                    "count_10gr": {
+                        "title": "Count_10gr",
+                        "description": "Number of coins",
+                        "type": "int64",
+                        "example": 120
+                    },
+                    "count_20gr": {
+                        "title": "Count_20gr",
+                        "description": "Number of coins",
+                        "type": "int64",
+                        "example": 80
+                    },
+                    "count_50gr": {
+                        "title": "Count_50gr",
+                        "description": "Number of coins",
+                        "type": "int64",
+                        "example": 60
+                    },
+                    "count_1zl": {
+                        "title": "Count_1zl",
+                        "description": "Number of coins",
+                        "type": "int64",
+                        "example": 60
+                    },
+                    "count_2zl": {
+                        "title": "Count_2zl",
+                        "description": "Number of coins",
+                        "type": "int64",
+                        "example": 60
+                    },
+                    "count_5zl": {
+                        "title": "Count_5zl",
+                        "description": "Number of coins",
+                        "type": "int64",
+                        "example": 60
+                    },
+                    "count_10zl": {
+                        "title": "Count_10zl",
+                        "description": "Number of coins",
+                        "type": "int64",
+                        "example": 60
+                    },
+                    "count_20zl": {
+                        "title": "Count_20zl",
+                        "description": "Number of coins",
+                        "type": "int64",
+                        "example": 60
+                    },
+                    "count_50zl": {
+                        "title": "Count_50zl",
+                        "description": "Number of coins",
+                        "type": "int64",
+                        "example": 60
+                    },
+                    "count_100zl": {
+                        "title": "Count_100zl",
+                        "description": "Number of coins",
+                        "type": "int64",
+                        "example": 60
+                    },
+                    "count_200zl": {
+                        "title": "Count_200zl",
+                        "description": "Number of coins",
+                        "type": "int64",
+                        "example": 60
+                    },
+                    "count_500zl": {
+                        "title": "Count_500zl",
+                        "description": "Number of coins",
+                        "type": "int64",
+                        "example": 60
+                    },
+                    "amount_PLN": {
+                        "title": "Amount PLN",
+                        "description": "Sum of collected money",
+                        "type": "int64",
+                        "example": 60
+                    },
+                    "amount_EUR": {
+                        "title": "Amount EUR",
+                        "description": "Sum of collected money",
+                        "type": "int64",
+                        "example": 60
+                    },
+                    "amount_USD": {
+                        "title": "Amount USD",
+                        "description": "Sum of collected money",
+                        "type": "int64",
+                        "example": 60
+                    },
+                    "amount_GBP": {
+                        "title": "Amount GBP",
+                        "description": "Sum of collected money",
+                        "type": "int64",
+                        "example": 60
+                    },
+                    "comment": {
+                        "title": "Comment",
+                        "description": "Comment",
+                        "type": "string",
+                        "example": "Lorem ipsum"
+                    },
+                    "is_special_box": {
+                        "title": "Is Special Box",
+                        "description": "Flag whether charity box is a special one",
+                        "type": "boolean",
+                        "example": 0
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "CharityBox"
+                }
+            },
+            "Collector": {
+                "title": "Collector",
+                "description": "Collector model - volunter with charity box",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "Primary Key",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "created_at": {
+                        "title": "Created At",
+                        "description": "Time of created record",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2023-03-18 10:22:25.323"
+                    },
+                    "updated_at": {
+                        "title": "Updated At",
+                        "description": "Time of last record update",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2023-03-18 10:22:25.323"
+                    },
+                    "identifier": {
+                        "title": "Identifier",
+                        "description": "Volunteer ID number (number from the volunteer's badge)",
+                        "type": "string",
+                        "example": "123"
+                    },
+                    "first_name": {
+                        "title": "First Name",
+                        "description": "Volunteer's name",
+                        "type": "string",
+                        "example": "Jan"
+                    },
+                    "last_name": {
+                        "title": "Last Name",
+                        "description": "Volunteer's last name",
+                        "type": "string",
+                        "example": "Kowalski"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Collector"
+                }
+            },
+            "User": {
+                "title": "User",
+                "description": "User model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "Primary Key",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "created_at": {
+                        "title": "Created At",
+                        "description": "Time of created record",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2023-03-18 10:22:25.323"
+                    },
+                    "updated_at": {
+                        "title": "Updated At",
+                        "description": "Time of last record update",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2023-03-18 10:22:25.323"
+                    },
+                    "name": {
+                        "title": "Name",
+                        "description": "User's name",
+                        "type": "string",
+                        "example": "Jan"
+                    },
+                    "comment": {
+                        "title": "Comment",
+                        "description": "Comment",
+                        "type": "string",
+                        "example": "Lorem ipsum"
+                    },
+                    "remember_token": {
+                        "title": "Token",
+                        "description": "",
+                        "type": "string",
+                        "example": ""
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "User"
+                }
+            },
+            "BoxCharityBoxRequest": {
+                "title": "Unverify Charity Box request",
+                "description": "Unverify Charity Box request body data",
+                "required": [
+                    "box_id"
+                ],
+                "properties": {
+                    "box_id": {
+                        "title": "box_id",
+                        "description": "Id of the box to unverify",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "1"
+                    }
+                },
+                "type": "object"
+            },
+            "CollectorCharityBoxRequest": {
+                "title": "",
+                "description": "",
+                "required": [
+                    "collector_identifier"
+                ],
+                "properties": {
+                    "collector_identifier": {
+                        "title": "collector_identifier",
+                        "description": "Id of the collector identifier",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": "1"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateCharityBoxRequest": {
+                "title": "",
+                "description": "",
+                "required": [
+                    "box_id"
+                ],
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/BoxCharityBoxRequest"
+                    },
+                    {
+                        "properties": {
+                            "count_1gr": {
+                                "title": "Count_1gr",
+                                "description": "Number of coins",
+                                "type": "int64",
+                                "example": 120
+                            },
+                            "count_2gr": {
+                                "title": "Count_2gr",
+                                "description": "Number of coins",
+                                "type": "int64",
+                                "example": 245
+                            },
+                            "count_5gr": {
+                                "title": "Count_5gr",
+                                "description": "Number of coins",
+                                "type": "int64",
+                                "example": 300
+                            },
+                            "count_10gr": {
+                                "title": "Count_10gr",
+                                "description": "Number of coins",
+                                "type": "int64",
+                                "example": 120
+                            },
+                            "count_20gr": {
+                                "title": "Count_20gr",
+                                "description": "Number of coins",
+                                "type": "int64",
+                                "example": 80
+                            },
+                            "count_50gr": {
+                                "title": "Count_50gr",
+                                "description": "Number of coins",
+                                "type": "int64",
+                                "example": 60
+                            },
+                            "count_1zl": {
+                                "title": "Count_1zl",
+                                "description": "Number of coins",
+                                "type": "int64",
+                                "example": 60
+                            },
+                            "count_2zl": {
+                                "title": "Count_2zl",
+                                "description": "Number of coins",
+                                "type": "int64",
+                                "example": 60
+                            },
+                            "count_5zl": {
+                                "title": "Count_5zl",
+                                "description": "Number of coins",
+                                "type": "int64",
+                                "example": 60
+                            },
+                            "count_10zl": {
+                                "title": "Count_10zl",
+                                "description": "Number of coins",
+                                "type": "int64",
+                                "example": 60
+                            },
+                            "count_20zl": {
+                                "title": "Count_20zl",
+                                "description": "Number of coins",
+                                "type": "int64",
+                                "example": 60
+                            },
+                            "count_50zl": {
+                                "title": "Count_50zl",
+                                "description": "Number of coins",
+                                "type": "int64",
+                                "example": 60
+                            },
+                            "count_100zl": {
+                                "title": "Count_100zl",
+                                "description": "Number of coins",
+                                "type": "int64",
+                                "example": 60
+                            },
+                            "count_200zl": {
+                                "title": "Count_200zl",
+                                "description": "Number of coins",
+                                "type": "int64",
+                                "example": 60
+                            },
+                            "count_500zl": {
+                                "title": "Count_500zl",
+                                "description": "Number of coins",
+                                "type": "int64",
+                                "example": 60
+                            },
+                            "amount_PLN": {
+                                "title": "Amount PLN",
+                                "description": "Sum of collected money",
+                                "type": "int64",
+                                "example": 60
+                            },
+                            "amount_EUR": {
+                                "title": "Amount EUR",
+                                "description": "Sum of collected money",
+                                "type": "int64",
+                                "example": 60
+                            },
+                            "amount_USD": {
+                                "title": "Amount USD",
+                                "description": "Sum of collected money",
+                                "type": "int64",
+                                "example": 60
+                            },
+                            "amount_GBP": {
+                                "title": "Amount GBP",
+                                "description": "Sum of collected money",
+                                "type": "int64",
+                                "example": 60
+                            },
+                            "comment": {
+                                "title": "Comment",
+                                "description": "Comment",
+                                "type": "string",
+                                "example": "Lorem ipsum"
+                            }
+                        }
+                    }
+                ]
+            },
+            "BoxEventResource": {
+                "title": "Box Event Resource",
+                "description": "Box Event resource",
+                "properties": {
+                    "data": {
+                        "title": "Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CharityBox"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "BoxEventResource"
+                }
+            },
+            "CharityBoxResource": {
+                "title": "Charity Box Resource",
+                "description": "Charity Box resource",
+                "properties": {
+                    "data": {
+                        "title": "Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CharityBox"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "CharityBoxResource"
+                }
+            },
+            "CollectorResource": {
+                "title": "Collector Resource",
+                "description": "Collector resource",
+                "properties": {
+                    "data": {
+                        "title": "Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CharityBox"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "CollectorResource"
+                }
+            },
+            "UserResource": {
+                "title": "User Resource",
+                "description": "User resource",
+                "properties": {
+                    "data": {
+                        "title": "Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CharityBox"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "UserResource"
+                }
+            }
+        },
+        "securitySchemes": {
+            "sanctum": {
+                "type": "basic",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "CharityBoxes",
+            "description": "API Endpoints of Charity Boxes"
+        }
+    ]
+}
