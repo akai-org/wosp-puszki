@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CharityBoxApiController;
+use App\Http\Controllers\Api\RatesApiController;
 use App\Http\Controllers\AvailabilityController;
 use App\Lib\BoxOperator\BoxOperator;
 use Illuminate\Http\Request;
@@ -35,6 +36,10 @@ Route::group(['as' => 'api.', 'middleware' => ['auth.basic:,name']], function ()
     Route::post('charityBoxes/{id}/finishCounting', [CharityBoxApiController::class, 'confirm'])->name('api.box.count.finish');
 
     Route::apiResource('charityBoxes', CharityBoxApiController::class);
+});
+
+Route::group(['as' => 'api', 'middleware' => ['auth.basic:,name']], function() {
+    Route::apiResource('currency/rates', RatesApiController::class);
 });
 
 //API

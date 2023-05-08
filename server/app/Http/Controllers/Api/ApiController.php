@@ -43,23 +43,23 @@ use ReflectionClass;
  */
 abstract class ApiController extends Controller
 {
-    private ReflectionClass $proxyClass;
+//    private ReflectionClass $proxyClass;
+//
+//    /**
+//     * @throws \ReflectionException
+//     */
+//    public function __construct(string $class)
+//    {
+//        $this->proxyClass = new ReflectionClass($class);
+//
+//        //Model
+//    }
 
-    /**
-     * @throws \ReflectionException
-     */
-    public function __construct(string $class)
-    {
-        $this->proxyClass = new ReflectionClass($class);
-
-        //Model
-    }
-
-    public function index()
-    {
-        $boxes = ($this->proxyClass)::with('collector')->get(); // remove n+1 problem
-
-    }
+//    public function index()
+//    {
+//        $boxes = ($this->proxyClass)::with('collector')->get(); // remove n+1 problem
+//
+//    }
 
 //    public abstract function get($model);
 
