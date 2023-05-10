@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\CharityBoxApiController;
+use App\Http\Controllers\Api\CountedBoxApiController;
+use App\Http\Controllers\Api\RatesApiController;
 use App\Http\Controllers\AvailabilityController;
 use App\Lib\BoxOperator\BoxOperator;
 use Illuminate\Http\Request;
@@ -27,6 +29,17 @@ Route::group(['middleware' => ['auth.basic:,name']], function (){
 });
 
 Route::group(['as' => 'api.', 'middleware' => ['auth.basic:,name']], function () {
+
+    Route::get('charityBoxes/count/collected', [CountedBoxApiController::class, 'collected'])->name('api.box.count.collected');
+    Route::get('charityBoxes/count/collected/sum', [CountedBoxApiController::class, 'collectedAmountOfMoney'])->name('api.box.count.collected.sum');
+    Route::get('charityBoxes/count/collected/{currency}', [CountedBoxApiController::class, 'collectedAmountOfMoneyByCurrency'])->name('api.box.count.collected.currency');
+
+    Route::get('charityBoxes/count/confirmed/', [CountedBoxApiController::class, 'confirmed'])->name('api.box.count.confirmed.currency');
+    Route::get('charityBoxes/count/confirmed/sum', [CountedBoxApiController::class, 'confirmedAmountOfMoney'])->name('api.box.count.confirmed.currency');
+    Route::get('charityBoxes/count/confirmed/{currency}', [CountedBoxApiController::class, 'confirmedAmountOfMoneyByCurrency'])->name('api.box.count.confirmed.currency');
+
+
+
     // add nonstandard requests (other than CRUD)
     Route::get('charityBoxes/verified', [CharityBoxApiController::class, 'getVerifiedList'])->name('api.box.verified');;
     Route::get('charityBoxes/unverified', [CharityBoxApiController::class, 'getUnverifiedList'])->name('api.box.unverified');
@@ -35,6 +48,10 @@ Route::group(['as' => 'api.', 'middleware' => ['auth.basic:,name']], function ()
     Route::post('charityBoxes/{id}/finishCounting', [CharityBoxApiController::class, 'confirm'])->name('api.box.count.finish');
 
     Route::apiResource('charityBoxes', CharityBoxApiController::class);
+});
+
+Route::group(['as' => 'api', 'middleware' => ['auth.basic:,name']], function() {
+    Route::apiResource('currency/rates', RatesApiController::class);
 });
 
 //API

@@ -382,6 +382,416 @@
                     }
                 }
             }
+        },
+        "/charityBoxes/count/collected": {
+            "get": {
+                "tags": [
+                    "CharityBoxScore"
+                ],
+                "summary": "Get bucket of collected money",
+                "description": "Return bucket of collecteed money each sum in oryginal currency",
+                "operationId": "getCollectedCharityBox",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "PLN": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": "43 237,46"
+                                        },
+                                        "EUR": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": "40,46"
+                                        },
+                                        "USD": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": "30,82"
+                                        },
+                                        "GBP": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": "41,85"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/charityBoxes/count/collected/sum": {
+            "get": {
+                "tags": [
+                    "CharityBoxScore"
+                ],
+                "summary": "Get sum of collected money in default currency",
+                "description": "Return sum of collected money in default currency",
+                "operationId": "getSumOfCollectedCharityBox",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "total_in_pln": {
+                                            "type": "string",
+                                            "example": "43 788,86"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/charityBoxes/count/collected/{currency}": {
+            "get": {
+                "tags": [
+                    "CharityBoxScore"
+                ],
+                "summary": "Get amount of money collected in specify currency",
+                "description": "Return amount of money collected in specify currency",
+                "operationId": "getCollectedCharityBoxByCurrency",
+                "parameters": [
+                    {
+                        "name": "currency",
+                        "in": "path",
+                        "description": "Currency code",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "PLN": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": "43 237,46"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/charityBoxes/count/confirmed": {
+            "get": {
+                "tags": [
+                    "CharityBoxScore"
+                ],
+                "summary": "Get sum of collected money",
+                "operationId": "getConfirmedCharityBoxSum",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "PLN": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": "30 950,00"
+                                        },
+                                        "EUR": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": "27,00"
+                                        },
+                                        "USD": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": "20,00"
+                                        },
+                                        "GBP": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": "26,00"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/charityBoxes/count/confirmed/sum": {
+            "get": {
+                "tags": [
+                    "CharityBoxScore"
+                ],
+                "summary": "Get sum of confirmed money in default currency",
+                "description": "Return sum of confirmed money in default currency",
+                "operationId": "getSumOfConfirmedCharityBox",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "total_in_pln": {
+                                            "type": "string",
+                                            "example": "31 788,86"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/charityBoxes/count/confirmed/{currency}": {
+            "get": {
+                "tags": [
+                    "CharityBoxScore"
+                ],
+                "summary": "Get amount of money in specified currency",
+                "description": "Return amount of money in specified currency",
+                "operationId": "getConfirmedCharityBoxSumByCurrency",
+                "parameters": [
+                    {
+                        "name": "currency",
+                        "in": "path",
+                        "description": "Currency code",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "USD": {
+                                            "type": "string",
+                                            "example": "20,00"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/currency/rates": {
+            "get": {
+                "tags": [
+                    "Rates"
+                ],
+                "summary": "Get list of currencies rate",
+                "description": "Return daily list of currency rate from NBP",
+                "operationId": "getCurrencyRatesList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "rates": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "EUR": {
+                                                        "type": "number",
+                                                        "format": "float",
+                                                        "example": "4.71"
+                                                    },
+                                                    "USD": {
+                                                        "type": "number",
+                                                        "format": "float",
+                                                        "example": "4.42"
+                                                    },
+                                                    "GBP": {
+                                                        "type": "number",
+                                                        "format": "float",
+                                                        "example": "5.36"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": {
+                                                "EUR": "4.71",
+                                                "USD": "4.42",
+                                                "GBP": "5.36"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/currency/rates/{currency}": {
+            "get": {
+                "tags": [
+                    "Rates"
+                ],
+                "summary": "Get currency rate",
+                "description": "Return daily currency rate from NBP",
+                "operationId": "getCurrencyRate",
+                "parameters": [
+                    {
+                        "name": "currency",
+                        "in": "path",
+                        "description": "Currency code",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "rates": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": "4.58"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -1002,6 +1412,14 @@
         {
             "name": "CharityBoxes",
             "description": "API Endpoints of Charity Boxes"
+        },
+        {
+            "name": "CharityBoxScore",
+            "description": "API Endpoints for currencies and rates"
+        },
+        {
+            "name": "Rates",
+            "description": "API Endpoints for currencies and rates"
         }
     ]
 }
