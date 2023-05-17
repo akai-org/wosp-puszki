@@ -10,6 +10,8 @@ export const STATUS_CANT_BE_UPDATED =
 export const MULTIPLE_STATUS_CANT_BE_UPDATED =
   'Status stanowisk nie może zostać zsynchronizowany';
 
+export const CANNOT_DOWNLOAD_DATA = 'Nie można pobrać danych z serwera';
+
 export const FAILED_FETCH = 'Failed to fetch';
 
 export const BAD_REQUEST = 'Bad Request';
