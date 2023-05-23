@@ -5,7 +5,7 @@ import { CreateColumns, useUnverifiedBoxesQuery } from '@/utils';
 // Style and ant design
 import s from './BoxesPage.module.less';
 import { Typography, Space, Layout, Table } from 'antd';
-import { createDisplayAbleData } from '@/utils/Functions/createRefactorData';
+import { createDisplayableData } from '@/utils/Functions/createRefactorData';
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -96,10 +96,10 @@ export const BoxesForApprovalPage = () => {
   ];
 
   const { data } = useUnverifiedBoxesQuery();
-  const displayAbleData = createDisplayAbleData(data);
+  const displayableData = createDisplayableData(data);
 
   // Tworzenie kolumn
-  const columns = CreateColumns(columnsOptions, displayAbleData);
+  const columns = CreateColumns(columnsOptions, displayableData);
 
   return (
     <Layout>
@@ -110,7 +110,7 @@ export const BoxesForApprovalPage = () => {
             size="middle"
             columns={columns}
             pagination={false}
-            dataSource={displayAbleData}
+            dataSource={displayableData}
             rowKey="id"
             scroll={{ y: '70vh' }}
             rowClassName={s.table_row}

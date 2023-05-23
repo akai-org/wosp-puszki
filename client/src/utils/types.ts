@@ -252,7 +252,7 @@ export interface IUnverifiedBoxes {
   is_special_box: number;
 }
 
-export interface DisplayAbleData {
+export interface DisplayableData {
   [key: string]: string | number;
 }
 
