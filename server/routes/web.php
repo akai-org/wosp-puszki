@@ -69,7 +69,7 @@ Route::prefix('liczymy')->group(function () {
             Route::middleware('superadmin')->group(function(){
                 Route::get('password/{user}', [UserController::class, 'getPassword'])->name('user.password');
 
-                Route::post('password/{user}', [UserController::class, 'postPassword'])->name('user.password.post');
+                Route::post('password\{user}', [UserController::class, 'postPassword'])->name('user.password.post');
 
             });
 
