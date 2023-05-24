@@ -6,8 +6,6 @@ export const createDisplayableData = (data: IUnverifiedBoxes[]) => {
   for (const item of data) {
     const name = `${item.collector.firstName} ${item.collector.lastName}`;
 
-    console.log(item);
-
     displayableData.push({
       id: item.id,
       name: name,
