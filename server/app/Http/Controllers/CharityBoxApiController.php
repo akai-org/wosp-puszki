@@ -8,9 +8,6 @@ use Illuminate\Http\Request;
 
 /**
  * Api dla ajaxa
- *
- * Features moved to /Api/CharityBoxApiController
- * Class to delete after checking functionality
  */
 class CharityBoxApiController extends Controller
 {

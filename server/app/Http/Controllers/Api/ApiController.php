@@ -11,7 +11,7 @@ use ReflectionClass;
 
 /**
  * @author kabix09
- * Class to declare common CRUD functions for API requests
+ * Class to declare CRUD functions for API requests
  *
  * @OA\Info(
  *      version="3.0.0",
@@ -52,20 +52,21 @@ abstract class ApiController extends Controller
     {
         $this->proxyClass = new ReflectionClass($class);
 
+        dd($this->proxyClass->getExtension());
         //Model
     }
 
-    public function index()
+    public function getAll()
     {
         $boxes = ($this->proxyClass)::with('collector')->get(); // remove n+1 problem
 
     }
 
-//    public abstract function get($model);
+    public abstract function get(int $id);
 
-//    public abstract function update(Request $request, int $id);
+    public abstract function update(Request $request, int $id);
 
-//    public abstract function create(Request $request, int $id);
+    public abstract function create(Request $request, int $id);
 
-//    public abstract function delete(int $id);
+    public abstract function delete(int $id);
 }

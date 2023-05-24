@@ -1,21 +1,15 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
-use App\BoxEvent;
 use App\CharityBox;
-use App\Http\Requests\Api\CollectorCharityBoxRequest;
-use App\Http\Requests\Api\BoxCharityBoxRequest;
-use App\Http\Requests\Api\UpdateCountingCharityBoxRequest;
-use App\Http\Resources\Api\CharityBoxResource;
-use App\Lib\BoxOperator\BoxOperator;
+use App\Virtual\Resources\CharityBoxResource;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 
 /**
- * @author kabix09
- *
  * @OA\Tag(
  *     name="CharityBoxes",
  *     description="API Endpoints of Charity Boxes"
@@ -25,210 +19,32 @@ final class CharityBoxApiController extends ApiController
 {
     public function __construct()
     {
-        $this->middleware('admin');
+//        $this->middleware('auth');
+//        $this->middleware('admin');
 
-        parent::__construct(CharityBox::class);
+        $this->__construct(CharityBox::class);
     }
 
-    /**
-     * @OA\Get(
-     *      path="/charityBoxes",
-     *      operationId="getCharityBoxList",
-     *      tags={"CharityBoxes"},
-     *      summary="Get list of charity boxes",
-     *      description="Returns list of charity boxes",
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/CharityBoxResource")
-     *       ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      )
-     * )
-     *
-     * @return CharityBoxResource
-     */
-    public function index()
+    public function getAll()
     {
-        return new CharityBoxResource(CharityBox::with('collector')->get());
+        // TODO: Implement getAll() method.
+
     }
 
-    /**
-     * @OA\Get(
-     *      path="/charityBoxes/{id}",
-     *      operationId="getCharityBoxById",
-     *      tags={"CharityBoxes"},
-     *      summary="Get charity box information",
-     *      description="Returns chrity box data",
-     *      @OA\Parameter(
-     *          name="id",
-     *          description="Charity box id",
-     *          required=true,
-     *          in="path",
-     *          @OA\Schema(
-     *              type="integer"
-     *          )
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/CharityBox")
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="Resource Not Found"
-     *      )
-     * )
-     */
-    public function show(CharityBox $charityBox)
+    public function get(int $id)
     {
-        return new CharityBoxResource($charityBox
-            ->load(['collector'])
-            ->load(['givenToCollectorUser'])
-            ->load(['countingUser'])
-        );
+        // TODO: Implement get() method.
     }
 
-    /**
-     * @OA\Post(
-     *      path="/charityBoxes/{id}",
-     *      operationId="createCharityBox",
-     *      tags={"CharityBoxes"},
-     *      summary="Create charity box for volunteer (collector)",
-     *      description="Returns information about realse charity box for volunteer (collector)",
-     *      @OA\RequestBody(
-     *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/CollectorCharityBoxRequest")
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/CharityBox")
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="Resource Not Found"
-     *      )
-     * )
-     *
-     * @param CollectorCharityBoxRequest $request
-     * @return JsonResponse
-     */
-    public function create(CollectorCharityBoxRequest $request)
+    public function update(Request $request, int $id)
     {
-        $bo = new BoxOperator($request->user()->id);
-
-        try {
-            $box = $bo->giveByCollectorIdentifier($request->collector_identifier);
-        } catch (\Exception $e) {
-            return new JsonResponse([
-                'error_message' => $e->getMessage(),
-                'status' => Response::HTTP_INTERNAL_SERVER_ERROR,
-            ]);
-        }
-
-        return new CharityBoxResource($box);
+        // TODO: Implement update() method.
     }
 
-    /**
-     * @OA\Put(
-     *     path="/charityBoxes/{id}",
-     *     operationId="updateCharityBox",
-     *      tags={"CharityBoxes"},
-     *      summary="Update charity box",
-     *      description="Returns information about modified charity box",
-     *      @OA\RequestBody(
-     *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/UpdateCharityBoxRequest")
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/CharityBox")
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="Resource Not Found"
-     *      )
-     * )
-     * @param UpdateCountingCharityBoxRequest $request
-     * @return CharityBoxResource|JsonResponse
-     */
-    public function update(UpdateCountingCharityBoxRequest $request)
+    public function create(Request $request, int $id)
     {
-        $bo = new BoxOperator($request->user()->id);
-
-        try {
-            $box = $bo->updateBoxByBoxID($request->box_id, $request);
-        } catch (\Exception $e) {
-            return new JsonResponse([
-                'error_message' => $e->getMessage(),
-                'status' => Response::HTTP_BAD_REQUEST
-            ]);
-        }
-
-        // Flash input in case user wants to go back
-        $request->flash();
-
-        return new CharityBoxResource($box);
+        // TODO: Implement create() method.
     }
-
-
-//    //Znajdź puszkę (formularz)
-//    public function postFind(Request $request) {
-//        $bo = new BoxOperator($request->user()->id);
-//
-//        try {
-//            $box = $bo->findLatestUncountedByCollectorIdentifier($request->input('collectorIdentifier'));
-//        } catch (\Exception $e) {
-//            return redirect()->route('box.find')
-//                ->with('error', 'Wszystkie puszki wolontariusza są rozliczone.');
-//        }
-//
-//        return view('liczymy.box.found')->with('box', $box);
-//    }
 
     public function delete(int $id)
     {
@@ -249,6 +65,7 @@ final class CharityBoxApiController extends ApiController
      *      tags={"CharityBoxes"},
      *      summary="Get list of unverified charity boxes",
      *      description="Returns list of charity boxes",
+
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
@@ -262,7 +79,7 @@ final class CharityBoxApiController extends ApiController
      *          response=403,
      *          description="Forbidden"
      *      )
-     * )
+     *     )
      */
     public function getUnverifiedList() : JsonResponse
     {
@@ -300,7 +117,7 @@ final class CharityBoxApiController extends ApiController
      *          response=403,
      *          description="Forbidden"
      *      )
-     * )
+     *     )
      */
     public function getVerifiedList(): JsonResponse
     {
@@ -310,169 +127,5 @@ final class CharityBoxApiController extends ApiController
             ->get();
 
         return new JsonResponse($confirmedBoxes);
-    }
-
-    /**
-     * @OA\Post(
-     *     path="/charityBoxes/unverified/{id}",
-     *     operationId="postUnverifyCharityBoxById",
-     *     tags={"CharityBoxes"},
-     *     summary="Unverify Charity Box",
-     *     description="Return message of operation result",
-     *     @OA\RequestBody(
-     *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/BoxCharityBoxRequest")
-     *      ),
-     *     @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *          @OA\JsonContent(
-     *              @OA\Property(property="status_code", type="integer", example="200"),
-     *              @OA\Property(property="data",type="object")
-     *          ),
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="Resource Not Found"
-     *      )
-     * )
-     * @param BoxCharityBoxRequest $request
-     * @return JsonResponse
-     */
-    public function postUnverifyCharityBox(BoxCharityBoxRequest $request): JsonResponse
-    {
-        $box = CharityBox::where('id', '=', $request->box_id)->first();
-        $box->is_confirmed = false;
-        $box->user_confirmed_id = null;
-        $box->time_confirmed = null;
-        $box->save();
-
-        $event = new BoxEvent();
-        $event->type = 'unverified';
-        $event->box_id = $box->id;
-        $event->user_id = $request->user()->id;
-        $event->comment = '';
-        $event->save();
-
-        return new JsonResponse([
-            'message' => sprintf('Puszka nr %s anulowano zatwierdzenie (%szł)', $box->id, $box->amount_PLN),
-            'status' => \Illuminate\Http\Response::HTTP_OK
-        ]);
-    }
-
-    /**
-     * @OA\Post(
-     *     path="/charityBoxes/{id}/startCounting",
-     *     operationId="stratCountngCharityBoxById",
-     *     tags={"CharityBoxes"},
-     *     summary="Start counting Charity Box",
-     *     description="Return charity box instance",
-     *     @OA\RequestBody(
-     *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/BoxCharityBoxRequest")
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/CharityBox")
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="Resource Not Found"
-     *      )
-     * )
-     * @param BoxCharityBoxRequest $request
-     * @return JsonResponse
-     */
-    public function startCounting(BoxCharityBoxRequest $request)
-    {
-        $bo = new BoxOperator($request->user()->id);
-
-        try {
-            $box = $bo->startCountByBoxID($request->box_id);
-        } catch (\Exception $e) {
-            return new JsonResponse([
-                'error_message' => $e->getMessage(),
-                'status' => Response::HTTP_INTERNAL_SERVER_ERROR
-            ]);
-        }
-
-        return new CharityBoxResource($box);
-    }
-
-    /**
-     * @OA\Post(
-     *     path="/charityBoxes/{id}/finishCounting",
-     *     operationId="finishCountngCharityBoxById",
-     *     tags={"CharityBoxes"},
-     *     summary="Finish counting Charity Box",
-     *     description="Return charity box instance",
-     *     @OA\RequestBody(
-     *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/BoxCharityBoxRequest")
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/CharityBox")
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="Resource Not Found"
-     *      )
-     * )
-     * @param BoxCharityBoxRequest $request
-     * @return JsonResponse
-     */
-    public function confirm(BoxCharityBoxRequest $request)
-    {
-        $bo = new BoxOperator($request->user()->id);
-
-        try {
-            $box = $bo->confirmBoxByBoxID($request->box_id);
-        } catch (\Exception $e) {
-            return new JsonResponse([
-                'error_message' => 'ERROR',
-                'status' => Response::HTTP_INTERNAL_SERVER_ERROR
-            ]);
-        }
-
-        return new CharityBoxResource($box);
     }
 }
