@@ -199,6 +199,69 @@ export interface IStations {
   t: number | null;
 }
 
+export interface IUnverifiedBoxes {
+  id: number;
+  created_at: string;
+  updated_at: string;
+  collectorIdentifier: number;
+  collector: {
+    id: number;
+    created_at: string;
+    updated_at: string;
+    identifier: number;
+    firstName: string;
+    lastName: string;
+  };
+  is_given_to_collector: number;
+  given_to_collector_user_id: {
+    id: number;
+    created_at: string;
+    updated_at: string;
+    name: string;
+    comment: string;
+    remember_token: string;
+  };
+  time_given: string;
+  is_counted: number;
+  counting_user_id: {
+    id: number;
+    created_at: string;
+    updated_at: string;
+    name: string;
+    comment: string;
+    remember_token: string;
+  };
+  time_counted: string;
+  is_confirmed: boolean;
+  user_confirmed_id: number;
+  time_confirmed: string;
+  count_1gr: number;
+  count_2gr: number;
+  count_5gr: number;
+  count_10gr: number;
+  count_20gr: number;
+  count_50gr: number;
+  count_1zl: number;
+  count_2zl: number;
+  count_5zl: number;
+  count_10zl: number;
+  count_20zl: number;
+  count_50zl: number;
+  count_100zl: number;
+  count_200zl: number;
+  count_500zl: number;
+  amount_PLN: number;
+  amount_EUR: number;
+  amount_USD: number;
+  amount_GBP: number;
+  comment: string;
+  is_special_box: number;
+}
+
+export interface DisplayableData {
+  [key: string]: string | number;
+}
+
 export type AmountsKeys = ZlotyAmountsKeys | ForeignAmountsKeys;
 
 export type ZlotyAmountsKeys =
