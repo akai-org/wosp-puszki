@@ -16,7 +16,7 @@ export const NavbarItem: React.FC<SubNavLink> = (props) => {
       >
         {props.label}
       </NavLink>
-      {props.withDot && <span className={s.dot}></span>}
+      {props.withDot && <span className={s.dot} data-testid="navbarDot"></span>}
     </>
   );
 };

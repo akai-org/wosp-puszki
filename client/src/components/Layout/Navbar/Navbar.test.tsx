@@ -24,36 +24,30 @@ const testArgs = {
     {
       label: 'Lista użytkowników',
       url: 'admin',
-      show: true,
       withDot: true,
     },
     {
       label: 'Dodaj wolontariusza',
       url: 'admin/volunteers/add',
-      show: true,
     },
     {
       label: 'Lista wolontariuszy',
       url: 'admin/volunteers/list',
-      show: true,
       withDot: true,
     },
     {
       label: 'Logi',
       url: 'admin/logs',
-      show: true,
     },
   ],
   GiveOrSettleBoxNavLinks: [
     {
       label: 'Wydaj puszkę',
       url: 'boxes',
-      show: true,
     },
     {
       label: 'Rozlicz puszkę',
       url: 'boxes/settle',
-      show: true,
     },
   ],
 };
@@ -71,32 +65,32 @@ describe('CountedBoxesNav', () => {
   });
 });
 
-
-
 describe('AdminPanelNav', () => {
-    beforeEach(() => {
-      renderWithWrapper(
-        <Navbar links={testArgs.AdminPanelNavLinks} />,
-        AllRootProvidersWrapper(),
-      );
-    });
-    it('should show four links', () => {
-      const links = screen.getAllByTestId('navbarLinks');
-      expect(links.length).toEqual(5);
-    });
+  beforeEach(() => {
+    renderWithWrapper(
+      <Navbar links={testArgs.AdminPanelNavLinks} />,
+      AllRootProvidersWrapper(),
+    );
   });
+  it('should show four links', () => {
+    const links = screen.getAllByTestId('navbarLinks');
+    expect(links.length).toEqual(5);
+  });
+  it('should have two dots', () => {
+    const dots = screen.getAllByTestId('navbarDot');
+    expect(dots.length).toEqual(2);
+  });
+});
 
-
-  
 describe('GiveOrSettleBoxNavLinks', () => {
-    beforeEach(() => {
-      renderWithWrapper(
-        <Navbar links={testArgs.GiveOrSettleBoxNavLinks} />,
-        AllRootProvidersWrapper(),
-      );
-    });
-    it('should show two links', () => {
-      const links = screen.getAllByTestId('navbarLinks');
-      expect(links.length).toEqual(2);
-    });
+  beforeEach(() => {
+    renderWithWrapper(
+      <Navbar links={testArgs.GiveOrSettleBoxNavLinks} />,
+      AllRootProvidersWrapper(),
+    );
   });
+  it('should show two links', () => {
+    const links = screen.getAllByTestId('navbarLinks');
+    expect(links.length).toEqual(2);
+  });
+});
