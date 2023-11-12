@@ -7,19 +7,16 @@ const testArgs = {
     {
       label: 'Lista puszek do zatwierdzenia',
       url: 'countedBoxes',
-      show: true,
     },
     {
       label: 'Lista puszek zatwierdzonych',
       url: 'countedBoxes/approved',
-      show: true,
     },
   ],
   AdminPanelNavLinks: [
     {
       label: 'Dodaj użytkownika',
       url: 'admin/users/add',
-      show: true,
     },
     {
       label: 'Lista użytkowników',
