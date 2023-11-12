@@ -7,6 +7,7 @@ export const NavbarItem: React.FC<SubNavLink> = (props) => {
   return (
     <>
       <NavLink
+        data-testid="navbarLinks"
         to={props.url}
         end
         className={({ isActive }) =>
