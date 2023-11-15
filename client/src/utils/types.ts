@@ -199,7 +199,7 @@ export interface IStations {
   t: number | null;
 }
 
-export interface IUnverifiedBoxes {
+export interface IBoxes {
   id: number;
   created_at: string;
   updated_at: string;
