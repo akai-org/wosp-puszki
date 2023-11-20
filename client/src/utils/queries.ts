@@ -9,7 +9,7 @@ import {
   NO_CONNECT_WITH_SERVER,
   STATUS_CANT_BE_UPDATED,
   MULTIPLE_STATUS_CANT_BE_UPDATED,
-  IUnverifiedBoxes,
+  IBoxes,
   CANNOT_DOWNLOAD_DATA,
 } from '@/utils';
 import { useQuery } from '@tanstack/react-query';
@@ -19,6 +19,7 @@ export const STATION_AVAILABLE_QUERY_KEY = ['station-available'];
 export const STATION_UNAVAILABLE_QUERY_KEY = ['station-unavailable'];
 
 export const UNVERIFIED_BOXES_QUERY_KEY = ['unverified-boxes'];
+export const VERIFIED_BOXES_QUERY_KEY = ['verified-boxes'];
 
 export const STATIONS_QUERY_KEY = ['stations'];
 export const THREE_MINUTES = 1000 * 60 * 3;
@@ -130,11 +131,24 @@ export const useUnverifiedBoxesQuery = () =>
   useQuery(
     UNVERIFIED_BOXES_QUERY_KEY,
     () =>
-      fetcher<IUnverifiedBoxes[]>(
-        `${APIManager.baseAPIRUrl}/charityBoxes/unverified`,
-      ).catch((error) => {
-        openNotification('error', NO_CONNECT_WITH_SERVER, CANNOT_DOWNLOAD_DATA);
-        throw error;
-      }),
+      fetcher<IBoxes[]>(`${APIManager.baseAPIRUrl}/charityBoxes/unverified`).catch(
+        (error) => {
+          openNotification('error', NO_CONNECT_WITH_SERVER, CANNOT_DOWNLOAD_DATA);
+          throw error;
+        },
+      ),
+    { initialData: [], refetchInterval: 3000, cacheTime: 3000 },
+  );
+
+export const useVerifiedBoxesQuery = () =>
+  useQuery(
+    VERIFIED_BOXES_QUERY_KEY,
+    () =>
+      fetcher<IBoxes[]>(`${APIManager.baseAPIRUrl}/charityBoxes/verified`).catch(
+        (error) => {
+          openNotification('error', NO_CONNECT_WITH_SERVER, CANNOT_DOWNLOAD_DATA);
+          throw error;
+        },
+      ),
     { initialData: [], refetchInterval: 3000, cacheTime: 3000 },
   );

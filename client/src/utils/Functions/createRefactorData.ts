@@ -1,6 +1,6 @@
-import { DisplayableData, IUnverifiedBoxes } from '../types';
+import { DisplayableData, IBoxes } from '../types';
 
-export const createDisplayableData = (data: IUnverifiedBoxes[]) => {
+export const createDisplayableData = (data: IBoxes[]) => {
   const displayableData = [];
 
   for (const item of data) {
