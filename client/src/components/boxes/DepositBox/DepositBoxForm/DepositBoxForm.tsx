@@ -39,7 +39,12 @@ const moneySlice = {
   to_USD: 19,
 };
 
-export const DepositBoxForm = () => {
+export interface DepositBoxFormProps {
+  data?: null,
+  editMode?: boolean
+}
+
+export const DepositBoxForm = ({ data, editMode }: DepositBoxFormProps) => {
   const [message, setMessage] = useState<FormMessage | undefined>();
   const [total, setTotal] = useState(0);
   const { boxData, handleAmountsChange } = useDepositContext();

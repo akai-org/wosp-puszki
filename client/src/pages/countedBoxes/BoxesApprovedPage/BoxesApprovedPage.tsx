@@ -6,6 +6,7 @@ import { CreateColumns, useVerifiedBoxesQuery } from '@/utils';
 import s from './BoxesPage.module.less';
 import { Typography, Space, Layout, Table } from 'antd';
 import { createDisplayableData } from '@/utils/Functions/createRefactorData';
+import { Outlet } from 'react-router-dom';
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -84,12 +85,12 @@ export const BoxesApprovedPage = () => {
       actions: [
         {
           title: 'Podgląd',
-          link: '/countedBoxes/boxesApproved/show/',
+          link: '/liczymy/countedBoxes/approved/show/',
           color: 'blue',
         },
         {
           title: 'Modyfikuj',
-          link: '/countedBoxes/boxesApproved/show/',
+          link: '/liczymy/countedBoxes/approved/edit/',
           color: 'blue',
         },
       ],
@@ -117,6 +118,7 @@ export const BoxesApprovedPage = () => {
             rowClassName={s.table_row}
           />
         </Space>
+        <Outlet />
       </Content>
     </Layout>
   );

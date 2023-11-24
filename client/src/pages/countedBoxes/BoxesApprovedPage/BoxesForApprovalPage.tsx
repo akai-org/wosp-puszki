@@ -83,12 +83,12 @@ export const BoxesForApprovalPage = () => {
         },
         {
           title: 'Podgląd',
-          link: '/countedBoxes/boxesApproved/show/',
+          link: '/liczymy/countedBoxes/show/',
           color: 'blue',
         },
         {
           title: 'Modyfikuj',
-          link: '/countedBoxes/boxesApproved/show/',
+          link: '/liczymy/countedBoxes/edit/',
           color: 'blue',
         },
       ],

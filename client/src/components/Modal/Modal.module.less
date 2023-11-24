@@ -1,0 +1,51 @@
+@import 'less/variables.less';
+
+.wrapper {
+  height: 100lvh;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  background-color: #171717a1;
+  display: flex;
+  justify-content: center;
+  backdrop-filter: blur(2px);
+  align-items: center;
+}
+
+.container {
+  border: 3px solid @cyan-10;
+  border-radius: 0.625rem;
+  width: 80%;
+  background-color: #edf2f4;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  padding-bottom: 8px;
+  position: relative;
+  background-color: @cyan-10;
+}
+
+.title {
+  position: absolute;
+  color: white !important;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.backButton {
+  border-radius: 0.625rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  padding: 40px 20px;
+}
