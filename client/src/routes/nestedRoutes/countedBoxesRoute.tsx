@@ -12,6 +12,14 @@ const countedBoxesSubroutes: RouteObject[] = [
     element: <BoxesForApprovalPage />,
   },
   {
+    path: 'show/:id',
+    element: <ShowBoxPage />
+  },
+  {
+    path: 'edit/:id',
+    element: <EditBoxPage />
+  },
+  {
     path: APPROVED_BOXES_PAGE_ROUTE,
     element: <BoxesApprovedPage />,
     children: [

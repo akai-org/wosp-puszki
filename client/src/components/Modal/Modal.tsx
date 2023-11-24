@@ -1,18 +1,19 @@
-import { Button } from 'antd';
+import { Button, Layout, Space } from 'antd';
 import s from './Modal.module.less';
 import Title from 'antd/lib/typography/Title';
 import { Icon } from '@iconify/react';
 import { useNavigate } from 'react-router-dom';
+import { Header } from 'antd/lib/layout/layout';
 
 export const Modal = ({ children, title }: { children: JSX.Element, title: string }) => {
 
   const navigate = useNavigate();
 
   return (
-    <div className={s.wrapper}>
-      <section className={s.container}>
-        <div className={s.header}>
-          <div></div>
+    <Layout className={s.wrapper}>
+      <Space direction='vertical' className={s.container}>
+        <Header className={s.header}>
+          <Space></Space>
           <Title level={4} className={s.title}>
             {title}
           </Title>
@@ -29,11 +30,11 @@ export const Modal = ({ children, title }: { children: JSX.Element, title: strin
               height="20"
             />
           </Button>
-        </div>
-        <div className={s.content}>
+        </Header>
+        <Space className={s.content}>
           {children}
-        </div>
-      </section>
-    </div>
+        </Space>
+      </Space>
+    </Layout>
   )
 }
