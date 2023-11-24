@@ -3,8 +3,11 @@ import { CalculatorView } from '@/components/Calculator/CalculatorView';
 import {
   APIManager,
   AmountsKeys,
+  BoxData,
   CHECKOUT_BOX_PAGE_ROUTE,
+  COUNTED_BOXES_ROUTE,
   FormMessage,
+  IBoxes,
   MONEY_VALUES,
   SETTLE_PROCESS_PATH,
   ZLOTY_AMOUNTS_KEYS,
@@ -25,7 +28,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DepositColumn } from '@/components';
 import { InputNumberBox } from '@/components';
-import s from './DepositBoxForm.module.less';
+import s from './BoxDataForm.module.less';
 
 const { Title } = Typography;
 
@@ -40,26 +43,34 @@ const moneySlice = {
 };
 
 export interface DepositBoxFormProps {
-  data?: null,
+  boxId?: string,
   editMode?: boolean
 }
 
-export const DepositBoxForm = ({ data, editMode }: DepositBoxFormProps) => {
+export const DepositBoxForm = ({ boxId, editMode }: DepositBoxFormProps) => {
   const [message, setMessage] = useState<FormMessage | undefined>();
   const [total, setTotal] = useState(0);
   const { boxData, handleAmountsChange } = useDepositContext();
-  const { boxIdentifier, collectorName, collectorIdentifier } = useGetBoxData();
   const navigate = useNavigate();
-
-  setStationUnavailable();
 
   useEffect(() => {
     setTotal(sum(boxData, ZLOTY_AMOUNTS_KEYS, MONEY_VALUES));
   }, [boxData]);
 
-  const mutation = useMutation({
+  const mutation = useMutation(editMode ? {
     mutationFn: () =>
-      fetcher(`${APIManager.baseAPIRUrl}/boxes/${boxIdentifier}`, {
+      fetcher(`${APIManager.baseAPIRUrl}/charityBoxes/${boxId}`, {
+        method: 'PUT',
+        body: { box_id: boxId, comment: boxData.comment, ...boxData.amounts },
+      }),
+    onSuccess: () =>
+      navigate(createFullRoutePath(SETTLE_PROCESS_PATH, COUNTED_BOXES_ROUTE)),
+    onError: (error) => {
+      setMessage({ type: 'error', content: recognizeError(error) });
+    },
+  } : {
+    mutationFn: () =>
+      fetcher(`${APIManager.baseAPIRUrl}/boxes/${boxId}`, {
         method: 'POST',
         body: { comment: boxData.comment, ...boxData.amounts },
       }),
@@ -100,14 +111,8 @@ export const DepositBoxForm = ({ data, editMode }: DepositBoxFormProps) => {
   });
 
   return (
-    <Content className={s.full}>
-      <CalculatorView />
+    <>
       <Form disabled={mutation.isLoading}>
-        <Title level={4} className={s.title}>
-          Rozliczenie puszki wolontariusza {collectorName} ( {collectorIdentifier} ) ( ID
-          puszki w bazie:
-          {boxIdentifier} )
-        </Title>
         <Space className={s.columns}>
           <DepositColumn>
             {inputs.slice(moneySlice['from_1gr'], moneySlice['to_5zl']).map((input) => {
@@ -165,6 +170,7 @@ export const DepositBoxForm = ({ data, editMode }: DepositBoxFormProps) => {
           </div>
         )}
       </Form>
-    </Content>
+      <CalculatorView />
+    </>
   );
 };

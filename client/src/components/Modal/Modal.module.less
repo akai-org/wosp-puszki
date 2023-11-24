@@ -1,13 +1,16 @@
 @import 'less/variables.less';
 
 .wrapper {
-  height: 100lvh;
+  height: 100%;
+  min-height: 100lvh;
   width: 100%;
   position: absolute;
   top: 0;
   left: 0;
   z-index: 50;
   background-color: #171717a1;
+  overflow: auto;
+  padding: 60px 0px;
   display: flex;
   justify-content: center;
   backdrop-filter: blur(2px);
@@ -49,4 +52,16 @@
 .content {
   width: 100%;
   padding: 40px 20px;
+}
+
+@media screen {
+  @media (max-width: 576px) {
+    .wrapper {
+      position: fixed;
+    }
+
+    .container {
+      width: 100%;
+    }
+  }
 }

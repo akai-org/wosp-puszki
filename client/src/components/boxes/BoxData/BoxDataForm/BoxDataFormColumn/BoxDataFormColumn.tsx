@@ -1,7 +1,7 @@
 import type { FC, ReactNode } from 'react';
 import type { FormProps } from 'antd';
 import { Space, Typography } from 'antd';
-import s from './DepositFormColumn.module.less';
+import s from './BoxDataFormColumn.module.less';
 const { Text } = Typography;
 
 interface Props extends FormProps {
