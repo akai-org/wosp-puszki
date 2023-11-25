@@ -2,15 +2,15 @@
 
 namespace App\Virtual\Models;
 
+use OpenApi\Annotations as OA;
+
 /**
  * @author kabix09
  *
  * @OA\Schema(
+ *     schema="Collector",
  *     title="Collector",
  *     description="Collector model - volunter with charity box",
- *     @OA\Xml(
- *         name="Collector"
- *     )
  * )
  */
 final class Collector extends GenericModel

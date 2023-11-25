@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CharityBoxApiController;
+use App\Http\Controllers\Api\CollectorApiController;
 use App\Http\Controllers\Api\CountedBoxApiController;
 use App\Http\Controllers\Api\RatesApiController;
 use App\Http\Controllers\AvailabilityController;
@@ -58,32 +59,18 @@ Route::group(['as' => 'api', 'middleware' => ['auth.basic:,name']], function() {
 //Zwracamy dane z głównej strony w formie JSON
 Route::get('/stats', ['uses' => 'AmountDisplayController@displayRawJson']);
 
-Route::group(['middleware' => ['auth.basic:,name']], function (){
-    Route::post('/collectors/{collectorIdentifier}/boxes', function(Request $request, string $collectorIdentifier) {
-        $bo = new BoxOperator($request->user()->id);
+Route::group(['as' => 'api.', 'middleware' => ['auth.basic:,name']], function (){
+    //Zbieracze (collector)
 
-        try {
-            $box = $bo->giveByCollectorIdentifier($collectorIdentifier);
-        } catch (\Exception $e) {
-            return Response::json([
-                'error' => $e->getMessage()
-            ], 400);
-        }
-
-        return Response::json($box, 200);
-    })->middleware(['collectorcoordinator']);
-
-    Route::get('/collectors/{collectorIdentifier}/boxes/latestUncounted', function(Request $request, string $collectorIdentifier) {
-        $bo = new BoxOperator($request->user()->id);
-
-        try {
-            $box = $bo->findLatestUncountedByCollectorIdentifier($collectorIdentifier);
-        } catch (\Exception $e) {
-            return Response::json('', 404);
-        }
-
-        return Response::json($box, 200);
-    });
+    //Lista wolontariuszy (dla administratorów)
+    Route::get('collectors', [CollectorApiController::class, 'index'])->name('collector.list')->middleware('collectorcoordinator');
+    Route::get('collectors/{id}', [CollectorApiController::class, 'show'])->name('collector.show')->middleware('collectorcoordinator');
+    // Formularz dodawania wolontariusza
+    Route::post('collectors', [CollectorApiController::class, 'create'])->name('collector.create.post')->middleware('admin');
+    // Stworzenie puszki dla wolontariusza
+    Route::post('collectors/{collectorIdentifier}/box/create', [CollectorApiController::class, 'createBoxForCollector'])->name('collector.create.box')->middleware(['collectorcoordinator']);
+    // Chwycenie ostatniej nierozliczonej puszki wolontariusza
+    Route::get('collectors/{collectorIdentifier}/box/latestUncounted', [CollectorApiController::class, 'getCollectorLatUncountedBox'])->name('collector.get.uncountedBox');
 });
 
 
