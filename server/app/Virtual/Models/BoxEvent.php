@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Virtual\Models;
 
 use Money\Money;
+use OpenApi\Annotations as OA;
 
 /**
  * @author kabix09

@@ -10,6 +10,7 @@ use App\Utils\RatesConverter\Converters\ConvertGbpToPln;
 use App\Utils\RatesConverter\Converters\ConvertUsdToPln;
 use App\Utils\RatesFetcherFactory;
 use Money\Currency;
+use OpenApi\Annotations as OA;
 
 /**
  * @author kabix09

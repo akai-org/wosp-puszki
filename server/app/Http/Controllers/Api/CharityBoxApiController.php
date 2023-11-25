@@ -12,6 +12,7 @@ use App\Http\Resources\Api\CharityBoxResource;
 use App\Lib\BoxOperator\BoxOperator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use OpenApi\Annotations as OA;
 
 /**
  * @author kabix09

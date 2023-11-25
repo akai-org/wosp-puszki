@@ -4,6 +4,7 @@ namespace App\Virtual\Models;
 
 use App\Virtual\Triat\Timestampable;
 use Money\Money;
+use OpenApi\Annotations as OA;
 
 /**
  * @OA\Schema(
