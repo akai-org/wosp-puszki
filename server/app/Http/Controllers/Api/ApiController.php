@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
+use OpenApi\Annotations as OA;
 use ReflectionClass;
 
 /**
@@ -31,11 +30,10 @@ use ReflectionClass;
  *      description="WOSP API Server"
  * )
  *
- * @OAS\SecurityScheme(
- *      securityScheme="sanctum",
- *      type="http",
- *      scheme="bearer",
- *      description="Laravel Sanctum token authentication"
+ * @OA\SecurityScheme(
+ *     securityScheme="bearerAuth",
+ *     type="http",
+ *     scheme="basic"
  * )
  *
  * @link https://blog.quickadminpanel.com/laravel-api-documentation-with-openapiswagger/

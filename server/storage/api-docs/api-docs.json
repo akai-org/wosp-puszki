@@ -2089,11 +2089,9 @@
             }
         },
         "securitySchemes": {
-            "sanctum": {
-                "type": "basic",
-                "description": "Enter token in format (Bearer <token>)",
-                "name": "Authorization",
-                "in": "header"
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "basic"
             }
         }
     },

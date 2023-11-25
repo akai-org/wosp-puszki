@@ -199,11 +199,17 @@ return [
                 ],
                 */
 
+                // Note: I don't know how it is related to interactive doc
+                // ApiController @SecurityScheme is independent from this....
                 'sanctum' => [ // Unique name of security
                     'type' => 'basic', // Valid values are "basic", "apiKey" or "oauth2".
                     'description' => 'Enter token in format (Bearer <token>)',
                     'name' => 'Authorization', // The name of the header or query parameter to be used.
                     'in' => 'header', // The location of the API key. Valid values are "query" or "header".
+                ],
+                'basic' => [
+                    'type' => 'basic',
+                    'description' => 'HTTP Basic Authentication with username and password.',
                 ],
             ],
             'security' => [
