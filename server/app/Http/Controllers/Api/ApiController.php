@@ -43,17 +43,17 @@ use ReflectionClass;
  */
 abstract class ApiController extends Controller
 {
-//    private ReflectionClass $proxyClass;
-//
-//    /**
-//     * @throws \ReflectionException
-//     */
-//    public function __construct(string $class)
-//    {
-//        $this->proxyClass = new ReflectionClass($class);
-//
-//        //Model
-//    }
+    private ReflectionClass $proxyClass;
+
+    /**
+     * @throws \ReflectionException
+     */
+    public function __construct(string $class)
+    {
+        $this->proxyClass = new ReflectionClass($class);
+
+        //Model
+    }
 
 //    public function index()
 //    {
