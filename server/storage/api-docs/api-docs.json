@@ -19,6 +19,201 @@
         }
     ],
     "paths": {
+        "/stations": {
+            "get": {
+                "tags": [
+                    "Stations"
+                ],
+                "summary": "Get list of Sttions",
+                "description": "Returns list of Stations",
+                "operationId": "getStationsList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Stations"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/stations/{id}/ready": {
+            "post": {
+                "tags": [
+                    "Stations"
+                ],
+                "summary": "Set Station status to ready",
+                "description": "Set Station status to ready",
+                "operationId": "reayStation",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Station id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Station set to ready",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Station"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/stations/{id}/busy": {
+            "post": {
+                "tags": [
+                    "Stations"
+                ],
+                "summary": "Set Station status to busy",
+                "description": "Set Station status to busy",
+                "operationId": "busyStation",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Station id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Station set to busy",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Station"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/stations/{id}/unknown": {
+            "post": {
+                "tags": [
+                    "Stations"
+                ],
+                "summary": "Set Station status to unknown",
+                "description": "Set Station status to unknown",
+                "operationId": "unknownStation",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Station id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Station set to busy",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Station"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/stations/status": {
+            "get": {
+                "tags": [
+                    "Stations"
+                ],
+                "summary": "Get list of Sttions statuses",
+                "description": "Returns list of Stations statuses",
+                "operationId": "getStationsStatusesList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "title": "data",
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "STATUS_READY"
+                                                    },
+                                                    "value": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
         "/charityBoxes": {
             "get": {
                 "tags": [
@@ -379,6 +574,220 @@
                     },
                     "404": {
                         "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/collectors": {
+            "get": {
+                "tags": [
+                    "Collectors"
+                ],
+                "summary": "Get list of Collectors",
+                "description": "Returns list of Collectors",
+                "operationId": "getCollectorList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Collectors"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Collectors"
+                ],
+                "summary": "Insert a new Collector",
+                "description": "Insert a new Collector",
+                "operationId": "postCollector",
+                "requestBody": {
+                    "description": "Collector to create",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CollectorRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Collector created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Collector"
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "Collector exist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Istnieje już wolontariusz o podanym numerze w systemie"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Validation exception"
+                    }
+                }
+            }
+        },
+        "/collectors/{id}": {
+            "get": {
+                "tags": [
+                    "Collectors"
+                ],
+                "summary": "Get collector information",
+                "description": "Returns collector data",
+                "operationId": "getCollectorById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Collector id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Collector"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/collectors/{collectorIdentifier}/box/create": {
+            "post": {
+                "tags": [
+                    "Collectors"
+                ],
+                "summary": "Create Charity Box for Collector",
+                "description": "Create Charity Box for Collector",
+                "operationId": "giveCollectorBox",
+                "parameters": [
+                    {
+                        "name": "collectorIdentifier",
+                        "in": "path",
+                        "description": "Collector (volunteer) identifier id (number)",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CharityBox"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/collectors/{collectorIdentifier}/box/latestUncounted": {
+            "get": {
+                "tags": [
+                    "Collectors"
+                ],
+                "summary": "Get last uncounted Collector's Charity Box",
+                "description": "Get last uncounted Collector's Charity Box",
+                "operationId": "getCollectorUncountedBox",
+                "parameters": [
+                    {
+                        "name": "collectorIdentifier",
+                        "in": "path",
+                        "description": "Collector (volunteer) identifier id (number)",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CharityBox"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
                     }
                 }
             }
@@ -792,10 +1201,221 @@
                     }
                 }
             }
+        },
+        "/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get list of Users",
+                "description": "Returns list of Users",
+                "operationId": "getUsersList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Users"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Insert a new User",
+                "description": "Insert a new User",
+                "operationId": "postUser",
+                "requestBody": {
+                    "description": "User to create",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "422": {
+                        "description": "Validation exception"
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get user information",
+                "description": "Returns user data",
+                "operationId": "getUserById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "User id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
         }
     },
     "components": {
         "schemas": {
+            "Stations": {
+                "title": "Stations",
+                "properties": {
+                    "data": {
+                        "title": "data",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Station"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "Collectors": {
+                "title": "Collectors",
+                "properties": {
+                    "data": {
+                        "title": "data",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Collector"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "Users": {
+                "title": "Users",
+                "properties": {
+                    "data": {
+                        "title": "data",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/User"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "CollectorRequest": {
+                "title": "CollectorRequest",
+                "description": "new Collector schema",
+                "required": [
+                    "collectorIdentifier",
+                    "firstName",
+                    "lastName"
+                ],
+                "properties": {
+                    "collectorIdentifier": {
+                        "description": "Id of the collector identifier",
+                        "format": "int64",
+                        "example": "1"
+                    },
+                    "firstName": {
+                        "description": "Wolunteer first name",
+                        "type": "string",
+                        "example": "Jan"
+                    },
+                    "lastName": {
+                        "description": "Wolunteer last name",
+                        "type": "string",
+                        "example": "Kowalski"
+                    }
+                },
+                "type": "object"
+            },
+            "UserRequest": {
+                "title": "UserRequest",
+                "description": "new User schema",
+                "required": [
+                    "userName",
+                    "password",
+                    "role"
+                ],
+                "properties": {
+                    "userName": {
+                        "description": "User name",
+                        "type": "string",
+                        "example": "Jan"
+                    },
+                    "password": {
+                        "description": "User password",
+                        "type": "string",
+                        "example": "qwerty123"
+                    },
+                    "password_confirmation": {
+                        "description": "User password the same as previous property",
+                        "type": "string",
+                        "example": "qwerty123"
+                    },
+                    "role": {
+                        "description": "User role",
+                        "format": "string",
+                        "enum": [
+                            "volounteer",
+                            "admin",
+                            "superadmin"
+                        ],
+                        "example": "volounteer"
+                    }
+                },
+                "type": "object"
+            },
             "BoxEvent": {
                 "title": "BoxEvent",
                 "description": "Box Event model",
@@ -1102,10 +1722,77 @@
                         "example": "Kowalski"
                     }
                 },
-                "type": "object",
-                "xml": {
-                    "name": "Collector"
-                }
+                "type": "object"
+            },
+            "Role": {
+                "title": "Role",
+                "description": "User Role model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "Primary Key",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "created_at": {
+                        "title": "Created At",
+                        "description": "Time of created record",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2023-03-18 10:22:25.323"
+                    },
+                    "updated_at": {
+                        "title": "Updated At",
+                        "description": "Time of last record update",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2023-03-18 10:22:25.323"
+                    },
+                    "name": {
+                        "title": "Name",
+                        "description": "User Role name",
+                        "type": "string",
+                        "enum": [
+                            "volounteer",
+                            "admin",
+                            "superadmin"
+                        ],
+                        "example": "volunteer"
+                    },
+                    "description": {
+                        "title": "Description",
+                        "description": "User Role description",
+                        "type": "string",
+                        "example": "Wolontariusz liczący"
+                    }
+                },
+                "type": "object"
+            },
+            "Station": {
+                "title": "Station",
+                "description": "Station model - ",
+                "properties": {
+                    "station": {
+                        "title": "Station",
+                        "description": "Station number",
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "status": {
+                        "title": "Stationary status",
+                        "description": "Stationary status- active: 1, inactive: 0",
+                        "type": "bit",
+                        "example": "1"
+                    },
+                    "time": {
+                        "title": "Stationary time",
+                        "description": "Stationary status- active: 1, inactive: 0",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-12-06 12:38:42"
+                    }
+                },
+                "type": "object"
             },
             "User": {
                 "title": "User",
@@ -1143,11 +1830,13 @@
                         "type": "string",
                         "example": "Lorem ipsum"
                     },
-                    "remember_token": {
-                        "title": "Token",
-                        "description": "",
-                        "type": "string",
-                        "example": ""
+                    "roles": {
+                        "title": "Roles",
+                        "description": "User roles list",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Role"
+                        }
                     }
                 },
                 "type": "object",
@@ -1410,8 +2099,16 @@
     },
     "tags": [
         {
+            "name": "Stations",
+            "description": "API Endpoints of Stations"
+        },
+        {
             "name": "CharityBoxes",
             "description": "API Endpoints of Charity Boxes"
+        },
+        {
+            "name": "Collectors",
+            "description": "API Endpoints for Collector (volunteers)"
         },
         {
             "name": "CharityBoxScore",
@@ -1420,6 +2117,10 @@
         {
             "name": "Rates",
             "description": "API Endpoints for currencies and rates"
+        },
+        {
+            "name": "Users",
+            "description": "API Endpoints for Users (volunters but other than collectors)"
         }
     ]
 }

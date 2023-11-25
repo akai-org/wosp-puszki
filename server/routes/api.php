@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\CharityBoxApiController;
 use App\Http\Controllers\Api\CollectorApiController;
 use App\Http\Controllers\Api\CountedBoxApiController;
 use App\Http\Controllers\Api\RatesApiController;
+use App\Http\Controllers\Api\UserApiController;
 use Illuminate\Http\Request;
 
 /*
@@ -26,6 +27,14 @@ Route::group(['middleware' => ['auth.basic:,name']], function (){
     Route::get('health', function() {
         return response()->json(['hello' => 'world']);
     });
+});
+
+Route::group(['as' => 'api.', 'middleware' => ['auth.basic:,name']], function () {
+    Route::get('users', [UserApiController::class, 'index'])->name('users.list')->middleware('admin');
+    Route::get('users/{id}', [UserApiController::class, 'show'])->name('users.show')->middleware('admin');
+    Route::post('users', [UserApiController::class, 'create'])->name('users.create')->middleware('admin');
+
+    // TODO add password/{user} with superadmin middleware
 });
 
 Route::group(['as' => 'api.', 'middleware' => ['auth.basic:,name']], function () {

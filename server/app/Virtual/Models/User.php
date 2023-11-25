@@ -45,13 +45,27 @@ final class User extends GenericModel
 
     /**
      * @OA\Property(
-     *     title="Token",
-     *     description="",
-     *     type="string",
-     *     example=""
+     *     title="Roles",
+     *     description="User roles list",
+     *     type="array",
+     *     @OA\Items(type="object",ref="#/components/schemas/Role")
      * )
      *
-     * @var string
+     * @var array
      */
-    public string $remember_token;
+    public array $roles;
+
+// We don't want to show this data
+//
+//    /**
+//     * @OA\Property(
+//     *     title="Token",
+//     *     description="",
+//     *     type="string",
+//     *     example=""
+//     * )
+//     *
+//     * @var string
+//     */
+//    public string $remember_token;
 }
