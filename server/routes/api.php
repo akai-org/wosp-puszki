@@ -1,11 +1,10 @@
 <?php
 
+use App\Http\Controllers\Api\AvailabilityApiController;
 use App\Http\Controllers\Api\CharityBoxApiController;
 use App\Http\Controllers\Api\CollectorApiController;
 use App\Http\Controllers\Api\CountedBoxApiController;
 use App\Http\Controllers\Api\RatesApiController;
-use App\Http\Controllers\AvailabilityController;
-use App\Lib\BoxOperator\BoxOperator;
 use Illuminate\Http\Request;
 
 /*
@@ -73,8 +72,10 @@ Route::group(['as' => 'api.', 'middleware' => ['auth.basic:,name']], function ()
     Route::get('collectors/{collectorIdentifier}/box/latestUncounted', [CollectorApiController::class, 'getCollectorLatUncountedBox'])->name('collector.get.uncountedBox');
 });
 
-
-Route::get('/stations', [AvailabilityController::class, 'getList']);
-Route::post('/stations/{id}/ready', [AvailabilityController::class, 'postReady']);
-Route::post('/stations/{id}/busy', [AvailabilityController::class, 'postBusy']);
-Route::post('/stations/{id}/unknown', [AvailabilityController::class, 'postUnknown']);
+Route::group(['as' => 'api.'], function () {
+    Route::get('/stations', [AvailabilityApiController::class, 'index']);
+    Route::get('/stations/status', [AvailabilityApiController::class, 'getStatusList']);
+    Route::post('/stations/{id}/ready', [AvailabilityApiController::class, 'postReady']);
+    Route::post('/stations/{id}/busy', [AvailabilityApiController::class, 'postBusy']);
+    Route::post('/stations/{id}/unknown', [AvailabilityApiController::class, 'postUnknown']);
+});
