@@ -1,6 +1,5 @@
 import type { FormRule } from 'antd';
 import {
-  APIManager,
   fetcher,
   PASSWORD_REQUIRED,
   PASSWORDS_DO_NOT_MATCH,
@@ -8,10 +7,9 @@ import {
   USERNAME_REQUIRED,
 } from '@/utils';
 import { FormButton, FormWrapper, FormInput, FormSelect } from '@/components';
-import type { Option, VolunteerType } from '@/utils';
+import type { FormMessage, Option, VolunteerType } from '@/utils';
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { useNavigate } from 'react-router';
 
 interface NewUserValues {
   username: string;
@@ -37,16 +35,9 @@ const validateConfirmPassword: FormRule = ({ getFieldValue }) => ({
 });
 
 export const NewUserForm = () => {
-  const [errorMessage, setErrorMessage] = useState<string | undefined>();
-  const navigate = useNavigate();
+  const [message, setMessage] = useState<FormMessage | undefined>();
   const mutation = useMutation({
     mutationFn: (values: NewUserValues) =>
-      // {
-      //   "userName": "Jan",
-      //   "password": "qwerty123",
-      //   "password_confirmation": "qwerty123",
-      //   "role": "volounteer"
-      // }
       fetcher(`http://localhost:8000/api/users`, {
         method: 'POST',
         body: {
@@ -56,15 +47,17 @@ export const NewUserForm = () => {
           type: values.userType,
         },
       }),
-    // onSuccess: () => navigate
-    onError: (error: unknown) => {
-      setErrorMessage(recognizeError(error));
-    },
+    onSuccess: () =>
+      setMessage({ type: 'error', content: 'Pomyślnie dodano użytkownika' }),
+    onError: (error: unknown) =>
+      setMessage({
+        type: 'error',
+        content: recognizeError(error),
+      }),
   });
 
   const onSubmit = (values: NewUserValues) => {
-    // TODO: Send to BE
-    return;
+    mutation.mutate(values);
   };
   return (
     <FormWrapper
@@ -72,6 +65,7 @@ export const NewUserForm = () => {
       initialValues={{ userType: 'Wolontariusz' }}
       name="newUserForm"
       onFinish={onSubmit}
+      message={message}
     >
       <FormInput
         label="Nazwa użytkownika"
