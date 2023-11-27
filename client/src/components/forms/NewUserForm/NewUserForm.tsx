@@ -10,6 +10,7 @@ import { FormButton, FormWrapper, FormInput, FormSelect } from '@/components';
 import type { FormMessage, Option, VolunteerType } from '@/utils';
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
+import { useForm } from 'antd/lib/form/Form';
 
 interface NewUserValues {
   username: string;
@@ -35,6 +36,7 @@ const validateConfirmPassword: FormRule = ({ getFieldValue }) => ({
 });
 
 export const NewUserForm = () => {
+  const [form] = useForm();
   const [message, setMessage] = useState<FormMessage | undefined>();
   const mutation = useMutation({
     mutationFn: (values: NewUserValues) =>
@@ -47,8 +49,11 @@ export const NewUserForm = () => {
           type: values.userType,
         },
       }),
-    onSuccess: () =>
-      setMessage({ type: 'error', content: 'Pomyślnie dodano użytkownika' }),
+    onSuccess: () => {
+      setMessage({ type: 'error', content: 'Pomyślnie dodano użytkownika' });
+      console.log('should reset');
+      form.resetFields();
+    },
     onError: (error: unknown) =>
       setMessage({
         type: 'error',
@@ -61,6 +66,7 @@ export const NewUserForm = () => {
   };
   return (
     <FormWrapper
+      form={form}
       label="Dodaj użytkownika"
       initialValues={{ userType: 'Wolontariusz' }}
       name="newUserForm"
