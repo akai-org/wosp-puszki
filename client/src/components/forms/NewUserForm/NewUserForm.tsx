@@ -93,7 +93,7 @@ export const NewUserForm = () => {
         rules={[{ required: true, message: PASSWORD_REQUIRED }, validateConfirmPassword]}
       />
       <FormSelect label="Typ użytkownika" name="userType" options={options} />
-      <FormButton type="primary" htmlType="submit">
+      <FormButton type="primary" htmlType="submit" isLoading={mutation.isLoading}>
         Dodaj użytkownika
       </FormButton>
     </FormWrapper>
