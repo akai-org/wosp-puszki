@@ -50,7 +50,7 @@ export const NewUserForm = () => {
         },
       }),
     onSuccess: () => {
-      setMessage({ type: 'error', content: 'Pomyślnie dodano użytkownika' });
+      setMessage({ type: 'success', content: 'Pomyślnie dodano użytkownika' });
       console.log('should reset');
       form.resetFields();
     },
@@ -71,6 +71,7 @@ export const NewUserForm = () => {
       initialValues={{ userType: 'Wolontariusz' }}
       name="newUserForm"
       onFinish={onSubmit}
+      disabled={mutation.isLoading}
       message={message}
     >
       <FormInput
