@@ -9,7 +9,7 @@ export interface SubNavLink {
   withDot?: boolean;
 }
 
-export type VolunteerType = 'collector' | 'admin' | 'superadmin' | 'collectorcoordinator';
+export type VolunteerType = 'volounteer' | 'admin' | 'superadmin' ;
 
 export interface Option {
   value: VolunteerType;

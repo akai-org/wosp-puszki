@@ -20,8 +20,7 @@ interface NewUserValues {
 }
 
 const options: Option[] = [
-  { value: 'collector', label: 'Wolontariusz' },
-  { value: 'collectorcoordinator', label: 'Koordynator wolontariuszy' },
+  { value: 'volounteer', label: 'Wolontariusz' },
   { value: 'admin', label: 'Admin' },
   { value: 'superadmin', label: 'Superadmin' },
 ];
@@ -38,20 +37,24 @@ const validateConfirmPassword: FormRule = ({ getFieldValue }) => ({
 export const NewUserForm = () => {
   const [form] = useForm();
   const [message, setMessage] = useState<FormMessage | undefined>();
+  //TODO: add correct roles
   const mutation = useMutation({
-    mutationFn: (values: NewUserValues) =>
-      fetcher(`http://localhost:8000/api/users`, {
+    mutationFn: (values: NewUserValues) => {
+      console.log(values);
+      return fetcher(`http://localhost:8000/api/users`, {
         method: 'POST',
         body: {
           userName: values.username,
           password: values.password,
           password_confirmation: values.confirmPassword,
-          type: values.userType,
+          role: values.userType,
         },
-      }),
-    onSuccess: () => {
+      });
+    },
+
+    onSuccess: (data) => {
+      console.log(data);
       setMessage({ type: 'success', content: 'Pomyślnie dodano użytkownika' });
-      console.log('should reset');
       form.resetFields();
     },
     onError: (error: unknown) =>
@@ -68,7 +71,7 @@ export const NewUserForm = () => {
     <FormWrapper
       form={form}
       label="Dodaj użytkownika"
-      initialValues={{ userType: 'Wolontariusz' }}
+      initialValues={{ userType: 'volounteer' }}
       name="newUserForm"
       onFinish={onSubmit}
       disabled={mutation.isLoading}
