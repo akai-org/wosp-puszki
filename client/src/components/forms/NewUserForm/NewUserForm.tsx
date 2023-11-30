@@ -37,11 +37,10 @@ const validateConfirmPassword: FormRule = ({ getFieldValue }) => ({
 export const NewUserForm = () => {
   const [form] = useForm();
   const [message, setMessage] = useState<FormMessage | undefined>();
-  //TODO: add correct roles
+
   const mutation = useMutation({
-    mutationFn: (values: NewUserValues) => {
-      console.log(values);
-      return fetcher(`http://localhost:8000/api/users`, {
+
+    mutationFn: (values: NewUserValues) => fetcher(`http://localhost:8000/api/users`, {
         method: 'POST',
         body: {
           userName: values.username,
@@ -49,14 +48,13 @@ export const NewUserForm = () => {
           password_confirmation: values.confirmPassword,
           role: values.userType,
         },
-      });
-    },
+      }),
 
-    onSuccess: (data) => {
-      console.log(data);
+    onSuccess: () => {
       setMessage({ type: 'success', content: 'Pomyślnie dodano użytkownika' });
       form.resetFields();
     },
+
     onError: (error: unknown) =>
       setMessage({
         type: 'error',
@@ -67,6 +65,7 @@ export const NewUserForm = () => {
   const onSubmit = (values: NewUserValues) => {
     mutation.mutate(values);
   };
+  
   return (
     <FormWrapper
       form={form}
