@@ -5,7 +5,7 @@ import { Icon } from '@iconify/react';
 import { useNavigate } from 'react-router-dom';
 import { Header } from 'antd/lib/layout/layout';
 
-export const Modal = ({ children, title }: { children: JSX.Element, title: string }) => {
+export const Modal = ({ children, title, backRoute }: { children: JSX.Element, title: string, backRoute?: string }) => {
 
   const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ export const Modal = ({ children, title }: { children: JSX.Element, title: strin
           <Button
             className={s.backButton}
             type="primary"
-            onClick={() => navigate(-1)}
+            onClick={() => backRoute ? navigate(backRoute) : navigate(-1)}
           >
             <Icon
               className={s.logOutButtonInside_icon}
