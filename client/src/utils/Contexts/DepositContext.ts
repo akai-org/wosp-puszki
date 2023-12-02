@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { IDepositContext, BoxData } from '@/utils';
 
 const clearBoxDataValues = {
@@ -35,8 +35,12 @@ export const useDepositContext = () => {
   return context;
 };
 
-export const useDepositContextValues = (defaultBoxData?: BoxData) => {
+export const useDepositContextValues = (defaultBoxData?: BoxData | null) => {
   const [boxData, setBoxData] = useState<BoxData>(defaultBoxData || clearBoxDataValues);
+
+  useEffect(() => {
+    if (defaultBoxData) setBoxData(defaultBoxData);
+  }, [defaultBoxData])
 
   const handleAmountsChange = (id: string, value: number | string) => {
     id != 'comment'

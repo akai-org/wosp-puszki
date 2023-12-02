@@ -16,17 +16,24 @@ export const EditBoxPage = () => {
     })
   }
 
-  const data: BoxData = {
+  const data: BoxData | null = queryData ? {
     amounts,
     comment: queryData?.comment || ""
-  }
-  const depositValues = useDepositContextValues(data);
+  } : null
 
   return (
     <Modal title={'Modyfikuj zawartość puszki'}>
-      <DepositContext.Provider value={depositValues}>
-        <DepositBoxForm editMode boxId={id} />
-      </DepositContext.Provider>
+      <div>{data && <EditBoxForm id={id} data={data} />}</div>
     </Modal>
+  )
+}
+
+const EditBoxForm = ({ id, data }: { id?: string, data: BoxData | null }) => {
+  const depositValues = useDepositContextValues(data);
+
+  return (
+    <DepositContext.Provider value={depositValues}>
+      <DepositBoxForm editMode boxId={id} />
+    </DepositContext.Provider>
   )
 }
