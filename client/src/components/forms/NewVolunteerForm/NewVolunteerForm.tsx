@@ -10,7 +10,7 @@ import {
 } from '@/utils';
 import type { IdNumber } from '@/utils';
 import { useForm } from 'antd/lib/form/Form';
-import type { FormMessage, Option, VolunteerType } from '@/utils';
+import type { FormMessage } from '@/utils';
 import { useMutation } from '@tanstack/react-query';
 
 interface NewVolunteerValues extends IdNumber {
