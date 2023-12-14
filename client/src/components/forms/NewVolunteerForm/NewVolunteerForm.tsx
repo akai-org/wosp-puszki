@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Typography } from 'antd';
 import { FormButton, FormInput, FormWrapper } from '@/components';
 import {
+  APIManager,
   FIRST_NAME_REQUIRED,
   ID_NUMBER_REQUIRED,
   LAST_NAME_REQUIRED,
@@ -32,7 +33,7 @@ export const NewVolunteerForm = () => {
 
   const mutation = useMutation({
     mutationFn: (values: NewVolunteerValues) =>
-      fetcher(`http://localhost:8000/api/collectors`, {
+      fetcher(APIManager.addCollectorURL, {
         method: 'POST',
         body: {
           firstName: values.firstName,
