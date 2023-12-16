@@ -1,5 +1,6 @@
 import type { FormRule } from 'antd';
 import {
+  APIManager,
   fetcher,
   PASSWORD_REQUIRED,
   PASSWORDS_DO_NOT_MATCH,
@@ -39,8 +40,8 @@ export const NewUserForm = () => {
   const [message, setMessage] = useState<FormMessage | undefined>();
 
   const mutation = useMutation({
-
-    mutationFn: (values: NewUserValues) => fetcher(`http://localhost:8000/api/users`, {
+    mutationFn: (values: NewUserValues) =>
+      fetcher(APIManager.usersURL, {
         method: 'POST',
         body: {
           userName: values.username,
@@ -65,7 +66,7 @@ export const NewUserForm = () => {
   const onSubmit = (values: NewUserValues) => {
     mutation.mutate(values);
   };
-  
+
   return (
     <FormWrapper
       form={form}
