@@ -3,7 +3,9 @@ export class APIManager {
   static baseAPIRUrl = `${this.baseServerUrl}/api`;
 
   static validateUserURL = `${this.baseAPIRUrl}/health`;
+  static addCollectorURL = `${this.baseAPIRUrl}/collectors`;
   static usersURL = `${this.baseAPIRUrl}/users`;
+
   static giveBoxURL = (volunteerId: number) =>
     `${this.baseAPIRUrl}/collectors/${volunteerId}/boxes`;
   static findBoxURL = (volunteerId: number) =>
