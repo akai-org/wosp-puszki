@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AvailabilityApiController;
 use App\Http\Controllers\Api\CharityBoxApiController;
 use App\Http\Controllers\Api\CollectorApiController;
 use App\Http\Controllers\Api\CountedBoxApiController;
+use App\Http\Controllers\Api\LogsApiController;
 use App\Http\Controllers\Api\RatesApiController;
 use App\Http\Controllers\Api\UserApiController;
 use Illuminate\Http\Request;
@@ -57,6 +58,11 @@ Route::group(['as' => 'api.', 'middleware' => ['auth.basic:,name']], function ()
     Route::post('charityBoxes/{id}/finishCounting', [CharityBoxApiController::class, 'confirm'])->name('api.box.count.finish');
 
     Route::apiResource('charityBoxes', CharityBoxApiController::class);
+});
+
+Route::group(['as' => 'api.', 'middleware' => ['auth.basic:,name']], function () {
+    Route::get('logs', [LogsApiController::class, 'index'])->name('api.logs.list')->middleware('admin');
+    Route::get('logs/box/{id}', [LogsApiController::class, 'getBox'])->name('api.logs.box')->middleware('admin');
 });
 
 Route::group(['as' => 'api', 'middleware' => ['auth.basic:,name']], function() {
