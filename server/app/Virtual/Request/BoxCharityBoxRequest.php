@@ -3,10 +3,12 @@ declare(strict_types=1);
 
 namespace App\Virtual\Request;
 
+use OpenApi\Annotations as OA;
+
 /**
  * @OA\Schema(
- *      title="Unverify Charity Box request",
- *      description="Unverify Charity Box request body data",
+ *      title="Charity Box request",
+ *      description="Charity Box request body data",
  *      type="object",
  *      required={"box_id"}
  * )
