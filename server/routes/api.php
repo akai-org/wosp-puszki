@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AvailabilityApiController;
 use App\Http\Controllers\Api\CharityBoxApiController;
 use App\Http\Controllers\Api\CollectorApiController;
 use App\Http\Controllers\Api\CountedBoxApiController;
+use App\Http\Controllers\Api\LogsApiController;
 use App\Http\Controllers\Api\RatesApiController;
 use App\Http\Controllers\Api\UserApiController;
 use Illuminate\Http\Request;
@@ -29,7 +30,7 @@ Route::group(['middleware' => ['auth.basic:,name']], function (){
     });
 });
 
-Route::group(['as' => 'api.', 'middleware' => ['auth.basic:,name']], function () {
+Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], function () {
     Route::get('users', [UserApiController::class, 'index'])->name('users.list')->middleware('admin');
     Route::get('users/{id}', [UserApiController::class, 'show'])->name('users.show')->middleware('admin');
     Route::post('users', [UserApiController::class, 'create'])->name('users.create')->middleware('admin');
@@ -37,7 +38,7 @@ Route::group(['as' => 'api.', 'middleware' => ['auth.basic:,name']], function ()
     // TODO add password/{user} with superadmin middleware
 });
 
-Route::group(['as' => 'api.', 'middleware' => ['auth.basic:,name']], function () {
+Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], function () {
 
     Route::get('charityBoxes/count/collected', [CountedBoxApiController::class, 'collected'])->name('api.box.count.collected');
     Route::get('charityBoxes/count/collected/sum', [CountedBoxApiController::class, 'collectedAmountOfMoney'])->name('api.box.count.collected.sum');
@@ -59,7 +60,12 @@ Route::group(['as' => 'api.', 'middleware' => ['auth.basic:,name']], function ()
     Route::apiResource('charityBoxes', CharityBoxApiController::class);
 });
 
-Route::group(['as' => 'api', 'middleware' => ['auth.basic:,name']], function() {
+Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], function () {
+    Route::get('logs', [LogsApiController::class, 'index'])->name('api.logs.list')->middleware('admin');
+    Route::get('logs/box/{id}', [LogsApiController::class, 'getBox'])->name('api.logs.box')->middleware('admin');
+});
+
+Route::group(['as' => 'api', 'middleware' => ['web', 'auth.basic:,name']], function() {
     Route::apiResource('currency/rates', RatesApiController::class);
 });
 
@@ -67,7 +73,7 @@ Route::group(['as' => 'api', 'middleware' => ['auth.basic:,name']], function() {
 //Zwracamy dane z głównej strony w formie JSON
 Route::get('/stats', ['uses' => 'AmountDisplayController@displayRawJson']);
 
-Route::group(['as' => 'api.', 'middleware' => ['auth.basic:,name']], function (){
+Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], function (){
     //Zbieracze (collector)
 
     //Lista wolontariuszy (dla administratorów)
@@ -81,7 +87,7 @@ Route::group(['as' => 'api.', 'middleware' => ['auth.basic:,name']], function ()
     Route::get('collectors/{collectorIdentifier}/box/latestUncounted', [CollectorApiController::class, 'getCollectorLatUncountedBox'])->name('collector.get.uncountedBox');
 });
 
-Route::group(['as' => 'api.'], function () {
+Route::group(['as' => 'api.', 'middleware' => ['web']], function () {
     Route::get('/stations', [AvailabilityApiController::class, 'index']);
     Route::get('/stations/status', [AvailabilityApiController::class, 'getStatusList']);
     Route::post('/stations/{id}/ready', [AvailabilityApiController::class, 'postReady']);

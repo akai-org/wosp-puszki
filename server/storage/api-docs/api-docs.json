@@ -240,6 +240,48 @@
                         "description": "Forbidden"
                     }
                 }
+            },
+            "post": {
+                "tags": [
+                    "CharityBoxes"
+                ],
+                "summary": "Create charity box for volunteer (collector)",
+                "description": "Returns information about realse charity box for volunteer (collector)",
+                "operationId": "createCharityBox",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CollectorCharityBoxRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CharityBox"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
             }
         },
         "/charityBoxes/{id}": {
@@ -293,54 +335,24 @@
                 "summary": "Update charity box",
                 "description": "Returns information about modified charity box",
                 "operationId": "updateCharityBox",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Charity box id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
                                 "$ref": "#/components/schemas/UpdateCharityBoxRequest"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/CharityBox"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request"
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "CharityBoxes"
-                ],
-                "summary": "Create charity box for volunteer (collector)",
-                "description": "Returns information about realse charity box for volunteer (collector)",
-                "operationId": "createCharityBox",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/CollectorCharityBoxRequest"
                             }
                         }
                     }
@@ -407,16 +419,6 @@
                 "summary": "Get list of verified charity boxes",
                 "description": "Returns list of charity boxes",
                 "operationId": "getVerifiedList",
-                "parameters": [
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "description": "Enter token in format (Basic base64(username:password))",
-                        "schema": {
-                            "type": "basic"
-                        }
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation",
@@ -445,16 +447,17 @@
                 "summary": "Unverify Charity Box",
                 "description": "Return message of operation result",
                 "operationId": "postUnverifyCharityBoxById",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/BoxCharityBoxRequest"
-                            }
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Charity box id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
                         }
                     }
-                },
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation",
@@ -498,16 +501,18 @@
                 "summary": "Start counting Charity Box",
                 "description": "Return charity box instance",
                 "operationId": "stratCountngCharityBoxById",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/BoxCharityBoxRequest"
-                            }
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Charity box id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
                         }
                     }
-                },
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation",
@@ -542,16 +547,18 @@
                 "summary": "Finish counting Charity Box",
                 "description": "Return charity box instance",
                 "operationId": "finishCountngCharityBoxById",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/BoxCharityBoxRequest"
-                            }
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Charity box id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
                         }
                     }
-                },
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation",
@@ -1086,6 +1093,74 @@
                 }
             }
         },
+        "/logs": {
+            "get": {
+                "tags": [
+                    "BoxEvent"
+                ],
+                "summary": "Get list of box events - logs",
+                "description": "Returns list of Logs",
+                "operationId": "getBoxEventsList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BoxEvents"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/logs/box/{id}": {
+            "get": {
+                "tags": [
+                    "BoxEvent"
+                ],
+                "summary": "Get charity box events - logs",
+                "description": "Returns charity box Logs",
+                "operationId": "getBoxEventsByBox",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Charity Box id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BoxEvents"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
         "/currency/rates": {
             "get": {
                 "tags": [
@@ -1334,6 +1409,19 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/Collector"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "BoxEvents": {
+                "title": "BoxEvents",
+                "properties": {
+                    "data": {
+                        "title": "data",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/BoxEvent"
                         }
                     }
                 },
@@ -1845,8 +1933,8 @@
                 }
             },
             "BoxCharityBoxRequest": {
-                "title": "Unverify Charity Box request",
-                "description": "Unverify Charity Box request body data",
+                "title": "Charity Box request",
+                "description": "Charity Box request body data",
                 "required": [
                     "box_id"
                 ],
@@ -1879,141 +1967,131 @@
                 "type": "object"
             },
             "UpdateCharityBoxRequest": {
-                "title": "",
-                "description": "",
-                "required": [
-                    "box_id"
-                ],
-                "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/BoxCharityBoxRequest"
+                "title": "Modify Charity Box request",
+                "description": "Charity Box request body schema",
+                "properties": {
+                    "count_1gr": {
+                        "title": "Count_1gr",
+                        "description": "Number of coins",
+                        "type": "int64",
+                        "example": 120
                     },
-                    {
-                        "properties": {
-                            "count_1gr": {
-                                "title": "Count_1gr",
-                                "description": "Number of coins",
-                                "type": "int64",
-                                "example": 120
-                            },
-                            "count_2gr": {
-                                "title": "Count_2gr",
-                                "description": "Number of coins",
-                                "type": "int64",
-                                "example": 245
-                            },
-                            "count_5gr": {
-                                "title": "Count_5gr",
-                                "description": "Number of coins",
-                                "type": "int64",
-                                "example": 300
-                            },
-                            "count_10gr": {
-                                "title": "Count_10gr",
-                                "description": "Number of coins",
-                                "type": "int64",
-                                "example": 120
-                            },
-                            "count_20gr": {
-                                "title": "Count_20gr",
-                                "description": "Number of coins",
-                                "type": "int64",
-                                "example": 80
-                            },
-                            "count_50gr": {
-                                "title": "Count_50gr",
-                                "description": "Number of coins",
-                                "type": "int64",
-                                "example": 60
-                            },
-                            "count_1zl": {
-                                "title": "Count_1zl",
-                                "description": "Number of coins",
-                                "type": "int64",
-                                "example": 60
-                            },
-                            "count_2zl": {
-                                "title": "Count_2zl",
-                                "description": "Number of coins",
-                                "type": "int64",
-                                "example": 60
-                            },
-                            "count_5zl": {
-                                "title": "Count_5zl",
-                                "description": "Number of coins",
-                                "type": "int64",
-                                "example": 60
-                            },
-                            "count_10zl": {
-                                "title": "Count_10zl",
-                                "description": "Number of coins",
-                                "type": "int64",
-                                "example": 60
-                            },
-                            "count_20zl": {
-                                "title": "Count_20zl",
-                                "description": "Number of coins",
-                                "type": "int64",
-                                "example": 60
-                            },
-                            "count_50zl": {
-                                "title": "Count_50zl",
-                                "description": "Number of coins",
-                                "type": "int64",
-                                "example": 60
-                            },
-                            "count_100zl": {
-                                "title": "Count_100zl",
-                                "description": "Number of coins",
-                                "type": "int64",
-                                "example": 60
-                            },
-                            "count_200zl": {
-                                "title": "Count_200zl",
-                                "description": "Number of coins",
-                                "type": "int64",
-                                "example": 60
-                            },
-                            "count_500zl": {
-                                "title": "Count_500zl",
-                                "description": "Number of coins",
-                                "type": "int64",
-                                "example": 60
-                            },
-                            "amount_PLN": {
-                                "title": "Amount PLN",
-                                "description": "Sum of collected money",
-                                "type": "int64",
-                                "example": 60
-                            },
-                            "amount_EUR": {
-                                "title": "Amount EUR",
-                                "description": "Sum of collected money",
-                                "type": "int64",
-                                "example": 60
-                            },
-                            "amount_USD": {
-                                "title": "Amount USD",
-                                "description": "Sum of collected money",
-                                "type": "int64",
-                                "example": 60
-                            },
-                            "amount_GBP": {
-                                "title": "Amount GBP",
-                                "description": "Sum of collected money",
-                                "type": "int64",
-                                "example": 60
-                            },
-                            "comment": {
-                                "title": "Comment",
-                                "description": "Comment",
-                                "type": "string",
-                                "example": "Lorem ipsum"
-                            }
-                        }
+                    "count_2gr": {
+                        "title": "Count_2gr",
+                        "description": "Number of coins",
+                        "type": "int64",
+                        "example": 245
+                    },
+                    "count_5gr": {
+                        "title": "Count_5gr",
+                        "description": "Number of coins",
+                        "type": "int64",
+                        "example": 300
+                    },
+                    "count_10gr": {
+                        "title": "Count_10gr",
+                        "description": "Number of coins",
+                        "type": "int64",
+                        "example": 120
+                    },
+                    "count_20gr": {
+                        "title": "Count_20gr",
+                        "description": "Number of coins",
+                        "type": "int64",
+                        "example": 80
+                    },
+                    "count_50gr": {
+                        "title": "Count_50gr",
+                        "description": "Number of coins",
+                        "type": "int64",
+                        "example": 60
+                    },
+                    "count_1zl": {
+                        "title": "Count_1zl",
+                        "description": "Number of coins",
+                        "type": "int64",
+                        "example": 60
+                    },
+                    "count_2zl": {
+                        "title": "Count_2zl",
+                        "description": "Number of coins",
+                        "type": "int64",
+                        "example": 60
+                    },
+                    "count_5zl": {
+                        "title": "Count_5zl",
+                        "description": "Number of coins",
+                        "type": "int64",
+                        "example": 60
+                    },
+                    "count_10zl": {
+                        "title": "Count_10zl",
+                        "description": "Number of coins",
+                        "type": "int64",
+                        "example": 60
+                    },
+                    "count_20zl": {
+                        "title": "Count_20zl",
+                        "description": "Number of coins",
+                        "type": "int64",
+                        "example": 60
+                    },
+                    "count_50zl": {
+                        "title": "Count_50zl",
+                        "description": "Number of coins",
+                        "type": "int64",
+                        "example": 60
+                    },
+                    "count_100zl": {
+                        "title": "Count_100zl",
+                        "description": "Number of coins",
+                        "type": "int64",
+                        "example": 60
+                    },
+                    "count_200zl": {
+                        "title": "Count_200zl",
+                        "description": "Number of coins",
+                        "type": "int64",
+                        "example": 60
+                    },
+                    "count_500zl": {
+                        "title": "Count_500zl",
+                        "description": "Number of coins",
+                        "type": "int64",
+                        "example": 60
+                    },
+                    "amount_PLN": {
+                        "title": "Amount PLN",
+                        "description": "Sum of collected money",
+                        "type": "int64",
+                        "example": 60
+                    },
+                    "amount_EUR": {
+                        "title": "Amount EUR",
+                        "description": "Sum of collected money",
+                        "type": "int64",
+                        "example": 60
+                    },
+                    "amount_USD": {
+                        "title": "Amount USD",
+                        "description": "Sum of collected money",
+                        "type": "int64",
+                        "example": 60
+                    },
+                    "amount_GBP": {
+                        "title": "Amount GBP",
+                        "description": "Sum of collected money",
+                        "type": "int64",
+                        "example": 60
+                    },
+                    "comment": {
+                        "title": "Comment",
+                        "description": "Comment",
+                        "type": "string",
+                        "example": "Lorem ipsum"
                     }
-                ]
+                },
+                "type": "object"
             },
             "BoxEventResource": {
                 "title": "Box Event Resource",
@@ -2092,6 +2170,16 @@
             "bearerAuth": {
                 "type": "http",
                 "scheme": "basic"
+            },
+            "sanctum": {
+                "type": "basic",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            },
+            "basic": {
+                "type": "basic",
+                "description": "HTTP Basic Authentication with username and password."
             }
         }
     },
@@ -2111,6 +2199,10 @@
         {
             "name": "CharityBoxScore",
             "description": "API Endpoints for currencies and rates"
+        },
+        {
+            "name": "BoxEvent",
+            "description": "API Endpoints for charity box events - logs"
         },
         {
             "name": "Rates",

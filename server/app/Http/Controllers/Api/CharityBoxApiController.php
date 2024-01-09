@@ -10,6 +10,7 @@ use App\Http\Requests\Api\BoxCharityBoxRequest;
 use App\Http\Requests\Api\UpdateCountingCharityBoxRequest;
 use App\Http\Resources\Api\CharityBoxResource;
 use App\Lib\BoxOperator\BoxOperator;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use OpenApi\Annotations as OA;
@@ -110,7 +111,7 @@ final class CharityBoxApiController extends ApiController
 
     /**
      * @OA\Post(
-     *      path="/charityBoxes/{id}",
+     *      path="/charityBoxes",
      *      operationId="createCharityBox",
      *      tags={"CharityBoxes"},
      *      summary="Create charity box for volunteer (collector)",
@@ -147,7 +148,7 @@ final class CharityBoxApiController extends ApiController
      */
     public function create(CollectorCharityBoxRequest $request)
     {
-        $bo = new BoxOperator($request->user()->id);
+        $bo = new BoxOperator((string)$request->user()->id);
 
         try {
             $box = $bo->giveByCollectorIdentifier($request->collector_identifier);
@@ -168,6 +169,16 @@ final class CharityBoxApiController extends ApiController
      *      tags={"CharityBoxes"},
      *      summary="Update charity box",
      *      description="Returns information about modified charity box",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Charity box id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer",
+     *              example="1"
+     *          )
+     *      ),
      *      @OA\RequestBody(
      *          required=true,
      *          @OA\JsonContent(ref="#/components/schemas/UpdateCharityBoxRequest")
@@ -197,12 +208,12 @@ final class CharityBoxApiController extends ApiController
      * @param UpdateCountingCharityBoxRequest $request
      * @return CharityBoxResource|JsonResponse
      */
-    public function update(UpdateCountingCharityBoxRequest $request)
+    public function update(UpdateCountingCharityBoxRequest $request, int $id)
     {
-        $bo = new BoxOperator($request->user()->id);
+        $bo = new BoxOperator((string)$request->user()->id);
 
         try {
-            $box = $bo->updateBoxByBoxID($request->box_id, $request);
+            $box = $bo->updateBoxByBoxID($id, $request);
         } catch (\Exception $e) {
             return new JsonResponse([
                 'error_message' => $e->getMessage(),
@@ -282,12 +293,6 @@ final class CharityBoxApiController extends ApiController
      *      tags={"CharityBoxes"},
      *      summary="Get list of verified charity boxes",
      *      description="Returns list of charity boxes",
-     *      @OA\Parameter(
-     *          name="Authorization",
-     *          in="header",
-     *          description="Enter token in format (Basic base64(username:password))",
-     *          @OA\Schema(type="basic"),
-     *      ),
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
@@ -320,10 +325,15 @@ final class CharityBoxApiController extends ApiController
      *     tags={"CharityBoxes"},
      *     summary="Unverify Charity Box",
      *     description="Return message of operation result",
-     *     @OA\RequestBody(
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Charity box id",
      *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/BoxCharityBoxRequest")
-     *      ),
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *     ),
      *     @OA\Response(
      *          response=200,
      *          description="Successful operation",
@@ -349,12 +359,12 @@ final class CharityBoxApiController extends ApiController
      *          description="Resource Not Found"
      *      )
      * )
-     * @param BoxCharityBoxRequest $request
+     * @param Request $request
      * @return JsonResponse
      */
-    public function postUnverifyCharityBox(BoxCharityBoxRequest $request): JsonResponse
+    public function postUnverifyCharityBox(Request $request, int $id): JsonResponse
     {
-        $box = CharityBox::where('id', '=', $request->box_id)->first();
+        $box = CharityBox::where('id', '=', $id)->first();
         $box->is_confirmed = false;
         $box->user_confirmed_id = null;
         $box->time_confirmed = null;
@@ -369,7 +379,7 @@ final class CharityBoxApiController extends ApiController
 
         return new JsonResponse([
             'message' => sprintf('Puszka nr %s anulowano zatwierdzenie (%szł)', $box->id, $box->amount_PLN),
-            'status' => \Illuminate\Http\Response::HTTP_OK
+            'status' => Response::HTTP_OK
         ]);
     }
 
@@ -380,9 +390,15 @@ final class CharityBoxApiController extends ApiController
      *     tags={"CharityBoxes"},
      *     summary="Start counting Charity Box",
      *     description="Return charity box instance",
-     *     @OA\RequestBody(
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Charity box id",
      *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/BoxCharityBoxRequest")
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer",
+     *              example="1"
+     *          )
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -406,15 +422,15 @@ final class CharityBoxApiController extends ApiController
      *          description="Resource Not Found"
      *      )
      * )
-     * @param BoxCharityBoxRequest $request
+     * @param Request $request
      * @return JsonResponse
      */
-    public function startCounting(BoxCharityBoxRequest $request)
+    public function startCounting(Request $request, int $id)
     {
-        $bo = new BoxOperator($request->user()->id);
+        $bo = new BoxOperator((string)$request->user()->id);
 
         try {
-            $box = $bo->startCountByBoxID($request->box_id);
+            $box = $bo->startCountByBoxID($id);
         } catch (\Exception $e) {
             return new JsonResponse([
                 'error_message' => $e->getMessage(),
@@ -432,9 +448,15 @@ final class CharityBoxApiController extends ApiController
      *     tags={"CharityBoxes"},
      *     summary="Finish counting Charity Box",
      *     description="Return charity box instance",
-     *     @OA\RequestBody(
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Charity box id",
      *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/BoxCharityBoxRequest")
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer",
+     *              example="1"
+     *          )
      *      ),
      *      @OA\Response(
      *          response=200,
@@ -461,12 +483,12 @@ final class CharityBoxApiController extends ApiController
      * @param BoxCharityBoxRequest $request
      * @return JsonResponse
      */
-    public function confirm(BoxCharityBoxRequest $request)
+    public function confirm(Request $request, int $id)
     {
-        $bo = new BoxOperator($request->user()->id);
+        $bo = new BoxOperator((string)$request->user()->id);
 
         try {
-            $box = $bo->confirmBoxByBoxID($request->box_id);
+            $box = $bo->confirmBoxByBoxID($id);
         } catch (\Exception $e) {
             return new JsonResponse([
                 'error_message' => 'ERROR',

@@ -3,16 +3,16 @@
 namespace App\Virtual\Request;
 
 use Money\Money;
+use OpenApi\Annotations as OA;
 
 /**
  * @OA\Schema(
- *      title="",
- *      description="",
+ *      title="Modify Charity Box request",
+ *      description="Charity Box request body schema",
  *      type="object",
- *      required={"box_id"}
  * )
  */
-class UpdateCharityBoxRequest extends BoxCharityBoxRequest
+class UpdateCharityBoxRequest
 {
     /**
      * @OA\Property(
