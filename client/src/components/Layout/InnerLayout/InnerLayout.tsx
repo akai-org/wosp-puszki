@@ -18,7 +18,7 @@ export const InnerLayout: FC<Props> = ({ links, hideNavbar }) => {
   );
 
   return (
-    <Layout>
+    <Layout className={s.layout}>
       {layoutHeader}
       <Layout.Content>
         <Outlet />

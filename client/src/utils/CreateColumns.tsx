@@ -63,6 +63,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import React from 'react';
 import { useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
+import { Link } from 'react-router-dom';
 
 export function CreateColumns<DataType extends { [key: string]: string | number }>(
   columnsOptions: TableColumns[],
@@ -81,13 +82,13 @@ export function CreateColumns<DataType extends { [key: string]: string | number 
         <Space size="middle">
           {actions.map((action) => {
             return (
-              <a
+              <Link
+                to={action.link ? `${action.link}${record['id']}` : '#'}
                 style={{ color: action.color }}
                 key={action.title}
-                href={action.link ? `${action.link}${record[keyName]}` : '#'}
               >
                 {action.title}
-              </a>
+              </Link>
             );
           })}
         </Space>
@@ -267,12 +268,12 @@ export function CreateColumns<DataType extends { [key: string]: string | number 
   const setStatus = (
     status:
       | {
-          key: string;
-          options: {
-            on: { value: string | number | boolean; description: string };
-            off: { value: string | number | boolean; description: string };
-          };
-        }
+        key: string;
+        options: {
+          on: { value: string | number | boolean; description: string };
+          off: { value: string | number | boolean; description: string };
+        };
+      }
       | undefined,
   ) => {
     if (!status || !status.key || !status.options) return {};

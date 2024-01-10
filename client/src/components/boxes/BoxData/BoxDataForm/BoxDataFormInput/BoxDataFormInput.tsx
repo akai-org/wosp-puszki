@@ -1,7 +1,7 @@
 import type { FormProps } from 'antd';
 import { FC } from 'react';
 import { Space, Typography, InputNumber } from 'antd';
-import s from './InputNumberBox.module.less';
+import s from './BoxDataFormInput.module.less';
 const { Text } = Typography;
 
 interface Props extends FormProps {

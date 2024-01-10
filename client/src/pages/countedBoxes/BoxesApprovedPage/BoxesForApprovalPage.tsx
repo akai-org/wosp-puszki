@@ -75,20 +75,14 @@ export const BoxesForApprovalPage = () => {
       fixed: 'right',
       width: 220,
       actions: [
-        // zmodyfikować w przyszłości!!
-        {
-          title: 'Zatwierdź',
-          link: '/countedBoxes/boxesApproved/approve/',
-          color: 'red',
-        },
         {
           title: 'Podgląd',
-          link: '/countedBoxes/boxesApproved/show/',
+          link: '/liczymy/countedBoxes/show/',
           color: 'blue',
         },
         {
           title: 'Modyfikuj',
-          link: '/countedBoxes/boxesApproved/show/',
+          link: '/liczymy/countedBoxes/edit/',
           color: 'blue',
         },
       ],
