@@ -22,7 +22,7 @@ export const EditBoxPage = () => {
   } : null
 
   return (
-    <Modal title={'Modyfikuj zawartość puszki'}>
+    <Modal title='Modyfikuj zawartość puszki'>
       <div>{data && <EditBoxForm id={id} data={data} />}</div>
     </Modal>
   )
