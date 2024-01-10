@@ -53,11 +53,16 @@ export const DepositBoxForm = () => {
   }, [boxData]);
 
   const mutation = useMutation({
-    mutationFn: () =>
-      fetcher(`${APIManager.baseAPIRUrl}/boxes/${boxIdentifier}`, {
-        method: 'POST',
-        body: { comment: boxData.comment, ...boxData.amounts },
-      }),
+    mutationFn: () => {
+      const payload = {
+        comment: boxData.comment,
+        ...boxData.amounts,
+      };
+      return fetcher(`${APIManager.baseAPIRUrl}/charityBoxes/${boxIdentifier}`, {
+        method: 'PUT',
+        body: payload,
+      });
+    },
     onSuccess: () =>
       navigate(createFullRoutePath(SETTLE_PROCESS_PATH, CHECKOUT_BOX_PAGE_ROUTE)),
     onError: (error) => {
