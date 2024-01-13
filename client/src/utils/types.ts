@@ -29,6 +29,7 @@ export interface TableColumns {
     title: string;
     link: string;
     color?: string;
+    type?: string;
   }[];
   fixed?: 'left' | 'right';
   width?: number;
