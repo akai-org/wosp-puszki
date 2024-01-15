@@ -2,6 +2,8 @@ version: '3.1'
 
 services:
   app:
+    environment:
+      - WEB_DOCUMENT_ROOT=public
     build: .
     volumes:
       - .:/app
