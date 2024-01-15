@@ -4,7 +4,7 @@ services:
   web:
     image: nginx:1.23
     ports:
-      - "8000:80"
+      - "8888:80"
     volumes:
       - .:/app
       - ./docker/nginx/conf:/etc/nginx/conf.d
@@ -28,7 +28,7 @@ services:
   adminer:
     image: adminer
     ports:
-      - 8080:8080
+      - "8080:8080"
 
 volumes:
   pgdata:
