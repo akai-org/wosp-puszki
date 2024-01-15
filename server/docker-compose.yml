@@ -13,8 +13,8 @@ services:
     image: postgres:16.1
     environment:
       - POSTGRES_PASSWORD=root_password
-      - POSTGRES_DB=homestead
-      - POSTGRES_USER=homestead
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
     volumes:
       - pgdata:/var/lib/postgresql/data
 
