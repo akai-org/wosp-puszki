@@ -1,4 +1,4 @@
-FROM php:8-fpm
+FROM php:8.3-fpm
 COPY . /app
 WORKDIR /app
 COPY --from=composer:2.4 /usr/bin/composer /usr/local/bin/composer

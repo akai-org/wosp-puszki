@@ -1,32 +1,34 @@
 version: '3.1'
 
 services:
-  web:
-    image: nginx:1.23
-    ports:
-      - "8000:80"
-    volumes:
-      - .:/app
-      - ./docker/nginx/conf:/etc/nginx/conf.d
-      - ./docker/nginx/logs:/var/log/nginx
+#  web:
+#    image: nginx:1.23
+#    ports:
+#      - "8000:80"
+#    volumes:
+#      - .:/app
+#      - ./docker/nginx/conf:/etc/nginx/conf.d
+#      - ./docker/nginx/logs:/var/log/nginx
   app:
     build: .
     volumes:
       - .:/app
 
   db:
-    command: --default-authentication-plugin=mysql_native_password
     hostname: db
-    image: mysql:8.0
+    image: postgres:16.1
     environment:
-      - MYSQL_ROOT_PASSWORD=root_password
-      - MYSQL_DATABASE=homestead
-      - MYSQL_USER=homestead
-      - MYSQL_PASSWORD=secret
+      - POSTGRES_PASSWORD=root_password
+      - POSTGRES_DB=homestead
+      - POSTGRES_USER=homestead
     volumes:
-      - ./docker/mysql/storage:/var/lib/mysql
+      - pgdata:/var/lib/postgresql/data
+
 
   adminer:
     image: adminer
     ports:
       - 8080:8080
+
+volumes:
+  pgdata:
