@@ -5,8 +5,8 @@ services:
     environment:
       - WEB_DOCUMENT_ROOT=/app1/public
     build: .
-    volumes:
-      - .:/app1
+#    volumes:
+#      - .:/app
 
   db:
     hostname: db
