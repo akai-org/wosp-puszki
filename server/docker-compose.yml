@@ -1,14 +1,14 @@
 version: '3.1'
 
 services:
-#  web:
-#    image: nginx:1.23
-#    ports:
-#      - "8000:80"
-#    volumes:
-#      - .:/app
-#      - ./docker/nginx/conf:/etc/nginx/conf.d
-#      - ./docker/nginx/logs:/var/log/nginx
+  web:
+    image: nginx:1.23
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/app
+      - ./docker/nginx/conf:/etc/nginx/conf.d
+      - ./docker/nginx/logs:/var/log/nginx
   app:
     build: .
     volumes:
