@@ -4,7 +4,16 @@ services:
   app:
     environment:
       - WEB_DOCUMENT_ROOT=/app/public
+      - APP_DEBUG=true
+      - DB_CONNECTION=pgsql
+      - DB_DATABASE=postgres
+      - DB_HOST=db
+      - DB_PASSWORD=root_password
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
     build: .
+    ports:
+        - "8000:80"
 
   db:
     hostname: db
