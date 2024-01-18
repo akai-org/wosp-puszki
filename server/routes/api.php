@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\CountedBoxApiController;
 use App\Http\Controllers\Api\LogsApiController;
 use App\Http\Controllers\Api\RatesApiController;
 use App\Http\Controllers\Api\UserApiController;
+use App\Http\Controllers\Api\CsvDumpController;
 use Illuminate\Http\Request;
 
 /*
@@ -48,6 +49,8 @@ Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], func
     Route::get('charityBoxes/count/confirmed/sum', [CountedBoxApiController::class, 'confirmedAmountOfMoney'])->name('api.box.count.confirmed.currency');
     Route::get('charityBoxes/count/confirmed/{currency}', [CountedBoxApiController::class, 'confirmedAmountOfMoneyByCurrency'])->name('api.box.count.confirmed.currency');
 
+    Route::get('charityBoxes/create-csv', [CsvDumpController::class,'getDataForCSV'])->name('api.box.create-csv');
+    Route::get('charityBoxes/download-csv/{file}', [CsvDumpController::class,'downloadCharityBoxCSV'])->name('api.box.download-csv');
 
 
     // add nonstandard requests (other than CRUD)
