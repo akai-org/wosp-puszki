@@ -26,11 +26,6 @@ const options = [
   { value: FIVE_ZL_MASS_IN_GRAMS, label: '5zl' },
 ];
 
-function round(num: number, decimalPlaces = 0) {
-  num = Math.round(parseInt(num + 'e' + decimalPlaces));
-  return Number(num + 'e' + -decimalPlaces);
-}
-
 export const CalculatorView = () => {
   const [value, setValue] = useState(0);
   const [show, setShow] = useState(false);
@@ -47,7 +42,7 @@ export const CalculatorView = () => {
       <div className={s.body}>
         <div className={s.bodyTop}>
           <p>Ilość monet:</p>
-          <p>{round(value ? value : 0, 2)}</p>
+          <p>{Math.floor(value || 0)}</p>
         </div>
         <div className={s.bodyBottom}>
           <Form name="calculator" onFinish={onFinish} autoComplete="off">
