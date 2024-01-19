@@ -195,9 +195,9 @@ export interface IDisplayPageContent {
 }
 
 export interface IStations {
-  s: number;
-  st: number;
-  t: number | null;
+  station: number;
+  status: number;
+  time: number | null;
 }
 
 export interface IBoxes {

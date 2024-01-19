@@ -48,7 +48,11 @@ export const stationState = {
 };
 
 export const stationsInitData: IStations[] = Array.from(Array(28)).map(
-  (el, index): IStations => ({ s: index + 1, st: stationState.unavailable, t: null }),
+  (el, index): IStations => ({
+    station: index + 1,
+    status: stationState.unavailable,
+    time: null,
+  }),
 );
 
 export const useAmountsQuery = () =>
