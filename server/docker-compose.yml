@@ -1,29 +1,32 @@
 version: '3.1'
 
 services:
-  app:
-    environment:
-      - WEB_DOCUMENT_ROOT=/app/public
-      - APP_DEBUG=true
-      - DB_CONNECTION=pgsql
-      - DB_DATABASE=postgres
-      - DB_HOST=db
-      - DB_PASSWORD=root_password
-      - DB_PORT=5432
-      - DB_USERNAME=postgres
-    build: .
+  web:
+    image: nginx:1.23
     ports:
-        - "8000:80"
+      - "8000:80"
+    volumes:
+      - .:/app
+      - ./docker/nginx/conf:/etc/nginx/conf.d
+      - ./docker/nginx/logs:/var/log/nginx
+  app:
+    build: .
+    volumes:
+      - .:/app
 
   db:
+    command: --default-authentication-plugin=mysql_native_password
     hostname: db
-    image: postgres:16.1
+    image: mysql:8.0
     environment:
-      - POSTGRES_PASSWORD=root_password
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
+      - MYSQL_ROOT_PASSWORD=root_password
+      - MYSQL_DATABASE=homestead
+      - MYSQL_USER=homestead
+      - MYSQL_PASSWORD=secret
     volumes:
-      - postgresdata:/var/lib/postgresql/data
+      - ./docker/mysql/storage:/var/lib/mysql
 
-volumes:
-  postgresdata:
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080

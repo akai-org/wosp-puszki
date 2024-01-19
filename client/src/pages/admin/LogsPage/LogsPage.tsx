@@ -2,9 +2,8 @@
 import { useEffect } from 'react';
 
 // Utility functions
-import type { TableColumns } from '@/utils';
-import { CreateColumns, useGetLogsQuery } from '@/utils';
-import { createDisplayableLogData } from '@/utils/Functions/createRefactorData';
+import type { TableColumns, LogDataType } from '@/utils';
+import { CreateColumns } from '@/utils';
 
 // Style and ant design
 import s from '../AdminPage.module.less';
@@ -14,56 +13,84 @@ const { Title } = Typography;
 const { Content } = Layout;
 
 export const LogsPage = () => {
-  // Pobieranie danych
-  const { data } = useGetLogsQuery();
-  const displayableData = createDisplayableLogData(data);
+  // testowe dane
+  const data: LogDataType[] = [
+    {
+      user: 'superadmin',
+      volunteer_id: '105',
+      box: '12',
+      action: 'verifed',
+      other: 'Puszka zatwierdzona przez administratora',
+      time: '2022-11-03T21:23:30.00003Z',
+    },
+    {
+      user: 'superadmin',
+      volunteer_id: '105',
+      box: '12',
+      action: 'verifed',
+      other: 'Puszka zatwierdzona przez administratora',
+      time: '2022-11-03T21:23:30.00002Z',
+    },
+    {
+      user: 'superadmin',
+      volunteer_id: '105',
+      box: '12',
+      action: 'verifed',
+      other: 'Puszka zatwierdzona przez administratora',
+      time: '2022-11-03T21:23:30.00001Z',
+    },
+  ];
 
   // Ustawienia dla poszczególnych kolumn
   const columnsOptions: TableColumns[] = [
     {
       titleName: 'Użytkownik',
-      keyName: 'name',
+      keyName: 'user',
       sortType: 'number',
       search: true,
       width: 100,
     },
     {
       titleName: 'Wolontariusz',
-      keyName: 'user_id',
+      keyName: 'volunteer_id',
       sortType: 'string',
       search: true,
       width: 100,
     },
     {
       titleName: 'Puszka',
-      keyName: 'box_id',
+      keyName: 'box',
       sortType: 'number',
       search: true,
       width: 100,
     },
     {
       titleName: 'Akcja',
-      keyName: 'type',
+      keyName: 'action',
       sortType: 'string',
       search: true,
       width: 150,
     },
     {
       titleName: 'Inne',
-      keyName: 'comment',
+      keyName: 'other',
       sortType: 'number',
       width: 300,
     },
     {
       titleName: 'Czas',
-      keyName: 'created_at',
+      keyName: 'time',
       width: 200,
       sortType: 'date',
     },
   ];
 
   // Tworzenie kolumn
-  const columns = CreateColumns(columnsOptions, displayableData);
+  const columns = CreateColumns(columnsOptions, data);
+
+  useEffect(() => {
+    //fetching data here
+  }, []);
 
   return (
     <Layout>
@@ -74,8 +101,8 @@ export const LogsPage = () => {
             size="middle"
             columns={columns}
             pagination={false}
-            dataSource={displayableData}
-            rowKey="log_id"
+            dataSource={data}
+            rowKey="time" // To należy zmienić przy okazji podłączenia API
             scroll={{ y: '70vh' }}
             rowClassName={s.table_row}
           />

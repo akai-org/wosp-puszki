@@ -84,16 +84,14 @@ export const BoxesApprovedPage = () => {
       width: 220,
       actions: [
         {
-          title: 'Cofnij zatwierdzenie',
-          link: '/charityBoxes/unverified/',
-          color: 'red',
-          type: 'query',
-        },
-        {
           title: 'Podgląd',
           link: '/liczymy/countedBoxes/approved/show/',
           color: 'blue',
-          type: 'link',
+        },
+        {
+          title: 'Modyfikuj',
+          link: '/liczymy/countedBoxes/approved/edit/',
+          color: 'blue',
         },
       ],
     },

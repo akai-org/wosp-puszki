@@ -5,7 +5,7 @@ import { APIManager } from '../Classes';
 export const useFinishCounting = (boxIdentifier: string | null) => {
   const { error, isError, isLoading, isSuccess, mutateAsync } = useMutation({
     mutationFn: () =>
-      fetcher(`${APIManager.baseAPIRUrl}/charityBoxes/${boxIdentifier}/finishCounting`, {
+      fetcher(`${APIManager.baseAPIRUrl}/boxes/${boxIdentifier}/finishCounting`, {
         method: 'POST',
       }),
   });

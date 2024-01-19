@@ -3,11 +3,8 @@ export class APIManager {
   static baseAPIRUrl = `${this.baseServerUrl}/api`;
 
   static validateUserURL = `${this.baseAPIRUrl}/health`;
-  static addCollectorURL = `${this.baseAPIRUrl}/collectors`;
-  static usersURL = `${this.baseAPIRUrl}/users`;
-
   static giveBoxURL = (volunteerId: number) =>
-    `${this.baseAPIRUrl}/collectors/${volunteerId}/box/create`;
+    `${this.baseAPIRUrl}/collectors/${volunteerId}/boxes`;
   static findBoxURL = (volunteerId: number) =>
-    `${this.baseAPIRUrl}/collectors/${volunteerId}/box/latestUncounted`;
+    `${this.baseAPIRUrl}/collectors/${volunteerId}/boxes/latestUncounted`;
 }

@@ -12,7 +12,7 @@ beforeEach(function () {
 });
 
 test('as a collectorcoordinator I can find a box through API', function () {
-    $this->actingAs($this->collectorcoordinator);
+    $this->actingAs($this->collectorcoordinator, 'sanctum');
 
 
     $this->box = CharityBox::where('is_counted', false)->orderBy('created_at', 'desc')->first();

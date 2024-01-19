@@ -75,6 +75,12 @@ export const BoxesForApprovalPage = () => {
       fixed: 'right',
       width: 220,
       actions: [
+        // zmodyfikować w przyszłości!!
+        {
+          title: 'Zatwierdź',
+          link: '/countedBoxes/boxesApproved/approve/',
+          color: 'red',
+        },
         {
           title: 'Podgląd',
           link: '/liczymy/countedBoxes/show/',

@@ -5,8 +5,8 @@ use App\Collector;
 use App\User;
 
 beforeEach(function () {
-    $this->coordinator = User::with('roles')->orderBy('id')->whereRelation('roles', 'name', 'collectorcoordinator')->first();
-    $this->volounteer = User::with('roles')->orderBy('id')->whereRelation('roles', 'name', 'volounteer')->first();
+    $this->coordinator = User::with('roles')->whereRelation('roles', 'name', 'collectorcoordinator')->first();
+    $this->volounteer = User::with('roles')->whereRelation('roles', 'name', 'volounteer')->first();
     $this->assertEquals($this->coordinator->name, 'wolokord');
     $this->assertEquals($this->volounteer->name, 'wosp01');
 });

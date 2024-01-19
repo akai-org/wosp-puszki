@@ -49,9 +49,6 @@
 //         rowClassName={s.table_row}   --- Dodaje klasę stylu do każdego wiersza
 //       />
 
-// Utility functions
-import { APIManager, fetcher } from '@/utils';
-
 // Types
 import type { InputRef } from 'antd';
 import type { ColumnType } from 'antd/es/table';
@@ -84,36 +81,15 @@ export function CreateColumns<DataType extends { [key: string]: string | number 
       render: (_: unknown, record: DataType) => (
         <Space size="middle">
           {actions.map((action) => {
-            if (action.type === 'query') {
-              return (
-                // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
-                <p
-                  key={action.title}
-                  style={{ color: action.color, cursor: 'pointer' }}
-                  onClick={() =>
-                    fetcher(`${APIManager.baseAPIRUrl}${action.link}${record['id']}`, {
-                      method: 'POST',
-                      returnVoid: true,
-                      body: {
-                        box_id: record['id'],
-                      },
-                    })
-                  }
-                >
-                  {action.title}
-                </p>
-              );
-            } else {
-              return (
-                <Link
-                  to={action.link ? `${action.link}${record['id']}` : '#'}
-                  style={{ color: action.color }}
-                  key={action.title}
-                >
-                  {action.title}
-                </Link>
-              );
-            }
+            return (
+              <Link
+                to={action.link ? `${action.link}${record['id']}` : '#'}
+                style={{ color: action.color }}
+                key={action.title}
+              >
+                {action.title}
+              </Link>
+            );
           })}
         </Space>
       ),

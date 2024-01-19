@@ -49,7 +49,7 @@ UWAGA, jeżeli nie są ustawione kursy, to STATIC_RATES musi być false
 #### instalacja
 - uruchomić aplikację poleceniem:
 ```bash
-docker compose up 
+docker-compose up 
 ```
 - jeżeli to pierwsze uruchomienie na maszynie, można uruchomić skrypt `script/first_launch.sh`
 lub ręcznie wykonać wybrane komendy z tego skryptu

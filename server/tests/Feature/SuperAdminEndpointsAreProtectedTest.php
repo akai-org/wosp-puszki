@@ -3,7 +3,7 @@
 use App\User;
 
 beforeEach(function () {
-    $this->volounteer = User::with('roles')->orderBy('id')->whereRelation('roles', 'name', 'volounteer')->first();
+    $this->volounteer = User::with('roles')->whereRelation('roles', 'name', 'volounteer')->first();
     $this->assertEquals($this->volounteer->name, 'wosp01');
     $this->actingAs($this->volounteer);
 });

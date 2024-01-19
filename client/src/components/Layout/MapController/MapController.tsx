@@ -23,9 +23,7 @@ export const MapController = () => {
   };
 
   useEffect(() => {
-    data.forEach((station) =>
-      changeVolunteerAvailability(station.station, station.status),
-    );
+    data.forEach((station) => changeVolunteerAvailability(station.s, station.st));
   }, [data]);
 
   return (

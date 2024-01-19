@@ -13,11 +13,11 @@ const countedBoxesSubroutes: RouteObject[] = [
   },
   {
     path: 'show/:id',
-    element: <ShowBoxPage />,
+    element: <ShowBoxPage />
   },
   {
     path: 'edit/:id',
-    element: <EditBoxPage />,
+    element: <EditBoxPage />
   },
   {
     path: APPROVED_BOXES_PAGE_ROUTE,
@@ -25,13 +25,13 @@ const countedBoxesSubroutes: RouteObject[] = [
     children: [
       {
         path: 'show/:id',
-        element: <ShowBoxPage />,
+        element: <ShowBoxPage />
       },
       {
         path: 'edit/:id',
-        element: <EditBoxPage />,
-      },
-    ],
+        element: <EditBoxPage />
+      }
+    ]
   },
 ];
 

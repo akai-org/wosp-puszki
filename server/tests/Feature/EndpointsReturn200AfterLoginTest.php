@@ -3,7 +3,7 @@
 use App\User;
 
 beforeEach(function () {
-    $this->superadmin = User::with('roles')->orderBy('id')->whereRelation('roles', 'name', 'superadmin')->first();
+    $this->superadmin = User::with('roles')->whereRelation('roles', 'name', 'superadmin')->first();
     $this->assertEquals($this->superadmin->name, 'superadmin');
     $this->actingAs($this->superadmin);
 });

@@ -1,17 +1,7 @@
 import type { FormRule } from 'antd';
-import {
-  APIManager,
-  fetcher,
-  PASSWORD_REQUIRED,
-  PASSWORDS_DO_NOT_MATCH,
-  recognizeError,
-  USERNAME_REQUIRED,
-} from '@/utils';
+import { PASSWORD_REQUIRED, PASSWORDS_DO_NOT_MATCH, USERNAME_REQUIRED } from '@/utils';
 import { FormButton, FormWrapper, FormInput, FormSelect } from '@/components';
-import type { FormMessage, Option, VolunteerType } from '@/utils';
-import { useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
-import { useForm } from 'antd/lib/form/Form';
+import type { Option, VolunteerType } from '@/utils';
 
 interface NewUserValues {
   username: string;
@@ -21,7 +11,8 @@ interface NewUserValues {
 }
 
 const options: Option[] = [
-  { value: 'volounteer', label: 'Wolontariusz' },
+  { value: 'collector', label: 'Wolontariusz' },
+  { value: 'collectorcoordinator', label: 'Koordynator wolontariuszy' },
   { value: 'admin', label: 'Admin' },
   { value: 'superadmin', label: 'Superadmin' },
 ];
@@ -36,46 +27,16 @@ const validateConfirmPassword: FormRule = ({ getFieldValue }) => ({
 });
 
 export const NewUserForm = () => {
-  const [form] = useForm();
-  const [message, setMessage] = useState<FormMessage | undefined>();
-
-  const mutation = useMutation({
-    mutationFn: (values: NewUserValues) =>
-      fetcher(APIManager.usersURL, {
-        method: 'POST',
-        body: {
-          userName: values.username,
-          password: values.password,
-          password_confirmation: values.confirmPassword,
-          role: values.userType,
-        },
-      }),
-
-    onSuccess: () => {
-      setMessage({ type: 'success', content: 'Pomyślnie dodano użytkownika' });
-      form.resetFields();
-    },
-
-    onError: (error: unknown) =>
-      setMessage({
-        type: 'error',
-        content: recognizeError(error),
-      }),
-  });
-
   const onSubmit = (values: NewUserValues) => {
-    mutation.mutate(values);
+    // TODO: Send to BE
+    return;
   };
-
   return (
     <FormWrapper
-      form={form}
       label="Dodaj użytkownika"
-      initialValues={{ userType: 'volounteer' }}
+      initialValues={{ userType: 'Wolontariusz' }}
       name="newUserForm"
       onFinish={onSubmit}
-      disabled={mutation.isLoading}
-      message={message}
     >
       <FormInput
         label="Nazwa użytkownika"
@@ -96,7 +57,7 @@ export const NewUserForm = () => {
         rules={[{ required: true, message: PASSWORD_REQUIRED }, validateConfirmPassword]}
       />
       <FormSelect label="Typ użytkownika" name="userType" options={options} />
-      <FormButton type="primary" htmlType="submit" isLoading={mutation.isLoading}>
+      <FormButton type="primary" htmlType="submit">
         Dodaj użytkownika
       </FormButton>
     </FormWrapper>

@@ -46,7 +46,7 @@ class UserTableSeeder extends Seeder
             $volounteer = new User();
             $number = str_pad($i, 2, 0, STR_PAD_LEFT);
             $volounteer->name = 'wosp' . $number;
-            $password = 'teamWitasik' . $number;
+            $password = 'teamBreadman' . $number;
             $volounteer->password = Hash::make($password);
             echo $volounteer->name . ':' . $password . PHP_EOL;
             $volounteer->save();

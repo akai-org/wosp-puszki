@@ -6,6 +6,7 @@ import { Content } from 'antd/lib/layout/layout';
 import Title from 'antd/lib/typography/Title';
 
 export const DepositBoxPage = () => {
+
   const { boxIdentifier, collectorName, collectorIdentifier } = useGetBoxData();
 
   setStationUnavailable();
@@ -18,7 +19,7 @@ export const DepositBoxPage = () => {
           puszki w bazie:
           {boxIdentifier} )
         </Title>
-        <DepositBoxForm boxId={boxIdentifier} />
+        <DepositBoxForm />
       </Content>
     </Space>
   );

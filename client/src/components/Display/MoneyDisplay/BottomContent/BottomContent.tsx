@@ -7,8 +7,9 @@ import { stationState, useAmountsQuery, useStationsQuery } from '@/utils';
 export const BottomContent = () => {
   const { data } = useAmountsQuery();
   const { data: stationsData } = useStationsQuery();
+  console.log(stationsData);
   const availableStations = stationsData.filter(
-    (station) => station.status === stationState.available,
+    (station) => station.st === stationState.available,
   ).length;
 
   return (
