@@ -9,7 +9,7 @@ export interface SubNavLink {
   withDot?: boolean;
 }
 
-export type VolunteerType = 'volounteer' | 'admin' | 'superadmin' ;
+export type VolunteerType = 'volounteer' | 'admin' | 'superadmin';
 
 export interface Option {
   value: VolunteerType;
@@ -85,13 +85,31 @@ export type UserDataType = {
   role: string;
 };
 
+export type IUser = {
+  id: number;
+  created_at: string;
+  updated_at: string;
+  name: string;
+  comment: string;
+  roles: [
+    {
+      id: number;
+      name: string;
+      created_at: string;
+      updated_at: string;
+      description: string;
+    }
+  ]
+}
+
 export type LogDataType = {
-  user: string;
-  volunteer_id: string;
-  box: string;
-  action: string;
-  other: string;
-  time: string;
+  user_id: number;
+  box_id: number;
+  type: string;
+  comment: string;
+  created_at: string;
+  box: IBoxes;
+  user: VolunteerDataType;
 };
 
 export type volunteerStatus = 'available' | 'occupied' | 'unavailable';
@@ -195,9 +213,9 @@ export interface IDisplayPageContent {
 }
 
 export interface IStations {
-  s: number;
-  st: number;
-  t: number | null;
+  station: number;
+  status: number;
+  time: number | null;
 }
 
 export interface IBoxes {

@@ -3,11 +3,8 @@ import { CalculatorView } from '@/components/Calculator/CalculatorView';
 import {
   APIManager,
   AmountsKeys,
-  BoxData,
   CHECKOUT_BOX_PAGE_ROUTE,
-  COUNTED_BOXES_ROUTE,
   FormMessage,
-  IBoxes,
   MONEY_VALUES,
   SETTLE_PROCESS_PATH,
   ZLOTY_AMOUNTS_KEYS,
@@ -15,22 +12,17 @@ import {
   fetcher,
   moneyValuesType,
   recognizeError,
-  setStationUnavailable,
   sum,
   useDepositContext,
-  useGetBoxData,
 } from '@/utils';
 import { useMutation } from '@tanstack/react-query';
-import { Form, Space, Typography } from 'antd';
+import { Form, Space } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
-import { Content } from 'antd/lib/layout/layout';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DepositColumn } from '@/components';
 import { InputNumberBox } from '@/components';
 import s from './BoxDataForm.module.less';
-
-const { Title } = Typography;
 
 //indexes that are used for splitting array of inputs to match our design
 const moneySlice = {
@@ -43,11 +35,11 @@ const moneySlice = {
 };
 
 export interface DepositBoxFormProps {
-  boxId?: string,
-  editMode?: boolean
+  boxId: string;
+  editMode?: boolean;
 }
 
-export const DepositBoxForm = ({ boxId, editMode }: DepositBoxFormProps) => {
+export const DepositBoxForm = ({ boxId }: DepositBoxFormProps) => {
   const [message, setMessage] = useState<FormMessage | undefined>();
   const [total, setTotal] = useState(0);
   const { boxData, handleAmountsChange } = useDepositContext();
@@ -57,21 +49,10 @@ export const DepositBoxForm = ({ boxId, editMode }: DepositBoxFormProps) => {
     setTotal(sum(boxData, ZLOTY_AMOUNTS_KEYS, MONEY_VALUES));
   }, [boxData]);
 
-  const mutation = useMutation(editMode ? {
+  const mutation = useMutation({
     mutationFn: () =>
       fetcher(`${APIManager.baseAPIRUrl}/charityBoxes/${boxId}`, {
         method: 'PUT',
-        body: { box_id: boxId, comment: boxData.comment, ...boxData.amounts },
-      }),
-    onSuccess: () =>
-      navigate(createFullRoutePath(SETTLE_PROCESS_PATH, COUNTED_BOXES_ROUTE)),
-    onError: (error) => {
-      setMessage({ type: 'error', content: recognizeError(error) });
-    },
-  } : {
-    mutationFn: () =>
-      fetcher(`${APIManager.baseAPIRUrl}/boxes/${boxId}`, {
-        method: 'POST',
         body: { comment: boxData.comment, ...boxData.amounts },
       }),
     onSuccess: () =>
