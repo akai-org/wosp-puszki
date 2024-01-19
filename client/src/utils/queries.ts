@@ -12,6 +12,7 @@ import {
   IBoxes,
   LogDataType,
   CANNOT_DOWNLOAD_DATA,
+  IUser,
 } from '@/utils';
 import { useQuery } from '@tanstack/react-query';
 
@@ -21,6 +22,9 @@ export const STATION_UNAVAILABLE_QUERY_KEY = ['station-unavailable'];
 export const GET_BOX_QUERY_KEY = ['get-box'];
 export const UNVERIFIED_BOXES_QUERY_KEY = ['unverified-boxes'];
 export const VERIFIED_BOXES_QUERY_KEY = ['verified-boxes'];
+
+export const GET_USERS_QUERY_KEY = ['get-users'];
+
 export const STATIONS_QUERY_KEY = ['stations'];
 export const GET_LOGS_QUERY_KEY = ['get-logs'];
 
@@ -178,4 +182,15 @@ export const useGetLogsQuery = () =>
         throw error;
       }),
     { initialData: [], refetchInterval: 3000, cacheTime: 3000 },
+  );
+
+export const useGetUsersQuery = () =>
+  useQuery(
+    GET_USERS_QUERY_KEY,
+    () =>
+      fetcher<IUser[]>(`${APIManager.baseAPIRUrl}/users`).catch((error) => {
+        openNotification('error', NO_CONNECT_WITH_SERVER, CANNOT_DOWNLOAD_DATA);
+        throw error;
+      }),
+    { initialData: [] },
   );

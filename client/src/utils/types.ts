@@ -85,6 +85,23 @@ export type UserDataType = {
   role: string;
 };
 
+export type IUser = {
+  id: number;
+  created_at: string;
+  updated_at: string;
+  name: string;
+  comment: string;
+  roles: [
+    {
+      id: number;
+      name: string;
+      created_at: string;
+      updated_at: string;
+      description: string;
+    }
+  ]
+}
+
 export type LogDataType = {
   user_id: number;
   box_id: number;
