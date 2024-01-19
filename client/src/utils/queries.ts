@@ -10,6 +10,7 @@ import {
   STATUS_CANT_BE_UPDATED,
   MULTIPLE_STATUS_CANT_BE_UPDATED,
   IBoxes,
+  LogDataType,
   CANNOT_DOWNLOAD_DATA,
   IUser,
 } from '@/utils';
@@ -18,15 +19,14 @@ import { useQuery } from '@tanstack/react-query';
 export const AMOUNTS_QUERY_KEY = ['amounts'];
 export const STATION_AVAILABLE_QUERY_KEY = ['station-available'];
 export const STATION_UNAVAILABLE_QUERY_KEY = ['station-unavailable'];
-
 export const GET_BOX_QUERY_KEY = ['get-box'];
-
 export const UNVERIFIED_BOXES_QUERY_KEY = ['unverified-boxes'];
 export const VERIFIED_BOXES_QUERY_KEY = ['verified-boxes'];
 
 export const GET_USERS_QUERY_KEY = ['get-users'];
-
 export const STATIONS_QUERY_KEY = ['stations'];
+export const GET_LOGS_QUERY_KEY = ['get-logs'];
+
 export const THREE_MINUTES = 1000 * 60 * 3;
 export const amountsInitData: IDisplayPageContent = {
   amount_total_in_PLN: 0,
@@ -51,7 +51,11 @@ export const stationState = {
 };
 
 export const stationsInitData: IStations[] = Array.from(Array(28)).map(
-  (el, index): IStations => ({ s: index + 1, st: stationState.unavailable, t: null }),
+  (el, index): IStations => ({
+    station: index + 1,
+    status: stationState.unavailable,
+    time: null,
+  }),
 );
 
 export const useAmountsQuery = () =>
@@ -97,6 +101,7 @@ export const useSetStationAvailableQuery = (username: string | null | undefined)
       })
         .then(() => {
           closeNotification();
+          return null;
         })
         .catch((error) => {
           if (isFailedFetched(error))
@@ -122,6 +127,7 @@ export const useSetStationUnavailableQuery = (username: string | null | undefine
       })
         .then(() => {
           closeNotification();
+          return null;
         })
         .catch((error) => {
           if (isFailedFetched(error))
@@ -159,26 +165,31 @@ export const useVerifiedBoxesQuery = () =>
   );
 
 export const useGetBoxQuery = (id: string) =>
-  useQuery(
-    GET_BOX_QUERY_KEY,
-    () =>
-      fetcher<IBoxes>(`${APIManager.baseAPIRUrl}/charityBoxes/${id}`).catch(
-        (error) => {
-          openNotification('error', NO_CONNECT_WITH_SERVER, CANNOT_DOWNLOAD_DATA);
-          throw error;
-        },
-      ),
+  useQuery(GET_BOX_QUERY_KEY, () =>
+    fetcher<IBoxes>(`${APIManager.baseAPIRUrl}/charityBoxes/${id}`).catch((error) => {
+      openNotification('error', NO_CONNECT_WITH_SERVER, CANNOT_DOWNLOAD_DATA);
+      throw error;
+    }),
   );
 
-  export const useGetUsersQuery = () => 
+export const useGetLogsQuery = () =>
+  useQuery(
+    GET_LOGS_QUERY_KEY,
+    () =>
+      fetcher<LogDataType[]>(`${APIManager.baseAPIRUrl}/logs`).catch((error) => {
+        openNotification('error', NO_CONNECT_WITH_SERVER, CANNOT_DOWNLOAD_DATA);
+        throw error;
+      }),
+    { initialData: [], refetchInterval: 3000, cacheTime: 3000 },
+  );
+
+export const useGetUsersQuery = () =>
   useQuery(
     GET_USERS_QUERY_KEY,
     () =>
-      fetcher<IUser[]>(`${APIManager.baseAPIRUrl}/users`).catch(
-        (error) => {
-          openNotification('error', NO_CONNECT_WITH_SERVER, CANNOT_DOWNLOAD_DATA);
-          throw error;
-        },
-      ),
+      fetcher<IUser[]>(`${APIManager.baseAPIRUrl}/users`).catch((error) => {
+        openNotification('error', NO_CONNECT_WITH_SERVER, CANNOT_DOWNLOAD_DATA);
+        throw error;
+      }),
     { initialData: [] },
   );

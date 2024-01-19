@@ -24,7 +24,7 @@ export const AcceptDataPage = () => {
 
   const mutation = useMutation({
     mutationFn: () =>
-      fetcher(`${APIManager.baseAPIRUrl}/boxes/${boxIdentifier}/startCounting`, {
+      fetcher(`${APIManager.baseAPIRUrl}/charityBoxes/${boxIdentifier}/startCounting`, {
         method: 'POST',
       }),
     onSuccess: () => {

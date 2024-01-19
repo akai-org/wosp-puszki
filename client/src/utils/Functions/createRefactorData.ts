@@ -1,4 +1,4 @@
-import { DisplayableData, IBoxes } from '../types';
+import { DisplayableData, IBoxes, LogDataType } from '../types';
 
 export const createDisplayableData = (data: IBoxes[]) => {
   const displayableData = [];
@@ -19,4 +19,22 @@ export const createDisplayableData = (data: IBoxes[]) => {
   }
 
   return displayableData as DisplayableData[];
+};
+
+export const createDisplayableLogData = (data: LogDataType[]) => {
+  const displayableLogData = [];
+
+  for (const [index, item] of data.entries()) {
+    displayableLogData.push({
+      log_id: index,
+      name: item.user.name,
+      user_id: item.user_id,
+      box_id: item.box_id,
+      type: item.type,
+      comment: item.comment,
+      created_at: item.created_at,
+    });
+  }
+
+  return displayableLogData as DisplayableData[];
 };

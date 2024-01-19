@@ -9,7 +9,7 @@ export interface SubNavLink {
   withDot?: boolean;
 }
 
-export type VolunteerType = 'collector' | 'admin' | 'superadmin' | 'collectorcoordinator';
+export type VolunteerType = 'volounteer' | 'admin' | 'superadmin';
 
 export interface Option {
   value: VolunteerType;
@@ -29,6 +29,7 @@ export interface TableColumns {
     title: string;
     link: string;
     color?: string;
+    type?: string;
   }[];
   fixed?: 'left' | 'right';
   width?: number;
@@ -102,12 +103,13 @@ export type IUser = {
 }
 
 export type LogDataType = {
-  user: string;
-  volunteer_id: string;
-  box: string;
-  action: string;
-  other: string;
-  time: string;
+  user_id: number;
+  box_id: number;
+  type: string;
+  comment: string;
+  created_at: string;
+  box: IBoxes;
+  user: VolunteerDataType;
 };
 
 export type volunteerStatus = 'available' | 'occupied' | 'unavailable';
@@ -211,9 +213,9 @@ export interface IDisplayPageContent {
 }
 
 export interface IStations {
-  s: number;
-  st: number;
-  t: number | null;
+  station: number;
+  status: number;
+  time: number | null;
 }
 
 export interface IBoxes {
