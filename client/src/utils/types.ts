@@ -9,7 +9,7 @@ export interface SubNavLink {
   withDot?: boolean;
 }
 
-export type VolunteerType = 'volounteer' | 'admin' | 'superadmin' ;
+export type VolunteerType = 'volounteer' | 'admin' | 'superadmin';
 
 export interface Option {
   value: VolunteerType;
@@ -195,9 +195,9 @@ export interface IDisplayPageContent {
 }
 
 export interface IStations {
-  s: number;
-  st: number;
-  t: number | null;
+  station: number;
+  status: number;
+  time: number | null;
 }
 
 export interface IBoxes {
