@@ -10,6 +10,7 @@ use App\Http\Requests\Api\BoxCharityBoxRequest;
 use App\Http\Requests\Api\UpdateCountingCharityBoxRequest;
 use App\Http\Resources\Api\CharityBoxResource;
 use App\Lib\BoxOperator\BoxOperator;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
@@ -317,6 +318,72 @@ final class CharityBoxApiController extends ApiController
 
         return new JsonResponse($confirmedBoxes);
     }
+
+    /**
+     * @OA\Post(
+     *     path="/charityBoxes/verified/{id}",
+     *     operationId="postVerifyCharityBoxById",
+     *     tags={"CharityBoxes"},
+     *     summary="Verify Charity Box",
+     *     description="Return message of operation result",
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Charity box id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="status_code", type="integer", example="200"),
+     *              @OA\Property(property="data",type="object")
+     *          ),
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Resource Not Found"
+     *      )
+     * )
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function postVerifyCharityBox(Request $request, int $id): JsonResponse
+    {
+        $box = CharityBox::where('id', '=', $id)->first();
+        $box->is_confirmed = true;
+        $box->user_confirmed_id = $request->user()->id;
+        $box->time_confirmed = Carbon::now();
+        $box->save();
+
+        $event = new BoxEvent();
+        $event->type = 'verified';
+        $event->box_id = $box->id;
+        $event->user_id = $request->user()->id;
+        $event->comment = '';
+        $event->save();
+
+        return new JsonResponse([
+            'message' => sprintf('Puszka nr %s zatwierdzona (%szł)', $box->id, $box->amount_PLN),
+            'status' => Response::HTTP_OK
+        ]);
+    }
+
 
     /**
      * @OA\Post(
