@@ -49,6 +49,9 @@
 //         rowClassName={s.table_row}   --- Dodaje klasę stylu do każdego wiersza
 //       />
 
+// Utility functions
+import { APIManager, fetcher } from '@/utils';
+
 // Types
 import type { InputRef } from 'antd';
 import type { ColumnType } from 'antd/es/table';
@@ -63,6 +66,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import React from 'react';
 import { useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
+import { Link } from 'react-router-dom';
 
 export function CreateColumns<DataType extends { [key: string]: string | number }>(
   columnsOptions: TableColumns[],
@@ -80,15 +84,36 @@ export function CreateColumns<DataType extends { [key: string]: string | number 
       render: (_: unknown, record: DataType) => (
         <Space size="middle">
           {actions.map((action) => {
-            return (
-              <a
-                style={{ color: action.color }}
-                key={action.title}
-                href={action.link ? `${action.link}${record[keyName]}` : '#'}
-              >
-                {action.title}
-              </a>
-            );
+            if (action.type === 'query') {
+              return (
+                // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
+                <p
+                  key={action.title}
+                  style={{ color: action.color, cursor: 'pointer' }}
+                  onClick={() =>
+                    fetcher(`${APIManager.baseAPIRUrl}${action.link}${record['id']}`, {
+                      method: 'POST',
+                      returnVoid: true,
+                      body: {
+                        box_id: record['id'],
+                      },
+                    })
+                  }
+                >
+                  {action.title}
+                </p>
+              );
+            } else {
+              return (
+                <Link
+                  to={action.link ? `${action.link}${record['id']}` : '#'}
+                  style={{ color: action.color }}
+                  key={action.title}
+                >
+                  {action.title}
+                </Link>
+              );
+            }
           })}
         </Space>
       ),
@@ -267,12 +292,12 @@ export function CreateColumns<DataType extends { [key: string]: string | number 
   const setStatus = (
     status:
       | {
-          key: string;
-          options: {
-            on: { value: string | number | boolean; description: string };
-            off: { value: string | number | boolean; description: string };
-          };
-        }
+        key: string;
+        options: {
+          on: { value: string | number | boolean; description: string };
+          off: { value: string | number | boolean; description: string };
+        };
+      }
       | undefined,
   ) => {
     if (!status || !status.key || !status.options) return {};

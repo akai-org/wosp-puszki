@@ -1,1 +1,4 @@
-docker/mysql/storage
+.env
+vendor
+node_modules
+drivers

@@ -18,6 +18,8 @@ export const AMOUNTS_QUERY_KEY = ['amounts'];
 export const STATION_AVAILABLE_QUERY_KEY = ['station-available'];
 export const STATION_UNAVAILABLE_QUERY_KEY = ['station-unavailable'];
 
+export const GET_BOX_QUERY_KEY = ['get-box'];
+
 export const UNVERIFIED_BOXES_QUERY_KEY = ['unverified-boxes'];
 export const VERIFIED_BOXES_QUERY_KEY = ['verified-boxes'];
 
@@ -151,4 +153,16 @@ export const useVerifiedBoxesQuery = () =>
         },
       ),
     { initialData: [], refetchInterval: 3000, cacheTime: 3000 },
+  );
+
+export const useGetBoxQuery = (id: string) =>
+  useQuery(
+    GET_BOX_QUERY_KEY,
+    () =>
+      fetcher<IBoxes>(`${APIManager.baseAPIRUrl}/charityBoxes/${id}`).catch(
+        (error) => {
+          openNotification('error', NO_CONNECT_WITH_SERVER, CANNOT_DOWNLOAD_DATA);
+          throw error;
+        },
+      ),
   );

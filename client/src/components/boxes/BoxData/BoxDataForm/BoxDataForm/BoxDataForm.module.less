@@ -1,19 +1,23 @@
 @import 'less/variables.less';
 
-.title {
-  margin: 1.5rem 0 1.5rem 1.5rem;
-}
-
-.full {
-  height: 100vh;
-  box-sizing: border-box;
-}
 .columns {
   display: flex;
   align-items: flex-start;
   margin-top: 3rem;
   width: 100%;
   justify-content: space-evenly;
+}
+
+@media screen {
+  @media (max-width: 576px) {
+    .columns {
+      flex-direction: column;
+    }
+
+    .submitContainer {
+      margin-top: 15px;
+    }
+  }
 }
 
 .sum {
