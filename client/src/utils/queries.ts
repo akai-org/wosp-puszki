@@ -156,13 +156,9 @@ export const useVerifiedBoxesQuery = () =>
   );
 
 export const useGetBoxQuery = (id: string) =>
-  useQuery(
-    GET_BOX_QUERY_KEY,
-    () =>
-      fetcher<IBoxes>(`${APIManager.baseAPIRUrl}/charityBoxes/${id}`).catch(
-        (error) => {
-          openNotification('error', NO_CONNECT_WITH_SERVER, CANNOT_DOWNLOAD_DATA);
-          throw error;
-        },
-      ),
+  useQuery(GET_BOX_QUERY_KEY, () =>
+    fetcher<IBoxes>(`${APIManager.baseAPIRUrl}/charityBoxes/${id}`).catch((error) => {
+      openNotification('error', NO_CONNECT_WITH_SERVER, CANNOT_DOWNLOAD_DATA);
+      throw error;
+    }),
   );
