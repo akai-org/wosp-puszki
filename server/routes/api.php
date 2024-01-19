@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\CsvDumpController;
 use App\Http\Controllers\AvailabilityController;
 use App\Lib\BoxOperator\BoxOperator;
 use Illuminate\Http\Request;
@@ -97,7 +98,7 @@ Route::group(['middleware' => ['auth.basic:,name']], function (){
 
         return Response::json($box, 200);
     });
-
+    Route::get('charityBoxes/createCsv', [CsvDumpController::class,'getDataForCSV'])->name('api.box.create-csv')->middleware(['collectorcoordinator']);
 });
 
 
