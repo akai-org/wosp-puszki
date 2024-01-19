@@ -4,7 +4,6 @@ import {
   APIManager,
   AmountsKeys,
   CHECKOUT_BOX_PAGE_ROUTE,
-  COUNTED_BOXES_ROUTE,
   FormMessage,
   MONEY_VALUES,
   SETTLE_PROCESS_PATH,

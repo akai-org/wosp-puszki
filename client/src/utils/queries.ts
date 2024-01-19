@@ -98,6 +98,7 @@ export const useSetStationAvailableQuery = (username: string | null | undefined)
       })
         .then(() => {
           closeNotification();
+          return null;
         })
         .catch((error) => {
           if (isFailedFetched(error))
@@ -123,6 +124,7 @@ export const useSetStationUnavailableQuery = (username: string | null | undefine
       })
         .then(() => {
           closeNotification();
+          return null;
         })
         .catch((error) => {
           if (isFailedFetched(error))
