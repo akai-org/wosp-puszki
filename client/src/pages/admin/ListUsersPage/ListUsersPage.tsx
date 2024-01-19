@@ -1,8 +1,5 @@
-// React
-import { useEffect } from 'react';
-
 // Utility functions
-import type {  TableColumns } from '@/utils';
+import type { TableColumns } from '@/utils';
 import { CreateColumns } from '@/utils';
 
 // Style and ant design
@@ -16,25 +13,6 @@ import { useGetUsersQuery } from '@/utils';
 import { createUsersData } from '@/utils/Functions/createUserData';
 
 export const ListUsersPage = () => {
-  // testowe dane
-  // const data: UserDataType[] = [
-  //   {
-  //     user_id: 'Wosp1',
-  //     name: 'Pan Paweł',
-  //     role: 'user',
-  //   },
-  //   {
-  //     user_id: 'Wosp2',
-  //     name: 'Walaszek',
-  //     role: 'admin',
-  //   },
-  //   {
-  //     user_id: 'Wosp3',
-  //     name: 'Kapitan Bomba',
-  //     role: 'superadmin',
-  //   },
-  // ];
-
   // Ustawienia dla poszczególnych kolumn
   const columnsOptions: TableColumns[] = [
     {
@@ -50,17 +28,15 @@ export const ListUsersPage = () => {
       sortType: 'string',
       search: true,
       width: 150,
-    }
+    },
   ];
 
-  
   // Pobieranie danych
   const { data } = useGetUsersQuery();
   const usersData = createUsersData(data);
-  
+
   // Tworzenie kolumn
   const columns = CreateColumns(columnsOptions, usersData);
-
 
   return (
     <Layout>
@@ -72,7 +48,7 @@ export const ListUsersPage = () => {
             columns={columns}
             pagination={false}
             dataSource={usersData}
-            rowKey="id" // To należy zmienić przy okazji podłączenia API
+            rowKey="user_id" // To należy zmienić przy okazji podłączenia API
             scroll={{ y: '70vh' }}
             rowClassName={s.table_row}
           />
