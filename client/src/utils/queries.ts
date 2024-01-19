@@ -48,7 +48,11 @@ export const stationState = {
 };
 
 export const stationsInitData: IStations[] = Array.from(Array(28)).map(
-  (el, index): IStations => ({ s: index + 1, st: stationState.unavailable, t: null }),
+  (el, index): IStations => ({
+    station: index + 1,
+    status: stationState.unavailable,
+    time: null,
+  }),
 );
 
 export const useAmountsQuery = () =>
@@ -94,6 +98,7 @@ export const useSetStationAvailableQuery = (username: string | null | undefined)
       })
         .then(() => {
           closeNotification();
+          return null;
         })
         .catch((error) => {
           if (isFailedFetched(error))
@@ -119,6 +124,7 @@ export const useSetStationUnavailableQuery = (username: string | null | undefine
       })
         .then(() => {
           closeNotification();
+          return null;
         })
         .catch((error) => {
           if (isFailedFetched(error))
