@@ -10,6 +10,7 @@ import {
   STATUS_CANT_BE_UPDATED,
   MULTIPLE_STATUS_CANT_BE_UPDATED,
   IBoxes,
+  LogDataType,
   CANNOT_DOWNLOAD_DATA,
 } from '@/utils';
 import { useQuery } from '@tanstack/react-query';
@@ -17,13 +18,12 @@ import { useQuery } from '@tanstack/react-query';
 export const AMOUNTS_QUERY_KEY = ['amounts'];
 export const STATION_AVAILABLE_QUERY_KEY = ['station-available'];
 export const STATION_UNAVAILABLE_QUERY_KEY = ['station-unavailable'];
-
 export const GET_BOX_QUERY_KEY = ['get-box'];
-
 export const UNVERIFIED_BOXES_QUERY_KEY = ['unverified-boxes'];
 export const VERIFIED_BOXES_QUERY_KEY = ['verified-boxes'];
-
 export const STATIONS_QUERY_KEY = ['stations'];
+export const GET_LOGS_QUERY_KEY = ['get-logs'];
+
 export const THREE_MINUTES = 1000 * 60 * 3;
 export const amountsInitData: IDisplayPageContent = {
   amount_total_in_PLN: 0,
@@ -167,4 +167,15 @@ export const useGetBoxQuery = (id: string) =>
       openNotification('error', NO_CONNECT_WITH_SERVER, CANNOT_DOWNLOAD_DATA);
       throw error;
     }),
+  );
+
+export const useGetLogsQuery = () =>
+  useQuery(
+    GET_LOGS_QUERY_KEY,
+    () =>
+      fetcher<LogDataType[]>(`${APIManager.baseAPIRUrl}/logs`).catch((error) => {
+        openNotification('error', NO_CONNECT_WITH_SERVER, CANNOT_DOWNLOAD_DATA);
+        throw error;
+      }),
+    { initialData: [], refetchInterval: 3000, cacheTime: 3000 },
   );

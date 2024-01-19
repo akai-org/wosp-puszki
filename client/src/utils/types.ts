@@ -86,12 +86,13 @@ export type UserDataType = {
 };
 
 export type LogDataType = {
-  user: string;
-  volunteer_id: string;
-  box: string;
-  action: string;
-  other: string;
-  time: string;
+  user_id: number;
+  box_id: number;
+  type: string;
+  comment: string;
+  created_at: string;
+  box: IBoxes;
+  user: VolunteerDataType;
 };
 
 export type volunteerStatus = 'available' | 'occupied' | 'unavailable';
