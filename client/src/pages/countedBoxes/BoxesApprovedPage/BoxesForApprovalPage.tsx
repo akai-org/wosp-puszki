@@ -1,5 +1,5 @@
 // Utility functions
-import type { DisplayableData, IBoxes, TableColumns } from '@/utils';
+import type { DisplayableData, TableColumns } from '@/utils';
 import { CreateColumns, useUnverifiedBoxesQuery, useVerifiedBoxesQuery } from '@/utils';
 
 // Style and ant design
