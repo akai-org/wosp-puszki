@@ -16,6 +16,8 @@ import { Space } from 'antd';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 
+import s from './ShowBoxPage.module.less';
+
 export const ShowBoxPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -68,8 +70,8 @@ export const ShowBoxPage = () => {
   return (
     <Modal title={'Zawartość puszki'}>
       <Space direction="vertical">
-        <ContentColumns boxData={data} total={queryData?.amount_PLN || 0} />
-        <Space>
+        <ContentColumns boxData={data} total={queryData?.amount_PLN || 0}/>
+        <Space className={s.stackButtons}>
           {!queryData?.is_confirmed && (
             <Link
               to={`/liczymy/countedBoxes${
