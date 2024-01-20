@@ -4,18 +4,25 @@
   height: 100%;
   min-height: 100lvh;
   width: 100%;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 50;
   background-color: #171717a1;
   overflow-y: auto;
-  padding: 40px;
   display: flex;
   justify-content: center;
   backdrop-filter: blur(2px);
   align-items: center;
   overflow-x: hidden;
+}
+
+.sidebarHidden {
+  padding-left: 80px;
+}
+
+.sidebarShown {
+  padding-left: 240px;
 }
 
 .container {
