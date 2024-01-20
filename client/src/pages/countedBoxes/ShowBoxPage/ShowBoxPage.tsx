@@ -1,13 +1,14 @@
-import { ContentColumns } from "@/components";
+import { ContentColumns, FormButton } from "@/components";
 import { Modal } from "@/components/Modal/Modal";
-import { BoxData, useGetBoxQuery, AMOUNTS_KEYS } from "@/utils";
-import { Button, Space } from "antd";
-import s from './ShowBoxPage.module.less'
-import { Link, useParams } from "react-router-dom";
+import { BoxData, useGetBoxQuery, AMOUNTS_KEYS, fetcher, APIManager, COUNTED_BOXES_PATH, APPROVED_BOXES_PAGE_ROUTE, openNotification, NO_CONNECT_WITH_SERVER, CANNOT_DOWNLOAD_DATA } from "@/utils";
+import { Space } from "antd";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
 
 export const ShowBoxPage = () => {
 
     const { id } = useParams();
+    const navigate = useNavigate();
 
     const queryData = id ? useGetBoxQuery(id).data : undefined;
 
@@ -24,6 +25,30 @@ export const ShowBoxPage = () => {
         comment: queryData?.comment || ""
     }
 
+    const verifyMutation = useMutation({
+        mutationFn: () =>
+            fetcher(`${APIManager.baseAPIRUrl}/charityBoxes/verified/${id}`, {
+                method: 'POST',
+            }),
+        onSuccess: () =>
+            navigate(`${COUNTED_BOXES_PATH}`),
+        onError: () => {
+            openNotification('error', NO_CONNECT_WITH_SERVER, CANNOT_DOWNLOAD_DATA);
+        },
+    });
+
+    const unverifyMutation = useMutation({
+        mutationFn: () =>
+            fetcher(`${APIManager.baseAPIRUrl}/charityBoxes/unverified/${id}`, {
+                method: 'POST',
+            }),
+        onSuccess: () =>
+            navigate(`${COUNTED_BOXES_PATH}/${APPROVED_BOXES_PAGE_ROUTE}`),
+        onError: () => {
+            openNotification('error', NO_CONNECT_WITH_SERVER, CANNOT_DOWNLOAD_DATA);
+        },
+    });
+
     return (
         <Modal title={'Zawartość puszki'}>
             <Space direction="vertical">
@@ -31,19 +56,27 @@ export const ShowBoxPage = () => {
                 <Space>
                     {!queryData?.is_confirmed && (
                         <Link to={`/liczymy/countedBoxes${queryData?.is_confirmed ? '/approved' : ''}/edit/${id}`}>
-                            <Button type="primary" className={s.editButton}>
+                            <FormButton type="primary">
                                 Edytuj puszkę
-                            </Button>
+                            </FormButton>
                         </Link>
                     )}
                     {queryData?.is_confirmed ? (
-                        <Button type="primary" className={s.editButton}>
-                            Confij zatwierdzenie
-                        </Button>
+                        <FormButton
+                            type="primary"
+                            onClick={() => unverifyMutation.mutate()}
+                            isLoading={unverifyMutation.isLoading}
+                        >
+                            Cofnij zatwierdzenie
+                        </FormButton>
                     ) : (
-                        <Button type="primary" className={s.editButton}>
+                        <FormButton
+                            type="primary"
+                            onClick={() => verifyMutation.mutate()}
+                            isLoading={verifyMutation.isLoading}
+                        >
                             Zatwierdź
-                        </Button>
+                        </FormButton>
                     )}
                 </Space>
             </Space>

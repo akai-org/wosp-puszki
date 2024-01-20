@@ -4,6 +4,7 @@ import {
   APIManager,
   AmountsKeys,
   CHECKOUT_BOX_PAGE_ROUTE,
+  COUNTED_BOXES_PATH,
   FormMessage,
   MONEY_VALUES,
   SETTLE_PROCESS_PATH,
@@ -39,7 +40,7 @@ export interface DepositBoxFormProps {
   editMode?: boolean;
 }
 
-export const DepositBoxForm = ({ boxId }: DepositBoxFormProps) => {
+export const DepositBoxForm = ({ boxId, editMode }: DepositBoxFormProps) => {
   const [message, setMessage] = useState<FormMessage | undefined>();
   const [total, setTotal] = useState(0);
   const { boxData, handleAmountsChange } = useDepositContext();
@@ -56,7 +57,7 @@ export const DepositBoxForm = ({ boxId }: DepositBoxFormProps) => {
         body: { comment: boxData.comment, ...boxData.amounts },
       }),
     onSuccess: () =>
-      navigate(createFullRoutePath(SETTLE_PROCESS_PATH, CHECKOUT_BOX_PAGE_ROUTE)),
+      navigate(editMode ? COUNTED_BOXES_PATH : createFullRoutePath(SETTLE_PROCESS_PATH, CHECKOUT_BOX_PAGE_ROUTE)),
     onError: (error) => {
       setMessage({ type: 'error', content: recognizeError(error) });
     },
@@ -142,7 +143,7 @@ export const DepositBoxForm = ({ boxId }: DepositBoxFormProps) => {
             onClick={handleSubmit}
             isLoading={mutation.isLoading}
           >
-            Rozlicz Puszkę
+            {editMode ? 'Edytuj Puszkę' : 'Rozlicz Puszkę'}
           </FormButton>
         </Space>
         {message && (
