@@ -8,12 +8,14 @@ import {
 import { RouteObject } from 'react-router-dom';
 import {
   ACCEPT_BOX_PAGE_ROUTE,
+  All_BOXES_PATH,
   BOXES_PATH,
   CHECKOUT_BOX_PAGE_ROUTE,
   DEPOSIT_BOX_PAGE_ROUTE,
   FIND_BOX_PAGE_ROUTE,
   SETTLE_PROCESS_PATH,
   SettleProcessProvider,
+  UNSETTLED_BOXES_PATH,
 } from '@/utils';
 import { ProtectedRoute } from '@/components/ProtectedRoute/ProtectedRoute';
 import { InnerLayoutManager } from '@/components';
@@ -57,6 +59,11 @@ export const settleProcessRoute = {
           links={[
             { url: BOXES_PATH, label: 'Wydaj puszkę' },
             { url: SETTLE_PROCESS_PATH, label: 'Rozlicz puszkę' },
+            { url: All_BOXES_PATH, label: 'Wszystkie puszki' },
+            {
+              url: UNSETTLED_BOXES_PATH,
+              label: 'Lista puszek nie rozliczonych',
+            },
           ]}
         />
       </ProtectedRoute>
