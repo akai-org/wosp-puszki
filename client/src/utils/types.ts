@@ -98,9 +98,9 @@ export type IUser = {
       created_at: string;
       updated_at: string;
       description: string;
-    }
-  ]
-}
+    },
+  ];
+};
 
 export type LogDataType = {
   user_id: number;
@@ -320,3 +320,8 @@ export type UseBoxContextValues = typeof useBoxContextValues;
 export type UseDepositContextValues = typeof useDepositContext;
 
 export type moneyValuesType = typeof MONEY_VALUES;
+
+export interface ICountedBoxesContext {
+  verifiedBoxes: DisplayableData[];
+  unverifiedBoxes: DisplayableData[];
+}

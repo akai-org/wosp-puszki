@@ -1,13 +1,18 @@
 // Utility functions
-import type { DisplayableData, TableColumns } from '@/utils';
-import { CreateColumns, useUnverifiedBoxesQuery, useVerifiedBoxesQuery } from '@/utils';
+import type { TableColumns } from '@/utils';
+import {
+  CreateColumns,
+  useCountedBoxesContextValues,
+  useUnverifiedBoxesQuery,
+  useVerifiedBoxesQuery,
+} from '@/utils';
 
 // Style and ant design
 import s from './BoxesPage.module.less';
 import { Typography, Space, Layout, Table } from 'antd';
 import { createDisplayableData } from '@/utils/Functions/createRefactorData';
 import { Outlet } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -93,25 +98,26 @@ export const BoxesForApprovalPage = () => {
 
   const { data: unverifiedData } = useUnverifiedBoxesQuery();
 
-  const displayableData = createDisplayableData(unverifiedData);
-  const [storedUnverifiedData, setStoredUnverifiedData] =
-    useState<DisplayableData[]>(displayableData);
+  const displayableData = useMemo(
+    () => createDisplayableData(unverifiedData),
+    [unverifiedData],
+  );
 
   const { data: verifiedData } = useVerifiedBoxesQuery();
 
-  const displayableVerifiedData = createDisplayableData(verifiedData);
-  const [storedVerifiedData, setStoredVerifiedData] = useState<DisplayableData[]>(
-    displayableVerifiedData,
+  const displayableVerifiedData = useMemo(
+    () => createDisplayableData(verifiedData),
+    [verifiedData],
   );
   const verifiedColumns = CreateColumns(columnsOptions, displayableVerifiedData);
 
   // Tworzenie kolumn
   const columns = CreateColumns(columnsOptions, displayableData);
 
-  useEffect(() => {
-    setStoredUnverifiedData(displayableData);
-    setStoredVerifiedData(displayableVerifiedData);
-  }, [displayableData, displayableVerifiedData]);
+  const { storedUnverifiedData, storedVerifiedData } = useCountedBoxesContextValues(
+    displayableVerifiedData,
+    displayableData,
+  );
 
   return (
     <Layout>
