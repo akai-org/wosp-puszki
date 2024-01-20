@@ -1,18 +1,12 @@
 // Utility functions
 import type { TableColumns } from '@/utils';
-import {
-  CreateColumns,
-  useCountedBoxesContextValues,
-  useUnverifiedBoxesQuery,
-  useVerifiedBoxesQuery,
-} from '@/utils';
+import { CreateColumns, useUnverifiedBoxesQuery, useVerifiedBoxesQuery } from '@/utils';
 
 // Style and ant design
 import s from './BoxesPage.module.less';
 import { Typography, Space, Layout, Table } from 'antd';
 import { createDisplayableData } from '@/utils/Functions/createRefactorData';
 import { Outlet } from 'react-router-dom';
-import { useMemo } from 'react';
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -98,26 +92,17 @@ export const BoxesForApprovalPage = () => {
 
   const { data: unverifiedData } = useUnverifiedBoxesQuery();
 
-  const displayableData = useMemo(
-    () => createDisplayableData(unverifiedData),
-    [unverifiedData],
-  );
+  console.log(unverifiedData);
+  const displayableData = createDisplayableData(unverifiedData);
 
   const { data: verifiedData } = useVerifiedBoxesQuery();
 
-  const displayableVerifiedData = useMemo(
-    () => createDisplayableData(verifiedData),
-    [verifiedData],
-  );
+  const displayableVerifiedData = createDisplayableData(verifiedData);
+
   const verifiedColumns = CreateColumns(columnsOptions, displayableVerifiedData);
 
   // Tworzenie kolumn
   const columns = CreateColumns(columnsOptions, displayableData);
-
-  const { storedUnverifiedData, storedVerifiedData } = useCountedBoxesContextValues(
-    displayableVerifiedData,
-    displayableData,
-  );
 
   return (
     <Layout>
@@ -128,7 +113,7 @@ export const BoxesForApprovalPage = () => {
             size="middle"
             columns={columns}
             pagination={false}
-            dataSource={storedUnverifiedData}
+            dataSource={displayableData}
             rowKey="id"
             scroll={{ y: '70vh' }}
             rowClassName={s.table_row}
@@ -140,12 +125,13 @@ export const BoxesForApprovalPage = () => {
             size="middle"
             columns={verifiedColumns}
             pagination={false}
-            dataSource={storedVerifiedData}
+            dataSource={displayableVerifiedData}
             rowKey="id"
             scroll={{ y: '70vh' }}
             rowClassName={s.table_row}
           />
         </Space>
+
         <Outlet />
       </Content>
     </Layout>
