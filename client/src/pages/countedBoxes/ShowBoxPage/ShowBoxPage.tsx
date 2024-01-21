@@ -63,12 +63,30 @@ export const ShowBoxPage: FC<Props> = ({ displayOnly = false }) => {
     },
   });
 
+  const actions = queryData?.is_confirmed ? (
+    <FormButton
+      type="primary"
+      onClick={() => unverifyMutation.mutate()}
+      isLoading={unverifyMutation.isLoading}
+    >
+      Cofnij zatwierdzenie
+    </FormButton>
+  ) : (
+    <FormButton
+      type="primary"
+      onClick={() => verifyMutation.mutate()}
+      isLoading={verifyMutation.isLoading}
+    >
+      Zatwierdź
+    </FormButton>
+  );
+
   return (
     <Modal title={'Zawartość puszki'}>
       <Space direction="vertical">
         <ContentColumns boxData={data} total={queryData?.amount_PLN || 0} />
         <Space>
-          {!queryData?.is_confirmed && (
+          {!queryData?.is_confirmed && !displayOnly && (
             <Link
               to={`/liczymy/countedBoxes${
                 queryData?.is_confirmed ? '/approved' : ''
@@ -77,23 +95,7 @@ export const ShowBoxPage: FC<Props> = ({ displayOnly = false }) => {
               <FormButton type="primary">Edytuj puszkę</FormButton>
             </Link>
           )}
-          {queryData?.is_confirmed && !displayOnly ? (
-            <FormButton
-              type="primary"
-              onClick={() => unverifyMutation.mutate()}
-              isLoading={unverifyMutation.isLoading}
-            >
-              Cofnij zatwierdzenie
-            </FormButton>
-          ) : !displayOnly ? (
-            <FormButton
-              type="primary"
-              onClick={() => verifyMutation.mutate()}
-              isLoading={verifyMutation.isLoading}
-            >
-              Zatwierdź
-            </FormButton>
-          ) : null}
+          {displayOnly ? null : actions}
         </Space>
       </Space>
     </Modal>

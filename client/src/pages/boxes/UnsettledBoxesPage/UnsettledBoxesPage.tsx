@@ -6,6 +6,7 @@ import { CreateColumns, useGetAllBoxesQuery } from '@/utils';
 import s from '../BoxesPage.module.less';
 import { Typography, Space, Layout, Table } from 'antd';
 import { createDisplayableBoxData } from '@/utils/Functions/createRefactorData';
+import { Outlet } from 'react-router-dom';
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -99,7 +100,7 @@ export const UnsettledBoxesPage = () => {
       actions: [
         {
           title: 'Podgląd',
-          link: '/countedBoxes/boxesApproved/show/',
+          link: '/liczymy/boxes/unsettled/show/',
           color: '#1890FF',
         },
       ],
@@ -125,6 +126,7 @@ export const UnsettledBoxesPage = () => {
             rowClassName={s.table_row}
           />
         </Space>
+        <Outlet />
       </Content>
     </Layout>
   );

@@ -24,6 +24,7 @@ const boxesSubroutes: RouteObject[] = [
   {
     path: UNSETTLED_BOXES_LIST_PAGE_ROUTE,
     element: <UnsettledBoxesPage />,
+    children: [{ path: 'show/:id', element: <ShowBoxPage displayOnly /> }],
   },
 ];
 
