@@ -129,6 +129,12 @@ final class UserApiController extends ApiController
      */
     public function create(UserRequest $request)
     {
+        $request->validate([
+            'userName' => 'required|alpha_num|between:1,255|unique:users,name',
+            'password' => 'required|between:1,255',
+            'role' => 'required|in:volounteer,admin,superadmin'
+        ]);
+
         $user = new User();
         $user->name = $request->input('userName');
         $user->password = bcrypt($request->input('password'));
