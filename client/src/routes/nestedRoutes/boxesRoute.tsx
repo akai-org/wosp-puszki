@@ -19,12 +19,20 @@ const boxesSubroutes: RouteObject[] = [
   },
   {
     path: BOXES_LIST_PAGE_ROUTE,
-    element: <ListBoxesPage />,
+    element: (
+      <ProtectedRoute adminOnly>
+        <ListBoxesPage />
+      </ProtectedRoute>
+    ),
     children: [{ path: 'show/:id', element: <ShowBoxPage displayOnly /> }],
   },
   {
     path: UNSETTLED_BOXES_LIST_PAGE_ROUTE,
-    element: <UnsettledBoxesPage />,
+    element: (
+      <ProtectedRoute adminOnly>
+        <UnsettledBoxesPage />
+      </ProtectedRoute>
+    ),
     children: [{ path: 'show/:id', element: <ShowBoxPage displayOnly /> }],
   },
 ];
