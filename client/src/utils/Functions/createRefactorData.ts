@@ -1,4 +1,4 @@
-import { DisplayableData, IBoxes, LogDataType } from '../types';
+import { BoxDataType, DisplayableData, IBoxes, LogDataType, boxResponse } from '../types';
 
 export const createDisplayableData = (data: IBoxes[]) => {
   const displayableData = [];
@@ -37,4 +37,22 @@ export const createDisplayableLogData = (data: LogDataType[]) => {
   }
 
   return displayableLogData as DisplayableData[];
+};
+
+export const createDisplayableBoxData = (data: boxResponse[]) => {
+  const displayableBoxData: BoxDataType[] = [];
+  for (const [, item] of data.entries()) {
+    displayableBoxData.push({
+      amount_EUR: item.amount_EUR,
+      amount_GBP: item.amount_GBP,
+      amount_USD: item.amount_USD,
+      amount_PLN: item.amount_PLN,
+      box_id: item.id,
+      give_hour: item.time_given,
+      name: `${item.collector.firstName} ${item.collector.lastName}`,
+      status: item.is_confirmed && item.is_counted ? 'settled' : 'unsettled',
+      volunteer_id: item.collectorIdentifier,
+    });
+  }
+  return displayableBoxData;
 };

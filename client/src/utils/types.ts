@@ -59,13 +59,13 @@ export type DataType = {
 };
 
 export type BoxDataType = {
-  box_id: string;
-  volunteer_id: number;
+  box_id: number;
+  volunteer_id: string;
   name: string;
-  amount_EUR: number;
-  amount_GBP: number;
-  amount_USD: number;
-  amount_PLN: number;
+  amount_EUR: string;
+  amount_GBP: string;
+  amount_USD: string;
+  amount_PLN: string;
   status: string;
   give_hour: string;
 };
@@ -98,9 +98,9 @@ export type IUser = {
       created_at: string;
       updated_at: string;
       description: string;
-    }
-  ]
-}
+    },
+  ];
+};
 
 export type LogDataType = {
   user_id: number;

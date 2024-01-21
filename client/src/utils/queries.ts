@@ -13,6 +13,7 @@ import {
   LogDataType,
   CANNOT_DOWNLOAD_DATA,
   IUser,
+  boxResponse,
 } from '@/utils';
 import { useQuery } from '@tanstack/react-query';
 
@@ -27,6 +28,8 @@ export const GET_USERS_QUERY_KEY = ['get-users'];
 
 export const STATIONS_QUERY_KEY = ['stations'];
 export const GET_LOGS_QUERY_KEY = ['get-logs'];
+
+export const GET_ALL_BOXES_QUERY_KEY = ['get-all-boxes'];
 
 export const THREE_MINUTES = 1000 * 60 * 3;
 export const amountsInitData: IDisplayPageContent = {
@@ -193,4 +196,15 @@ export const useGetUsersQuery = () =>
         throw error;
       }),
     { initialData: [] },
+  );
+
+export const useGetAllBoxesQuery = () =>
+  useQuery(
+    GET_ALL_BOXES_QUERY_KEY,
+    () =>
+      fetcher<boxResponse[]>(`${APIManager.baseAPIRUrl}/charityBoxes`).catch((error) => {
+        openNotification('error', NO_CONNECT_WITH_SERVER, CANNOT_DOWNLOAD_DATA);
+        throw error;
+      }),
+    { initialData: [], refetchInterval: 3000, cacheTime: 3000 },
   );
