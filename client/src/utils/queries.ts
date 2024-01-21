@@ -13,6 +13,7 @@ import {
   LogDataType,
   CANNOT_DOWNLOAD_DATA,
   IUser,
+  Volunteer,
 } from '@/utils';
 import { useQuery } from '@tanstack/react-query';
 
@@ -27,6 +28,7 @@ export const GET_USERS_QUERY_KEY = ['get-users'];
 
 export const STATIONS_QUERY_KEY = ['stations'];
 export const GET_LOGS_QUERY_KEY = ['get-logs'];
+export const GET_VOLUNTEERS_QUERY_KEY = ['get-volunteers'];
 
 export const THREE_MINUTES = 1000 * 60 * 3;
 export const amountsInitData: IDisplayPageContent = {
@@ -189,6 +191,17 @@ export const useGetUsersQuery = () =>
     GET_USERS_QUERY_KEY,
     () =>
       fetcher<IUser[]>(`${APIManager.baseAPIRUrl}/users`).catch((error) => {
+        openNotification('error', NO_CONNECT_WITH_SERVER, CANNOT_DOWNLOAD_DATA);
+        throw error;
+      }),
+    { initialData: [] },
+  );
+
+export const useGetVolunteersQuery = () =>
+  useQuery(
+    GET_VOLUNTEERS_QUERY_KEY,
+    () =>
+      fetcher<Volunteer[]>(`${APIManager.baseAPIRUrl}/collectors`).catch((error) => {
         openNotification('error', NO_CONNECT_WITH_SERVER, CANNOT_DOWNLOAD_DATA);
         throw error;
       }),

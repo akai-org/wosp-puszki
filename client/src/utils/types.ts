@@ -71,7 +71,7 @@ export type BoxDataType = {
 };
 
 export type VolunteerDataType = {
-  volunteer_id: number;
+  volunteer_id: string;
   name: string;
   sur_name: string;
   id: string;
@@ -98,9 +98,9 @@ export type IUser = {
       created_at: string;
       updated_at: string;
       description: string;
-    }
-  ]
-}
+    },
+  ];
+};
 
 export type LogDataType = {
   user_id: number;
@@ -320,3 +320,13 @@ export type UseBoxContextValues = typeof useBoxContextValues;
 export type UseDepositContextValues = typeof useDepositContext;
 
 export type moneyValuesType = typeof MONEY_VALUES;
+
+export interface Volunteer {
+  id: number;
+  identifier: string;
+  firstName: string;
+  lastName: string;
+  created_at: number;
+  updated_at: string;
+  boxes: Omit<boxResponse, 'collector'>[];
+}
