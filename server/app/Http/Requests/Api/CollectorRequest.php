@@ -35,6 +35,12 @@ use Symfony\Component\HttpFoundation\Response;
  *          description="Wolunteer last name",
  *          type="string",
  *          example="Kowalski"
+ *      ),
+ *      @OA\Property(
+ *          property="phoneNumber",
+ *          description="Wolunteer phone number",
+ *          type="string",
+ *          example="123456789"
  *      )
  * )
  */
@@ -68,6 +74,9 @@ class CollectorRequest extends FormRequest
             ],
             'lastName' => [
                 'required',
+            ],
+            'phoneNumber' => [
+                'nullable',
             ],
         ];
     }
