@@ -133,7 +133,7 @@ final class CollectorApiController extends ApiController
     public function create(CollectorRequest $request) {
         //Walidacja danych
         $request->validate([
-            'collectorIdentifier' => 'required|alpha_num|between:1,255',
+            'collectorIdentifier' => 'required|alpha_num|between:1,255|unique:collectors,identifier',
             'firstName' => 'required|alpha|between:1,255',
             'lastName' => 'required|alpha|between:1,255',
         ]);
