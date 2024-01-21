@@ -9,6 +9,7 @@ import {
   SETTLE_PROCESS_PATH,
   UNSETTLED_BOXES_LIST_PAGE_ROUTE,
 } from '@/utils';
+import { ShowBoxPage } from '@/pages/countedBoxes/ShowBoxPage/ShowBoxPage';
 
 const boxesSubroutes: RouteObject[] = [
   {
@@ -18,6 +19,7 @@ const boxesSubroutes: RouteObject[] = [
   {
     path: BOXES_LIST_PAGE_ROUTE,
     element: <ListBoxesPage />,
+    children: [{ path: 'show/:id', element: <ShowBoxPage displayOnly /> }],
   },
   {
     path: UNSETTLED_BOXES_LIST_PAGE_ROUTE,

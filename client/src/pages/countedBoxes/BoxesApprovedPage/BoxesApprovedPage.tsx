@@ -103,7 +103,8 @@ export const BoxesApprovedPage = () => {
   const displayableData = createDisplayableData(data);
 
   // Tworzenie kolumn
-  const columns = CreateColumns(columnsOptions, displayableData);
+  const columns = CreateColumns(columnsOptions);
+  console.log(columns);
 
   return (
     <Layout>

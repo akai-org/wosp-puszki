@@ -6,6 +6,7 @@ import { CreateColumns, useGetAllBoxesQuery } from '@/utils';
 import s from '../BoxesPage.module.less';
 import { Typography, Space, Layout, Table } from 'antd';
 import { createDisplayableBoxData } from '@/utils/Functions/createRefactorData';
+import { Outlet } from 'react-router-dom';
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -99,7 +100,7 @@ export const ListBoxesPage = () => {
       actions: [
         {
           title: 'Podgląd',
-          link: '/countedBoxes/boxesApproved/show/',
+          link: '/liczymy/boxes/listBoxes/show/',
           color: '#1890FF',
         },
       ],
@@ -108,7 +109,7 @@ export const ListBoxesPage = () => {
 
   const displayableData = createDisplayableBoxData(data);
   // Tworzenie kolumn
-  const columns = CreateColumns(columnsOptions, displayableData);
+  const columns = CreateColumns(columnsOptions, 'box_id');
 
   return (
     <Layout>
@@ -125,6 +126,7 @@ export const ListBoxesPage = () => {
             rowClassName={s.table_row}
           />
         </Space>
+        <Outlet />
       </Content>
     </Layout>
   );
