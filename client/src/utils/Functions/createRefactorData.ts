@@ -39,9 +39,11 @@ export const createDisplayableLogData = (data: LogDataType[]) => {
   return displayableLogData as DisplayableData[];
 };
 
-export const createDisplayableBoxData = (data: boxResponse[]) => {
+export const createDisplayableBoxData = (data: boxResponse[], onlyUnsettled = false) => {
   const displayableBoxData: BoxDataType[] = [];
   for (const [, item] of data.entries()) {
+    const isBoxSettled = item.is_confirmed && item.is_counted;
+    if (onlyUnsettled && isBoxSettled) continue;
     displayableBoxData.push({
       amount_EUR: item.amount_EUR,
       amount_GBP: item.amount_GBP,
