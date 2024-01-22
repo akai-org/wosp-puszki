@@ -28,8 +28,6 @@ final class CharityBoxApiController extends ApiController
 {
     public function __construct()
     {
-        $this->middleware('admin');
-
         parent::__construct(CharityBox::class);
     }
 
@@ -111,59 +109,6 @@ final class CharityBoxApiController extends ApiController
     }
 
     /**
-     * @OA\Post(
-     *      path="/charityBoxes",
-     *      operationId="createCharityBox",
-     *      tags={"CharityBoxes"},
-     *      summary="Create charity box for volunteer (collector)",
-     *      description="Returns information about realse charity box for volunteer (collector)",
-     *      @OA\RequestBody(
-     *          required=true,
-     *          @OA\JsonContent(ref="#/components/schemas/CollectorCharityBoxRequest")
-     *      ),
-     *      @OA\Response(
-     *          response=200,
-     *          description="Successful operation",
-     *          @OA\JsonContent(ref="#/components/schemas/CharityBox")
-     *       ),
-     *      @OA\Response(
-     *          response=400,
-     *          description="Bad Request"
-     *      ),
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      ),
-     *      @OA\Response(
-     *          response=404,
-     *          description="Resource Not Found"
-     *      )
-     * )
-     *
-     * @param CollectorCharityBoxRequest $request
-     * @return JsonResponse
-     */
-    public function create(CollectorCharityBoxRequest $request)
-    {
-        $bo = new BoxOperator((string)$request->user()->id);
-
-        try {
-            $box = $bo->giveByCollectorIdentifier($request->collector_identifier);
-        } catch (\Exception $e) {
-            return new JsonResponse([
-                'error_message' => $e->getMessage(),
-                'status' => Response::HTTP_INTERNAL_SERVER_ERROR,
-            ]);
-        }
-
-        return new CharityBoxResource($box);
-    }
-
-    /**
      * @OA\Put(
      *     path="/charityBoxes/{id}",
      *     operationId="updateCharityBox",
@@ -207,6 +152,7 @@ final class CharityBoxApiController extends ApiController
      *      )
      * )
      * @param UpdateCountingCharityBoxRequest $request
+     * @param int $id
      * @return CharityBoxResource|JsonResponse
      */
     public function update(UpdateCountingCharityBoxRequest $request, int $id)
@@ -405,8 +351,8 @@ final class CharityBoxApiController extends ApiController
      *          response=200,
      *          description="Successful operation",
      *          @OA\JsonContent(
-     *              @OA\Property(property="status_code", type="integer", example="200"),
-     *              @OA\Property(property="data",type="object")
+     *              @OA\Property(property="status", type="integer", example="200"),
+     *              @OA\Property(property="message",type="string", example="Puszka nr XX anulowano zatwierdzenie (100zł)")
      *          ),
      *       ),
      *      @OA\Response(
@@ -427,6 +373,7 @@ final class CharityBoxApiController extends ApiController
      *      )
      * )
      * @param Request $request
+     * @param int $id
      * @return JsonResponse
      */
     public function postUnverifyCharityBox(Request $request, int $id): JsonResponse
@@ -490,6 +437,7 @@ final class CharityBoxApiController extends ApiController
      *      )
      * )
      * @param Request $request
+     * @param int $id
      * @return JsonResponse
      */
     public function startCounting(Request $request, int $id)
@@ -513,7 +461,7 @@ final class CharityBoxApiController extends ApiController
      *     path="/charityBoxes/{id}/finishCounting",
      *     operationId="finishCountngCharityBoxById",
      *     tags={"CharityBoxes"},
-     *     summary="Finish counting Charity Box",
+     *     summary="Finish counting Charity Box (Confirm by volunteer)",
      *     description="Return charity box instance",
      *     @OA\Parameter(
      *          name="id",
@@ -564,5 +512,74 @@ final class CharityBoxApiController extends ApiController
         }
 
         return new CharityBoxResource($box);
+    }
+
+    /**
+     * @OA\Post(
+     *     path="/charityBoxes/{id}/verify",
+     *     operationId="verifyCharityBoxByAdmin",
+     *     tags={"CharityBoxes"},
+     *     summary="Verify Charity Box (Confirm by admin)",
+     *     description="Verify Charity Box (Confirm by admin)",
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Charity box id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="status", type="integer", example="200"),
+     *              @OA\Property(property="message",type="string", example="Puszka nr XX potwierdzona (100zł)")
+     *          ),
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Resource Not Found"
+     *      )
+     * )
+     */
+    public function verify(Request $request, int $id)
+    {
+        $box = CharityBox::where('id', '=', $id)->first();
+        $box->is_confirmed = true;
+        $box->user_confirmed_id = $request->user()->id;
+        $box->time_confirmed = Carbon::now();
+        $box->save();
+
+        //Drukuj potwierdzenie?
+        //TODO
+        //Zapisujemy event do bazy
+
+        $event = new BoxEvent();
+        $event->type = 'verified';
+        $event->box_id = $box->id;
+        $event->user_id = $request->user()->id;
+        $event->comment = '';
+        $event->save();
+
+        //BoxConfirmed::dispatch();
+
+        return new JsonResponse([
+            'message' => sprintf('Puszka nr %s potwierdzona (%szł)', $box->id, $box->amount_PLN),
+            'status' => Response::HTTP_OK
+        ]);
     }
 }
