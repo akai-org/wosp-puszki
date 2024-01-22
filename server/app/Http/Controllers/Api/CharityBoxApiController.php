@@ -28,8 +28,6 @@ final class CharityBoxApiController extends ApiController
 {
     public function __construct()
     {
-        $this->middleware('admin');
-
         parent::__construct(CharityBox::class);
     }
 
@@ -397,7 +395,7 @@ final class CharityBoxApiController extends ApiController
      *     path="/charityBoxes/{id}/finishCounting",
      *     operationId="finishCountngCharityBoxById",
      *     tags={"CharityBoxes"},
-     *     summary="Finish counting Charity Box - confirm box",
+     *     summary="Finish counting Charity Box (Confirm by volunteer)",
      *     description="Return charity box instance",
      *     @OA\Parameter(
      *          name="id",
