@@ -1,63 +1,22 @@
-// React
-import { useEffect } from 'react';
-
 // Utility functions
-import type { TableColumns, DataType } from '@/utils';
-import { CreateColumns } from '@/utils';
+import type { TableColumns } from '@/utils';
+import { CreateColumns, useVerifiedBoxesQuery } from '@/utils';
 
 // Style and ant design
 import s from './BoxesPage.module.less';
 import { Typography, Space, Layout, Table } from 'antd';
+import { createDisplayableData } from '@/utils/Functions/createRefactorData';
+import { Outlet } from 'react-router-dom';
 
 const { Title } = Typography;
 const { Content } = Layout;
 
 export const BoxesApprovedPage = () => {
-  // testowe dane
-  const data: DataType[] = [
-    {
-      key: '1',
-      name: 'C John Brown',
-      amount_EUR: 2.41,
-      amount_GBP: 1.61,
-      amount_USD: 7.91,
-      amount_PLN: 1004,
-      more: 'Puszka nr. 13',
-      position: 'Stanowisko 1',
-      time_counted: '2023-02-01',
-      is_confirmed: 0,
-    },
-    {
-      key: '2',
-      name: 'B John Brown',
-      amount_EUR: 22.41,
-      amount_GBP: 16.61,
-      amount_USD: 76.91,
-      amount_PLN: 1604,
-      more: 'Puszka nr. 13',
-      position: 'Stanowisko 1',
-      time_counted: '2022-02-01',
-      is_confirmed: 1,
-    },
-    {
-      key: '3',
-      name: 'A John Brown',
-      amount_EUR: 22.41,
-      amount_GBP: 16.61,
-      amount_USD: 76.91,
-      amount_PLN: 1604,
-      more: 'Puszka nr. 13',
-      position: 'Stanowisko 1',
-      time_counted: '2022-02-01',
-      is_confirmed: 0,
-    },
-  ];
-
   // Ustawienia dla poszczególnych kolumn
   const columnsOptions: TableColumns[] = [
     {
       titleName: 'ID',
-      keyName: 'key',
+      keyName: 'id',
       sortType: 'string',
       search: true,
       fixed: 'left',
@@ -101,13 +60,13 @@ export const BoxesApprovedPage = () => {
     },
     {
       titleName: 'Inne',
-      keyName: 'more',
+      keyName: 'comment',
       search: true,
       width: 200,
     },
     {
       titleName: 'Stanowisko',
-      keyName: 'position',
+      keyName: 'position', // todo: zmienić
       search: true,
       sortType: 'string',
       width: 150,
@@ -125,25 +84,26 @@ export const BoxesApprovedPage = () => {
       width: 220,
       actions: [
         {
-          title: 'Podgląd',
-          link: '/countedBoxes/boxesApproved/show/',
-          color: 'blue',
+          title: 'Cofnij zatwierdzenie',
+          link: '/charityBoxes/unverified/',
+          color: 'red',
+          type: 'query',
         },
         {
-          title: 'Modyfikuj',
-          link: '/countedBoxes/boxesApproved/show/',
+          title: 'Podgląd',
+          link: '/liczymy/countedBoxes/approved/show/',
           color: 'blue',
+          type: 'link',
         },
       ],
     },
   ];
 
-  // Tworzenie kolumn
-  const columns = CreateColumns(columnsOptions, data);
+  const { data } = useVerifiedBoxesQuery();
+  const displayableData = createDisplayableData(data);
 
-  useEffect(() => {
-    //fetching data here
-  }, []);
+  // Tworzenie kolumn
+  const columns = CreateColumns(columnsOptions, displayableData);
 
   return (
     <Layout>
@@ -154,12 +114,13 @@ export const BoxesApprovedPage = () => {
             size="middle"
             columns={columns}
             pagination={false}
-            dataSource={data}
-            rowKey="key" // To należy zmienić przy okazji podłączenia API
+            dataSource={displayableData}
+            rowKey="id"
             scroll={{ y: '70vh' }}
             rowClassName={s.table_row}
           />
         </Space>
+        <Outlet />
       </Content>
     </Layout>
   );

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\CsvDumpController;
 use App\Http\Controllers\Api\AvailabilityApiController;
 use App\Http\Controllers\Api\CharityBoxApiController;
 use App\Http\Controllers\Api\CollectorApiController;
@@ -65,6 +66,8 @@ Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], func
     Route::post('charityBoxes/{id}/finishCounting', [CharityBoxApiController::class, 'confirm'])->name('api.box.count.finish');
 
     Route::apiResource('charityBoxes', CharityBoxApiController::class);
+
+    Route::get('charityBoxes/createCsv', [CsvDumpController::class,'getDataForCSV'])->name('api.box.create-csv')->middleware(['collectorcoordinator']);
 });
 
 Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], function () {

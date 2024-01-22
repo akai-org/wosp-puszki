@@ -11,13 +11,16 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
-.sidebar {
+.sidebarLayout,
+.sidebarHeader,
+.sidebarContent,
+.sidebarFooter {
   background-color: var(--color-dark-primary);
   color: var(--color-white-primary);
-  align-items: center;
 }
 
 .sidebarLayout {
+  align-items: center;
   width: 15rem;
   height: 100%;
   position: fixed;
@@ -25,8 +28,9 @@ body {
   left: 0;
 }
 
+.sidebarLayout.narrow,
 .sidebarLoginPage {
-  width: 7.5rem;
+  width: 5rem;
 }
 
 .sidebarHeader {
@@ -39,16 +43,21 @@ body {
   object-fit: cover;
 }
 
-.sidebarContent {
+.sidebarContent:not(.narrow) {
   margin-top: 3.125rem;
   text-align: left;
-  width: 12.5rem;
+  overflow-y: auto;
+  width: 85%;
+}
+.sidebarContent.narrow {
+  margin-top: 3.125rem;
+  text-align: left;
   overflow-y: auto;
 }
 
 .sidebarFooter {
-  text-align: left;
-  padding: 1.25rem;
+  text-align: center;
+  padding: 0.25rem 1.25rem;
   width: 100%;
 }
 
@@ -63,17 +72,43 @@ body {
   margin-top: -0.5rem;
 }
 
-.sidebarFooter button {
+.logOutButton {
   background-color: var(--color-red-primary);
   border-color: var(--color-red-primary);
   color: var(--color-dark-primary);
   font-weight: bold;
   border-radius: 0.625rem;
+}
+
+.logOutButton,
+.toggleSidebarButton {
   width: 100%;
 }
 
-.sidebarFooter button:hover {
+.sidebarFooter .logOutButton:hover {
   color: var(--color-white-primary);
   background-color: var(--color-red-background);
   border-color: var(--color-red-primary);
+  transition: color 0.5s;
+  .logOutButtonInside > svg > path {
+    color: var(--color-white-primary);
+    background-color: var(--color-red-background);
+    border-color: var(--color-red-primary);
+    transition: color 0.5s;
+  }
+}
+
+.logOutButtonInside {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+
+.userNameDescription {
+  text-align: left;
 }

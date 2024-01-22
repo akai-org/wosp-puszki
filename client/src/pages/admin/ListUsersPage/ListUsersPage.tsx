@@ -1,8 +1,5 @@
-// React
-import { useEffect } from 'react';
-
 // Utility functions
-import type { TableColumns, UserDataType } from '@/utils';
+import type { TableColumns } from '@/utils';
 import { CreateColumns } from '@/utils';
 
 // Style and ant design
@@ -12,26 +9,10 @@ import { Typography, Space, Layout, Table } from 'antd';
 const { Title } = Typography;
 const { Content } = Layout;
 
-export const ListUsersPage = () => {
-  // testowe dane
-  const data: UserDataType[] = [
-    {
-      user_id: 'Wosp1',
-      name: 'Pan Paweł',
-      role: 'user',
-    },
-    {
-      user_id: 'Wosp2',
-      name: 'Walaszek',
-      role: 'admin',
-    },
-    {
-      user_id: 'Wosp3',
-      name: 'Kapitan Bomba',
-      role: 'superadmin',
-    },
-  ];
+import { useGetUsersQuery } from '@/utils';
+import { createUsersData } from '@/utils/Functions/createUserData';
 
+export const ListUsersPage = () => {
   // Ustawienia dla poszczególnych kolumn
   const columnsOptions: TableColumns[] = [
     {
@@ -48,27 +29,14 @@ export const ListUsersPage = () => {
       search: true,
       width: 150,
     },
-    {
-      titleName: 'Akcje',
-      keyName: 'user_id',
-      fixed: 'right',
-      width: 100,
-      actions: [
-        {
-          title: 'Zmień hasło',
-          link: '/admin/changepassword/',
-          color: '#1890FF',
-        },
-      ],
-    },
   ];
 
-  // Tworzenie kolumn
-  const columns = CreateColumns(columnsOptions, data);
+  // Pobieranie danych
+  const { data } = useGetUsersQuery();
+  const usersData = createUsersData(data);
 
-  useEffect(() => {
-    //fetching data here
-  }, []);
+  // Tworzenie kolumn
+  const columns = CreateColumns(columnsOptions, usersData);
 
   return (
     <Layout>
@@ -79,7 +47,7 @@ export const ListUsersPage = () => {
             size="middle"
             columns={columns}
             pagination={false}
-            dataSource={data}
+            dataSource={usersData}
             rowKey="user_id" // To należy zmienić przy okazji podłączenia API
             scroll={{ y: '70vh' }}
             rowClassName={s.table_row}

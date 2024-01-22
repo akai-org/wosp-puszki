@@ -11,7 +11,7 @@ beforeEach(function () {
 });
 
 test('as a collectorcoordinator I can give out a box through API', function () {
-    $this->actingAs($this->collectorcoordinator, 'sanctum');
+    $this->actingAs($this->collectorcoordinator);
 
     $this->collector = Collector::orderBy('id', 'desc')->first();
 

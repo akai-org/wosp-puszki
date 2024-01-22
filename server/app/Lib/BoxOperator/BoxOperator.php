@@ -6,6 +6,7 @@ use App\BoxEvent;
 use App\CharityBox;
 use App\Collector;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
@@ -105,7 +106,10 @@ class BoxOperator {
         }
 
         $box->is_counted=true;
-        $box->counting_user_id = $this->operatingUserId;
+
+        if ($request->user()->hasRole('volunteer')) {
+            $box->counting_user_id = $this->operatingUserId;
+        }
 
         $data = $this->getBoxDataFromRequest($request);
 
@@ -241,4 +245,14 @@ class BoxOperator {
         return $moneyFormatter->format($money); // outputs 1.00 (decimal)
     }
 
+    public function getAll() : Collection
+    {
+      return CharityBox::with('collector')
+        ->get(['id','collector_id','time_given','time_counted','amount_PLN','amount_EUR','amount_USD','amount_GBP']);
+    }
+
+    public function lastChangedBox() : CharityBox 
+    {
+       return CharityBox::with('collector')->orderBy('updated_at')->first();
+    }
 }

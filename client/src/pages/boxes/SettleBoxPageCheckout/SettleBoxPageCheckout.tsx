@@ -6,20 +6,19 @@ import {
   openNotification,
   setStationUnavailable,
   sum,
-  useBoxContext,
   useDepositContext,
-  isBoxExists,
   useFinishCounting,
   SETTLE_PROCESS_PATH,
   createFullRoutePath,
   DEPOSIT_BOX_PAGE_ROUTE,
+  useGetBoxData,
 } from '@/utils';
 import { Button, Space, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import s from './SettleBoxPageCheckout.module.less';
 
 import { Header } from '@/components/Layout/Header/Header';
-import { ContentColumns } from '@/components/boxes/SettleBoxCheckout/ContentColumns/ContentColumns';
+import { ContentColumns } from '@/components/boxes/BoxData/BoxDataOverview/ContentColumns/ContentColumns';
 import { Spinner } from '@components/Layout/Spinner/Spinner';
 import { Content } from 'antd/lib/layout/layout';
 import { useEffect, useState } from 'react';
@@ -33,16 +32,10 @@ export const SettleBoxPageCheckout = () => {
 
   // get data and functions from contexts
   const { boxData, cleanAmounts } = useDepositContext();
-  const { deleteBox, boxIdentifier, collectorIdentifier, collectorName } =
-    useBoxContext();
+  const { collectorIdentifier, boxIdentifier, deleteBox } = useGetBoxData();
 
   const { error, isError, isLoading, isSuccess, mutateAsync } =
     useFinishCounting(boxIdentifier);
-
-  // if we dont have information about the box, then go back to the start of the settle process
-  if (!isBoxExists(collectorName, collectorIdentifier, boxIdentifier)) {
-    navigate(SETTLE_PROCESS_PATH);
-  }
 
   // set station status to unavailable
   setStationUnavailable();

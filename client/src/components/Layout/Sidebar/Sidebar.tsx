@@ -1,23 +1,35 @@
 import { FC } from 'react';
-import { SidebarSmall, SidebarBig } from './SidebarVariants';
-import { SETTLE_PROCESS_PATH, useAuthContext } from '@/utils';
+import { Logged, NoLogged } from './SidebarVariants';
 
-const links = [
-  { label: 'Strona Główna', url: '' },
-  // { label: 'Przeliczone puszki', url: 'countedBoxes' },
-  // { label: 'Administracja', url: 'admin' },
-  { label: 'Puszki', url: SETTLE_PROCESS_PATH },
-];
+interface SidebarTypes {
+  links: {
+    label: string;
+    url: string;
+  }[];
+  username: string | null;
+  show: boolean;
+  credentials: string | null;
+  deleteCredentials: () => void;
+  toggleSidebar: () => void;
+}
 
-export const Sidebar: FC = () => {
-  const { deleteCredentials, username, credentials } = useAuthContext();
+export const Sidebar: FC<SidebarTypes> = ({
+  links,
+  username,
+  show,
+  credentials,
+  deleteCredentials,
+  toggleSidebar,
+}) => {
   return credentials ? (
-    <SidebarBig
+    <Logged
       deleteCredentials={deleteCredentials}
       links={links}
       userName={username as string}
+      show={show}
+      toggleSidebar={toggleSidebar}
     />
   ) : (
-    <SidebarSmall />
+    <NoLogged />
   );
 };

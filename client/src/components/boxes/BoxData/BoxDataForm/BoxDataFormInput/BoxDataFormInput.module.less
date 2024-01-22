@@ -1,0 +1,44 @@
+@import 'less/variables.less';
+
+.container {
+  border-bottom: 1px solid rgba(0, 35, 41, 0.5);
+  padding: 0rem 1rem 0.375rem 1rem;
+  display: flex;
+  width: 100%;
+  position: relative;
+  height: 2.5rem;
+}
+
+.inputNumber {
+  width: 6em;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.inputNumber.foreign {
+  left: 95%;
+  transform: translate(-100%, -50%);
+}
+
+.denomination {
+  display: flex;
+  width: 3rem;
+  position: absolute;
+  font-size: 0.9rem;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.value {
+  display: flex;
+  justify-content: flex-end;
+  min-width: 3.5rem;
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  font-size: 0.9rem;
+  transform: translateY(-50%);
+}

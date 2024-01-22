@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 
 use App\BoxEvent;
 use App\CharityBox;
-use App\Http\Requests\Api\CollectorCharityBoxRequest;
 use App\Http\Requests\Api\BoxCharityBoxRequest;
 use App\Http\Requests\Api\UpdateCountingCharityBoxRequest;
 use App\Http\Resources\Api\CharityBoxResource;

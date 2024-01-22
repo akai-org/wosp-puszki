@@ -1,0 +1,29 @@
+@import 'less/variables.less';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 325px;
+  margin-left: 15px;
+}
+
+@media screen {
+  @media (max-width: 576px) {
+    .container {
+      width: 100%;
+      margin-left: 0px;
+      margin-top: 15px;
+    }
+  }
+}
+
+.columnNames {
+  border-bottom: 2px solid #000;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0.5em;
+  padding-bottom: 0.5rem;
+  font-weight: 600;
+}

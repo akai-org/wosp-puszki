@@ -5,10 +5,11 @@ import { useDepositContext } from '@/utils/Contexts/DepositContext';
 export interface SubNavLink {
   url: string;
   label: string;
+  show?: boolean;
   withDot?: boolean;
 }
 
-export type VolunteerType = 'collector' | 'admin' | 'superadmin' | 'collectorcoordinator';
+export type VolunteerType = 'volounteer' | 'admin' | 'superadmin';
 
 export interface Option {
   value: VolunteerType;
@@ -28,6 +29,7 @@ export interface TableColumns {
     title: string;
     link: string;
     color?: string;
+    type?: string;
   }[];
   fixed?: 'left' | 'right';
   width?: number;
@@ -69,7 +71,7 @@ export type BoxDataType = {
 };
 
 export type VolunteerDataType = {
-  volunteer_id: number;
+  volunteer_id: string;
   name: string;
   sur_name: string;
   id: string;
@@ -83,13 +85,31 @@ export type UserDataType = {
   role: string;
 };
 
+export type IUser = {
+  id: number;
+  created_at: string;
+  updated_at: string;
+  name: string;
+  comment: string;
+  roles: [
+    {
+      id: number;
+      name: string;
+      created_at: string;
+      updated_at: string;
+      description: string;
+    },
+  ];
+};
+
 export type LogDataType = {
-  user: string;
-  volunteer_id: string;
-  box: string;
-  action: string;
-  other: string;
-  time: string;
+  user_id: number;
+  box_id: number;
+  type: string;
+  comment: string;
+  created_at: string;
+  box: IBoxes;
+  user: VolunteerDataType;
 };
 
 export type volunteerStatus = 'available' | 'occupied' | 'unavailable';
@@ -106,6 +126,11 @@ export interface IAuthContext {
   deleteCredentials: () => void;
   credentials: string | null;
   username: string | null;
+}
+
+export interface ISidebarStateContext {
+  show: boolean;
+  toggleSidebar: () => void;
 }
 
 export interface IBoxContext {
@@ -188,9 +213,72 @@ export interface IDisplayPageContent {
 }
 
 export interface IStations {
-  s: number;
-  st: number;
-  t: number | null;
+  station: number;
+  status: number;
+  time: number | null;
+}
+
+export interface IBoxes {
+  id: number;
+  created_at: string;
+  updated_at: string;
+  collectorIdentifier: number;
+  collector: {
+    id: number;
+    created_at: string;
+    updated_at: string;
+    identifier: number;
+    firstName: string;
+    lastName: string;
+  };
+  is_given_to_collector: number;
+  given_to_collector_user_id: {
+    id: number;
+    created_at: string;
+    updated_at: string;
+    name: string;
+    comment: string;
+    remember_token: string;
+  };
+  time_given: string;
+  is_counted: number;
+  counting_user_id: {
+    id: number;
+    created_at: string;
+    updated_at: string;
+    name: string;
+    comment: string;
+    remember_token: string;
+  };
+  time_counted: string;
+  is_confirmed: boolean;
+  user_confirmed_id: number;
+  time_confirmed: string;
+  count_1gr: number;
+  count_2gr: number;
+  count_5gr: number;
+  count_10gr: number;
+  count_20gr: number;
+  count_50gr: number;
+  count_1zl: number;
+  count_2zl: number;
+  count_5zl: number;
+  count_10zl: number;
+  count_20zl: number;
+  count_50zl: number;
+  count_100zl: number;
+  count_200zl: number;
+  count_500zl: number;
+  amount_PLN: number;
+  amount_EUR: number;
+  amount_USD: number;
+  amount_GBP: number;
+  comment: string;
+  is_special_box: number;
+}
+
+export interface DisplayableData {
+  [key: string]: string | number;
 }
 
 export type AmountsKeys = ZlotyAmountsKeys | ForeignAmountsKeys;
@@ -232,3 +320,13 @@ export type UseBoxContextValues = typeof useBoxContextValues;
 export type UseDepositContextValues = typeof useDepositContext;
 
 export type moneyValuesType = typeof MONEY_VALUES;
+
+export interface Volunteer {
+  id: number;
+  identifier: string;
+  firstName: string;
+  lastName: string;
+  created_at: number;
+  updated_at: string;
+  boxes: Omit<boxResponse, 'collector'>[];
+}

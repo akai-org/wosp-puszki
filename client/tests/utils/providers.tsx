@@ -15,7 +15,7 @@ import {
 import { DepositContext } from '@/utils/Contexts/DepositContext';
 import { AuthContext, BoxContext } from '@/utils';
 
-export const BaseProvider = ({ children }: { children: ReactNode }) => {
+export const BaseProviderFactory = ({ children }: { children: ReactNode }) => {
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
@@ -24,12 +24,12 @@ export const BaseProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const AllRootProviders = (
+export const AllRootProvidersFactory = (
   { children }: { children: ReactNode },
   config = { authContextValues: getBaseAuthContextValues },
 ) => {
-  const baseProvider = BaseProvider({ children });
-  return AuthProvider(
+  const baseProvider = BaseProviderFactory({ children });
+  return AuthProviderFactory(
     {
       children: baseProvider,
     },
@@ -37,7 +37,7 @@ export const AllRootProviders = (
   );
 };
 
-export const SettleBoxRoutesProviders: Providers<
+export const SettleBoxRoutesProvidersFactory: Providers<
   DepositProviderConfig & BoxProviderConfig & AuthProviderConfig
 > = (
   { children }: { children: ReactNode },
@@ -47,7 +47,7 @@ export const SettleBoxRoutesProviders: Providers<
     authContextValues: getBaseAuthContextValues,
   },
 ) => {
-  const rootProviders = AllRootProviders({ children }, config);
+  const rootProviders = AllRootProvidersFactory({ children }, config);
   return (
     <DepositContext.Provider value={config.depositContextValues()}>
       <BoxContext.Provider value={config.boxContextValues()}>
@@ -57,7 +57,7 @@ export const SettleBoxRoutesProviders: Providers<
   );
 };
 
-export const AuthProvider: Providers<AuthProviderConfig> = (
+export const AuthProviderFactory: Providers<AuthProviderConfig> = (
   { children },
   config = { authContextValues: getBaseAuthContextValues },
 ) => {

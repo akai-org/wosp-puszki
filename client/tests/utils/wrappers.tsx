@@ -1,5 +1,5 @@
-import { CustomWrapperInput, Providers } from './types';
-import { AllRootProviders, SettleBoxRoutesProviders } from './providers';
+import { CustomWrapperInput, Providers, Wrapper } from './types';
+import { AllRootProvidersFactory, SettleBoxRoutesProvidersFactory } from './providers';
 import { ReactElement } from 'react';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -14,25 +14,27 @@ export function createCustomWrapper<ProvidersConfig extends object>(
 
 export function renderWithWrapper<Config extends object>(
   ui: ReactElement,
-  provider: Providers<Config>,
+  wrapper: Wrapper<Config>,
 ) {
   return {
     ...render(ui, {
-      wrapper: provider,
+      wrapper,
     }),
   };
 }
 export function renderWithUser<Config extends object>(
   ui: ReactElement,
-  provider: Providers<Config>,
+  wrapper: Wrapper<Config>,
 ) {
   return {
     user: userEvent.setup(),
     ...render(ui, {
-      wrapper: provider,
+      wrapper,
     }),
   };
 }
 
-export const AllRootProvidersWrapper = createCustomWrapper(AllRootProviders);
-export const SettleBoxProvidersWrapper = createCustomWrapper(SettleBoxRoutesProviders);
+export const AllRootProvidersWrapper = createCustomWrapper(AllRootProvidersFactory);
+export const SettleBoxProvidersWrapper = createCustomWrapper(
+  SettleBoxRoutesProvidersFactory,
+);
