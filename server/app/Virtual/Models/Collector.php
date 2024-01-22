@@ -50,4 +50,16 @@ final class Collector extends GenericModel
      * @var string
      */
     public string $last_name;
+
+    /**
+     * @OA\Property(
+     *     title="Phone Number",
+     *     description="Volunteer's phone number",
+     *     type="string",
+     *     example="123456789"
+     * )
+     *
+     * @var string
+     */
+    public string $phone_number;
 }

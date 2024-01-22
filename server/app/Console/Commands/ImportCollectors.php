@@ -56,11 +56,13 @@ class ImportCollectors extends Command
             $collector = new Collector();
             $exploded = $record['id_number'];
             $exploded = explode('/', $exploded);
-            //$this->info();
             $collector->identifier = $exploded[0];
             $exploded = mb_split(' ', $record['fullName']);
             $collector->firstName = $exploded[0];
             $collector->lastName = end($exploded);
+            if ($record ['phoneNumber'] != '') {
+                $collector->phoneNumber = $record['phoneNumber'];
+            }
             $i++;
             $collector->save();
         }

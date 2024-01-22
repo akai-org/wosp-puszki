@@ -21,9 +21,7 @@
     "paths": {
         "/stations": {
             "get": {
-                "tags": [
-                    "Stations"
-                ],
+                "tags": ["Stations"],
                 "summary": "Get list of Sttions",
                 "description": "Returns list of Stations",
                 "operationId": "getStationsList",
@@ -49,9 +47,7 @@
         },
         "/stations/{id}/ready": {
             "post": {
-                "tags": [
-                    "Stations"
-                ],
+                "tags": ["Stations"],
                 "summary": "Set Station status to ready",
                 "description": "Set Station status to ready",
                 "operationId": "reayStation",
@@ -89,9 +85,7 @@
         },
         "/stations/{id}/busy": {
             "post": {
-                "tags": [
-                    "Stations"
-                ],
+                "tags": ["Stations"],
                 "summary": "Set Station status to busy",
                 "description": "Set Station status to busy",
                 "operationId": "busyStation",
@@ -129,9 +123,7 @@
         },
         "/stations/{id}/unknown": {
             "post": {
-                "tags": [
-                    "Stations"
-                ],
+                "tags": ["Stations"],
                 "summary": "Set Station status to unknown",
                 "description": "Set Station status to unknown",
                 "operationId": "unknownStation",
@@ -169,9 +161,7 @@
         },
         "/stations/status": {
             "get": {
-                "tags": [
-                    "Stations"
-                ],
+                "tags": ["Stations"],
                 "summary": "Get list of Sttions statuses",
                 "description": "Returns list of Stations statuses",
                 "operationId": "getStationsStatusesList",
@@ -216,9 +206,7 @@
         },
         "/charityBoxes": {
             "get": {
-                "tags": [
-                    "CharityBoxes"
-                ],
+                "tags": ["CharityBoxes"],
                 "summary": "Get list of charity boxes",
                 "description": "Returns list of charity boxes",
                 "operationId": "getCharityBoxList",
@@ -240,13 +228,51 @@
                         "description": "Forbidden"
                     }
                 }
+            },
+            "post": {
+                "tags": ["CharityBoxes"],
+                "summary": "Create charity box for volunteer (collector)",
+                "description": "Returns information about realse charity box for volunteer (collector)",
+                "operationId": "createCharityBox",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CollectorCharityBoxRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CharityBox"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
             }
         },
         "/charityBoxes/{id}": {
             "get": {
-                "tags": [
-                    "CharityBoxes"
-                ],
+                "tags": ["CharityBoxes"],
                 "summary": "Get charity box information",
                 "description": "Returns chrity box data",
                 "operationId": "getCharityBoxById",
@@ -287,9 +313,7 @@
                 }
             },
             "put": {
-                "tags": [
-                    "CharityBoxes"
-                ],
+                "tags": ["CharityBoxes"],
                 "summary": "Update charity box",
                 "description": "Returns information about modified charity box",
                 "operationId": "updateCharityBox",
@@ -343,9 +367,7 @@
         },
         "/charityBoxes/unverified": {
             "get": {
-                "tags": [
-                    "CharityBoxes"
-                ],
+                "tags": ["CharityBoxes"],
                 "summary": "Get list of unverified charity boxes",
                 "description": "Returns list of charity boxes",
                 "operationId": "getUnverifiedList",
@@ -371,9 +393,7 @@
         },
         "/charityBoxes/verified": {
             "get": {
-                "tags": [
-                    "CharityBoxes"
-                ],
+                "tags": ["CharityBoxes"],
                 "summary": "Get list of verified charity boxes",
                 "description": "Returns list of charity boxes",
                 "operationId": "getVerifiedList",
@@ -399,9 +419,7 @@
         },
         "/charityBoxes/verified/{id}": {
             "post": {
-                "tags": [
-                    "CharityBoxes"
-                ],
+                "tags": ["CharityBoxes"],
                 "summary": "Verify Charity Box",
                 "description": "Return message of operation result",
                 "operationId": "postVerifyCharityBoxById",
@@ -453,9 +471,7 @@
         },
         "/charityBoxes/unverified/{id}": {
             "post": {
-                "tags": [
-                    "CharityBoxes"
-                ],
+                "tags": ["CharityBoxes"],
                 "summary": "Unverify Charity Box",
                 "description": "Return message of operation result",
                 "operationId": "postUnverifyCharityBoxById",
@@ -508,9 +524,7 @@
         },
         "/charityBoxes/{id}/startCounting": {
             "post": {
-                "tags": [
-                    "CharityBoxes"
-                ],
+                "tags": ["CharityBoxes"],
                 "summary": "Start counting Charity Box",
                 "description": "Return charity box instance",
                 "operationId": "stratCountngCharityBoxById",
@@ -554,9 +568,7 @@
         },
         "/charityBoxes/{id}/finishCounting": {
             "post": {
-                "tags": [
-                    "CharityBoxes"
-                ],
+                "tags": ["CharityBoxes"],
                 "summary": "Finish counting Charity Box (Confirm by volunteer)",
                 "description": "Return charity box instance",
                 "operationId": "finishCountngCharityBoxById",
@@ -655,9 +667,7 @@
         },
         "/collectors": {
             "get": {
-                "tags": [
-                    "Collectors"
-                ],
+                "tags": ["Collectors"],
                 "summary": "Get list of Collectors",
                 "description": "Returns list of Collectors",
                 "operationId": "getCollectorList",
@@ -681,9 +691,7 @@
                 }
             },
             "post": {
-                "tags": [
-                    "Collectors"
-                ],
+                "tags": ["Collectors"],
                 "summary": "Insert a new Collector",
                 "description": "Insert a new Collector",
                 "operationId": "postCollector",
@@ -743,9 +751,7 @@
         },
         "/collectors/{id}": {
             "get": {
-                "tags": [
-                    "Collectors"
-                ],
+                "tags": ["Collectors"],
                 "summary": "Get collector information",
                 "description": "Returns collector data",
                 "operationId": "getCollectorById",
@@ -783,9 +789,7 @@
         },
         "/collectors/{collectorIdentifier}/box/create": {
             "post": {
-                "tags": [
-                    "Collectors"
-                ],
+                "tags": ["Collectors"],
                 "summary": "Create Charity Box for Collector",
                 "description": "Create Charity Box for Collector",
                 "operationId": "giveCollectorBox",
@@ -826,9 +830,7 @@
         },
         "/collectors/{collectorIdentifier}/box/latestUncounted": {
             "get": {
-                "tags": [
-                    "Collectors"
-                ],
+                "tags": ["Collectors"],
                 "summary": "Get last uncounted Collector's Charity Box",
                 "description": "Get last uncounted Collector's Charity Box",
                 "operationId": "getCollectorUncountedBox",
@@ -869,9 +871,7 @@
         },
         "/charityBoxes/count/collected": {
             "get": {
-                "tags": [
-                    "CharityBoxScore"
-                ],
+                "tags": ["CharityBoxScore"],
                 "summary": "Get bucket of collected money",
                 "description": "Return bucket of collecteed money each sum in oryginal currency",
                 "operationId": "getCollectedCharityBox",
@@ -925,9 +925,7 @@
         },
         "/charityBoxes/count/collected/sum": {
             "get": {
-                "tags": [
-                    "CharityBoxScore"
-                ],
+                "tags": ["CharityBoxScore"],
                 "summary": "Get sum of collected money in default currency",
                 "description": "Return sum of collected money in default currency",
                 "operationId": "getSumOfCollectedCharityBox",
@@ -965,9 +963,7 @@
         },
         "/charityBoxes/count/collected/{currency}": {
             "get": {
-                "tags": [
-                    "CharityBoxScore"
-                ],
+                "tags": ["CharityBoxScore"],
                 "summary": "Get amount of money collected in specify currency",
                 "description": "Return amount of money collected in specify currency",
                 "operationId": "getCollectedCharityBoxByCurrency",
@@ -1017,9 +1013,7 @@
         },
         "/charityBoxes/count/confirmed": {
             "get": {
-                "tags": [
-                    "CharityBoxScore"
-                ],
+                "tags": ["CharityBoxScore"],
                 "summary": "Get sum of collected money",
                 "operationId": "getConfirmedCharityBoxSum",
                 "responses": {
@@ -1072,9 +1066,7 @@
         },
         "/charityBoxes/count/confirmed/sum": {
             "get": {
-                "tags": [
-                    "CharityBoxScore"
-                ],
+                "tags": ["CharityBoxScore"],
                 "summary": "Get sum of confirmed money in default currency",
                 "description": "Return sum of confirmed money in default currency",
                 "operationId": "getSumOfConfirmedCharityBox",
@@ -1112,9 +1104,7 @@
         },
         "/charityBoxes/count/confirmed/{currency}": {
             "get": {
-                "tags": [
-                    "CharityBoxScore"
-                ],
+                "tags": ["CharityBoxScore"],
                 "summary": "Get amount of money in specified currency",
                 "description": "Return amount of money in specified currency",
                 "operationId": "getConfirmedCharityBoxSumByCurrency",
@@ -1163,9 +1153,7 @@
         },
         "/logs": {
             "get": {
-                "tags": [
-                    "BoxEvent"
-                ],
+                "tags": ["BoxEvent"],
                 "summary": "Get list of box events - logs",
                 "description": "Returns list of Logs",
                 "operationId": "getBoxEventsList",
@@ -1191,9 +1179,7 @@
         },
         "/logs/box/{id}": {
             "get": {
-                "tags": [
-                    "BoxEvent"
-                ],
+                "tags": ["BoxEvent"],
                 "summary": "Get charity box events - logs",
                 "description": "Returns charity box Logs",
                 "operationId": "getBoxEventsByBox",
@@ -1231,9 +1217,7 @@
         },
         "/currency/rates": {
             "get": {
-                "tags": [
-                    "Rates"
-                ],
+                "tags": ["Rates"],
                 "summary": "Get list of currencies rate",
                 "description": "Return daily list of currency rate from NBP",
                 "operationId": "getCurrencyRatesList",
@@ -1295,9 +1279,7 @@
         },
         "/currency/rates/{currency}": {
             "get": {
-                "tags": [
-                    "Rates"
-                ],
+                "tags": ["Rates"],
                 "summary": "Get currency rate",
                 "description": "Return daily currency rate from NBP",
                 "operationId": "getCurrencyRate",
@@ -1347,9 +1329,7 @@
         },
         "/users": {
             "get": {
-                "tags": [
-                    "Users"
-                ],
+                "tags": ["Users"],
                 "summary": "Get list of Users",
                 "description": "Returns list of Users",
                 "operationId": "getUsersList",
@@ -1373,9 +1353,7 @@
                 }
             },
             "post": {
-                "tags": [
-                    "Users"
-                ],
+                "tags": ["Users"],
                 "summary": "Insert a new User",
                 "description": "Insert a new User",
                 "operationId": "postUser",
@@ -1415,9 +1393,7 @@
         },
         "/users/{id}": {
             "get": {
-                "tags": [
-                    "Users"
-                ],
+                "tags": ["Users"],
                 "summary": "Get user information",
                 "description": "Returns user data",
                 "operationId": "getUserById",
@@ -1511,11 +1487,7 @@
             "CollectorRequest": {
                 "title": "CollectorRequest",
                 "description": "new Collector schema",
-                "required": [
-                    "collectorIdentifier",
-                    "firstName",
-                    "lastName"
-                ],
+                "required": ["collectorIdentifier", "firstName", "lastName"],
                 "properties": {
                     "collectorIdentifier": {
                         "description": "Id of the collector identifier",
@@ -1531,6 +1503,11 @@
                         "description": "Wolunteer last name",
                         "type": "string",
                         "example": "Kowalski"
+                    },
+                    "phoneNumber": {
+                        "description": "Wolunteer phone number",
+                        "type": "string",
+                        "example": "123456789"
                     }
                 },
                 "type": "object"
@@ -1538,11 +1515,7 @@
             "UserRequest": {
                 "title": "UserRequest",
                 "description": "new User schema",
-                "required": [
-                    "userName",
-                    "password",
-                    "role"
-                ],
+                "required": ["userName", "password", "role"],
                 "properties": {
                     "userName": {
                         "description": "User name",
@@ -1562,11 +1535,7 @@
                     "role": {
                         "description": "User role",
                         "format": "string",
-                        "enum": [
-                            "volounteer",
-                            "admin",
-                            "superadmin"
-                        ],
+                        "enum": ["volounteer", "admin", "superadmin"],
                         "example": "volounteer"
                     }
                 },
@@ -1876,6 +1845,12 @@
                         "description": "Volunteer's last name",
                         "type": "string",
                         "example": "Kowalski"
+                    },
+                    "phone_number": {
+                        "title": "Phone Number",
+                        "description": "Volunteer's phone number",
+                        "type": "string",
+                        "example": "123456789"
                     }
                 },
                 "type": "object"
@@ -1908,11 +1883,7 @@
                         "title": "Name",
                         "description": "User Role name",
                         "type": "string",
-                        "enum": [
-                            "volounteer",
-                            "admin",
-                            "superadmin"
-                        ],
+                        "enum": ["volounteer", "admin", "superadmin"],
                         "example": "volunteer"
                     },
                     "description": {
@@ -2003,9 +1974,7 @@
             "BoxCharityBoxRequest": {
                 "title": "Charity Box request",
                 "description": "Charity Box request body data",
-                "required": [
-                    "box_id"
-                ],
+                "required": ["box_id"],
                 "properties": {
                     "box_id": {
                         "title": "box_id",
@@ -2020,9 +1989,7 @@
             "CollectorCharityBoxRequest": {
                 "title": "",
                 "description": "",
-                "required": [
-                    "collector_identifier"
-                ],
+                "required": ["collector_identifier"],
                 "properties": {
                     "collector_identifier": {
                         "title": "collector_identifier",
