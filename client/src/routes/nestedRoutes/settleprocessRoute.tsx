@@ -55,8 +55,16 @@ export const settleProcessRoute = {
             CHECKOUT_BOX_PAGE_ROUTE,
           ]}
           links={[
-            { url: BOXES_PATH, label: 'Wydaj puszkę' },
-            { url: SETTLE_PROCESS_PATH, label: 'Rozlicz puszkę' },
+            {
+              url: BOXES_PATH,
+              label: 'Wydaj puszkę',
+              permission: 'collectorcoordinator',
+            },
+            {
+              url: SETTLE_PROCESS_PATH,
+              label: 'Rozlicz puszkę',
+              permission: 'volounteer',
+            },
           ]}
         />
       </ProtectedRoute>

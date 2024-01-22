@@ -19,41 +19,75 @@ import {
 const adminSubroutes: RouteObject[] = [
   {
     path: ADD_USER_PAGE_ROUTE,
-    element: <AddUserPage />,
+    element: (
+      <ProtectedRoute permission="superadmin">
+        <AddUserPage />
+      </ProtectedRoute>
+    ),
   },
   {
     index: true,
-    element: <ListUsersPage />,
+    element: (
+      <ProtectedRoute permission="superadmin">
+        <ListUsersPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: VOLUNTEERS_LIST_PAGE_ROUTE,
-    element: <ListVolunteersPage />,
+    element: (
+      <ProtectedRoute permission="collectorcoordinator">
+        <ListVolunteersPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: ADD_VOLUNTEER_PAGE_ROUTE,
-    element: <AddVolunteerPage />,
+    element: (
+      <ProtectedRoute permission="superadmin">
+        <AddVolunteerPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: LOGS_PAGE_ROUTE,
-    element: <LogsPage />,
+    element: (
+      <ProtectedRoute permission="collectorcoordinator">
+        <LogsPage />
+      </ProtectedRoute>
+    ),
   },
 ];
 
 export const adminRoute = {
   path: ADMIN_ROUTE,
   element: (
-    <ProtectedRoute>
+    <ProtectedRoute permission="collectorcoordinator">
       <InnerLayout
         links={[
-          { url: ADD_USER_PAGE_ROUTE, label: 'Dodaj użytkownika' },
-          { url: '', label: 'Lista użytkowników', withDot: true },
-          { url: ADD_VOLUNTEER_PAGE_ROUTE, label: 'Dodaj wolontariusza' },
+          {
+            url: ADD_USER_PAGE_ROUTE,
+            label: 'Dodaj użytkownika',
+            permission: 'superadmin',
+          },
+          {
+            url: '',
+            label: 'Lista użytkowników',
+            withDot: true,
+            permission: 'superadmin',
+          },
+          {
+            url: ADD_VOLUNTEER_PAGE_ROUTE,
+            label: 'Dodaj wolontariusza',
+            permission: 'superadmin',
+          },
           {
             url: VOLUNTEERS_LIST_PAGE_ROUTE,
             label: 'Lista wolontariuszy',
             withDot: true,
+            permission: 'collectorcoordinator',
           },
-          { url: LOGS_PAGE_ROUTE, label: 'Logi' },
+          { url: LOGS_PAGE_ROUTE, label: 'Logi', permission: 'collectorcoordinator' },
         ]}
       />
     </ProtectedRoute>

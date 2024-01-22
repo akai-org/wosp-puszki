@@ -1,14 +1,6 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { UserRole, permissions, useAuthContext } from '@/utils';
-import {
-  difference,
-  differenceBy,
-  differenceWith,
-  filter,
-  intersectionWith,
-  sortBy,
-} from 'lodash';
+import { UserRole, getTopPermission, permissions, useAuthContext } from '@/utils';
 
 interface Props {
   reversed?: boolean;
@@ -23,30 +15,22 @@ export const ProtectedRoute = ({
   redirectTo = '/liczymy/login',
   permission = 'volounteer',
 }: Props) => {
-  const { credentials, roles, deleteCredentials } = useAuthContext();
-  const sortedPermissions = sortBy(Object.entries(permissions), ([, value]) => value);
-  const overlappingPermissions = intersectionWith(
-    sortedPermissions,
-    roles,
-    ([permission], role) => {
-      return permission === role;
-    },
-  );
+  const { credentials, roles } = useAuthContext();
+  const topPermission = getTopPermission(roles);
+  // if reversed is set to true, redirects when user is authenticated
   const shouldRedirect = !((credentials || reversed) && !(credentials && reversed));
 
-  if (overlappingPermissions.length) {
-    const topPermission = overlappingPermissions[0][1];
-
+  //
+  if (topPermission) {
     const isProperPermission = topPermission <= permissions[permission];
+    console.log('isProperPermission', isProperPermission);
     if (shouldRedirect || !isProperPermission) {
       return <Navigate to={redirectTo} replace />;
     }
     return children;
   }
 
-  // if reversed is set to true, redirects when user is authenticated
-  // console.log(shouldRedirect);
-  if (shouldRedirect) {
+  if (shouldRedirect && !topPermission) {
     return <Navigate to={redirectTo} replace />;
   }
   return children;

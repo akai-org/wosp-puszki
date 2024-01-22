@@ -9,7 +9,11 @@ import { EditBoxPage } from '@/pages/countedBoxes/EditBoxPage/EditBoxPage';
 const countedBoxesSubroutes: RouteObject[] = [
   {
     path: '',
-    element: <BoxesForApprovalPage />,
+    element: (
+      <ProtectedRoute permission="collectorcoordinator">
+        <BoxesForApprovalPage />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: 'show/:id',
@@ -23,7 +27,11 @@ const countedBoxesSubroutes: RouteObject[] = [
   },
   {
     path: APPROVED_BOXES_PAGE_ROUTE,
-    element: <BoxesApprovedPage />,
+    element: (
+      <ProtectedRoute permission="collectorcoordinator">
+        <BoxesApprovedPage />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: 'show/:id',
@@ -40,13 +48,18 @@ const countedBoxesSubroutes: RouteObject[] = [
 export const countedBoxesRoute = {
   path: COUNTED_BOXES_ROUTE,
   element: (
-    <ProtectedRoute permission="admin">
+    <ProtectedRoute permission="collectorcoordinator">
       <InnerLayout
         links={[
-          { url: '', label: 'Lista puszek do zatwierdzenia' },
+          {
+            url: '',
+            label: 'Lista puszek do zatwierdzenia',
+            permission: 'collectorcoordinator',
+          },
           {
             url: APPROVED_BOXES_PAGE_ROUTE,
             label: 'Lista puszek zatwierdzonych',
+            permission: 'collectorcoordinator',
           },
         ]}
       />

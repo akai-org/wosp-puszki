@@ -7,9 +7,16 @@ import {
 } from '@/utils';
 import { useDepositContext } from '@/utils/Contexts/DepositContext';
 
-export interface SubNavLink {
+export interface NavLink extends WithPermission {
   url: string;
   label: string;
+}
+
+export interface WithPermission {
+  permission: UserRole;
+}
+
+export interface SubNavLink extends NavLink {
   show?: boolean;
   withDot?: boolean;
 }

@@ -33,11 +33,16 @@ export const boxesRoute = {
         prefix={BOXES_PATH}
         excludingLinks={[]}
         links={[
-          { url: BOXES_PATH, label: 'Wydaj puszkę' },
-          { url: SETTLE_PROCESS_PATH, label: 'Rozlicz puszkę' },
-          // TODO: hide this when user is not logged in as admin
-          // { url: '', label: 'Wszystkie puszki' },
-          // { url: unsettledBoxesPagePath, label: 'Lista puszek nie rozliczonych' },
+          {
+            url: BOXES_PATH,
+            label: 'Wydaj puszkę',
+            permission: 'collectorcoordinator',
+          },
+          {
+            url: SETTLE_PROCESS_PATH,
+            label: 'Rozlicz puszkę',
+            permission: 'volounteer',
+          },
         ]}
       />
     </ProtectedRoute>
