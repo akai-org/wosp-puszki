@@ -25,8 +25,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => ['auth.basic:,name']], function (){
-    Route::get('health', function() {
-        return response()->json(['hello' => 'world']);
+    Route::get('health', function(Request $request) {
+        $roles = auth()->user()->roles()->get()->map(fn($role) => $role->name);
+        return response()->json(['user' => auth()->user()->name, 'roles' => $roles]);
     });
 });
 
