@@ -1,5 +1,10 @@
 import { ReactNode } from 'react';
-import { MONEY_VALUES, useAuthContextValues, useBoxContextValues } from '@/utils';
+import {
+  MONEY_VALUES,
+  permissions,
+  useAuthContextValues,
+  useBoxContextValues,
+} from '@/utils';
 import { useDepositContext } from '@/utils/Contexts/DepositContext';
 
 export interface SubNavLink {
@@ -126,6 +131,7 @@ export interface IAuthContext {
   deleteCredentials: () => void;
   credentials: string | null;
   username: string | null;
+  roles: UserRole[];
 }
 
 export interface ISidebarStateContext {
@@ -329,4 +335,11 @@ export interface Volunteer {
   created_at: number;
   updated_at: string;
   boxes: Omit<boxResponse, 'collector'>[];
+}
+
+export type UserRole = keyof typeof permissions;
+
+export interface IAuthResponse {
+  user: string;
+  roles: UserRole[];
 }
