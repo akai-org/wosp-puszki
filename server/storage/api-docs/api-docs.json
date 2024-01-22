@@ -423,12 +423,13 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "status_code": {
+                                        "status": {
                                             "type": "integer",
                                             "example": "200"
                                         },
-                                        "data": {
-                                            "type": "object"
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Puszka nr XX anulowano zatwierdzenie (100zł)"
                                         }
                                     },
                                     "type": "object"
@@ -524,6 +525,61 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/CharityBox"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/charityBoxes/{id}/verify": {
+            "post": {
+                "tags": [
+                    "CharityBoxes"
+                ],
+                "summary": "Verify Charity Box (Confirm by admin)",
+                "description": "Verify Charity Box (Confirm by admin)",
+                "operationId": "verifyCharityBoxByAdmin",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Charity box id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": "200"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Puszka nr XX potwierdzona (100zł)"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }

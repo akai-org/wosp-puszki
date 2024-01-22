@@ -10,6 +10,7 @@ use App\Http\Requests\Api\BoxCharityBoxRequest;
 use App\Http\Requests\Api\UpdateCountingCharityBoxRequest;
 use App\Http\Resources\Api\CharityBoxResource;
 use App\Lib\BoxOperator\BoxOperator;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
@@ -286,8 +287,8 @@ final class CharityBoxApiController extends ApiController
      *          response=200,
      *          description="Successful operation",
      *          @OA\JsonContent(
-     *              @OA\Property(property="status_code", type="integer", example="200"),
-     *              @OA\Property(property="data",type="object")
+     *              @OA\Property(property="status", type="integer", example="200"),
+     *              @OA\Property(property="message",type="string", example="Puszka nr XX anulowano zatwierdzenie (100zł)")
      *          ),
      *       ),
      *      @OA\Response(
@@ -447,5 +448,74 @@ final class CharityBoxApiController extends ApiController
         }
 
         return new CharityBoxResource($box);
+    }
+
+    /**
+     * @OA\Post(
+     *     path="/charityBoxes/{id}/verify",
+     *     operationId="verifyCharityBoxByAdmin",
+     *     tags={"CharityBoxes"},
+     *     summary="Verify Charity Box (Confirm by admin)",
+     *     description="Verify Charity Box (Confirm by admin)",
+     *     @OA\Parameter(
+     *          name="id",
+     *          description="Charity box id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *     ),
+     *     @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="status", type="integer", example="200"),
+     *              @OA\Property(property="message",type="string", example="Puszka nr XX potwierdzona (100zł)")
+     *          ),
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Resource Not Found"
+     *      )
+     * )
+     */
+    public function verify(Request $request, int $id)
+    {
+        $box = CharityBox::where('id', '=', $id)->first();
+        $box->is_confirmed = true;
+        $box->user_confirmed_id = $request->user()->id;
+        $box->time_confirmed = Carbon::now();
+        $box->save();
+
+        //Drukuj potwierdzenie?
+        //TODO
+        //Zapisujemy event do bazy
+
+        $event = new BoxEvent();
+        $event->type = 'verified';
+        $event->box_id = $box->id;
+        $event->user_id = $request->user()->id;
+        $event->comment = '';
+        $event->save();
+
+        //BoxConfirmed::dispatch();
+
+        return new JsonResponse([
+            'message' => sprintf('Puszka nr %s potwierdzona (%szł)', $box->id, $box->amount_PLN),
+            'status' => Response::HTTP_OK
+        ]);
     }
 }

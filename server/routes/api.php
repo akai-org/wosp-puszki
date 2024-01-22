@@ -49,11 +49,15 @@ Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], func
     Route::get('charityBoxes/count/confirmed/{currency}', [CountedBoxApiController::class, 'confirmedAmountOfMoneyByCurrency'])->name('api.box.count.confirmed.currency');
 
 
-
     // add nonstandard requests (other than CRUD)
-    Route::get('charityBoxes/verified', [CharityBoxApiController::class, 'getVerifiedList'])->name('api.box.verified');;
+
+    // Potwierdź puszkę (dla administratora)
+    Route::post('charityBoxes/{id}/verify', [CharityBoxApiController::class, 'verify'])->name('api.box.verify');
+
+    Route::get('charityBoxes/verified', [CharityBoxApiController::class, 'getVerifiedList'])->name('api.box.verified');
     Route::get('charityBoxes/unverified', [CharityBoxApiController::class, 'getUnverifiedList'])->name('api.box.unverified');
     Route::post('charityBoxes/unverified/{id}', [CharityBoxApiController::class, 'postUnverifyCharityBox'])->name('api.box.unverify');
+
     Route::post('charityBoxes/{id}/startCounting', [CharityBoxApiController::class, 'startCounting'])->name('api.box.count.start');
     Route::post('charityBoxes/{id}/finishCounting', [CharityBoxApiController::class, 'confirm'])->name('api.box.count.finish');
 
