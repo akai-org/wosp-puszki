@@ -9,7 +9,9 @@ export const parseMoney = (money: number | string, currency: currencies): string
   let sanitizedMoney: number;
 
   if (typeof money === 'string') {
-    sanitizedMoney = parseFloat(parseFloat(money).toFixed(2));
+    sanitizedMoney = parseFloat(
+      parseFloat(money.replace(' ', '').replace(',', '.')).toFixed(2),
+    );
   } else {
     sanitizedMoney = money;
   }
