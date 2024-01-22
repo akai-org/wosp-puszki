@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Utils;
 
+use phpDocumentor\Reflection\Element;
+
 /**
  * @author kabix09
  *
@@ -16,12 +18,8 @@ enum RatesFetcherEnum
     case Static;
     case Current;
 
-    public static function getRatesType($param): RatesFetcherEnum
+    public static function getRatesType(bool $param): RatesFetcherEnum
     {
-        return match($param) {
-            $param == true => RatesFetcherEnum::Static,
-            $param !== true => RatesFetcherEnum::Current,
-            default => RatesFetcherEnum::Static,
-        };
+        return $param ? RatesFetcherEnum::Static : RatesFetcherEnum::Current;
     }
 }

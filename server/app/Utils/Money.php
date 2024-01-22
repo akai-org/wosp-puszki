@@ -32,12 +32,12 @@ class Money implements RatesConverter
 
         $this->ratesFetcher = $ratesFetcher;
 
-        if(static::CURRENCY_ENUM != CurrencyEnum::defaultCurrency())
-            Assert::keyExists(
-                array: iterator_to_array($this->ratesFetcher->fetchRates(), true),
-                key: static::CURRENCY_ENUM->value,
-                message: sprintf('This currency `%s`dont exists in fetched rates!!!', static::CURRENCY_ENUM->value)
-            );
+//        if(static::CURRENCY_ENUM != CurrencyEnum::defaultCurrency())
+//            Assert::keyExists(
+//                array: iterator_to_array($this->ratesFetcher->fetchRates(), true),
+//                key: static::CURRENCY_ENUM->value,
+//                message: sprintf('This currency `%s`dont exists in fetched rates!!!', static::CURRENCY_ENUM->value)
+//            );
     }
 
     public static function create(Money $money, ?RatesFetcher $ratesFetcher = null): self
@@ -60,7 +60,7 @@ class Money implements RatesConverter
      */
     public function getRates(): float
     {
-        return round((float)$this->ratesFetcher->fetchRates(static::CURRENCY_ENUM)->current(),2);
+        return array_values($this->ratesFetcher->fetchRates(static::CURRENCY_ENUM)->current())[0];
     }
 
     /**

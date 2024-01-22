@@ -157,7 +157,7 @@ final class RatesApiController extends ApiController
         else if($currency == CurrencyEnum::defaultCurrency())
             return json_encode(["rates" => 1, "message" => "It's default currency. The rates PLN to PLN is always 1"]);
 
-        return json_encode(["rates" => round((float)$this->ratesFetcher->fetchRates($currency)->current(), 2)]);
+        return json_encode(["rates" => array_values($this->ratesFetcher->fetchRates($currency)->current())[0]]);
     }
 
 }
