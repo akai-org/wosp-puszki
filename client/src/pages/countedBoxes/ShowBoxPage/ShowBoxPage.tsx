@@ -23,16 +23,24 @@ export const ShowBoxPage = () => {
   const navigate = useNavigate();
   const { refetch } = useUnverifiedBoxesQuery();
 
-  const queryData = id ? useGetBoxQuery(id).data : undefined;
+  const queryData = useGetBoxQuery(id as string).data;
+  console.log({ queryData });
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const amounts: any = {};
 
   if (queryData) {
     Array.from(AMOUNTS_KEYS).forEach((key) => {
-      amounts[key] = queryData[key];
+      const val = queryData[key];
+      if (typeof val === 'string') {
+        amounts[key] = parseFloat(val);
+      } else {
+        amounts[key] = val;
+      }
     });
   }
+
+  console.log({ amounts });
 
   const data: BoxData = {
     amounts,
@@ -70,7 +78,10 @@ export const ShowBoxPage = () => {
   return (
     <Modal title={'Zawartość puszki'}>
       <Space direction="vertical">
-        <ContentColumns boxData={data} total={queryData?.amount_PLN || 0}/>
+        <ContentColumns
+          boxData={data}
+          total={parseFloat((queryData?.amount_PLN as string) || '0')}
+        />
         <Space className={s.stackButtons}>
           {!queryData?.is_confirmed && (
             <Link

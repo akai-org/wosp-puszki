@@ -269,10 +269,10 @@ export interface IBoxes {
   count_100zl: number;
   count_200zl: number;
   count_500zl: number;
-  amount_PLN: number;
-  amount_EUR: number;
-  amount_USD: number;
-  amount_GBP: number;
+  amount_PLN: string;
+  amount_EUR: string;
+  amount_USD: string;
+  amount_GBP: string;
   comment: string;
   is_special_box: number;
 }
