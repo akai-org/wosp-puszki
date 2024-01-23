@@ -106,7 +106,10 @@ class BoxOperator {
         }
 
         $box->is_counted=true;
-        $box->counting_user_id = $this->operatingUserId;
+
+        if ($request->user()->hasRole('volunteer')) {
+            $box->counting_user_id = $this->operatingUserId;
+        }
 
         $data = $this->getBoxDataFromRequest($request);
 

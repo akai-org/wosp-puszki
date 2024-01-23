@@ -1,11 +1,11 @@
 import { Button, Layout, Space } from 'antd';
 import s from './Modal.module.less';
 import Title from 'antd/lib/typography/Title';
-import { Icon } from '@iconify/react';
 import { useNavigate } from 'react-router-dom';
 import { Header } from 'antd/lib/layout/layout';
 import { useEffect } from 'react';
 import { useSidebarStateContext } from '@/utils';
+import { CloseOutlined } from '@ant-design/icons';
 
 export const Modal = ({
   children,
@@ -38,13 +38,7 @@ export const Modal = ({
             type="primary"
             onClick={() => (backRoute ? navigate(backRoute) : navigate(-1))}
           >
-            <Icon
-              className={s.logOutButtonInside_icon}
-              icon="ic:round-log-out"
-              color="#FFFFFF"
-              width="20"
-              height="20"
-            />
+            <CloseOutlined className={s.logOutButtonInside_icon} color="#FFFFFF" />
           </Button>
         </Header>
         <Space className={s.content}>{children}</Space>

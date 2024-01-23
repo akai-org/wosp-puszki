@@ -20,5 +20,6 @@ export const sum = (
       moneyValues[MONEY_AMOUNTS_VALUES[keys[key]] as keyof typeof moneyValues];
   }
 
-  return total;
+  if (!isNaN(total)) return total;
+  return Number(0);
 };

@@ -5,7 +5,8 @@
 @import "variables";
 
 // Bootstrap
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import "bootstrap-sass/assets/stylesheets/bootstrap";
+// @import "~bootstrap-sass/assets/stylesheets/bootstrap";
 
 @import "colors";
 
@@ -16,20 +17,18 @@
 @import "sites/amount";
 @import "sites/map";
 
-@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap");
 
 body {
-  color: #fff;
-  font-family: Oxygen, sans-serif !important;
-  margin: 0;
-  background-color: #222d53;
-  width: 100vw !important;
-  height: 100vh !important;
-  overflow-y: hidden;
+    color: #fff;
+    font-family: Oxygen, sans-serif !important;
+    margin: 0;
+    background-color: #222d53;
+    width: 100vw !important;
+    height: 100vh !important;
+    overflow-y: hidden;
 }
 
 p {
-  color: #fff;
+    color: #fff;
 }
-
-

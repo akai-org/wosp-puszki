@@ -11,7 +11,7 @@
 
     <script type="text/javascript" src="{{ asset('js\jquery-3.2.1.min.js') }}"></script>
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @vite(['resources/sass/app.scss'])
     @yield('styles')
 </head>
 <body>
@@ -195,7 +195,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    @vite('resources/js/app.js')
     @stack('scripts')
 </body>
 </html>
