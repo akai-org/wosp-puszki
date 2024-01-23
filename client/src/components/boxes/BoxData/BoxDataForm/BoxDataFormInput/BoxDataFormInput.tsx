@@ -21,6 +21,10 @@ export const InputNumberBox: FC<Props> = ({
   name,
   foreign,
 }) => {
+  const val =
+    typeof value === 'string'
+      ? parseFloat(value).toFixed(2)
+      : value?.toFixed(2) || Number(0).toFixed(2);
   return (
     <Space className={s.container} size={40}>
       <Text className={s.denomination}>{name}</Text>
@@ -43,7 +47,7 @@ export const InputNumberBox: FC<Props> = ({
           val != null ? count(id, parseInt(val)) : count(id, 0);
         }}
       />
-      {!foreign && <Text className={s.value}>{value} zł</Text>}
+      {!foreign && <Text className={s.value}>{val} zł</Text>}
     </Space>
   );
 };

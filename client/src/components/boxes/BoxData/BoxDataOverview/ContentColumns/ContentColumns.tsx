@@ -31,9 +31,9 @@ export const ContentColumns: FC<Props> = ({ boxData, total }) => {
         {ZLOTY_AMOUNTS_KEYS.map((key) => (
           <ContentLine_Three
             denomination={MONEY_AMOUNTS_VALUES[key]}
-            amount={boxData.amounts[key]}
+            amount={boxData.amounts[key] as number}
             value={
-              boxData.amounts[key] *
+              (boxData.amounts[key] as number) *
               MONEY_VALUES[MONEY_AMOUNTS_VALUES[key] as keyof moneyValuesType]
             }
             data_testid={key}
@@ -53,7 +53,7 @@ export const ContentColumns: FC<Props> = ({ boxData, total }) => {
         {FOREIGN_AMOUNTS_KEYS.map((key) => (
           <ContentLine_Two
             denomination={MONEY_AMOUNTS_VALUES[key]}
-            amount={boxData.amounts[key]}
+            amount={boxData.amounts[key] as number}
             data_testid={key}
             key={key}
           />
