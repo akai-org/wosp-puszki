@@ -7,13 +7,19 @@ import s from './BoxesPage.module.less';
 import { Typography, Space, Layout, Table } from 'antd';
 import { createDisplayableData } from '@/utils/Functions/createRefactorData';
 import { Outlet } from 'react-router-dom';
+import {
+  CheckOutlined,
+  CloseOutlined,
+  EditOutlined,
+  SearchOutlined,
+} from '@ant-design/icons';
 
 const { Title } = Typography;
 const { Content } = Layout;
 
 export const BoxesForApprovalPage = () => {
   // Ustawienia dla poszczególnych kolumn
-  const columnsOptions: TableColumns[] = [
+  const baseColumnsOptions: TableColumns[] = [
     {
       titleName: 'ID',
       keyName: 'collectorId',
@@ -28,7 +34,7 @@ export const BoxesForApprovalPage = () => {
       search: true,
       ellipsis: true,
       fixed: 'left',
-      width: 250,
+      width: 300,
     },
     {
       titleName: 'PLN',
@@ -60,7 +66,7 @@ export const BoxesForApprovalPage = () => {
       keyName: 'comment',
       search: true,
       ellipsis: true,
-      width: 200,
+      width: 250,
     },
     {
       titleName: 'Stanowisko',
@@ -75,26 +81,73 @@ export const BoxesForApprovalPage = () => {
       width: 100,
       search: true,
     },
+  ];
+
+  const unverifiedColumnsOptions: TableColumns[] = [
+    ...baseColumnsOptions,
     {
       titleName: 'Akcje',
       keyName: 'actions',
       fixed: 'right',
-      width: 220,
+      width: 100,
       actions: [
+        {
+          title: ' Zatwierdź',
+          link: '/liczymy/countedBoxes/show/',
+          color: 'green',
+          icon: <CheckOutlined />,
+          buttonType: 'default',
+        },
         {
           title: 'Podgląd',
           link: '/liczymy/countedBoxes/show/',
           color: 'blue',
+          icon: <SearchOutlined />,
+          buttonType: 'tooltip',
         },
         {
-          title: 'Modyfikuj',
+          title: 'Edytuj',
           link: '/liczymy/countedBoxes/edit/',
-          color: 'blue',
+          color: 'gray',
+          icon: <EditOutlined />,
+          buttonType: 'tooltip',
         },
       ],
     },
   ];
 
+  const verifiedColumnsOptions: TableColumns[] = [
+    ...baseColumnsOptions,
+    {
+      titleName: 'Akcje',
+      keyName: 'actions',
+      fixed: 'right',
+      width: 100,
+      actions: [
+        {
+          title: ' Cofnij zatwierdzenie',
+          link: '/liczymy/countedBoxes/show/',
+          color: 'red',
+          icon: <CloseOutlined />,
+          buttonType: 'default',
+        },
+        {
+          title: 'Podgląd',
+          link: '/liczymy/countedBoxes/show/',
+          color: 'blue',
+          icon: <SearchOutlined />,
+          buttonType: 'tooltip',
+        },
+        {
+          title: 'Edytuj',
+          link: '/liczymy/countedBoxes/edit/',
+          color: 'gray',
+          icon: <EditOutlined />,
+          buttonType: 'tooltip',
+        },
+      ],
+    },
+  ];
   const { data: unverifiedData } = useUnverifiedBoxesQuery();
 
   const displayableData = createDisplayableData(unverifiedData);
@@ -103,10 +156,10 @@ export const BoxesForApprovalPage = () => {
 
   const displayableVerifiedData = createDisplayableData(verifiedData);
 
-  const verifiedColumns = CreateColumns(columnsOptions);
+  const verifiedColumns = CreateColumns(verifiedColumnsOptions);
 
   // Tworzenie kolumn
-  const columns = CreateColumns(columnsOptions);
+  const columns = CreateColumns(unverifiedColumnsOptions);
 
   return (
     <Layout className={'boxesList'}>
@@ -121,7 +174,6 @@ export const BoxesForApprovalPage = () => {
             dataSource={displayableData}
             rowKey="id"
             rowClassName={s.table_row}
-            scroll={{ y: '40vh' }}
             className={'table'}
           />
         </Space>
@@ -134,7 +186,6 @@ export const BoxesForApprovalPage = () => {
             pagination={{ pageSize: 50, position: ['bottomCenter'] }}
             dataSource={displayableVerifiedData}
             rowKey="id"
-            scroll={{ y: '40vh' }}
             rowClassName={s.table_row}
           />
         </Space>
