@@ -31,6 +31,8 @@ export interface TableColumns {
     link: string;
     color?: string;
     type?: string;
+    icon?: ReactNode;
+    buttonType?: 'link' | 'primary' | 'default' | 'tooltip';
   }[];
   fixed?: 'left' | 'right';
   width?: number;
