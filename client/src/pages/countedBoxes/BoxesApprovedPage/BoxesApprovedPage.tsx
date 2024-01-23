@@ -104,7 +104,6 @@ export const BoxesApprovedPage = () => {
 
   // Tworzenie kolumn
   const columns = CreateColumns(columnsOptions);
-  console.log(columns);
 
   return (
     <Layout>
