@@ -98,10 +98,10 @@ export const BoxesForApprovalPage = () => {
 
   const displayableVerifiedData = createDisplayableData(verifiedData);
 
-  const verifiedColumns = CreateColumns(columnsOptions, displayableVerifiedData);
+  const verifiedColumns = CreateColumns(columnsOptions);
 
   // Tworzenie kolumn
-  const columns = CreateColumns(columnsOptions, displayableData);
+  const columns = CreateColumns(columnsOptions);
 
   return (
     <Layout>
