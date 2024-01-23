@@ -58,7 +58,6 @@ export const NewVolunteerForm = () => {
   const onSubmit = (values: NewVolunteerValues) => {
     const volunteerId = parseInt(values.collectorIdentifier) + values.box_type;
     values.collectorIdentifier = volunteerId.toString();
-    console.log(values);
     if (!isNaN(volunteerId)) {
       mutation.mutate(values);
       setMessage(undefined);
