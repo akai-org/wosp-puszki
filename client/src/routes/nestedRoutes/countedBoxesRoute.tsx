@@ -27,7 +27,7 @@ export const countedBoxesRoute = {
   path: COUNTED_BOXES_ROUTE,
   element: (
     <ProtectedRoute>
-      <InnerLayout links={[{ url: '', label: 'Lista puszek do zatwierdzenia' }]} />
+      <InnerLayout links={[{ url: '', label: 'Lista puszek' }]} />
     </ProtectedRoute>
   ),
   children: countedBoxesSubroutes,
