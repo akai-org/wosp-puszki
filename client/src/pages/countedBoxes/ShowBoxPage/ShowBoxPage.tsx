@@ -24,7 +24,6 @@ export const ShowBoxPage = () => {
   const { refetch } = useUnverifiedBoxesQuery();
 
   const queryData = useGetBoxQuery(id as string).data;
-  console.log({ queryData });
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const amounts: any = {};
@@ -39,8 +38,6 @@ export const ShowBoxPage = () => {
       }
     });
   }
-
-  console.log({ amounts });
 
   const data: BoxData = {
     amounts,
