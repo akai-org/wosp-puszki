@@ -26,7 +26,7 @@ const countedBoxesSubroutes: RouteObject[] = [
 export const countedBoxesRoute = {
   path: COUNTED_BOXES_ROUTE,
   element: (
-    <ProtectedRoute>
+    <ProtectedRoute adminOnly>
       <InnerLayout links={[{ url: '', label: 'Lista puszek do zatwierdzenia' }]} />
     </ProtectedRoute>
   ),

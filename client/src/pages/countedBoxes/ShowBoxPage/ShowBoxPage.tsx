@@ -15,10 +15,12 @@ import {
 import { Space } from 'antd';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
+import { FC } from 'react';
 
-import s from './ShowBoxPage.module.less';
-
-export const ShowBoxPage = () => {
+interface Props {
+  displayOnly?: boolean;
+}
+export const ShowBoxPage: FC<Props> = ({ displayOnly = false }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { refetch } = useUnverifiedBoxesQuery();
@@ -72,6 +74,24 @@ export const ShowBoxPage = () => {
     },
   });
 
+  const actions = queryData?.is_confirmed ? (
+    <FormButton
+      type="primary"
+      onClick={() => unverifyMutation.mutate()}
+      isLoading={unverifyMutation.isLoading}
+    >
+      Cofnij zatwierdzenie
+    </FormButton>
+  ) : (
+    <FormButton
+      type="primary"
+      onClick={() => verifyMutation.mutate()}
+      isLoading={verifyMutation.isLoading}
+    >
+      Zatwierdź
+    </FormButton>
+  );
+
   return (
     <Modal title={'Zawartość puszki'}>
       <Space direction="vertical">
@@ -79,8 +99,8 @@ export const ShowBoxPage = () => {
           boxData={data}
           total={parseFloat((queryData?.amount_PLN as string) || '0')}
         />
-        <Space className={s.stackButtons}>
-          {!queryData?.is_confirmed && (
+        <Space>
+          {!queryData?.is_confirmed && !displayOnly && (
             <Link
               to={`/liczymy/countedBoxes${
                 queryData?.is_confirmed ? '/approved' : ''
@@ -89,23 +109,7 @@ export const ShowBoxPage = () => {
               <FormButton type="primary">Edytuj puszkę</FormButton>
             </Link>
           )}
-          {queryData?.is_confirmed ? (
-            <FormButton
-              type="primary"
-              onClick={() => unverifyMutation.mutate()}
-              isLoading={unverifyMutation.isLoading}
-            >
-              Cofnij zatwierdzenie
-            </FormButton>
-          ) : (
-            <FormButton
-              type="primary"
-              onClick={() => verifyMutation.mutate()}
-              isLoading={verifyMutation.isLoading}
-            >
-              Zatwierdź
-            </FormButton>
-          )}
+          {displayOnly ? null : actions}
         </Space>
       </Space>
     </Modal>
