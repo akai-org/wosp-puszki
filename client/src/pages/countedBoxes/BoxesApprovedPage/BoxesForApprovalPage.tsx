@@ -174,6 +174,7 @@ export const BoxesForApprovalPage = () => {
             dataSource={displayableData}
             rowKey="id"
             rowClassName={s.table_row}
+            scroll={{ y: '40vh' }}
             className={'table'}
           />
         </Space>
