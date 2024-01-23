@@ -130,7 +130,12 @@ export function CreateColumns<DataType extends { [key: string]: string | number 
               >
                 <Button
                   size="small"
-                  style={{ outline: action.color, color: action.color }}
+                  style={{
+                    outline: action.color,
+                    color: action.color,
+                    boxSizing: 'content-box',
+                    padding: '0.1rem 0.3rem',
+                  }}
                   icon={action.icon}
                   type={action.buttonType ? action.buttonType : 'default'}
                 >

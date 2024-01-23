@@ -25,7 +25,7 @@ export const BoxesForApprovalPage = () => {
       keyName: 'collectorId',
       search: true,
       fixed: 'left',
-      width: 50,
+      width: 20,
     },
     {
       titleName: 'Wolontariusz',
@@ -34,51 +34,51 @@ export const BoxesForApprovalPage = () => {
       search: true,
       ellipsis: true,
       fixed: 'left',
-      width: 300,
+      width: 80,
     },
     {
       titleName: 'PLN',
       keyName: 'amount_PLN',
       sortType: 'number',
-      width: 120,
+      width: 50,
       afterText: 'PLN',
     },
     {
       titleName: 'EUR',
       keyName: 'amount_EUR',
       afterText: '€',
-      width: 90,
+      width: 30,
     },
     {
       titleName: 'GBP',
       keyName: 'amount_GBP',
       afterText: '£',
-      width: 90,
+      width: 30,
     },
     {
       titleName: 'USD',
       keyName: 'amount_USD',
       afterText: '$',
-      width: 90,
+      width: 30,
     },
     {
       titleName: 'Inne',
       keyName: 'comment',
       search: true,
       ellipsis: true,
-      width: 250,
+      width: 60,
     },
     {
       titleName: 'Stanowisko',
       keyName: 'countingStation',
       search: true,
-      width: 90,
+      width: 40,
     },
     {
-      titleName: 'Godzina przeliczenia',
+      titleName: 'Godz. przeliczenia',
       keyName: 'time_counted',
       sortType: 'date',
-      width: 100,
+      width: 60,
       search: true,
     },
   ];
@@ -174,6 +174,7 @@ export const BoxesForApprovalPage = () => {
             dataSource={displayableData}
             rowKey="id"
             rowClassName={s.table_row}
+            scroll={{ y: '70vh' }}
             className={'table'}
           />
         </Space>
@@ -186,6 +187,7 @@ export const BoxesForApprovalPage = () => {
             pagination={{ pageSize: 50, position: ['bottomCenter'] }}
             dataSource={displayableVerifiedData}
             rowKey="id"
+            scroll={{ y: '70vh' }}
             rowClassName={s.table_row}
           />
         </Space>
