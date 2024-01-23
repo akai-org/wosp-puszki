@@ -159,7 +159,7 @@ final class CharityBoxApiController extends ApiController
         $bo = new BoxOperator((string)$request->user()->id);
 
         try {
-            $box = $bo->updateBoxByBoxID($id, $request);
+            $box = $bo->updateBoxByBoxID($request, $id);
         } catch (\Exception $e) {
             return new JsonResponse([
                 'error_message' => $e->getMessage(),
@@ -444,7 +444,7 @@ final class CharityBoxApiController extends ApiController
         $bo = new BoxOperator((string)$request->user()->id);
 
         try {
-            $box = $bo->startCountByBoxID($id);
+            $box = $bo->startCountByBoxID($request, $id);
         } catch (\Exception $e) {
             return new JsonResponse([
                 'error_message' => $e->getMessage(),
