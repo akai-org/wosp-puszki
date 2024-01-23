@@ -77,7 +77,7 @@ export const LogsPage = () => {
             dataSource={displayableData}
             rowKey="log_id"
             scroll={{ y: '70vh' }}
-            rowClassName={s.table_row}
+            rowClassName={(record) => record.type + '-color'}
           />
         </Space>
       </Content>
