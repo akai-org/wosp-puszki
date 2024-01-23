@@ -20,19 +20,23 @@
 }
 
 #vertical-map .volunteer-occupied {
-  fill: #e11e14!important;
+  fill: #e11e14 !important;
 }
 
 #vertical-map .volunteer-available {
-  fill: #93c01f!important;
+  fill: #93c01f !important;
 }
 
 #vertical-map .volunteer-unavailable {
-  fill: #000!important;
+  fill: #000 !important;
+}
+
+.boxesList .ant-table-thead .ant-table-cell {
+  font-size: smaller;
 }
 
 @media (-webkit-device-pixel-ratio: 1.25) {
   #rescale {
-    zoom: 0.8!important;
+    zoom: 0.8 !important;
   }
 }

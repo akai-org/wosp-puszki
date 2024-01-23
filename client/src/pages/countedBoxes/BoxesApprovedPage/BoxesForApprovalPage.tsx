@@ -16,11 +16,11 @@ export const BoxesForApprovalPage = () => {
   const columnsOptions: TableColumns[] = [
     {
       titleName: 'ID wol.',
-      keyName: 'id',
+      keyName: 'collectorId',
       sortType: 'number',
       search: true,
       fixed: 'left',
-      width: 70,
+      width: 60,
     },
     {
       titleName: 'Wolontariusz',
@@ -28,50 +28,55 @@ export const BoxesForApprovalPage = () => {
       sortType: 'string',
       search: true,
       fixed: 'left',
-      width: 200,
-    },
-    {
-      titleName: 'EUR',
-      keyName: 'amount_EUR',
-      sortType: 'number',
-      afterText: '€',
-      width: 100,
-    },
-    {
-      titleName: 'GBP',
-      keyName: 'amount_GBP',
-      sortType: 'number',
-      afterText: '£',
-      width: 100,
-    },
-    {
-      titleName: 'USD',
-      keyName: 'amount_USD',
-      sortType: 'number',
-      afterText: '$',
-      width: 100,
+      width: 250,
     },
     {
       titleName: 'PLN',
       keyName: 'amount_PLN',
       sortType: 'number',
-      width: 100,
+      width: 150,
       afterText: 'PLN',
+    },
+    {
+      titleName: 'EUR',
+      keyName: 'amount_EUR',
+      afterText: '€',
+      width: 90,
+    },
+    {
+      titleName: 'GBP',
+      keyName: 'amount_GBP',
+      afterText: '£',
+      width: 90,
+    },
+    {
+      titleName: 'USD',
+      keyName: 'amount_USD',
+      afterText: '$',
+      width: 90,
     },
     {
       titleName: 'Inne',
       keyName: 'comment',
       search: true,
+      ellipsis: true,
       width: 200,
+    },
+    {
+      titleName: 'Stanowisko',
+      keyName: 'countingStation',
+      search: true,
+      width: 100,
     },
     {
       titleName: 'Godzina przeliczenia',
       keyName: 'time_counted',
       sortType: 'date',
       width: 150,
+      search: true,
     },
     {
-      titleName: 'Actions',
+      titleName: 'Akcje',
       keyName: 'actions',
       fixed: 'right',
       width: 220,
@@ -104,29 +109,31 @@ export const BoxesForApprovalPage = () => {
   const columns = CreateColumns(columnsOptions, displayableData);
 
   return (
-    <Layout>
+    <Layout className={'boxesList'}>
       <Content className={s.content}>
         <Space direction="vertical" size="small" className={s.space}>
           <Title level={4}>Do zatwierdzenia</Title>
           <Table
-            size="middle"
+            size="small"
+            bordered={true}
             columns={columns}
             pagination={false}
             dataSource={displayableData}
             rowKey="id"
-            scroll={{ y: '70vh' }}
             rowClassName={s.table_row}
+            className={'table'}
           />
         </Space>
         <Space direction="vertical" size="small" className={s.space}>
           <Title level={4}>Zatwierdzone</Title>
           <Table
-            size="middle"
+            size="small"
+            bordered={true}
             columns={verifiedColumns}
-            pagination={false}
+            pagination={{ pageSize: 50, position: ['bottomCenter'] }}
             dataSource={displayableVerifiedData}
             rowKey="id"
-            scroll={{ y: '70vh' }}
+            scroll={{ y: '40vh' }}
             rowClassName={s.table_row}
           />
         </Space>
