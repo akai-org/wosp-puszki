@@ -20,7 +20,6 @@ interface Props {
 }
 
 export const ContentColumns: FC<Props> = ({ boxData, total }) => {
-  console.log(total);
   return (
     <Space className={s.contentColumns}>
       <Space className={s.contentColumn} direction="vertical">
@@ -29,7 +28,7 @@ export const ContentColumns: FC<Props> = ({ boxData, total }) => {
           <p>Ilość</p>
           <p>Wartość</p>
         </Space>
-        {ZLOTY_AMOUNTS_KEYS.filter((amount) => amount !== 'amount_PLN').map((key) => (
+        {ZLOTY_AMOUNTS_KEYS.map((key) => (
           <ContentLine_Three
             denomination={MONEY_AMOUNTS_VALUES[key]}
             amount={boxData.amounts[key]}
@@ -43,7 +42,7 @@ export const ContentColumns: FC<Props> = ({ boxData, total }) => {
         ))}
         <Space className={s.columnBottom}>
           <Text>Suma (PLN)</Text>
-          <Text data-testid={'sm_total'}>{total} zł</Text>
+          <Text data-testid={'sm_total'}>{total.toFixed(2)} zł</Text>
         </Space>
       </Space>
       <Space className={s.contentColumn} direction="vertical">
@@ -67,7 +66,7 @@ export const ContentColumns: FC<Props> = ({ boxData, total }) => {
       <Space className={s.sum}>
         <Title level={4}>Suma (bez walut obcych):</Title>
         <Title data-testid={'total'} level={4}>
-          {total} zł
+          {total.toFixed(2)} zł
         </Title>
       </Space>
     </Space>
