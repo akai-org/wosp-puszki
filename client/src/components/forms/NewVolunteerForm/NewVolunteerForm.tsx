@@ -1,23 +1,24 @@
 import React, { useState } from 'react';
 import { Typography } from 'antd';
-import { FormButton, FormInput, FormWrapper } from '@/components';
+import { FormButton, FormInput, FormSelect, FormWrapper } from '@/components';
 import {
   APIManager,
   FIRST_NAME_REQUIRED,
   ID_NUMBER_REQUIRED,
   LAST_NAME_REQUIRED,
+  TYPE_OF_BOX_REQUIRED,
+  boxTypeFormSelectOptions,
   fetcher,
   recognizeError,
 } from '@/utils';
-import type { IdNumber } from '@/utils';
 import { useForm } from 'antd/lib/form/Form';
-import type { FormMessage } from '@/utils';
+import type { BoxTypeFormInput, FormMessage } from '@/utils';
 import { useMutation } from '@tanstack/react-query';
 
-interface NewVolunteerValues extends IdNumber {
+interface NewVolunteerValues extends Pick<BoxTypeFormInput, 'box_type'> {
   firstName: string;
   lastName: string;
-  collectorIdentifier: number;
+  collectorIdentifier: string;
 }
 
 export const NewVolunteerForm = () => {
@@ -55,7 +56,14 @@ export const NewVolunteerForm = () => {
   });
 
   const onSubmit = (values: NewVolunteerValues) => {
-    mutation.mutate(values);
+    const volunteerId = parseInt(values.collectorIdentifier) + values.box_type;
+    values.collectorIdentifier = volunteerId.toString();
+    if (!isNaN(volunteerId)) {
+      mutation.mutate(values);
+      setMessage(undefined);
+    } else {
+      setMessage({ type: 'error', content: 'Podano nieprawidłowy identyfikator' });
+    }
   };
 
   return (
@@ -81,6 +89,12 @@ export const NewVolunteerForm = () => {
         label="Nazwisko"
         name="lastName"
         rules={[{ required: true, message: LAST_NAME_REQUIRED }]}
+      />
+      <FormSelect
+        name="box_type"
+        placeholder="Wybierz rodzaj"
+        options={boxTypeFormSelectOptions}
+        rules={[{ required: true, message: TYPE_OF_BOX_REQUIRED }]}
       />
       <FormButton type="primary" htmlType="submit" isLoading={mutation.isLoading}>
         Dodaj wolontariusza

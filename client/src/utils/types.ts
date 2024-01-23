@@ -321,6 +321,11 @@ export type UseDepositContextValues = typeof useDepositContext;
 
 export type moneyValuesType = typeof MONEY_VALUES;
 
+export type BoxTypeFormInput = {
+  id_number: string;
+  box_type: 0 | 10000 | 20000;
+};
+
 export interface Volunteer {
   id: number;
   identifier: string;
