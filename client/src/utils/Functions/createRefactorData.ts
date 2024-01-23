@@ -1,4 +1,13 @@
-import { BoxDataType, DisplayableData, IBoxes, LogDataType, boxResponse } from '../types';
+import { filter } from 'lodash';
+import {
+  DisplayableData,
+  IBoxes,
+  LogDataType,
+  boxResponse,
+  Volunteer,
+  VolunteerDataType,
+  BoxDataType,
+} from '../types';
 
 export const createDisplayableData = (data: IBoxes[]) => {
   const displayableData = [];
@@ -57,4 +66,24 @@ export const createDisplayableBoxData = (data: boxResponse[], onlyUnsettled = fa
     });
   }
   return displayableBoxData;
+};
+
+export const createDisplayableVolunteersData = (data: Volunteer[]) => {
+  const displayableVolunteersData: VolunteerDataType[] = [];
+
+  for (const [, item] of data.entries()) {
+    displayableVolunteersData.push({
+      amount_PLN: item.boxes.reduce((acc, curr) => acc + parseFloat(curr.amount_PLN), 0),
+      id: item.identifier,
+      name: item.firstName,
+      status:
+        filter(item.boxes, (box) => !(box.is_confirmed && box.is_counted)).length !== 0
+          ? 'unsettled'
+          : 'settled',
+      sur_name: item.lastName,
+      volunteer_id: item.id.toString(),
+    });
+  }
+
+  return displayableVolunteersData;
 };

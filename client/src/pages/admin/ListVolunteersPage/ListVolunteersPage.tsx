@@ -1,45 +1,17 @@
-// React
-import { useEffect } from 'react';
-
 // Utility functions
-import type { TableColumns, VolunteerDataType } from '@/utils';
-import { CreateColumns } from '@/utils';
+import type { TableColumns } from '@/utils';
+import { CreateColumns, useGetVolunteersQuery } from '@/utils';
 
 // Style and ant design
 import s from '../AdminPage.module.less';
 import { Typography, Space, Layout, Table } from 'antd';
+import { createDisplayableVolunteersData } from '@/utils/Functions/createRefactorData';
 
 const { Title } = Typography;
 const { Content } = Layout;
 
 export const ListVolunteersPage = () => {
-  // testowe dane
-  const data: VolunteerDataType[] = [
-    {
-      volunteer_id: 103,
-      name: 'Pan',
-      sur_name: 'Paweł',
-      id: '114',
-      amount_PLN: 10042.7,
-      status: 'unsettled',
-    },
-    {
-      volunteer_id: 104,
-      name: 'Łukasz',
-      sur_name: 'Walaszek',
-      id: '154',
-      amount_PLN: 3022.1,
-      status: 'settled',
-    },
-    {
-      volunteer_id: 105,
-      name: 'Kapitan',
-      sur_name: 'Bomba',
-      id: '169',
-      amount_PLN: 2445.7,
-      status: 'settled',
-    },
-  ];
+  const { data } = useGetVolunteersQuery();
 
   // Ustawienia dla poszczególnych kolumn
   const columnsOptions: TableColumns[] = [
@@ -91,12 +63,9 @@ export const ListVolunteersPage = () => {
     },
   ];
 
+  const displayableData = createDisplayableVolunteersData(data);
   // Tworzenie kolumn
-  const columns = CreateColumns(columnsOptions, data);
-
-  useEffect(() => {
-    //fetching data here
-  }, []);
+  const columns = CreateColumns(columnsOptions, displayableData);
 
   return (
     <Layout>
@@ -107,7 +76,7 @@ export const ListVolunteersPage = () => {
             size="middle"
             columns={columns}
             pagination={false}
-            dataSource={data}
+            dataSource={displayableData}
             rowKey="volunteer_id" // To należy zmienić przy okazji podłączenia API
             scroll={{ y: '70vh' }}
             rowClassName={s.table_row}
