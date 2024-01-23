@@ -25,6 +25,7 @@ export interface TableColumns {
   keyName: string;
   sortType?: 'number' | 'string' | 'date';
   search?: boolean;
+  ellipsis?: boolean;
   actions?: {
     title: string;
     link: string;
@@ -242,14 +243,7 @@ export interface IBoxes {
   };
   time_given: string;
   is_counted: number;
-  counting_user_id: {
-    id: number;
-    created_at: string;
-    updated_at: string;
-    name: string;
-    comment: string;
-    remember_token: string;
-  };
+  counting_user_id: number;
   time_counted: string;
   is_confirmed: boolean;
   user_confirmed_id: number;
