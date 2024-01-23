@@ -3,7 +3,7 @@ import {
   UseAuthContextValues,
   UseBoxContextValues,
   UseDepositContextValues,
-} from './types';
+} from '@/utils';
 
 export const baseAuthContextValues = {
   credentials: 'superpassword',

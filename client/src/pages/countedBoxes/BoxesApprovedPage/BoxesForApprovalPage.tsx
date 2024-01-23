@@ -1,6 +1,6 @@
 // Utility functions
 import type { TableColumns } from '@/utils';
-import { CreateColumns, useUnverifiedBoxesQuery } from '@/utils';
+import { CreateColumns, useUnverifiedBoxesQuery, useVerifiedBoxesQuery } from '@/utils';
 
 // Style and ant design
 import s from './BoxesPage.module.less';
@@ -90,11 +90,18 @@ export const BoxesForApprovalPage = () => {
     },
   ];
 
-  const { data } = useUnverifiedBoxesQuery();
-  const displayableData = createDisplayableData(data);
+  const { data: unverifiedData } = useUnverifiedBoxesQuery();
+
+  const displayableData = createDisplayableData(unverifiedData);
+
+  const { data: verifiedData } = useVerifiedBoxesQuery();
+
+  const displayableVerifiedData = createDisplayableData(verifiedData);
+
+  const verifiedColumns = CreateColumns(columnsOptions, displayableVerifiedData);
 
   // Tworzenie kolumn
-  const columns = CreateColumns(columnsOptions);
+  const columns = CreateColumns(columnsOptions, displayableData);
 
   return (
     <Layout>
@@ -111,6 +118,19 @@ export const BoxesForApprovalPage = () => {
             rowClassName={s.table_row}
           />
         </Space>
+        <Space direction="vertical" size="small" className={s.space}>
+          <Title level={4}>Zatwierdzone</Title>
+          <Table
+            size="middle"
+            columns={verifiedColumns}
+            pagination={false}
+            dataSource={displayableVerifiedData}
+            rowKey="id"
+            scroll={{ y: '70vh' }}
+            rowClassName={s.table_row}
+          />
+        </Space>
+
         <Outlet />
       </Content>
     </Layout>

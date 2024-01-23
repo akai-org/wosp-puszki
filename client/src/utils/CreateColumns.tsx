@@ -202,7 +202,7 @@ export function CreateColumns<DataType extends { [key: string]: string | number 
           <Input
             ref={searchInput}
             placeholder={`Search ${dataIndex}`}
-            value={selectedKeys[0]}
+            value={selectedKeys[0]?.toString()}
             onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
             onPressEnter={() =>
               handleSearch(selectedKeys as string[], confirm, dataIndex)

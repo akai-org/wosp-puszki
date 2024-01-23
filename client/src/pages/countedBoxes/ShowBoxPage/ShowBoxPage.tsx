@@ -7,10 +7,10 @@ import {
   fetcher,
   APIManager,
   COUNTED_BOXES_PATH,
-  APPROVED_BOXES_PAGE_ROUTE,
   openNotification,
   NO_CONNECT_WITH_SERVER,
   CANNOT_DOWNLOAD_DATA,
+  useUnverifiedBoxesQuery,
 } from '@/utils';
 import { Space } from 'antd';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -20,10 +20,10 @@ import { FC } from 'react';
 interface Props {
   displayOnly?: boolean;
 }
-
 export const ShowBoxPage: FC<Props> = ({ displayOnly = false }) => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { refetch } = useUnverifiedBoxesQuery();
 
   const queryData = id ? useGetBoxQuery(id).data : undefined;
 
@@ -46,7 +46,10 @@ export const ShowBoxPage: FC<Props> = ({ displayOnly = false }) => {
       fetcher(`${APIManager.baseAPIRUrl}/charityBoxes/verified/${id}`, {
         method: 'POST',
       }),
-    onSuccess: () => navigate(`${COUNTED_BOXES_PATH}`),
+    onSuccess: () => {
+      refetch();
+      navigate(`${COUNTED_BOXES_PATH}`, { relative: 'route' });
+    },
     onError: () => {
       openNotification('error', NO_CONNECT_WITH_SERVER, CANNOT_DOWNLOAD_DATA);
     },
@@ -57,7 +60,10 @@ export const ShowBoxPage: FC<Props> = ({ displayOnly = false }) => {
       fetcher(`${APIManager.baseAPIRUrl}/charityBoxes/unverified/${id}`, {
         method: 'POST',
       }),
-    onSuccess: () => navigate(`${COUNTED_BOXES_PATH}/${APPROVED_BOXES_PAGE_ROUTE}`),
+    onSuccess: () => {
+      refetch();
+      navigate(`${COUNTED_BOXES_PATH}`, { relative: 'route' });
+    },
     onError: () => {
       openNotification('error', NO_CONNECT_WITH_SERVER, CANNOT_DOWNLOAD_DATA);
     },
