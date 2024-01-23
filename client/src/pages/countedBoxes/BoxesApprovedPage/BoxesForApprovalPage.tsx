@@ -186,6 +186,7 @@ export const BoxesForApprovalPage = () => {
             pagination={{ pageSize: 50, position: ['bottomCenter'] }}
             dataSource={displayableVerifiedData}
             rowKey="id"
+            scroll={{ y: '40vh' }}
             rowClassName={s.table_row}
           />
         </Space>
