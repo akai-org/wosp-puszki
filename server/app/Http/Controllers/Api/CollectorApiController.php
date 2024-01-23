@@ -144,7 +144,7 @@ final class CollectorApiController extends ApiController
             return new JsonResponse([
                 'status' => 'error',
                 'message' => 'Istnieje już wolontariusz o podanym numerze w systemie'
-            ]);
+            ], Response::HTTP_BAD_REQUEST);
         }
 
         //Dodanie wolontariusza

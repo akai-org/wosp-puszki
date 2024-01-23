@@ -164,7 +164,7 @@ final class CharityBoxApiController extends ApiController
             return new JsonResponse([
                 'error_message' => $e->getMessage(),
                 'status' => Response::HTTP_BAD_REQUEST
-            ]);
+            ], Response::HTTP_BAD_REQUEST);
         }
 
         // Flash input in case user wants to go back
@@ -449,7 +449,7 @@ final class CharityBoxApiController extends ApiController
             return new JsonResponse([
                 'error_message' => $e->getMessage(),
                 'status' => Response::HTTP_INTERNAL_SERVER_ERROR
-            ]);
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
         return new CharityBoxResource($box);
@@ -507,7 +507,7 @@ final class CharityBoxApiController extends ApiController
             return new JsonResponse([
                 'error_message' => 'ERROR',
                 'status' => Response::HTTP_INTERNAL_SERVER_ERROR
-            ]);
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
         return new CharityBoxResource($box);
