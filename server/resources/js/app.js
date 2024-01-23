@@ -1,8 +1,49 @@
+// Load lodash
+import _ from "lodash";
+window._ = _;
 
 /**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
+ * We'll load jQuery and the Bootstrap jQuery plugin which provides support
+ * for JavaScript based Bootstrap features such as modals and tabs. This
+ * code may be modified to fit the specific needs of your application.
+ */
+import $ from "jquery";
+window.$ = window.jQuery = $;
+import "bootstrap-sass";
+
+/**
+ * We'll load the axios HTTP library which allows us to easily issue requests
+ * to our Laravel back-end. This library automatically handles sending the
+ * CSRF token as a header based on the value of the "XSRF" token cookie.
+ */
+import axios from "axios";
+window.axios = axios;
+
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+
+/**
+ * Next we will register the CSRF Token as a common header with Axios so that
+ * all outgoing HTTP requests automatically have it attached. This is just
+ * a simple convenience so we don't have to attach every token manually.
  */
 
-require('./bootstrap');
+let token = document.head.querySelector('meta[name="csrf-token"]');
+
+if (token) {
+    window.axios.defaults.headers.common["X-CSRF-TOKEN"] = token.content;
+} else {
+    console.error(
+        "CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token"
+    );
+}
+
+window.encodeQueueStatusUpdate = (status, station) => {
+    return JSON.stringify({
+        s: status,
+        st: station,
+        t: Math.floor(Date.now() / 1000),
+    });
+};
+
+// Add assets to the Vite build
+import.meta.glob(["../images/**", "../fonts/**"]);

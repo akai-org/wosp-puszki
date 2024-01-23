@@ -42,7 +42,7 @@ const adminSubroutes: RouteObject[] = [
 export const adminRoute = {
   path: ADMIN_ROUTE,
   element: (
-    <ProtectedRoute>
+    <ProtectedRoute adminOnly>
       <InnerLayout
         links={[
           { url: ADD_USER_PAGE_ROUTE, label: 'Dodaj użytkownika' },

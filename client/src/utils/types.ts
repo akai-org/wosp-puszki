@@ -59,19 +59,19 @@ export type DataType = {
 };
 
 export type BoxDataType = {
-  box_id: string;
-  volunteer_id: number;
+  box_id: number;
+  volunteer_id: string;
   name: string;
-  amount_EUR: number;
-  amount_GBP: number;
-  amount_USD: number;
-  amount_PLN: number;
+  amount_EUR: string;
+  amount_GBP: string;
+  amount_USD: string;
+  amount_PLN: string;
   status: string;
   give_hour: string;
 };
 
 export type VolunteerDataType = {
-  volunteer_id: number;
+  volunteer_id: string;
   name: string;
   sur_name: string;
   id: string;
@@ -269,10 +269,10 @@ export interface IBoxes {
   count_100zl: number;
   count_200zl: number;
   count_500zl: number;
-  amount_PLN: number;
-  amount_EUR: number;
-  amount_USD: number;
-  amount_GBP: number;
+  amount_PLN: string;
+  amount_EUR: string;
+  amount_USD: string;
+  amount_GBP: string;
   comment: string;
   is_special_box: number;
 }
@@ -303,7 +303,7 @@ export type ZlotyAmountsKeys =
 export type ForeignAmountsKeys = 'amount_EUR' | 'amount_USD' | 'amount_GBP';
 
 export interface BoxData {
-  amounts: Record<AmountsKeys, number>;
+  amounts: Record<AmountsKeys, number | null>;
   comment: string;
 }
 
@@ -325,3 +325,13 @@ export type BoxTypeFormInput = {
   id_number: string;
   box_type: 0 | 10000 | 20000;
 };
+
+export interface Volunteer {
+  id: number;
+  identifier: string;
+  firstName: string;
+  lastName: string;
+  created_at: number;
+  updated_at: string;
+  boxes: Omit<boxResponse, 'collector'>[];
+}

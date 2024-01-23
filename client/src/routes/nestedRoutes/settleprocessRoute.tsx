@@ -8,12 +8,15 @@ import {
 import { RouteObject } from 'react-router-dom';
 import {
   ACCEPT_BOX_PAGE_ROUTE,
+  All_BOXES_PATH,
   BOXES_PATH,
   CHECKOUT_BOX_PAGE_ROUTE,
   DEPOSIT_BOX_PAGE_ROUTE,
   FIND_BOX_PAGE_ROUTE,
   SETTLE_PROCESS_PATH,
   SettleProcessProvider,
+  UNSETTLED_BOXES_PATH,
+  useAuthContext,
 } from '@/utils';
 import { ProtectedRoute } from '@/components/ProtectedRoute/ProtectedRoute';
 import { InnerLayoutManager } from '@/components';
@@ -40,10 +43,22 @@ const settleProcessSubroutes: RouteObject[] = [
     element: <SettleBoxPageCheckout />,
   },
 ];
-
-export const settleProcessRoute = {
-  path: SETTLE_PROCESS_PATH,
-  element: (
+const SettleProcessRoute = () => {
+  const { username } = useAuthContext();
+  const lastTwoCharacters = username?.slice(-2);
+  const isAdmin = isNaN(parseInt(lastTwoCharacters as string));
+  const links = [
+    { url: BOXES_PATH, label: 'Wydaj puszkę' },
+    { url: SETTLE_PROCESS_PATH, label: 'Rozlicz puszkę' },
+  ];
+  if (isAdmin) {
+    links.push({ url: All_BOXES_PATH, label: 'Wszystkie puszki' });
+    links.push({
+      url: UNSETTLED_BOXES_PATH,
+      label: 'Lista puszek nie rozliczonych',
+    });
+  }
+  return (
     <SettleProcessProvider>
       <ProtectedRoute>
         <InnerLayoutManager
@@ -54,13 +69,15 @@ export const settleProcessRoute = {
             DEPOSIT_BOX_PAGE_ROUTE,
             CHECKOUT_BOX_PAGE_ROUTE,
           ]}
-          links={[
-            { url: BOXES_PATH, label: 'Wydaj puszkę' },
-            { url: SETTLE_PROCESS_PATH, label: 'Rozlicz puszkę' },
-          ]}
+          links={links}
         />
       </ProtectedRoute>
     </SettleProcessProvider>
-  ),
+  );
+};
+
+export const settleProcessRoute = {
+  path: SETTLE_PROCESS_PATH,
+  element: <SettleProcessRoute />,
   children: settleProcessSubroutes,
 };

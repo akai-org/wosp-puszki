@@ -70,8 +70,7 @@ import { Link } from 'react-router-dom';
 
 export function CreateColumns<DataType extends { [key: string]: string | number }>(
   columnsOptions: TableColumns[],
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  _data: DataType[],
+  linkId = 'id',
 ) {
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
@@ -106,7 +105,7 @@ export function CreateColumns<DataType extends { [key: string]: string | number 
             } else {
               return (
                 <Link
-                  to={action.link ? `${action.link}${record['id']}` : '#'}
+                  to={action.link ? `${action.link}${record[linkId]}` : '#'}
                   style={{ color: action.color }}
                   key={action.title}
                 >
@@ -203,7 +202,7 @@ export function CreateColumns<DataType extends { [key: string]: string | number 
           <Input
             ref={searchInput}
             placeholder={`Search ${dataIndex}`}
-            value={selectedKeys[0]}
+            value={selectedKeys[0]?.toString()}
             onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
             onPressEnter={() =>
               handleSearch(selectedKeys as string[], confirm, dataIndex)
@@ -292,12 +291,12 @@ export function CreateColumns<DataType extends { [key: string]: string | number 
   const setStatus = (
     status:
       | {
-        key: string;
-        options: {
-          on: { value: string | number | boolean; description: string };
-          off: { value: string | number | boolean; description: string };
-        };
-      }
+          key: string;
+          options: {
+            on: { value: string | number | boolean; description: string };
+            off: { value: string | number | boolean; description: string };
+          };
+        }
       | undefined,
   ) => {
     if (!status || !status.key || !status.options) return {};

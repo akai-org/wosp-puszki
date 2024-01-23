@@ -57,7 +57,11 @@ export const DepositBoxForm = ({ boxId, editMode }: DepositBoxFormProps) => {
         body: { comment: boxData.comment, ...boxData.amounts },
       }),
     onSuccess: () =>
-      navigate(editMode ? COUNTED_BOXES_PATH : createFullRoutePath(SETTLE_PROCESS_PATH, CHECKOUT_BOX_PAGE_ROUTE)),
+      navigate(
+        editMode
+          ? COUNTED_BOXES_PATH
+          : createFullRoutePath(SETTLE_PROCESS_PATH, CHECKOUT_BOX_PAGE_ROUTE),
+      ),
     onError: (error) => {
       setMessage({ type: 'error', content: recognizeError(error) });
     },
@@ -78,12 +82,10 @@ export const DepositBoxForm = ({ boxId, editMode }: DepositBoxFormProps) => {
         <InputNumberBox
           count={handleAmountsChange}
           name={value}
-          value={Number(
-            (
-              boxData.amounts[key as keyof Record<AmountsKeys, number>] *
-              MONEY_VALUES[value as keyof moneyValuesType]
-            ).toFixed(2),
-          )}
+          value={
+            (boxData.amounts[key as keyof Record<AmountsKeys, number>] as number) *
+            MONEY_VALUES[value as keyof moneyValuesType]
+          }
           id={key}
           quantity={boxData.amounts[key as keyof Record<AmountsKeys, number>]}
           foreign={foreign.includes(key)}
@@ -91,10 +93,9 @@ export const DepositBoxForm = ({ boxId, editMode }: DepositBoxFormProps) => {
       </Form.Item>
     );
   });
-
   return (
     <>
-      <Form disabled={mutation.isLoading}>
+      <Form onFinish={handleSubmit} disabled={mutation.isLoading}>
         <Space className={s.columns}>
           <DepositColumn>
             {inputs.slice(moneySlice['from_1gr'], moneySlice['to_5zl']).map((input) => {
@@ -109,7 +110,7 @@ export const DepositBoxForm = ({ boxId, editMode }: DepositBoxFormProps) => {
               })}
             <Space className={s.sum}>
               <>Suma ( tylko PLN )</>
-              <>{total.toFixed(2).toString() + ' zł'}</>
+              <>{total.toFixed(2) + ' zł'}</>
             </Space>
           </DepositColumn>
           <DepositColumn foreign={true}>
@@ -138,12 +139,8 @@ export const DepositBoxForm = ({ boxId, editMode }: DepositBoxFormProps) => {
           align="center"
           className={s.submitContainer}
         >
-          <FormButton
-            type="primary"
-            onClick={handleSubmit}
-            isLoading={mutation.isLoading}
-          >
-            {editMode ? 'Edytuj Puszkę' : 'Rozlicz Puszkę'}
+          <FormButton type="primary" isLoading={mutation.isLoading}>
+            {editMode ? 'Zapisz' : 'Rozlicz Puszkę'}
           </FormButton>
         </Space>
         {message && (
