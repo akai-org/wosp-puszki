@@ -92,7 +92,6 @@ export const BoxesForApprovalPage = () => {
 
   const { data: unverifiedData } = useUnverifiedBoxesQuery();
 
-  console.log(unverifiedData);
   const displayableData = createDisplayableData(unverifiedData);
 
   const { data: verifiedData } = useVerifiedBoxesQuery();

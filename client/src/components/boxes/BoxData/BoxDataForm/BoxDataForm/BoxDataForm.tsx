@@ -83,7 +83,7 @@ export const DepositBoxForm = ({ boxId, editMode }: DepositBoxFormProps) => {
           count={handleAmountsChange}
           name={value}
           value={
-            boxData.amounts[key as keyof Record<AmountsKeys, number>] *
+            (boxData.amounts[key as keyof Record<AmountsKeys, number>] as number) *
             MONEY_VALUES[value as keyof moneyValuesType]
           }
           id={key}
