@@ -75,6 +75,7 @@ export const ZLOTY_AMOUNTS_KEYS: ZlotyAmountsKeys[] = [
   'count_100zl',
   'count_200zl',
   'count_500zl',
+  'amount_PLN',
 ];
 
 export const AMOUNTS_KEYS: AmountsKeys[] = [

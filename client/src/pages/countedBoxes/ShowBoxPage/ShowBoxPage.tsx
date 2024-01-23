@@ -25,14 +25,19 @@ export const ShowBoxPage: FC<Props> = ({ displayOnly = false }) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const queryData = id ? useGetBoxQuery(id).data : undefined;
+  const res = useGetBoxQuery(id as string);
+  const queryData = res.data;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const amounts: any = {};
 
   if (queryData) {
     Array.from(AMOUNTS_KEYS).forEach((key) => {
-      amounts[key] = queryData[key];
+      if (typeof queryData[key] === 'string') {
+        amounts[key] = parseFloat(queryData[key] as string);
+      } else {
+        amounts[key] = queryData[key];
+      }
     });
   }
 
@@ -40,6 +45,8 @@ export const ShowBoxPage: FC<Props> = ({ displayOnly = false }) => {
     amounts,
     comment: queryData?.comment || '',
   };
+
+  console.log(data);
 
   const verifyMutation = useMutation({
     mutationFn: () =>

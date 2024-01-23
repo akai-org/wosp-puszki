@@ -270,9 +270,9 @@ export interface IBoxes {
   count_200zl: number;
   count_500zl: number;
   amount_PLN: number;
-  amount_EUR: number;
-  amount_USD: number;
-  amount_GBP: number;
+  amount_EUR: string;
+  amount_USD: string;
+  amount_GBP: string;
   comment: string;
   is_special_box: number;
 }
@@ -298,7 +298,8 @@ export type ZlotyAmountsKeys =
   | 'count_50zl'
   | 'count_100zl'
   | 'count_200zl'
-  | 'count_500zl';
+  | 'count_500zl'
+  | 'amount_PLN';
 
 export type ForeignAmountsKeys = 'amount_EUR' | 'amount_USD' | 'amount_GBP';
 
