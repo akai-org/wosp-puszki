@@ -15,7 +15,7 @@ export const BoxesForApprovalPage = () => {
   // Ustawienia dla poszczególnych kolumn
   const columnsOptions: TableColumns[] = [
     {
-      titleName: 'ID',
+      titleName: 'ID wol.',
       keyName: 'id',
       sortType: 'number',
       search: true,
@@ -92,7 +92,6 @@ export const BoxesForApprovalPage = () => {
 
   const { data: unverifiedData } = useUnverifiedBoxesQuery();
 
-  console.log(unverifiedData);
   const displayableData = createDisplayableData(unverifiedData);
 
   const { data: verifiedData } = useVerifiedBoxesQuery();

@@ -14,7 +14,7 @@ export const createDisplayableData = (data: IBoxes[]) => {
     const name = `${item.collector.firstName} ${item.collector.lastName}`;
 
     displayableData.push({
-      id: item.id,
+      id: item.collectorIdentifier,
       name: name,
       amount_EUR: item.amount_EUR,
       amount_GBP: item.amount_GBP,
