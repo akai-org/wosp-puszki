@@ -15,18 +15,18 @@ export const BoxesForApprovalPage = () => {
   // Ustawienia dla poszczególnych kolumn
   const columnsOptions: TableColumns[] = [
     {
-      titleName: 'ID wol.',
+      titleName: 'ID',
       keyName: 'collectorId',
-      sortType: 'number',
       search: true,
       fixed: 'left',
-      width: 60,
+      width: 50,
     },
     {
       titleName: 'Wolontariusz',
       keyName: 'name',
       sortType: 'string',
       search: true,
+      ellipsis: true,
       fixed: 'left',
       width: 250,
     },
@@ -34,7 +34,7 @@ export const BoxesForApprovalPage = () => {
       titleName: 'PLN',
       keyName: 'amount_PLN',
       sortType: 'number',
-      width: 150,
+      width: 120,
       afterText: 'PLN',
     },
     {
@@ -66,13 +66,13 @@ export const BoxesForApprovalPage = () => {
       titleName: 'Stanowisko',
       keyName: 'countingStation',
       search: true,
-      width: 100,
+      width: 90,
     },
     {
       titleName: 'Godzina przeliczenia',
       keyName: 'time_counted',
       sortType: 'date',
-      width: 150,
+      width: 100,
       search: true,
     },
     {
@@ -121,6 +121,7 @@ export const BoxesForApprovalPage = () => {
             dataSource={displayableData}
             rowKey="id"
             rowClassName={s.table_row}
+            scroll={{ y: '40vh' }}
             className={'table'}
           />
         </Space>
