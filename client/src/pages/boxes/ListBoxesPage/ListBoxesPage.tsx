@@ -13,42 +13,7 @@ const { Title } = Typography;
 const { Content } = Layout;
 
 export const ListBoxesPage = () => {
-  // testowe dane
-  const data: BoxDataType[] = [
-    {
-      box_id: '1',
-      volunteer_id: 103,
-      name: 'Pan Paweł',
-      amount_EUR: 10.5,
-      amount_GBP: 34.6,
-      amount_USD: 100,
-      amount_PLN: 1042.7,
-      status: 'settled',
-      give_hour: '2023-02-01 13:34:02',
-    },
-    {
-      box_id: '2',
-      volunteer_id: 84,
-      name: 'Susanna Mamun',
-      amount_EUR: 15.5,
-      amount_GBP: 14.6,
-      amount_USD: 150,
-      amount_PLN: 1742.7,
-      status: 'unsettled',
-      give_hour: '2022-01-14 12:14:45',
-    },
-    {
-      box_id: '3',
-      volunteer_id: 38,
-      name: 'Dobrosława Pola',
-      amount_EUR: 60.1,
-      amount_GBP: 7.6,
-      amount_USD: 530,
-      amount_PLN: 742.7,
-      status: 'settled',
-      give_hour: '2023-01-11 13:23:10',
-    },
-  ];
+  const data: BoxDataType[] = [];
 
   // Ustawienia dla poszczególnych kolumn
   const columnsOptions: TableColumns[] = [
