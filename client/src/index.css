@@ -20,19 +20,44 @@
 }
 
 #vertical-map .volunteer-occupied {
-  fill: #e11e14!important;
+  fill: #e11e14 !important;
 }
 
 #vertical-map .volunteer-available {
-  fill: #93c01f!important;
+  fill: #93c01f !important;
 }
 
 #vertical-map .volunteer-unavailable {
-  fill: #000!important;
+  fill: #000 !important;
 }
 
 @media (-webkit-device-pixel-ratio: 1.25) {
   #rescale {
-    zoom: 0.8!important;
+    zoom: 0.8 !important;
   }
+}
+
+.give-color {
+  background-color: #bae1ff;
+}
+.found-color {
+  background: #ffaacc;
+}
+.startedCounting-color {
+  background-color: #ccaaff;
+}
+.endedCounting-color {
+  background-color: #ffaaee;
+}
+.confirmed-color {
+  background-color: #fff79a;
+}
+.verified-color {
+  background-color: #82ca9d;
+}
+.modified-color {
+  background-color: #f7977a;
+}
+.unverified-color {
+  background-color: black;
 }

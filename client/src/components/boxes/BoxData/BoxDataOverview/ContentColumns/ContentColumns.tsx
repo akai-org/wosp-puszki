@@ -31,9 +31,9 @@ export const ContentColumns: FC<Props> = ({ boxData, total }) => {
         {ZLOTY_AMOUNTS_KEYS.map((key) => (
           <ContentLine_Three
             denomination={MONEY_AMOUNTS_VALUES[key]}
-            amount={boxData.amounts[key]}
+            amount={boxData.amounts[key] as number}
             value={
-              boxData.amounts[key] *
+              (boxData.amounts[key] as number) *
               MONEY_VALUES[MONEY_AMOUNTS_VALUES[key] as keyof moneyValuesType]
             }
             data_testid={key}
@@ -42,7 +42,7 @@ export const ContentColumns: FC<Props> = ({ boxData, total }) => {
         ))}
         <Space className={s.columnBottom}>
           <Text>Suma (PLN)</Text>
-          <Text data-testid={'sm_total'}>{total} zł</Text>
+          <Text data-testid={'sm_total'}>{total.toFixed(2)} zł</Text>
         </Space>
       </Space>
       <Space className={s.contentColumn} direction="vertical">
@@ -53,7 +53,7 @@ export const ContentColumns: FC<Props> = ({ boxData, total }) => {
         {FOREIGN_AMOUNTS_KEYS.map((key) => (
           <ContentLine_Two
             denomination={MONEY_AMOUNTS_VALUES[key]}
-            amount={boxData.amounts[key]}
+            amount={boxData.amounts[key] as number}
             data_testid={key}
             key={key}
           />
@@ -66,7 +66,7 @@ export const ContentColumns: FC<Props> = ({ boxData, total }) => {
       <Space className={s.sum}>
         <Title level={4}>Suma (bez walut obcych):</Title>
         <Title data-testid={'total'} level={4}>
-          {total} zł
+          {total.toFixed(2)} zł
         </Title>
       </Space>
     </Space>

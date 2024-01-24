@@ -5,8 +5,8 @@ export const createUsersData = (data: IUser[]) => {
 
   for (const item of data) {
     users.push({
-      user_id: item.name,
-      name: item.roles[0].name,
+      user_id: item.id,
+      name: item.name,
       role: item.roles[0].description,
     });
   }

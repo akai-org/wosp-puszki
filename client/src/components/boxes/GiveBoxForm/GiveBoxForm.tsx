@@ -6,8 +6,10 @@ import {
   fetcher,
   FormMessage,
   ID_NUMBER_REQUIRED,
+  BoxTypeFormInput,
   recognizeError,
   TYPE_OF_BOX_REQUIRED,
+  boxTypeFormSelectOptions,
 } from '@/utils';
 
 import { FormWrapper, FormInput, FormSelect, FormButton } from '@/components';
@@ -15,26 +17,6 @@ import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'antd/es/form/Form';
 
 const { Text } = Typography;
-
-const options = [
-  {
-    value: 0,
-    label: 'Puszka Wolontariusza',
-  },
-  {
-    value: 10000,
-    label: 'Puszka Stacjonarna',
-  },
-  {
-    value: 20000,
-    label: 'Puszka Firmowa',
-  },
-];
-
-type FormInput = {
-  id_number: string;
-  box_type: 0 | 10000 | 20000;
-};
 
 export const GiveBoxForm = () => {
   const [message, setMessage] = useState<FormMessage | undefined>();
@@ -54,7 +36,7 @@ export const GiveBoxForm = () => {
     },
   );
 
-  const onFinish = (values: FormInput) => {
+  const onFinish = (values: BoxTypeFormInput) => {
     const volunteerId = parseInt(values.id_number) + values.box_type;
     if (!isNaN(volunteerId)) {
       mutation.mutate(volunteerId);
@@ -86,7 +68,7 @@ export const GiveBoxForm = () => {
         <FormSelect
           name="box_type"
           placeholder="Wybierz rodzaj"
-          options={options}
+          options={boxTypeFormSelectOptions}
           rules={[{ required: true, message: TYPE_OF_BOX_REQUIRED }]}
         />
       </Space>

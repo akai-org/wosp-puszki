@@ -23,7 +23,6 @@ export const ProtectedRoute = ({
   //
   if (topPermission) {
     const isProperPermission = topPermission <= permissions[permission];
-    console.log('isProperPermission', isProperPermission);
     if (shouldRedirect || !isProperPermission) {
       return <Navigate to={redirectTo} replace />;
     }

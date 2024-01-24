@@ -3,27 +3,27 @@ import { IDepositContext, BoxData } from '@/utils';
 
 const clearBoxDataValues = {
   amounts: {
-    count_1gr: 0,
-    count_2gr: 0,
-    count_5gr: 0,
-    count_10gr: 0,
-    count_20gr: 0,
-    count_50gr: 0,
-    count_1zl: 0,
-    count_2zl: 0,
-    count_5zl: 0,
-    count_10zl: 0,
-    count_20zl: 0,
-    count_50zl: 0,
-    count_100zl: 0,
-    count_200zl: 0,
-    count_500zl: 0,
-    amount_EUR: 0,
-    amount_USD: 0,
-    amount_GBP: 0,
+    count_1gr: null,
+    count_2gr: null,
+    count_5gr: null,
+    count_10gr: null,
+    count_20gr: null,
+    count_50gr: null,
+    count_1zl: null,
+    count_2zl: null,
+    count_5zl: null,
+    count_10zl: null,
+    count_20zl: null,
+    count_50zl: null,
+    count_100zl: null,
+    count_200zl: null,
+    count_500zl: null,
+    amount_EUR: null,
+    amount_USD: null,
+    amount_GBP: null,
   },
   comment: '',
-}
+};
 
 export const DepositContext = createContext<IDepositContext | null>(null);
 
@@ -40,18 +40,18 @@ export const useDepositContextValues = (defaultBoxData?: BoxData | null) => {
 
   useEffect(() => {
     if (defaultBoxData) setBoxData(defaultBoxData);
-  }, [defaultBoxData])
+  }, [defaultBoxData]);
 
   const handleAmountsChange = (id: string, value: number | string) => {
     id != 'comment'
       ? setBoxData((prevBoxData) => ({
-        ...prevBoxData,
-        amounts: { ...prevBoxData.amounts, [id]: value },
-      }))
+          ...prevBoxData,
+          amounts: { ...prevBoxData.amounts, [id]: value },
+        }))
       : setBoxData((prevBoxData) => ({
-        ...prevBoxData,
-        comment: value as string,
-      }));
+          ...prevBoxData,
+          comment: value as string,
+        }));
   };
 
   const cleanAmounts = () => {
