@@ -11,6 +11,7 @@ use App\Utils\RatesConverter\Converters\ConvertUsdToPln;
 use App\Utils\RatesFetcherFactory;
 use Money\Currency;
 use OpenApi\Annotations as OA;
+use function App\resolveRatesFetcher;
 
 /**
  * @author kabix09
@@ -22,14 +23,6 @@ use OpenApi\Annotations as OA;
  **/
 final class RatesApiController extends ApiController
 {
-    /** @var RatesFetcher */
-    private RatesFetcher $ratesFetcher;
-
-    public function __construct()
-    {
-        $this->ratesFetcher = RatesFetcherFactory::config()::build();
-    }
-
 //* security={
 //*          {"bearer_token":{}},
 //*      },
@@ -94,11 +87,13 @@ final class RatesApiController extends ApiController
      */
     public function index()
     {
+        $fetcher = resolveRatesFetcher();
+        $rates = $fetcher->fetchRates();
         return json_encode([
             'rates' => [
-                'EUR' => (new ConvertEurToPln(0, new Currency(CurrencyEnum::defaultCurrency()->value)))->getRates(),
-                'USD' => (new ConvertUsdToPln(0, new Currency(CurrencyEnum::defaultCurrency()->value)))->getRates(),
-                'GBP' => (new ConvertGbpToPln(0, new Currency(CurrencyEnum::defaultCurrency()->value)))->getRates(),
+                'EUR' => $rates['EUR'],
+                'USD' => $rates['USD'],
+                'GBP' => $rates['GBP'],
             ]
         ]);
     }
@@ -150,14 +145,20 @@ final class RatesApiController extends ApiController
      */
     public function show(string $currency)
     {
-        $currency = CurrencyEnum::tryFrom(strtoupper($currency));
+        $fetcher = resolveRatesFetcher();
+        $rates = $fetcher->fetchRates();
 
-        if($currency === null)
-            throw new \InvalidArgumentException(sprintf('Invalid currency name: %s', $currency));
-        else if($currency == CurrencyEnum::defaultCurrency())
-            return json_encode(["rates" => 1, "message" => "It's default currency. The rates PLN to PLN is always 1"]);
-
-        return json_encode(["rates" => round((float)$this->ratesFetcher->fetchRates($currency)->current(), 2)]);
+        return match ($currency) {
+            'EUR' => json_encode([
+                'rates' => $rates['EUR'],
+            ]),
+            'USD' => json_encode([
+                'rates' => $rates['USD'],
+            ]),
+            'GBP' => json_encode([
+                'rates' => $rates['GBP'],
+            ]),
+            default => json_encode(["rates" => 1, "message" => "Unknown currency"]),
+        };
     }
-
 }
