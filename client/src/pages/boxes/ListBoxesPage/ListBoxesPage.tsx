@@ -1,12 +1,14 @@
 // Utility functions
 import type { TableColumns } from '@/utils';
-import { CreateColumns, useGetAllBoxesQuery } from '@/utils';
+import { APIManager, CreateColumns, fetcher, useGetAllBoxesQuery } from '@/utils';
 
 // Style and ant design
 import s from '../BoxesPage.module.less';
 import { Typography, Space, Layout, Table } from 'antd';
 import { createDisplayableBoxData } from '@/utils/Functions/createRefactorData';
 import { Outlet } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+import { c } from 'msw/lib/glossary-de6278a9';
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -111,9 +113,29 @@ export const ListBoxesPage = () => {
   // Tworzenie kolumn
   const columns = CreateColumns(columnsOptions, 'box_id');
 
+  const mutation = useMutation({
+    mutationFn: () =>
+      fetcher<Blob>(`${APIManager.baseAPIRUrl}/charityBoxes/csv`, { returnBlob: true }),
+    onSuccess: (data) => {
+      const url = window.URL.createObjectURL(new Blob([data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute(
+        'download',
+        `charity_boxes${(Math.random() * 10000000000).toFixed(0)}.csv`,
+      );
+      document.body.appendChild(link);
+      link.click();
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
   return (
     <Layout>
       <Content className={s.content}>
+        <button onClick={() => mutation.mutate()}>dupa</button>
         <Space direction="vertical" size="small" className={s.space}>
           <Title level={4}>Lista puszek</Title>
           <Table
