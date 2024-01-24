@@ -1,6 +1,13 @@
 // Utility functions
 import type { TableColumns } from '@/utils';
-import { CreateColumns, useUnverifiedBoxesQuery, useVerifiedBoxesQuery } from '@/utils';
+import {
+  CreateColumns,
+  getTopPermission,
+  permissions,
+  useAuthContext,
+  useUnverifiedBoxesQuery,
+  useVerifiedBoxesQuery,
+} from '@/utils';
 
 // Style and ant design
 import s from './BoxesPage.module.less';
@@ -12,6 +19,10 @@ const { Title } = Typography;
 const { Content } = Layout;
 
 export const BoxesForApprovalPage = () => {
+  const { roles } = useAuthContext();
+  const topRole = getTopPermission(roles);
+  const isPermitted = topRole !== null && topRole <= permissions['admin'];
+
   // Ustawienia dla poszczególnych kolumn
   const columnsOptions: TableColumns[] = [
     {
@@ -118,18 +129,20 @@ export const BoxesForApprovalPage = () => {
             rowClassName={s.table_row}
           />
         </Space>
-        <Space direction="vertical" size="small" className={s.space}>
-          <Title level={4}>Zatwierdzone</Title>
-          <Table
-            size="middle"
-            columns={verifiedColumns}
-            pagination={false}
-            dataSource={displayableVerifiedData}
-            rowKey="id"
-            scroll={{ y: '70vh' }}
-            rowClassName={s.table_row}
-          />
-        </Space>
+        {isPermitted ? (
+          <Space direction="vertical" size="small" className={s.space}>
+            <Title level={4}>Zatwierdzone</Title>
+            <Table
+              size="middle"
+              columns={verifiedColumns}
+              pagination={false}
+              dataSource={displayableVerifiedData}
+              rowKey="id"
+              scroll={{ y: '70vh' }}
+              rowClassName={s.table_row}
+            />
+          </Space>
+        ) : null}
 
         <Outlet />
       </Content>
