@@ -22,7 +22,7 @@ class CharityBoxApiController extends Controller
 
     //Lista puszek do potwierdzenia (dla administratora)
     public function getVerifyList(){
-        $boxesToConfirm = CharityBox::with('collector')
+        $boxesToConfirm = CharityBox::with('collector', 'countingUser')
             ->unconfirmed()
             ->orderBy('time_counted', 'desc')
             ->get();
@@ -31,7 +31,7 @@ class CharityBoxApiController extends Controller
 
     public function getVerifiedBoxes() {
         //Puszki potwierdzone
-        $boxesConfirmed = CharityBox::with('collector')
+        $boxesConfirmed = CharityBox::with('collector', 'countingUser')
             ->confirmed()
             ->orderBy('time_confirmed', 'desc')
             ->get();
