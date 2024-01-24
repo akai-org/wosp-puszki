@@ -35,7 +35,7 @@ class LogsApiController extends ApiController
 
     /**
      * @OA\Get(
-     *  path="/logs",
+     *  path="/api/logs",
      *  operationId="getBoxEventsList",
      *  tags={"BoxEvent"},
      *  summary="Get list of box events - logs",
@@ -66,7 +66,7 @@ class LogsApiController extends ApiController
 
     /**
      * @OA\Get(
-     *  path="/logs/box/{id}",
+     *  path="/api/logs/box/{id}",
      *  operationId="getBoxEventsByBox",
      *  tags={"BoxEvent"},
      *  summary="Get charity box events - logs",

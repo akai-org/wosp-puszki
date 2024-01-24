@@ -33,7 +33,7 @@ final class CountedBoxApiController extends ApiController
 
     /**
      * @OA\Get(
-     *     path="/charityBoxes/count/collected",
+     *     path="/api/charityBoxes/count/collected",
      *     operationId="getCollectedCharityBox",
      *     tags={"CharityBoxScore"},
      *     summary="Get bucket of collected money",
@@ -98,7 +98,7 @@ final class CountedBoxApiController extends ApiController
 
     /**
      * @OA\Get(
-     *     path="/charityBoxes/count/collected/sum",
+     *     path="/api/charityBoxes/count/collected/sum",
      *     operationId="getSumOfCollectedCharityBox",
      *     tags={"CharityBoxScore"},
      *     summary="Get sum of collected money in default currency",
@@ -140,7 +140,7 @@ final class CountedBoxApiController extends ApiController
 
     /**
      * @OA\Get(
-     *     path="/charityBoxes/count/collected/{currency}",
+     *     path="/api/charityBoxes/count/collected/{currency}",
      *     operationId="getCollectedCharityBoxByCurrency",
      *     tags={"CharityBoxScore"},
      *     summary="Get amount of money collected in specify currency",
@@ -195,7 +195,7 @@ final class CountedBoxApiController extends ApiController
 
     /**
      * @OA\Get(
-     *     path="/charityBoxes/count/confirmed",
+     *     path="/api/charityBoxes/count/confirmed",
      *     operationId="getConfirmedCharityBoxSum",
      *     tags={"CharityBoxScore"},
      *     summary="Get sum of collected money",
@@ -259,7 +259,7 @@ final class CountedBoxApiController extends ApiController
 
     /**
      * @OA\Get(
-     *     path="/charityBoxes/count/confirmed/sum",
+     *     path="/api/charityBoxes/count/confirmed/sum",
      *     operationId="getSumOfConfirmedCharityBox",
      *     tags={"CharityBoxScore"},
      *     summary="Get sum of confirmed money in default currency",
@@ -301,7 +301,7 @@ final class CountedBoxApiController extends ApiController
 
     /**
      * @OA\Get(
-     *     path="/charityBoxes/count/confirmed/{currency}",
+     *     path="/api/charityBoxes/count/confirmed/{currency}",
      *     operationId="getConfirmedCharityBoxSumByCurrency",
      *     tags={"CharityBoxScore"},
      *     summary="Get amount of money in specified currency",

@@ -29,7 +29,7 @@ final class RatesApiController extends ApiController
 
     /**
      * @OA\Get(
-     *      path="/currency/rates",
+     *      path="/api/currency/rates",
      *      operationId="getCurrencyRatesList",
      *      tags={"Rates"},
      *      summary="Get list of currencies rate",
@@ -100,7 +100,7 @@ final class RatesApiController extends ApiController
 
     /**
      * @OA\Get(
-     *      path="/currency/rates/{currency}",
+     *      path="/api/currency/rates/{currency}",
      *      operationId="getCurrencyRate",
      *      tags={"Rates"},
      *      summary="Get currency rate",

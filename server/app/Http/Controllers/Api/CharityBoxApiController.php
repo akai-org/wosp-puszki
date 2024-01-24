@@ -32,7 +32,7 @@ final class CharityBoxApiController extends ApiController
 
     /**
      * @OA\Get(
-     *      path="/charityBoxes",
+     *      path="/api/charityBoxes",
      *      operationId="getCharityBoxList",
      *      tags={"CharityBoxes"},
      *      summary="Get list of charity boxes",
@@ -61,7 +61,7 @@ final class CharityBoxApiController extends ApiController
 
     /**
      * @OA\Get(
-     *      path="/charityBoxes/{id}",
+     *      path="/api/charityBoxes/{id}",
      *      operationId="getCharityBoxById",
      *      tags={"CharityBoxes"},
      *      summary="Get charity box information",
@@ -109,7 +109,7 @@ final class CharityBoxApiController extends ApiController
 
     /**
      * @OA\Put(
-     *     path="/charityBoxes/{id}",
+     *     path="/api/charityBoxes/{id}",
      *     operationId="updateCharityBox",
      *      tags={"CharityBoxes"},
      *      summary="Update charity box",
@@ -202,7 +202,7 @@ final class CharityBoxApiController extends ApiController
 
     /**
      * @OA\Get(
-     *      path="/charityBoxes/unverified",
+     *      path="/api/charityBoxes/unverified",
      *      operationId="getUnverifiedList",
      *      tags={"CharityBoxes"},
      *      summary="Get list of unverified charity boxes",
@@ -234,7 +234,7 @@ final class CharityBoxApiController extends ApiController
 
     /**
      * @OA\Get(
-     *      path="/charityBoxes/verified",
+     *      path="/api/charityBoxes/verified",
      *      operationId="getVerifiedList",
      *      tags={"CharityBoxes"},
      *      summary="Get list of verified charity boxes",
@@ -266,7 +266,7 @@ final class CharityBoxApiController extends ApiController
 
     /**
      * @OA\Post(
-     *     path="/charityBoxes/verified/{id}",
+     *     path="/api/charityBoxes/verified/{id}",
      *     operationId="postVerifyCharityBoxById",
      *     tags={"CharityBoxes"},
      *     summary="Verify Charity Box",
@@ -332,7 +332,7 @@ final class CharityBoxApiController extends ApiController
 
     /**
      * @OA\Post(
-     *     path="/charityBoxes/unverified/{id}",
+     *     path="/api/charityBoxes/unverified/{id}",
      *     operationId="postUnverifyCharityBoxById",
      *     tags={"CharityBoxes"},
      *     summary="Unverify Charity Box",
@@ -398,7 +398,7 @@ final class CharityBoxApiController extends ApiController
 
     /**
      * @OA\Post(
-     *     path="/charityBoxes/{id}/startCounting",
+     *     path="/api/charityBoxes/{id}/startCounting",
      *     operationId="stratCountngCharityBoxById",
      *     tags={"CharityBoxes"},
      *     summary="Start counting Charity Box",
@@ -457,7 +457,7 @@ final class CharityBoxApiController extends ApiController
 
     /**
      * @OA\Post(
-     *     path="/charityBoxes/{id}/finishCounting",
+     *     path="/api/charityBoxes/{id}/finishCounting",
      *     operationId="finishCountngCharityBoxById",
      *     tags={"CharityBoxes"},
      *     summary="Finish counting Charity Box (Confirm by volunteer)",
@@ -515,7 +515,7 @@ final class CharityBoxApiController extends ApiController
 
     /**
      * @OA\Post(
-     *     path="/charityBoxes/{id}/verify",
+     *     path="/api/charityBoxes/{id}/verify",
      *     operationId="verifyCharityBoxByAdmin",
      *     tags={"CharityBoxes"},
      *     summary="Verify Charity Box (Confirm by admin)",

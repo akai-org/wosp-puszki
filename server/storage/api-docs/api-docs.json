@@ -19,7 +19,7 @@
         }
     ],
     "paths": {
-        "/stations": {
+        "/api/stations": {
             "get": {
                 "tags": [
                     "Stations"
@@ -47,7 +47,7 @@
                 }
             }
         },
-        "/stations/{id}/ready": {
+        "/api/stations/{id}/ready": {
             "post": {
                 "tags": [
                     "Stations"
@@ -87,7 +87,7 @@
                 }
             }
         },
-        "/stations/{id}/busy": {
+        "/api/stations/{id}/busy": {
             "post": {
                 "tags": [
                     "Stations"
@@ -127,7 +127,7 @@
                 }
             }
         },
-        "/stations/{id}/unknown": {
+        "/api/stations/{id}/unknown": {
             "post": {
                 "tags": [
                     "Stations"
@@ -167,7 +167,7 @@
                 }
             }
         },
-        "/stations/status": {
+        "/api/stations/status": {
             "get": {
                 "tags": [
                     "Stations"
@@ -214,7 +214,7 @@
                 }
             }
         },
-        "/charityBoxes": {
+        "/api/charityBoxes": {
             "get": {
                 "tags": [
                     "CharityBoxes"
@@ -242,7 +242,7 @@
                 }
             }
         },
-        "/charityBoxes/{id}": {
+        "/api/charityBoxes/{id}": {
             "get": {
                 "tags": [
                     "CharityBoxes"
@@ -341,7 +341,7 @@
                 }
             }
         },
-        "/charityBoxes/unverified": {
+        "/api/charityBoxes/unverified": {
             "get": {
                 "tags": [
                     "CharityBoxes"
@@ -369,7 +369,7 @@
                 }
             }
         },
-        "/charityBoxes/verified": {
+        "/api/charityBoxes/verified": {
             "get": {
                 "tags": [
                     "CharityBoxes"
@@ -397,7 +397,7 @@
                 }
             }
         },
-        "/charityBoxes/verified/{id}": {
+        "/api/charityBoxes/verified/{id}": {
             "post": {
                 "tags": [
                     "CharityBoxes"
@@ -451,7 +451,7 @@
                 }
             }
         },
-        "/charityBoxes/unverified/{id}": {
+        "/api/charityBoxes/unverified/{id}": {
             "post": {
                 "tags": [
                     "CharityBoxes"
@@ -506,7 +506,7 @@
                 }
             }
         },
-        "/charityBoxes/{id}/startCounting": {
+        "/api/charityBoxes/{id}/startCounting": {
             "post": {
                 "tags": [
                     "CharityBoxes"
@@ -552,7 +552,7 @@
                 }
             }
         },
-        "/charityBoxes/{id}/finishCounting": {
+        "/api/charityBoxes/{id}/finishCounting": {
             "post": {
                 "tags": [
                     "CharityBoxes"
@@ -598,7 +598,7 @@
                 }
             }
         },
-        "/charityBoxes/{id}/verify": {
+        "/api/charityBoxes/{id}/verify": {
             "post": {
                 "tags": [
                     "CharityBoxes"
@@ -653,7 +653,7 @@
                 }
             }
         },
-        "/collectors": {
+        "/api/collectors": {
             "get": {
                 "tags": [
                     "Collectors"
@@ -741,7 +741,7 @@
                 }
             }
         },
-        "/collectors/{id}": {
+        "/api/collectors/{id}": {
             "get": {
                 "tags": [
                     "Collectors"
@@ -781,7 +781,7 @@
                 }
             }
         },
-        "/collectors/{collectorIdentifier}/box/create": {
+        "/api/collectors/{collectorIdentifier}/box/create": {
             "post": {
                 "tags": [
                     "Collectors"
@@ -824,7 +824,7 @@
                 }
             }
         },
-        "/collectors/{collectorIdentifier}/box/latestUncounted": {
+        "/api/collectors/{collectorIdentifier}/box/latestUncounted": {
             "get": {
                 "tags": [
                     "Collectors"
@@ -867,7 +867,7 @@
                 }
             }
         },
-        "/charityBoxes/count/collected": {
+        "/api/charityBoxes/count/collected": {
             "get": {
                 "tags": [
                     "CharityBoxScore"
@@ -923,7 +923,7 @@
                 }
             }
         },
-        "/charityBoxes/count/collected/sum": {
+        "/api/charityBoxes/count/collected/sum": {
             "get": {
                 "tags": [
                     "CharityBoxScore"
@@ -963,7 +963,7 @@
                 }
             }
         },
-        "/charityBoxes/count/collected/{currency}": {
+        "/api/charityBoxes/count/collected/{currency}": {
             "get": {
                 "tags": [
                     "CharityBoxScore"
@@ -1015,7 +1015,7 @@
                 }
             }
         },
-        "/charityBoxes/count/confirmed": {
+        "/api/charityBoxes/count/confirmed": {
             "get": {
                 "tags": [
                     "CharityBoxScore"
@@ -1070,7 +1070,7 @@
                 }
             }
         },
-        "/charityBoxes/count/confirmed/sum": {
+        "/api/charityBoxes/count/confirmed/sum": {
             "get": {
                 "tags": [
                     "CharityBoxScore"
@@ -1110,7 +1110,7 @@
                 }
             }
         },
-        "/charityBoxes/count/confirmed/{currency}": {
+        "/api/charityBoxes/count/confirmed/{currency}": {
             "get": {
                 "tags": [
                     "CharityBoxScore"
@@ -1185,7 +1185,7 @@
                 }
             }
         },
-        "/logs": {
+        "/api/logs": {
             "get": {
                 "tags": [
                     "BoxEvent"
@@ -1213,7 +1213,7 @@
                 }
             }
         },
-        "/logs/box/{id}": {
+        "/api/logs/box/{id}": {
             "get": {
                 "tags": [
                     "BoxEvent"
@@ -1253,7 +1253,7 @@
                 }
             }
         },
-        "/currency/rates": {
+        "/api/currency/rates": {
             "get": {
                 "tags": [
                     "Rates"
@@ -1317,7 +1317,7 @@
                 }
             }
         },
-        "/currency/rates/{currency}": {
+        "/api/currency/rates/{currency}": {
             "get": {
                 "tags": [
                     "Rates"
@@ -1369,7 +1369,7 @@
                 }
             }
         },
-        "/users": {
+        "/api/users": {
             "get": {
                 "tags": [
                     "Users"
@@ -1437,7 +1437,7 @@
                 }
             }
         },
-        "/users/{id}": {
+        "/api/users/{id}": {
             "get": {
                 "tags": [
                     "Users"

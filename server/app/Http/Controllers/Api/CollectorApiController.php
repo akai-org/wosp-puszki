@@ -40,7 +40,7 @@ final class CollectorApiController extends ApiController
 
     /**
      * @OA\Get(
-     *  path="/collectors",
+     *  path="/api/collectors",
      *  operationId="getCollectorList",
      *  tags={"Collectors"},
      *  summary="Get list of Collectors",
@@ -63,7 +63,7 @@ final class CollectorApiController extends ApiController
 
     /**
      * @OA\Get(
-     *  path="/collectors/{id}",
+     *  path="/api/collectors/{id}",
      *  operationId="getCollectorById",
      *  tags={"Collectors"},
      *  summary="Get collector information",
@@ -101,7 +101,7 @@ final class CollectorApiController extends ApiController
 
     /**
      * @OA\Post(
-     *  path="/collectors",
+     *  path="/api/collectors",
      *  operationId="postCollector",
      *  tags={"Collectors"},
      *  summary="Insert a new Collector",
@@ -163,7 +163,7 @@ final class CollectorApiController extends ApiController
 
     /**
      * @OA\Post(
-     *  path="/collectors/{collectorIdentifier}/box/create",
+     *  path="/api/collectors/{collectorIdentifier}/box/create",
      *  operationId="giveCollectorBox",
      *  tags={"Collectors"},
      *  summary="Create Charity Box for Collector",
@@ -208,7 +208,7 @@ final class CollectorApiController extends ApiController
 
     /**
      * @OA\Get(
-     *  path="/collectors/{collectorIdentifier}/box/latestUncounted",
+     *  path="/api/collectors/{collectorIdentifier}/box/latestUncounted",
      *  operationId="getCollectorUncountedBox",
      *  tags={"Collectors"},
      *  summary="Get last uncounted Collector's Charity Box",

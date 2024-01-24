@@ -39,7 +39,7 @@ class AvailabilityApiController extends ApiController
 
     /**
      * @OA\Get(
-     *  path="/stations",
+     *  path="/api/stations",
      *  operationId="getStationsList",
      *  tags={"Stations"},
      *  summary="Get list of Sttions",
@@ -63,7 +63,7 @@ class AvailabilityApiController extends ApiController
 
     /**
      * @OA\Post(
-     *  path="/stations/{id}/ready",
+     *  path="/api/stations/{id}/ready",
      *  operationId="reayStation",
      *  tags={"Stations"},
      *  summary="Set Station status to ready",
@@ -100,7 +100,7 @@ class AvailabilityApiController extends ApiController
 
     /**
      * @OA\Post(
-     *  path="/stations/{id}/busy",
+     *  path="/api/stations/{id}/busy",
      *  operationId="busyStation",
      *  tags={"Stations"},
      *  summary="Set Station status to busy",
@@ -137,7 +137,7 @@ class AvailabilityApiController extends ApiController
 
     /**
      * @OA\Post(
-     *  path="/stations/{id}/unknown",
+     *  path="/api/stations/{id}/unknown",
      *  operationId="unknownStation",
      *  tags={"Stations"},
      *  summary="Set Station status to unknown",
@@ -174,7 +174,7 @@ class AvailabilityApiController extends ApiController
 
     /**
      * @OA\Get(
-     *  path="/stations/status",
+     *  path="/api/stations/status",
      *  operationId="getStationsStatusesList",
      *  tags={"Stations"},
      *  summary="Get list of Sttions statuses",

@@ -44,7 +44,7 @@ final class UserApiController extends ApiController
 
     /**
      * @OA\Get(
-     *  path="/users",
+     *  path="/api/users",
      *  operationId="getUsersList",
      *  tags={"Users"},
      *  summary="Get list of Users",
@@ -67,7 +67,7 @@ final class UserApiController extends ApiController
 
     /**
      * @OA\Get(
-     *  path="/users/{id}",
+     *  path="/api/users/{id}",
      *  operationId="getUserById",
      *  tags={"Users"},
      *  summary="Get user information",
@@ -104,7 +104,7 @@ final class UserApiController extends ApiController
 
     /**
      * @OA\Post(
-     *  path="/users",
+     *  path="/api/users",
      *  operationId="postUser",
      *  tags={"Users"},
      *  summary="Insert a new User",
