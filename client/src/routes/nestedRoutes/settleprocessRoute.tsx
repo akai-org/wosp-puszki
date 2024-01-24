@@ -80,6 +80,16 @@ const SettleProcessRoute = () => {
               label: 'Rozlicz puszkę',
               permission: 'volounteer',
             },
+            {
+              url: All_BOXES_PATH,
+              label: 'Wszystkie puszki',
+              permission: 'collectorcoordinator',
+            },
+            {
+              url: UNSETTLED_BOXES_PATH,
+              label: 'Lista puszek nie rozliczonych',
+              permission: 'collectorcoordinator',
+            },
           ]}
         />
       </ProtectedRoute>

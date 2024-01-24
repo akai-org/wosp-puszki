@@ -38,11 +38,6 @@ export const countedBoxesRoute = {
             label: 'Lista puszek do zatwierdzenia',
             permission: 'collectorcoordinator',
           },
-          {
-            url: APPROVED_BOXES_PAGE_ROUTE,
-            label: 'Lista puszek zatwierdzonych',
-            permission: 'collectorcoordinator',
-          },
         ]}
       />
     </ProtectedRoute>
