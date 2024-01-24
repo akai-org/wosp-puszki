@@ -7,89 +7,147 @@ import s from './BoxesPage.module.less';
 import { Typography, Space, Layout, Table } from 'antd';
 import { createDisplayableData } from '@/utils/Functions/createRefactorData';
 import { Outlet } from 'react-router-dom';
+import {
+  CheckOutlined,
+  CloseOutlined,
+  EditOutlined,
+  SearchOutlined,
+} from '@ant-design/icons';
 
 const { Title } = Typography;
 const { Content } = Layout;
 
 export const BoxesForApprovalPage = () => {
   // Ustawienia dla poszczególnych kolumn
-  const columnsOptions: TableColumns[] = [
+  const baseColumnsOptions: TableColumns[] = [
     {
       titleName: 'ID',
-      keyName: 'id',
-      sortType: 'number',
+      keyName: 'collectorId',
       search: true,
       fixed: 'left',
-      width: 70,
+      width: 20,
     },
     {
       titleName: 'Wolontariusz',
       keyName: 'name',
       sortType: 'string',
       search: true,
+      ellipsis: true,
       fixed: 'left',
-      width: 200,
-    },
-    {
-      titleName: 'EUR',
-      keyName: 'amount_EUR',
-      sortType: 'number',
-      afterText: '€',
-      width: 100,
-    },
-    {
-      titleName: 'GBP',
-      keyName: 'amount_GBP',
-      sortType: 'number',
-      afterText: '£',
-      width: 100,
-    },
-    {
-      titleName: 'USD',
-      keyName: 'amount_USD',
-      sortType: 'number',
-      afterText: '$',
-      width: 100,
+      width: 80,
     },
     {
       titleName: 'PLN',
       keyName: 'amount_PLN',
       sortType: 'number',
-      width: 100,
+      width: 50,
       afterText: 'PLN',
+    },
+    {
+      titleName: 'EUR',
+      keyName: 'amount_EUR',
+      afterText: '€',
+      width: 30,
+    },
+    {
+      titleName: 'GBP',
+      keyName: 'amount_GBP',
+      afterText: '£',
+      width: 30,
+    },
+    {
+      titleName: 'USD',
+      keyName: 'amount_USD',
+      afterText: '$',
+      width: 30,
     },
     {
       titleName: 'Inne',
       keyName: 'comment',
       search: true,
-      width: 200,
+      ellipsis: true,
+      width: 60,
     },
     {
-      titleName: 'Godzina przeliczenia',
+      titleName: 'Stanowisko',
+      keyName: 'countingStation',
+      search: true,
+      width: 40,
+    },
+    {
+      titleName: 'Godz. przeliczenia',
       keyName: 'time_counted',
       sortType: 'date',
-      width: 150,
+      width: 60,
+      search: true,
     },
+  ];
+
+  const unverifiedColumnsOptions: TableColumns[] = [
+    ...baseColumnsOptions,
     {
-      titleName: 'Actions',
+      titleName: 'Akcje',
       keyName: 'actions',
       fixed: 'right',
-      width: 220,
+      width: 100,
       actions: [
+        {
+          title: ' Zatwierdź',
+          link: '/liczymy/countedBoxes/show/',
+          color: 'green',
+          icon: <CheckOutlined />,
+          buttonType: 'default',
+        },
         {
           title: 'Podgląd',
           link: '/liczymy/countedBoxes/show/',
           color: 'blue',
+          icon: <SearchOutlined />,
+          buttonType: 'tooltip',
         },
         {
-          title: 'Modyfikuj',
+          title: 'Edytuj',
           link: '/liczymy/countedBoxes/edit/',
-          color: 'blue',
+          color: 'gray',
+          icon: <EditOutlined />,
+          buttonType: 'tooltip',
         },
       ],
     },
   ];
 
+  const verifiedColumnsOptions: TableColumns[] = [
+    ...baseColumnsOptions,
+    {
+      titleName: 'Akcje',
+      keyName: 'actions',
+      fixed: 'right',
+      width: 100,
+      actions: [
+        {
+          title: ' Cofnij zatwierdzenie',
+          link: '/liczymy/countedBoxes/show/',
+          color: 'red',
+          icon: <CloseOutlined />,
+          buttonType: 'default',
+        },
+        {
+          title: 'Podgląd',
+          link: '/liczymy/countedBoxes/show/',
+          color: 'blue',
+          icon: <SearchOutlined />,
+          buttonType: 'tooltip',
+        },
+        {
+          title: 'Edytuj',
+          link: '/liczymy/countedBoxes/edit/',
+          color: 'gray',
+          icon: <EditOutlined />,
+          buttonType: 'tooltip',
+        },
+      ],
+    },
+  ];
   const { data: unverifiedData } = useUnverifiedBoxesQuery();
 
   const displayableData = createDisplayableData(unverifiedData);
@@ -98,32 +156,35 @@ export const BoxesForApprovalPage = () => {
 
   const displayableVerifiedData = createDisplayableData(verifiedData);
 
-  const verifiedColumns = CreateColumns(columnsOptions);
+  const verifiedColumns = CreateColumns(verifiedColumnsOptions);
 
   // Tworzenie kolumn
-  const columns = CreateColumns(columnsOptions);
+  const columns = CreateColumns(unverifiedColumnsOptions);
 
   return (
-    <Layout>
+    <Layout className={'boxesList'}>
       <Content className={s.content}>
         <Space direction="vertical" size="small" className={s.space}>
           <Title level={4}>Do zatwierdzenia</Title>
           <Table
-            size="middle"
+            size="small"
+            bordered={true}
             columns={columns}
             pagination={false}
             dataSource={displayableData}
             rowKey="id"
-            scroll={{ y: '70vh' }}
             rowClassName={s.table_row}
+            scroll={{ y: '70vh' }}
+            className={'table'}
           />
         </Space>
         <Space direction="vertical" size="small" className={s.space}>
           <Title level={4}>Zatwierdzone</Title>
           <Table
-            size="middle"
+            size="small"
+            bordered={true}
             columns={verifiedColumns}
-            pagination={false}
+            pagination={{ pageSize: 50, position: ['bottomCenter'] }}
             dataSource={displayableVerifiedData}
             rowKey="id"
             scroll={{ y: '70vh' }}
