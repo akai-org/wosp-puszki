@@ -1,6 +1,13 @@
 // Utility functions
 import type { TableColumns } from '@/utils';
-import { CreateColumns, useUnverifiedBoxesQuery, useVerifiedBoxesQuery } from '@/utils';
+import {
+  CreateColumns,
+  getTopPermission,
+  permissions,
+  useAuthContext,
+  useUnverifiedBoxesQuery,
+  useVerifiedBoxesQuery,
+} from '@/utils';
 
 // Style and ant design
 import s from './BoxesPage.module.less';
@@ -18,6 +25,10 @@ const { Title } = Typography;
 const { Content } = Layout;
 
 export const BoxesForApprovalPage = () => {
+  const { roles } = useAuthContext();
+  const topRole = getTopPermission(roles);
+  const isPermitted = topRole !== null && topRole <= permissions['admin'];
+
   // Ustawienia dla poszczególnych kolumn
   const baseColumnsOptions: TableColumns[] = [
     {
@@ -164,20 +175,22 @@ export const BoxesForApprovalPage = () => {
   return (
     <Layout className={'boxesList'}>
       <Content className={s.content}>
-        <Space direction="vertical" size="small" className={s.space}>
-          <Title level={4}>Do zatwierdzenia</Title>
-          <Table
-            size="small"
-            bordered={true}
-            columns={columns}
-            pagination={false}
-            dataSource={displayableData}
-            rowKey="id"
-            rowClassName={s.table_row}
-            scroll={{ y: '70vh' }}
-            className={'table'}
-          />
-        </Space>
+        {isPermitted ? (
+          <Space direction="vertical" size="small" className={s.space}>
+            <Title level={4}>Do zatwierdzenia</Title>
+            <Table
+              size="small"
+              bordered={true}
+              columns={columns}
+              pagination={false}
+              dataSource={displayableData}
+              rowKey="id"
+              rowClassName={s.table_row}
+              scroll={{ y: '70vh' }}
+              className={'table'}
+            />
+          </Space>
+        ) : null}
         <Space direction="vertical" size="small" className={s.space}>
           <Title level={4}>Zatwierdzone</Title>
           <Table
