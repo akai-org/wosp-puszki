@@ -49,21 +49,5 @@ abstract class ApiController extends Controller
     public function __construct(string $class)
     {
         $this->proxyClass = new ReflectionClass($class);
-
-        //Model
     }
-
-//    public function index()
-//    {
-//        $boxes = ($this->proxyClass)::with('collector')->get(); // remove n+1 problem
-//
-//    }
-
-//    public abstract function get($model);
-
-//    public abstract function update(Request $request, int $id);
-
-//    public abstract function create(Request $request, int $id);
-
-//    public abstract function delete(int $id);
 }
