@@ -16,7 +16,7 @@ test('as a collectorcoordinator I can give out a box through API', function () {
     $this->collector = Collector::orderBy('id', 'desc')->first();
 
     //Wchodzę na rozliczanie puszki
-    $response = $this->post('api/collectors/' . $this->collector->identifier . '/boxes');
+    $response = $this->post('api/collectors/' . $this->collector->identifier . '/box/create');
 
     $response->assertStatus(200);
 

@@ -19,7 +19,7 @@ test('as a collectorcoordinator I can find a box through API', function () {
     $this->collector = Collector::where('identifier', '=', $this->box->collectorIdentifier)->first();
 
     //Wchodzę na rozliczanie puszki
-    $response = $this->get('api/collectors/' . $this->collector->identifier . '/boxes/latestUncounted');
+    $response = $this->get('api/collectors/' . $this->collector->identifier . '/box/latestUncounted');
 
     $response->assertStatus(200);
 
