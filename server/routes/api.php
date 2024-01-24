@@ -67,7 +67,7 @@ Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], func
 
     Route::apiResource('charityBoxes', CharityBoxApiController::class);
 
-    Route::get('charityBoxes/createCsv', [CsvDumpController::class,'getDataForCSV'])->name('api.box.create-csv')->middleware(['collectorcoordinator']);
+    Route::get('charityBoxes/createCsv', [CsvDumpController::class,'getCharityBoxesCSV'])->name('api.box.create-csv')->middleware(['collectorcoordinator']);
 });
 
 Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], function () {

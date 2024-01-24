@@ -14,7 +14,7 @@ class CsvDumpController extends Controller
 {
     /**
      * @OA\Get(
-     *      path="/charityBoxes/createCsv",
+     *      path="/api/charityBoxes/createCsv",
      *      operationId="getCharityBoxesCSV",
      *      tags={"CharityBoxes"},
      *      summary="Get CSV with charity boxes",
@@ -37,7 +37,7 @@ class CsvDumpController extends Controller
      *      ),
      * )
      */
-   public function getDataForCSV(Request $request)
+   public function getCharityBoxesCSV(Request $request)
    {
         $bo = new BoxOperator($request->user()->id);
         $lastChangedBoxDate = $bo->lastChangedBox()->updated_at;
