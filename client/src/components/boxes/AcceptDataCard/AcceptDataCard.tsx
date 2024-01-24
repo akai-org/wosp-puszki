@@ -53,7 +53,7 @@ export const AcceptDataCard = ({
           {isLoading ? <Spinner /> : 'Potwierdzam Zgodność z danymi rzeczywistymi'}
         </Button>
       </Space>
-      <Text>{error}</Text>
+      <Text className={s.errorText}>{error}</Text>
     </div>
   );
 };
