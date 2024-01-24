@@ -41,6 +41,16 @@
                     </div>
                 </div>
 
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="phoneNumber">Numer telefonu</label>
+                    <div class="col-md-4">
+                        <input id="phoneNumber" name="phoneNumber" type="text" placeholder="+48123456789"
+                               class="form-control input-md" required="">
+                        <span class="help-block">Numer telefonu wolontariusza</span>
+                    </div>
+                </div>
+
                 <!-- Button -->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="singlebutton">Dodaj wolontariusza</label>

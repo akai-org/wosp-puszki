@@ -76,13 +76,18 @@ class BoxOperator {
         return $boxes[0]->load('collector');
     }
 
-    public function startCountByBoxID(int $boxID) : CharityBox {
+    public function startCountByBoxID(Request $request, int $boxID) : CharityBox {
         $box = CharityBox::where('id', '=', $boxID)->first();
 
         if($box->isCounted) {
             throw new \Exception('Puszka została już rozliczona, numer puszki: ' . $box->id . 'Wolontariusz: '.
                 $box->collectorIdentifier);
         }
+
+        if($request->user()->hasRole('volounteer') && $box->counting_user_id != null && $box->counting_user_id != $this->operatingUserId) {
+            throw new \Exception('Puszka jest już w trakcie liczenia. Proszę zgłosić to do koordynatora rozliczenia.');
+        }
+
 
         $event = new BoxEvent();
         $event->type = 'startedCounting';
@@ -91,13 +96,14 @@ class BoxOperator {
         $event->comment = 'Collector: ' . $box->collector->display;
         $event->save();
 
-        //TODO add a value in box that indicates it started counting
+        $box->counting_user_id = $this->operatingUserId;
+        $box->save();
 
         return $box;
     }
 
 
-    public function updateBoxByBoxID(int $boxID, Request $request) : CharityBox {
+    public function updateBoxByBoxID(Request $request, int $boxID) : CharityBox {
         //Zapisz puszkę do bazy
         $box = CharityBox::where('id', '=', $boxID)->first();
 
@@ -107,7 +113,7 @@ class BoxOperator {
 
         $box->is_counted=true;
 
-        if ($request->user()->hasRole('volunteer')) {
+        if ($request->user()->hasRole('volounteer')) {
             $box->counting_user_id = $this->operatingUserId;
         }
 
@@ -251,7 +257,7 @@ class BoxOperator {
         ->get(['id','collector_id','time_given','time_counted','amount_PLN','amount_EUR','amount_USD','amount_GBP']);
     }
 
-    public function lastChangedBox() : CharityBox 
+    public function lastChangedBox() : CharityBox
     {
        return CharityBox::with('collector')->orderBy('updated_at')->first();
     }

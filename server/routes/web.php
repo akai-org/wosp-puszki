@@ -22,7 +22,6 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CharityBoxApiController;
 use App\Http\Controllers\CharityBoxController;
 use App\Http\Controllers\CollectorController;
-use App\Http\Controllers\LogsApiController;
 use App\Http\Controllers\LogsController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
@@ -69,7 +68,7 @@ Route::prefix('liczymy')->group(function () {
             Route::middleware('superadmin')->group(function(){
                 Route::get('password/{user}', [UserController::class, 'getPassword'])->name('user.password');
 
-                Route::post('password\{user}', [UserController::class, 'postPassword'])->name('user.password.post');
+                Route::post('password/{user}', [UserController::class, 'postPassword'])->name('user.password.post');
 
             });
 
@@ -179,11 +178,6 @@ Route::prefix('liczymy')->group(function () {
             //Anulowanie zatwierdzenia puszek
             Route::post('unverify', [CharityBoxApiController::class, 'postUnVerify'])->name('api.box.unverify');
 
-        });
-
-        Route::prefix('logs')->group(function (){
-            Route::get('all', [LogsApiController::class, 'getAll'])->name('api.logs.all');
-            Route::get('box/{boxID}', [LogsApiController::class, 'getBox'])->name('api.logs.box');
         });
     });
 });
