@@ -74,7 +74,6 @@
                 type: "GET",
                 success: function (data) {
                     $.each(data, function (index, box) {
-                        console.log(box);
                         $('#toconfirm-table').append(
                             '<tr>' +
                             '<td>'+box.collectorIdentifier+'</td>' +
@@ -83,8 +82,7 @@
                             '<td>'+box.amount_GBP+'£</td>' +
                             '<td>'+box.amount_USD +'$</td>' +
                             '<td style="font-weight:bold;">'+box.amount_PLN+'zł</td>\n' +
-                            //TODO fix this
-                            '<td>'+(box.counting_user_id-3)+'</td>'+
+                            '<td>'+(box.counting_user.name)+'</td>'+
                             '<td>'+box.comment+'</td>' +
                             '<td>' +
                             '<form id="confirm-form-'+box.id+'" method="post" onsubmit="">' +
@@ -147,8 +145,7 @@
                             '<td>'+box.amount_GBP+'£</td>' +
                             '<td>'+box.amount_USD +'$</td>' +
                             '<td style="font-weight:bold;">'+box.amount_PLN+'zł</td>\n' +
-                            //TODO fix this
-                            '<td>'+(box.counting_user_id-3)+'</td>'+
+                            '<td>'+(box.counting_user.name)+'</td>'+
                             '<td>'+box.comment+'</td>' +
                             '<td>' +
                             '<form id="un-confirm-form-'+box.id+'" method="post" onsubmit="">' +

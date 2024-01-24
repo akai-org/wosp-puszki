@@ -18,7 +18,7 @@ class LogsController extends Controller
 
     public function getAll(){
         return view('liczymy.logs.box.display')
-            ->with('ApiUrl', route('api.logs.all'))
+            ->with('ApiUrl', route('api.logs.list'))
             ->with('enableRefresh', true);
     }
 

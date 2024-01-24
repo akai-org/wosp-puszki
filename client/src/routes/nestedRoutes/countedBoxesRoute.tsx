@@ -35,7 +35,7 @@ export const countedBoxesRoute = {
         links={[
           {
             url: '',
-            label: 'Lista puszek do zatwierdzenia',
+            label: 'Lista puszek',
             permission: 'collectorcoordinator',
           },
         ]}

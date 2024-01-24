@@ -66,7 +66,7 @@ class CharityBoxController extends Controller
         $bo = new BoxOperator($request->user()->id);
 
         try {
-            $box = $bo->startCountByBoxID($boxID);
+            $box = $bo->startCountByBoxID($request, $boxID);
         } catch (\Exception $e) {
             return redirect()->route('box.find')
                 ->with('error', $e->getMessage());
@@ -80,7 +80,7 @@ class CharityBoxController extends Controller
         $bo = new BoxOperator($request->user()->id);
 
         try {
-            $box = $bo->updateBoxByBoxID($boxID, $request);
+            $box = $bo->updateBoxByBoxID($request, $boxID);
         } catch (\Exception $e) {
             return redirect()->route('box.find')
                 ->with('error', 'ERROR');
@@ -195,7 +195,7 @@ class CharityBoxController extends Controller
         $bo = new BoxOperator($request->user()->id);
 
         try {
-            $box = $bo->updateBoxByBoxID($boxID, $request);
+            $box = $bo->updateBoxByBoxID($request, $boxID);
         } catch (\Exception $e) {
             abort(404);
         }
