@@ -1,9 +1,6 @@
 <?php
-declare(strict_types=1);
 
 namespace App\Lib\Rates;
-
-use App\Utils\CurrencyEnum;
 
 class StaticRatesFetcher implements RatesFetcher
 {
@@ -22,14 +19,9 @@ class StaticRatesFetcher implements RatesFetcher
         $this->gbp = config(self::GBP_RATES_CONFIG);
     }
 
-    public function fetchRates(?CurrencyEnum $currencyEnum = null): \Generator
+    public function fetchRates(): array
     {
-        $tmpArray = (new Rates($this->usd, $this->eur, $this->gbp))
-                ->toArray();
-
-        return $currencyEnum == null ?
-            yield from $tmpArray :
-            yield $tmpArray[$currencyEnum->value]
-        ;
+        return (new Rates($this->usd, $this->eur, $this->gbp))
+            ->toArray();
     }
 }

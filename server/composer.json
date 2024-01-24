@@ -14,7 +14,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^4.0",
         "league/csv": "^9.0",
-        "moneyphp/money": "^4.1",
+        "moneyphp/money": "^3.0",
         "nesbot/carbon": "2.*",
         "nunomaduro/collision": "^7.0",
         "spatie/laravel-backup": "^8.1",
