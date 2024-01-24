@@ -12,9 +12,14 @@ use League\Csv\Writer;
 
 class CsvDumpController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('collectorcoordinator');
+    }
     /**
      * @OA\Get(
-     *      path="/api/charityBoxes/createCsv",
+     *      path="/api/charityBoxes/csv",
      *      operationId="getCharityBoxesCSV",
      *      tags={"CharityBoxes"},
      *      summary="Get CSV with charity boxes",

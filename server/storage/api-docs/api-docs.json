@@ -1161,7 +1161,7 @@
                 }
             }
         },
-        "/api/charityBoxes/createCsv": {
+        "/api/charityBoxes/csv": {
             "get": {
                 "tags": [
                     "CharityBoxes"
