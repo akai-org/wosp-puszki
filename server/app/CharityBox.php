@@ -16,6 +16,16 @@ class CharityBox extends Model
         return $this->belongsTo('App\Collector');
     }
 
+    public function givenToCollectorUser()
+    {
+        return $this->belongsTo('App\User', 'given_to_collector_user_id', 'id');
+    }
+
+    public function countingUser()
+    {
+        return $this->belongsTo('App\User', 'counting_user_id', 'id');
+    }
+
     public function personConfirming()
     {
         return $this->belongsTo('App\User','user_confirmed_id','id');

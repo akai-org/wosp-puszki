@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Lib\BoxOperator\BoxOperator;
@@ -18,11 +18,11 @@ class CsvDumpController extends Controller
         $lastChangedBoxDate = $bo->lastChangedBox()->updated_at;
         $lastDumped = Cache::get('lastCsvDump',Carbon::create(1990));
         $file = $this->getFileName($lastDumped);
-        if($lastChangedBoxDate->lt($lastDumped)){// porównujemy date ostatniej zmieniony puszki z datą ostatniego exportu 
+        if($lastChangedBoxDate->lt($lastDumped)){// porównujemy date ostatniej zmieniony puszki z datą ostatniego exportu
             $filePath = 'charity_box_exports/' . $file;
             if (Storage::exists($filePath)) {
                 return response()->download(storage_path("app/{$filePath}"), $file);
-            } 
+            }
         }
         $data = $bo->getAll();
         $csvData = [];
@@ -51,7 +51,7 @@ class CsvDumpController extends Controller
         $filePath = $storagePath . '/' . $csvFileName;
         Storage::put($filePath, $csvFile->toString());
         Cache::set('lastCsvDump',$date); //Dodajemy do cache date exportu
-        
+
         return response()->download(storage_path("app/{$filePath}"), $file);
    }
 
