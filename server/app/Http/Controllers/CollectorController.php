@@ -31,7 +31,7 @@ class CollectorController extends Controller
             'collectorIdentifier' => 'required|alpha_num|between:1,255',
             'firstName' => 'required|alpha|between:1,255',
             'lastName' => 'required|alpha|between:1,255',
-            'phoneNumber' => 'nullable|alpha_num|between:9,12'
+            'phoneNumber' => 'nullable|alpha_num|between:9,16'
         ]);
         //Sprawdzenie czy wolontariusza nie ma już w bazie (po ID)
         $collectorExists = Collector::where('identifier', '=', $request->input('collectorIdentifier'))->exists();
