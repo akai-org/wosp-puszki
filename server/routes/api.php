@@ -67,12 +67,12 @@ Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], func
 
     Route::apiResource('charityBoxes', CharityBoxApiController::class);
 
-    Route::get('charityBoxes/createCsv', [CsvDumpController::class,'getCharityBoxesCSV'])->name('api.box.create-csv')->middleware(['collectorcoordinator']);
+    Route::get('charityBoxes/createCsv', [CsvDumpController::class,'getCharityBoxesCSV'])->name('box.create-csv')->middleware(['collectorcoordinator']);
 });
 
 Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], function () {
-    Route::get('logs', [LogsApiController::class, 'index'])->name('api.logs.list')->middleware('admin');
-    Route::get('logs/box/{id}', [LogsApiController::class, 'getBox'])->name('api.logs.box')->middleware('admin');
+    Route::get('logs', [LogsApiController::class, 'index'])->name('logs.list')->middleware('admin');
+    Route::get('logs/box/{id}', [LogsApiController::class, 'getBox'])->name('logs.box')->middleware('admin');
 });
 
 Route::group(['as' => 'api', 'middleware' => ['web', 'auth.basic:,name']], function() {
