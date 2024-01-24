@@ -14,7 +14,7 @@ class CsvDumpController extends Controller
 {
     /**
      * @OA\Get(
-     *      path="/api/charityBoxes/createCsv",
+     *      path="/charityBoxes/createCsv",
      *      operationId="getCharityBoxesCSV",
      *      tags={"CharityBoxes"},
      *      summary="Get CSV with charity boxes",
