@@ -12,6 +12,31 @@ use League\Csv\Writer;
 
 class CsvDumpController extends Controller
 {
+    /**
+     * @OA\Get(
+     *      path="/charityBoxes/createCsv",
+     *      operationId="getCharityBoxesCSV",
+     *      tags={"CharityBoxes"},
+     *      summary="Get CSV with charity boxes",
+     *      description="What it says on the box, returns CSV file",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *      ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     * )
+     */
    public function getDataForCSV(Request $request)
    {
         $bo = new BoxOperator($request->user()->id);
