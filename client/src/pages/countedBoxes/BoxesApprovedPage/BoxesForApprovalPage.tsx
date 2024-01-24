@@ -117,32 +117,32 @@ export const BoxesForApprovalPage = () => {
   return (
     <Layout>
       <Content className={s.content}>
-        <Space direction="vertical" size="small" className={s.space}>
-          <Title level={4}>Do zatwierdzenia</Title>
-          <Table
-            size="middle"
-            columns={columns}
-            pagination={false}
-            dataSource={displayableData}
-            rowKey="id"
-            scroll={{ y: '70vh' }}
-            rowClassName={s.table_row}
-          />
-        </Space>
         {isPermitted ? (
           <Space direction="vertical" size="small" className={s.space}>
-            <Title level={4}>Zatwierdzone</Title>
+            <Title level={4}>Do zatwierdzenia</Title>
             <Table
               size="middle"
-              columns={verifiedColumns}
+              columns={columns}
               pagination={false}
-              dataSource={displayableVerifiedData}
+              dataSource={displayableData}
               rowKey="id"
               scroll={{ y: '70vh' }}
               rowClassName={s.table_row}
             />
           </Space>
         ) : null}
+        <Space direction="vertical" size="small" className={s.space}>
+          <Title level={4}>Zatwierdzone</Title>
+          <Table
+            size="middle"
+            columns={verifiedColumns}
+            pagination={false}
+            dataSource={displayableVerifiedData}
+            rowKey="id"
+            scroll={{ y: '70vh' }}
+            rowClassName={s.table_row}
+          />
+        </Space>
 
         <Outlet />
       </Content>
