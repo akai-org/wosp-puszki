@@ -1,16 +1,12 @@
 <?php
-declare(strict_types=1);
 
 namespace App\Lib\Rates;
 
-use App\Utils\CurrencyEnum;
-use Illuminate\Contracts\Support\Arrayable;
-
-// TODO ZREAKTORYZOWAĆ - niech klasa buduje zmienne dpowiadające poszczególnym walutom na podst enum CurrencyEnum
-// w przypadku dodania nowej waluty rozbudowa będiz emniej kłopotliwa
-// spróbować z kalsami ArrayAccess i opeatorem 'splat' w konstruktorze (albo ReflectionClass)
-class Rates implements Arrayable
+class Rates
 {
+    private const USD_NAME = 'USD';
+    private const EUR_NAME = 'EUR';
+    private const GBP_NAME = 'GBP';
 
     // TODO można jakoś hintować typy tych zmiennych? Czy z api i configa lecą te same typy?
     private $gbp;
@@ -27,9 +23,9 @@ class Rates implements Arrayable
     public function toArray(): array
     {
         return [
-            CurrencyEnum::USD_NAME->value => $this->usd,
-            CurrencyEnum::EUR_NAME->value => $this->eur,
-            CurrencyEnum::GBP_NAME->value => $this->gbp
+            self::USD_NAME => $this->usd,
+            self::EUR_NAME => $this->eur,
+            self::GBP_NAME => $this->gbp
         ];
     }
 }
