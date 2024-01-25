@@ -8,6 +8,7 @@ type AcceptData = {
   volunteer: string;
   isLoading: boolean;
   onAccept: () => void;
+  error?: string;
 };
 
 const { Text, Title } = Typography;
@@ -18,6 +19,7 @@ export const AcceptDataCard = ({
   volunteer,
   onAccept,
   isLoading,
+  error,
 }: AcceptData) => {
   return (
     <div className={s.AcceptDataCard}>
@@ -51,6 +53,7 @@ export const AcceptDataCard = ({
           {isLoading ? <Spinner /> : 'Potwierdzam Zgodność z danymi rzeczywistymi'}
         </Button>
       </Space>
+      <Text className={s.errorText}>{error}</Text>
     </div>
   );
 };
