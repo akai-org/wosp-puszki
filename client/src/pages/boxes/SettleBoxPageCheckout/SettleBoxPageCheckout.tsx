@@ -36,7 +36,6 @@ export const SettleBoxPageCheckout = () => {
 
   const { error, isError, isLoading, isSuccess, mutateAsync } =
     useFinishCounting(boxIdentifier);
-  console.log(boxData);
 
   // set station status to unavailable
   setStationUnavailable();

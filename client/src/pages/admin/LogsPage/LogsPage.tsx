@@ -63,7 +63,7 @@ export const LogsPage = () => {
   ];
 
   // Tworzenie kolumn
-  const columns = CreateColumns(columnsOptions, displayableData);
+  const columns = CreateColumns(columnsOptions);
 
   return (
     <Layout>
