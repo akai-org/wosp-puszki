@@ -45,6 +45,7 @@ export interface TableColumns {
     type?: string;
     icon?: ReactNode;
     buttonType?: 'link' | 'primary' | 'default' | 'tooltip';
+    callback?: () => void;
   }[];
   fixed?: 'left' | 'right';
   width?: number;

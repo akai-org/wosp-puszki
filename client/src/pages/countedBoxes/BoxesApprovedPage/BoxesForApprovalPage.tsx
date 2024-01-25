@@ -1,8 +1,13 @@
 // Utility functions
 import type { TableColumns } from '@/utils';
 import {
+  APIManager,
+  CANNOT_DOWNLOAD_DATA,
   CreateColumns,
+  NO_CONNECT_WITH_SERVER,
+  fetcher,
   getTopPermission,
+  openNotification,
   permissions,
   useAuthContext,
   useUnverifiedBoxesQuery,
@@ -13,13 +18,14 @@ import {
 import s from './BoxesPage.module.less';
 import { Typography, Space, Layout, Table } from 'antd';
 import { createDisplayableData } from '@/utils/Functions/createRefactorData';
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import {
   CheckOutlined,
   CloseOutlined,
   EditOutlined,
   SearchOutlined,
 } from '@ant-design/icons';
+import { useMutation } from '@tanstack/react-query';
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -127,6 +133,7 @@ export const BoxesForApprovalPage = () => {
     },
   ];
 
+  const { data: unverifiedData, refetch: refetchUnverified } = useUnverifiedBoxesQuery();
   const verifiedColumnsOptions: TableColumns[] = [
     ...baseColumnsOptions,
     {
@@ -137,10 +144,15 @@ export const BoxesForApprovalPage = () => {
       actions: [
         {
           title: ' Cofnij zatwierdzenie',
-          link: '/liczymy/countedBoxes/show/',
+          link: '/charityBoxes/unverified/',
           color: 'red',
           icon: <CloseOutlined />,
           buttonType: 'default',
+          type: 'query',
+          callback() {
+            refetchVerified();
+            refetchUnverified();
+          },
         },
         {
           title: 'Podgląd',
@@ -159,11 +171,10 @@ export const BoxesForApprovalPage = () => {
       ],
     },
   ];
-  const { data: unverifiedData } = useUnverifiedBoxesQuery();
 
   const displayableData = createDisplayableData(unverifiedData);
 
-  const { data: verifiedData } = useVerifiedBoxesQuery();
+  const { data: verifiedData, refetch: refetchVerified } = useVerifiedBoxesQuery();
 
   const displayableVerifiedData = createDisplayableData(verifiedData);
 

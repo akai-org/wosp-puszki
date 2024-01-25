@@ -88,16 +88,20 @@ export function CreateColumns<DataType extends { [key: string]: string | number 
                 // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
                 <p
                   key={action.title}
-                  style={{ color: action.color, cursor: 'pointer' }}
-                  onClick={() =>
-                    fetcher(`${APIManager.baseAPIRUrl}${action.link}${record['id']}`, {
-                      method: 'POST',
-                      returnVoid: true,
-                      body: {
-                        box_id: record['id'],
+                  style={{ color: action.color, cursor: 'pointer', margin: '0' }}
+                  onClick={async () => {
+                    await fetcher(
+                      `${APIManager.baseAPIRUrl}${action.link}${record['id']}`,
+                      {
+                        method: 'POST',
+                        returnVoid: true,
+                        body: {
+                          box_id: record['id'],
+                        },
                       },
-                    })
-                  }
+                    );
+                    if (action.callback) action.callback();
+                  }}
                 >
                   {action.title}
                 </p>
