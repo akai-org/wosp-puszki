@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { IDepositContext, BoxData } from '@/utils';
 
 const clearBoxDataValues = {
@@ -54,9 +54,9 @@ export const useDepositContextValues = (defaultBoxData?: BoxData | null) => {
         }));
   };
 
-  const cleanAmounts = () => {
+  const cleanAmounts = useCallback(() => {
     setBoxData(clearBoxDataValues);
-  };
+  }, []);
   return {
     boxData,
     cleanAmounts,
