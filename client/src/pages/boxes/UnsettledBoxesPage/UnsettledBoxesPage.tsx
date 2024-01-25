@@ -43,6 +43,13 @@ export const UnsettledBoxesPage = () => {
       width: 200,
     },
     {
+      titleName: 'PLN',
+      keyName: 'amount_PLN',
+      sortType: 'number',
+      width: 100,
+      afterText: 'PLN',
+    },
+    {
       titleName: 'EUR',
       keyName: 'amount_EUR',
       sortType: 'number',
@@ -62,13 +69,6 @@ export const UnsettledBoxesPage = () => {
       sortType: 'number',
       afterText: '$',
       width: 100,
-    },
-    {
-      titleName: 'PLN',
-      keyName: 'amount_PLN',
-      sortType: 'number',
-      width: 100,
-      afterText: 'PLN',
     },
     {
       titleName: 'Status',

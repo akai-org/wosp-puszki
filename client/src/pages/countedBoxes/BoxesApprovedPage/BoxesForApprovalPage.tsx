@@ -25,7 +25,6 @@ import {
   EditOutlined,
   SearchOutlined,
 } from '@ant-design/icons';
-import { useMutation } from '@tanstack/react-query';
 
 const { Title } = Typography;
 const { Content } = Layout;
