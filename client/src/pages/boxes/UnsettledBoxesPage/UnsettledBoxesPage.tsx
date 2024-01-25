@@ -20,7 +20,7 @@ export const UnsettledBoxesPage = () => {
   const columnsOptions: TableColumns[] = [
     {
       titleName: 'Puszka',
-      keyName: 'box_id',
+      keyName: 'id',
       sortType: 'number',
       search: true,
       fixed: 'left',
@@ -41,6 +41,13 @@ export const UnsettledBoxesPage = () => {
       search: true,
       fixed: 'left',
       width: 200,
+    },
+    {
+      titleName: 'PLN',
+      keyName: 'amount_PLN',
+      sortType: 'number',
+      width: 100,
+      afterText: 'PLN',
     },
     {
       titleName: 'EUR',
@@ -64,13 +71,6 @@ export const UnsettledBoxesPage = () => {
       width: 100,
     },
     {
-      titleName: 'PLN',
-      keyName: 'amount_PLN',
-      sortType: 'number',
-      width: 100,
-      afterText: 'PLN',
-    },
-    {
       titleName: 'Status',
       keyName: 'status',
       width: 200,
@@ -84,7 +84,7 @@ export const UnsettledBoxesPage = () => {
     },
     {
       titleName: 'Inne',
-      keyName: 'box_id',
+      keyName: 'id',
       beforeText: 'Puszka nr.',
       width: 175,
     },
@@ -111,7 +111,7 @@ export const UnsettledBoxesPage = () => {
 
   const displayableData = createDisplayableBoxData(data, true);
   // Tworzenie kolumn
-  const columns = CreateColumns(columnsOptions, 'box_id');
+  const columns = CreateColumns(columnsOptions);
   const mutation = useMutation({
     mutationFn: () =>
       fetcher<Blob>(`${APIManager.baseAPIRUrl}/charityBoxes/csv`, { returnBlob: true }),
@@ -147,7 +147,7 @@ export const UnsettledBoxesPage = () => {
             columns={columns}
             pagination={false}
             dataSource={displayableData}
-            rowKey="box_id" // To należy zmienić przy okazji podłączenia API
+            rowKey="id" // To należy zmienić przy okazji podłączenia API
             scroll={{ y: '70vh' }}
             rowClassName={s.table_row}
           />
