@@ -15,7 +15,7 @@ import {
 import { Space } from 'antd';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 interface Props {
   displayOnly?: boolean;
@@ -24,27 +24,32 @@ export const ShowBoxPage: FC<Props> = ({ displayOnly = false }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { refetch } = useUnverifiedBoxesQuery();
+  const [data, setData] = useState<BoxData | null>(null);
 
   const queryData = useGetBoxQuery(id as string).data;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const amounts: any = {};
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const amounts: any = {};
 
-  if (queryData) {
-    Array.from(AMOUNTS_KEYS).forEach((key) => {
-      const val = queryData[key];
-      if (typeof val === 'string') {
-        amounts[key] = parseFloat(val);
-      } else {
-        amounts[key] = val;
-      }
+    if (queryData) {
+      Array.from(AMOUNTS_KEYS).forEach((key) => {
+        const val = queryData[key];
+        if (typeof val === 'string') {
+          amounts[key] = parseFloat(val);
+        } else {
+          amounts[key] = val;
+        }
+      });
+    }
+    setData({
+      amounts,
+      comment: queryData?.comment || '',
     });
-  }
-
-  const data: BoxData = {
-    amounts,
-    comment: queryData?.comment || '',
-  };
+    return () => {
+      setData(null);
+    };
+  }, [queryData, queryData?.comment]);
 
   const verifyMutation = useMutation({
     mutationFn: () =>
@@ -95,10 +100,12 @@ export const ShowBoxPage: FC<Props> = ({ displayOnly = false }) => {
   return (
     <Modal title={'Zawartość puszki'}>
       <Space direction="vertical">
-        <ContentColumns
-          boxData={data}
-          total={parseFloat((queryData?.amount_PLN as string) || '0')}
-        />
+        {data ? (
+          <ContentColumns
+            boxData={data}
+            total={parseFloat((queryData?.amount_PLN as string) || '0')}
+          />
+        ) : null}
         <Space>
           {!queryData?.is_confirmed && !displayOnly && (
             <Link
