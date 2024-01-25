@@ -73,6 +73,7 @@ export const FindBoxForm = () => {
         [data.collector.firstName, data.collector.lastName].join(' '),
         data.collectorIdentifier,
         data.id.toString(),
+        !!data.is_special_box,
       );
       form.resetFields();
       // TODO: Probalby can get rid of setTimeout

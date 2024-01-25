@@ -155,11 +155,13 @@ export interface IBoxContext {
     collectorName: string,
     collectorIdentifier: string,
     boxIdentifier: string,
+    isBoxSpecial: boolean,
   ) => Promise<void>;
   deleteBox: () => void;
   collectorName: string | null;
   collectorIdentifier: string | null;
   boxIdentifier: string | null;
+  isBoxSpecial: boolean | null;
 }
 
 export type formMessageType = 'error' | 'success';
