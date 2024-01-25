@@ -23,6 +23,9 @@ use function App\resolveRatesFetcher;
  **/
 final class RatesApiController extends ApiController
 {
+    public function __construct()
+    {
+    }
 //* security={
 //*          {"bearer_token":{}},
 //*      },
