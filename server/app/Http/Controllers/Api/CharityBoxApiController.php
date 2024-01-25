@@ -28,6 +28,12 @@ final class CharityBoxApiController extends ApiController
     public function __construct()
     {
         parent::__construct(CharityBox::class);
+        $this->middleware('collectorcoordinator')->except([
+            'startCounting',
+            'show',
+            'update',
+            'confirm',
+        ]);
     }
 
     /**
