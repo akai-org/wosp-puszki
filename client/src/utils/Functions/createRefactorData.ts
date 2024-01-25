@@ -60,7 +60,7 @@ export const createDisplayableBoxData = (data: boxResponse[], onlyUnsettled = fa
       amount_GBP: item.amount_GBP,
       amount_USD: item.amount_USD,
       amount_PLN: item.amount_PLN,
-      box_id: item.id,
+      id: item.id,
       give_hour: item.time_given,
       name: `${item.collector.firstName} ${item.collector.lastName}`,
       status: item.is_confirmed && item.is_counted ? 'settled' : 'unsettled',

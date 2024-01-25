@@ -21,7 +21,7 @@ export const ListBoxesPage = () => {
   const columnsOptions: TableColumns[] = [
     {
       titleName: 'Puszka',
-      keyName: 'box_id',
+      keyName: 'id',
       sortType: 'number',
       search: true,
       fixed: 'left',
@@ -85,7 +85,7 @@ export const ListBoxesPage = () => {
     },
     {
       titleName: 'Inne',
-      keyName: 'box_id',
+      keyName: 'id',
       beforeText: 'Puszka nr.',
       width: 175,
     },
@@ -105,6 +105,7 @@ export const ListBoxesPage = () => {
           title: 'Podgląd',
           link: '/liczymy/boxes/listBoxes/show/',
           color: '#1890FF',
+          type: 'link',
         },
       ],
     },
@@ -112,7 +113,7 @@ export const ListBoxesPage = () => {
 
   const displayableData = createDisplayableBoxData(data);
   // Tworzenie kolumn
-  const columns = CreateColumns(columnsOptions, 'box_id');
+  const columns = CreateColumns(columnsOptions);
 
   const mutation = useMutation({
     mutationFn: () =>
@@ -149,7 +150,7 @@ export const ListBoxesPage = () => {
             columns={columns}
             pagination={false}
             dataSource={displayableData}
-            rowKey="box_id" // To należy zmienić przy okazji podłączenia API
+            rowKey="id" // To należy zmienić przy okazji podłączenia API
             scroll={{ y: '70vh' }}
             rowClassName={s.table_row}
           />

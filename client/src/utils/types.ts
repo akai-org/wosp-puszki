@@ -75,7 +75,7 @@ export type DataType = {
 };
 
 export type BoxDataType = {
-  box_id: number;
+  id: number;
   volunteer_id: string;
   name: string;
   amount_EUR: string;
