@@ -9,6 +9,7 @@ import { createDisplayableBoxData } from '@/utils/Functions/createRefactorData';
 import { Outlet } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { c } from 'msw/lib/glossary-de6278a9';
+import { IconButton } from '@/components';
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -134,8 +135,13 @@ export const ListBoxesPage = () => {
 
   return (
     <Layout>
+      <IconButton
+        style={{ marginLeft: 'auto', alignSelf: 'flex-end', marginRight: '1.25rem' }}
+        onClick={() => mutation.mutate()}
+      >
+        Eksportuj dane
+      </IconButton>
       <Content className={s.content}>
-        <button onClick={() => mutation.mutate()}>dupa</button>
         <Space direction="vertical" size="small" className={s.space}>
           <Title level={4}>Lista puszek</Title>
           <Table
