@@ -18,6 +18,7 @@ yarn-error.log
 /public/js/app.js
 
 docker/mysql/storage/*
+docker/nginx/logs/*
 
 public/css/home_page.css
 public/css/home_page.js

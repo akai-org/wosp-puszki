@@ -10,6 +10,7 @@ class Collector extends Model
     {
         $formatted = $this->firstName . ' ';
         $formatted .= $this->lastName . ' ';
+        $formatted .= $this->phoneNumber . ' ';
         $formatted .= "($this->identifier)";
         return $formatted;
     }

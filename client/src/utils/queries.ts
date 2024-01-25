@@ -93,11 +93,9 @@ export const useStationsQuery = () =>
   );
 
 export const useSetStationAvailableQuery = (username: string | null | undefined) => {
-  if (!username) {
-    return;
-  }
-  const id = parseInt(username.slice(-2));
-  if (isNaN(id)) return;
+  let id = '100';
+  const slice = username?.slice(-2);
+  if (username && slice && !isNaN(parseInt(slice))) id = slice;
   return useQuery(
     STATION_AVAILABLE_QUERY_KEY,
     () =>
@@ -119,11 +117,9 @@ export const useSetStationAvailableQuery = (username: string | null | undefined)
 };
 
 export const useSetStationUnavailableQuery = (username: string | null | undefined) => {
-  if (!username) {
-    return;
-  }
-  const id = parseInt(username.slice(-2));
-  if (isNaN(id)) return;
+  let id = '100';
+  const slice = username?.slice(-2);
+  if (username && slice && !isNaN(parseInt(slice))) id = slice;
   return useQuery(
     STATION_UNAVAILABLE_QUERY_KEY,
     () =>

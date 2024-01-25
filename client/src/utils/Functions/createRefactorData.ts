@@ -17,13 +17,15 @@ export const createDisplayableData = (data: IBoxes[]) => {
 
     displayableData.push({
       id: item.id,
+      collectorId: item.collectorIdentifier,
       name: name,
       amount_EUR: item.amount_EUR,
       amount_GBP: item.amount_GBP,
       amount_USD: item.amount_USD,
       amount_PLN: item.amount_PLN,
       comment: item.comment,
-      time_counted: item.time_counted,
+      countingStation: item.counting_user_id > 3 ? item.counting_user_id - 3 : null,
+      time_counted: new Date(item.time_counted).toLocaleTimeString(),
     });
   }
 
@@ -58,7 +60,7 @@ export const createDisplayableBoxData = (data: boxResponse[], onlyUnsettled = fa
       amount_GBP: item.amount_GBP,
       amount_USD: item.amount_USD,
       amount_PLN: item.amount_PLN,
-      box_id: item.id,
+      id: item.id,
       give_hour: item.time_given,
       name: `${item.collector.firstName} ${item.collector.lastName}`,
       status: item.is_confirmed && item.is_counted ? 'settled' : 'unsettled',

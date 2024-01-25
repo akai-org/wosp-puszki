@@ -4,12 +4,16 @@ import { SubNavLink, useAuthContext } from '@/utils';
 import { useLocation } from 'react-router-dom';
 
 interface Props {
-  excludingLinks: string[];
+  excludingLinks?: string[];
   links: SubNavLink[];
   prefix?: string;
 }
 
-export const InnerLayoutManager: FC<Props> = ({ excludingLinks, links, prefix = '' }) => {
+export const InnerLayoutManager: FC<Props> = ({
+  excludingLinks = [],
+  links,
+  prefix = '',
+}) => {
   const location = useLocation();
   const { username } = useAuthContext();
 

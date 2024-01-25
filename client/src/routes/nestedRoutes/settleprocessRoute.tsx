@@ -69,7 +69,28 @@ const SettleProcessRoute = () => {
             DEPOSIT_BOX_PAGE_ROUTE,
             CHECKOUT_BOX_PAGE_ROUTE,
           ]}
-          links={links}
+          links={[
+            {
+              url: BOXES_PATH,
+              label: 'Wydaj puszkę',
+              permission: 'collectorcoordinator',
+            },
+            {
+              url: SETTLE_PROCESS_PATH,
+              label: 'Rozlicz puszkę',
+              permission: 'volounteer',
+            },
+            {
+              url: All_BOXES_PATH,
+              label: 'Wszystkie puszki',
+              permission: 'collectorcoordinator',
+            },
+            {
+              url: UNSETTLED_BOXES_PATH,
+              label: 'Lista puszek nie rozliczonych',
+              permission: 'collectorcoordinator',
+            },
+          ]}
         />
       </ProtectedRoute>
     </SettleProcessProvider>

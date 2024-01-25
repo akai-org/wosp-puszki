@@ -5,12 +5,8 @@ import { Navbar } from './Navbar';
 const testArgs = {
   CountedBoxesNavLinks: [
     {
-      label: 'Lista puszek do zatwierdzenia',
+      label: 'Lista puszek',
       url: 'countedBoxes',
-    },
-    {
-      label: 'Lista puszek zatwierdzonych',
-      url: 'countedBoxes/approved',
     },
   ],
   AdminPanelNavLinks: [

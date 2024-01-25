@@ -23,7 +23,6 @@ import {
   createFullRoutePath,
   SETTLE_PROCESS_PATH,
   ACCEPT_BOX_PAGE_ROUTE,
-  LOGIN_PATH,
 } from '@/utils';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'antd/es/form/Form';
@@ -53,125 +52,121 @@ type FormInput = {
 export const FindBoxForm = () => {
   const navigate = useNavigate();
   const { username } = useAuthContext();
-  if (username === null) {
-    navigate(LOGIN_PATH);
-    return null;
-  } else {
-    const [message, setMessage] = useState<FormMessage | undefined>();
-    const [form] = useForm();
-    const { createBox } = useBoxContext();
 
-    setStationAvailable();
+  const [message, setMessage] = useState<FormMessage | undefined>();
+  const [form] = useForm();
+  const { createBox } = useBoxContext();
 
-    const mutation = useMutation<boxResponse, unknown, number, unknown>({
-      mutationFn: (volunteerId: number) => fetcher(APIManager.findBoxURL(volunteerId)),
-      onError: (error) => {
-        setMessage({ type: 'error', content: recognizeError(error) });
-      },
-      onSuccess: (data) => {
-        setMessage({
-          type: 'success',
-          content: `Pomyślnie znaleziono puszkę dla identyfikatora: ${data.collectorIdentifier}`,
-        });
-        createBox(
-          [data.collector.firstName, data.collector.lastName].join(' '),
-          data.collectorIdentifier,
-          data.id.toString(),
-        );
-        form.resetFields();
-        // TODO: Probalby can get rid of setTimeout
-        setTimeout(
-          () => navigate(createFullRoutePath(SETTLE_PROCESS_PATH, ACCEPT_BOX_PAGE_ROUTE)),
-          1000,
-        );
-      },
-    });
+  setStationAvailable();
 
-    const onFinish = (values: FormInput) => {
-      const volunteerId = parseInt(values.id_number) + values.box_type;
-      if (!isNaN(volunteerId)) {
-        mutation.mutate(volunteerId);
-        setMessage(undefined);
-      } else {
-        setMessage({ type: 'error', content: 'Podano nieprawidłowy identyfikator' });
-      }
-    };
+  const mutation = useMutation<boxResponse, unknown, number, unknown>({
+    mutationFn: (volunteerId: number) => fetcher(APIManager.findBoxURL(volunteerId)),
+    onError: (error) => {
+      setMessage({ type: 'error', content: recognizeError(error) });
+    },
+    onSuccess: (data) => {
+      setMessage({
+        type: 'success',
+        content: `Pomyślnie znaleziono puszkę dla identyfikatora: ${data.collectorIdentifier}`,
+      });
+      createBox(
+        [data.collector.firstName, data.collector.lastName].join(' '),
+        data.collectorIdentifier,
+        data.id.toString(),
+      );
+      form.resetFields();
+      // TODO: Probalby can get rid of setTimeout
+      setTimeout(
+        () => navigate(createFullRoutePath(SETTLE_PROCESS_PATH, ACCEPT_BOX_PAGE_ROUTE)),
+        1000,
+      );
+    },
+  });
 
-    // Go to a break
-    const {
-      error: errorBreak,
-      isError: isErrorBreak,
-      isLoading: isLoadingBreak,
-      isSuccess: isSuccessBreak,
-      mutateAsync: mutateGoOnABreak,
-    } = setStationUnknown(username);
+  const onFinish = (values: FormInput) => {
+    const volunteerId = parseInt(values.id_number) + values.box_type;
+    if (!isNaN(volunteerId)) {
+      mutation.mutate(volunteerId);
+      setMessage(undefined);
+    } else {
+      setMessage({ type: 'error', content: 'Podano nieprawidłowy identyfikator' });
+    }
+  };
 
-    useEffect(() => {
-      if (isErrorBreak && isFailedFetched(errorBreak))
-        openNotification('error', NO_CONNECT_WITH_SERVER);
+  // Go to a break
+  const {
+    error: errorBreak,
+    isError: isErrorBreak,
+    isLoading: isLoadingBreak,
+    isSuccess: isSuccessBreak,
+    mutateAsync: mutateGoOnABreak,
+  } = setStationUnknown(username as string);
 
-      if (isSuccessBreak) navigate(SETTLE_PROCESS_PATH);
-    }, [isErrorBreak, isSuccessBreak]);
+  useEffect(() => {
+    if (isErrorBreak && isFailedFetched(errorBreak))
+      openNotification('error', NO_CONNECT_WITH_SERVER);
 
-    const handleBreak = () => {
-      // if u are admin then fast go through, You dont need to set station status
-      if (isNaN(getIDfromUsername(username))) {
-        navigate(SETTLE_PROCESS_PATH);
-      } else {
-        mutateGoOnABreak();
-      }
-    };
+    if (isSuccessBreak) navigate(SETTLE_PROCESS_PATH);
+  }, [errorBreak, isErrorBreak, isSuccessBreak, navigate]);
 
-    return (
-      <Content className={s.container}>
-        <FormWrapper
-          form={form}
-          onFinish={onFinish}
-          name="boxToSettleForm"
-          className={s.form}
-          borderColor="black"
-          label="Znajdź puszkę do rozliczenia"
-          message={message}
-          disabled={mutation.isLoading || isLoadingBreak}
-          initialValues={{ box_type: 0 }}
-        >
-          <Space direction="vertical">
-            <Space direction="vertical" className={s.form}>
-              <Space className={s.inputContainer} size={0}>
-                <Text className={s.text}>Numer Identyfikatora:</Text>
-                <FormInput
-                  name="id_number"
-                  className={s.input}
-                  placeholder="Np. 123"
-                  rules={[{ required: true, message: ID_NUMBER_REQUIRED }]}
-                />
-              </Space>
-              <FormSelect
-                name="box_type"
-                options={options}
-                placeholder="Wybierz rodzaj"
-                className={s.select}
-                rules={[{ required: true, message: TYPE_OF_BOX_REQUIRED }]}
+  const handleBreak = () => {
+    // if u are admin then fast go through, You dont need to set station status
+    if (isNaN(getIDfromUsername(username as string))) {
+      navigate(SETTLE_PROCESS_PATH);
+    } else {
+      mutateGoOnABreak();
+    }
+  };
+
+  return (
+    <Content className={s.container}>
+      <FormWrapper
+        form={form}
+        onFinish={onFinish}
+        name="boxToSettleForm"
+        className={s.form}
+        borderColor="black"
+        label="Znajdź puszkę do rozliczenia"
+        message={message}
+        disabled={mutation.isLoading || isLoadingBreak}
+        initialValues={{ box_type: 0 }}
+      >
+        <Space direction="vertical">
+          <Space direction="vertical" className={s.form}>
+            <Space className={s.inputContainer} size={0}>
+              <Text className={s.text}>Numer Identyfikatora:</Text>
+              <FormInput
+                name="id_number"
+                className={s.input}
+                placeholder="Np. 123"
+                rules={[{ required: true, message: ID_NUMBER_REQUIRED }]}
               />
-              <FormButton
-                variant={'form'}
-                htmlType="submit"
-                type="primary"
-                isLoading={mutation.isLoading}
-              >
-                Wyszukaj puszkę
-              </FormButton>
             </Space>
+            <FormSelect
+              name="box_type"
+              options={options}
+              placeholder="Wybierz rodzaj"
+              className={s.select}
+              rules={[{ required: true, message: TYPE_OF_BOX_REQUIRED }]}
+            />
+            <FormButton
+              variant={'form'}
+              htmlType="submit"
+              type="primary"
+              isLoading={mutation.isLoading}
+            >
+              Wyszukaj puszkę
+            </FormButton>
           </Space>
-        </FormWrapper>
-        <FormButton
-          disabled={isLoadingBreak || mutation.isLoading}
-          type="primary"
-          onClick={handleBreak}
-        >
-          Nie chcę rozliczać dalej - przerwa
-        </FormButton>
-      </Content>
-    );
-  }
+        </Space>
+      </FormWrapper>
+      <FormButton
+        disabled={isLoadingBreak || mutation.isLoading}
+        type="primary"
+        onClick={handleBreak}
+      >
+        Nie chcę rozliczać dalej - przerwa
+      </FormButton>
+    </Content>
+  );
 };
