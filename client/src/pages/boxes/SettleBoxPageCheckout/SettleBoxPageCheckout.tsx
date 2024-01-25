@@ -36,6 +36,7 @@ export const SettleBoxPageCheckout = () => {
 
   const { error, isError, isLoading, isSuccess, mutateAsync } =
     useFinishCounting(boxIdentifier);
+  console.log(boxData);
 
   // set station status to unavailable
   setStationUnavailable();
@@ -55,7 +56,7 @@ export const SettleBoxPageCheckout = () => {
       cleanAmounts();
       navigate(SETTLE_PROCESS_PATH);
     }
-  }, [isError, isSuccess]);
+  }, [cleanAmounts, deleteBox, error, isError, isSuccess, navigate]);
 
   // go to the previous page
   const goBackToDeposit = () => {
