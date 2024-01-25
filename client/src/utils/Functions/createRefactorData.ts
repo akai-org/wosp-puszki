@@ -76,14 +76,18 @@ export const createDisplayableVolunteersData = (data: Volunteer[]) => {
       amount_PLN: item.boxes.reduce((acc, curr) => acc + parseFloat(curr.amount_PLN), 0),
       id: item.identifier,
       name: item.firstName,
-      status:
-        filter(item.boxes, (box) => !(box.is_confirmed && box.is_counted)).length !== 0
-          ? 'unsettled'
-          : 'settled',
+      status: getStatusName(item.boxes),
       sur_name: item.lastName,
       volunteer_id: item.id.toString(),
+      phone_number: item.phoneNumber || ""
     });
   }
 
   return displayableVolunteersData;
 };
+
+function getStatusName(boxes: Omit<boxResponse, 'collector'>[]): string {
+  return filter(boxes, (box) => !(box.is_confirmed && box.is_counted)).length !== 0
+            ? 'Nierozliczona'
+            : 'Rozliczona'
+}

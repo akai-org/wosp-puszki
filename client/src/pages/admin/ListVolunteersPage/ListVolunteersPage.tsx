@@ -16,11 +16,11 @@ export const ListVolunteersPage = () => {
   // Ustawienia dla poszczególnych kolumn
   const columnsOptions: TableColumns[] = [
     {
-      titleName: 'Numer ID',
-      keyName: 'volunteer_id',
+      titleName: 'ID',
+      keyName: 'id',
       sortType: 'number',
       search: true,
-      width: 100,
+      width: 150,
     },
     {
       titleName: 'Imię',
@@ -37,9 +37,9 @@ export const ListVolunteersPage = () => {
       width: 150,
     },
     {
-      titleName: 'Nr. Identyfikatora',
-      keyName: 'id',
-      sortType: 'number',
+      titleName: 'Nr. telefonu',
+      keyName: 'phone_number',
+      search: true,
       width: 150,
     },
     {
@@ -53,11 +53,12 @@ export const ListVolunteersPage = () => {
       titleName: 'Status',
       keyName: 'status',
       width: 200,
+      search: true,
       status: {
         key: 'status',
         options: {
-          on: { value: 'settled', description: 'Rozliczona' },
-          off: { value: 'unsettled', description: 'Nie Rozliczona' },
+          on: { value: 'Rozliczona', description: 'Rozliczona' },
+          off: { value: 'Nierozliczona', description: 'Nie Rozliczona' },
         },
       },
     },

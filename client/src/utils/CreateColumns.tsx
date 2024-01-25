@@ -60,13 +60,14 @@ import type { TableColumns } from '@/utils';
 
 // Ant design
 import { Space, Button, Input, Tag } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import { CloseOutlined, SearchOutlined } from '@ant-design/icons';
 
 // React
 import React from 'react';
 import { useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { Link } from 'react-router-dom';
+import { Key } from 'antd/lib/table/interface';
 
 export function CreateColumns<DataType extends { [key: string]: string | number }>(
   columnsOptions: TableColumns[],
@@ -177,9 +178,11 @@ export function CreateColumns<DataType extends { [key: string]: string | number 
       setSearchedColumn(dataIndex);
     };
 
-    const handleReset = (clearFilters: () => void) => {
-      clearFilters();
+    const handleReset = (confirm: (param?: FilterConfirmProps) => void, setSelectedKeys: (key: Key[]) => void) => {
       setSearchText('');
+      setSearchedColumn('');
+      setSelectedKeys([]);
+      confirm();
     };
 
     return {
@@ -187,8 +190,7 @@ export function CreateColumns<DataType extends { [key: string]: string | number 
         setSelectedKeys,
         selectedKeys,
         confirm,
-        clearFilters,
-        close,
+        close
       }) => (
         <Space
           size="small"
@@ -219,24 +221,13 @@ export function CreateColumns<DataType extends { [key: string]: string | number 
               Search
             </Button>
             <Button
-              onClick={() => clearFilters && handleReset(clearFilters)}
+              onClick={() => handleReset(confirm, setSelectedKeys)}
               style={{ width: 90 }}
             >
               Reset
             </Button>
-            <Button
-              type="link"
-              style={{ color: '#fff' }}
-              onClick={() => {
-                confirm({ closeDropdown: false });
-                setSearchText((selectedKeys as string[])[0]);
-                setSearchedColumn(dataIndex);
-              }}
-            >
-              Filter
-            </Button>
             <Button type="link" style={{ color: '#fff' }} onClick={close}>
-              close
+              <CloseOutlined />
             </Button>
           </Space>
         </Space>
@@ -244,11 +235,15 @@ export function CreateColumns<DataType extends { [key: string]: string | number 
       filterIcon: (filtered: boolean) => (
         <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />
       ),
-      onFilter: (value, record: DataType) =>
-        record[dataIndex]
+      onFilter: (value, record: DataType) => {
+        if (record[dataIndex] == null) {
+          return false;
+        }
+        return record[dataIndex]
           .toString()
           .toLowerCase()
-          .includes((value as string).toLowerCase()),
+          .includes((value as string).toLowerCase());
+      },
       onFilterDropdownOpenChange: (visible) => {
         if (visible) {
           searchInput.current?.select();
