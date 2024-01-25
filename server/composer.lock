@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fdb3ad1e8c3cdbdecc1961ed629ba011",
+    "content-hash": "831b47722f4f7d9d30f45a51bf67df75",
     "packages": [
         {
             "name": "brick/math",
@@ -7581,6 +7581,70 @@
             "time": "2023-12-08T13:03:43+00:00"
         },
         {
+            "name": "venturecraft/revisionable",
+            "version": "1.40.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/VentureCraft/revisionable.git",
+                "reference": "0533f5fa967dbb656b098dac123046fff5ecc69f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/VentureCraft/revisionable/zipball/0533f5fa967dbb656b098dac123046fff5ecc69f",
+                "reference": "0533f5fa967dbb656b098dac123046fff5ecc69f",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~4.0|~5.0|~5.1|^6.0|^7.0|^8.0|^9.0|^10.0",
+                "laravel/framework": "~5.4|^6.0|^7.0|^8.0|^9.0|^10.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~3.0|^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Venturecraft\\Revisionable\\RevisionableServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Venturecraft\\Revisionable": "src/"
+                },
+                "classmap": [
+                    "src/migrations"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chris Duell",
+                    "email": "me@chrisduell.com"
+                }
+            ],
+            "description": "Keep a revision history for your models without thinking, created as a package for use with Laravel",
+            "homepage": "http://github.com/venturecraft/revisionable",
+            "keywords": [
+                "Audit",
+                "ardent",
+                "history",
+                "laravel",
+                "model",
+                "revision"
+            ],
+            "support": {
+                "issues": "https://github.com/VentureCraft/revisionable/issues",
+                "source": "https://github.com/VentureCraft/revisionable"
+            },
+            "time": "2023-02-18T01:49:34+00:00"
+        },
+        {
             "name": "vlucas/phpdotenv",
             "version": "v5.6.0",
             "source": {
@@ -8385,16 +8449,16 @@
         },
         {
             "name": "pestphp/pest",
-            "version": "v2.32.2",
+            "version": "v2.32.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pestphp/pest.git",
-                "reference": "f75063c42012f6964ea9bf47cd8e9076231bd1cd"
+                "reference": "4febd8a11bb1e25b7dc6446ba59546507d6a7556"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pestphp/pest/zipball/f75063c42012f6964ea9bf47cd8e9076231bd1cd",
-                "reference": "f75063c42012f6964ea9bf47cd8e9076231bd1cd",
+                "url": "https://api.github.com/repos/pestphp/pest/zipball/4febd8a11bb1e25b7dc6446ba59546507d6a7556",
+                "reference": "4febd8a11bb1e25b7dc6446ba59546507d6a7556",
                 "shasum": ""
             },
             "require": {
@@ -8438,8 +8502,7 @@
                         "Pest\\Plugins\\Snapshot",
                         "Pest\\Plugins\\Verbose",
                         "Pest\\Plugins\\Version",
-                        "Pest\\Plugins\\Parallel",
-                        "Pest\\Plugins\\JUnit"
+                        "Pest\\Plugins\\Parallel"
                     ]
                 },
                 "phpstan": {
@@ -8478,7 +8541,7 @@
             ],
             "support": {
                 "issues": "https://github.com/pestphp/pest/issues",
-                "source": "https://github.com/pestphp/pest/tree/v2.32.2"
+                "source": "https://github.com/pestphp/pest/tree/v2.32.3"
             },
             "funding": [
                 {
@@ -8490,7 +8553,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-01-23T18:12:07+00:00"
+            "time": "2024-01-25T10:17:36+00:00"
         },
         {
             "name": "pestphp/pest-plugin",

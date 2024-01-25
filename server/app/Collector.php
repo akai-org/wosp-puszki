@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Venturecraft\Revisionable\RevisionableTrait;
 
 class Collector extends Model
 {
+    use RevisionableTrait;
     public function show()
     {
         $formatted = $this->firstName . ' ';

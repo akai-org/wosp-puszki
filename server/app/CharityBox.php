@@ -4,9 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Venturecraft\Revisionable\RevisionableTrait;
 
 class CharityBox extends Model
 {
+    use RevisionableTrait;
+
     protected $casts = [
         'is_given_to_collector' => 'boolean',
     ];

@@ -19,7 +19,8 @@
         "nunomaduro/collision": "^7.0",
         "spatie/laravel-backup": "^8.1",
         "spatie/laravel-ignition": "^2.0",
-        "symfony/panther": "^2.0"
+        "symfony/panther": "^2.0",
+        "venturecraft/revisionable": "1.*"
     },
     "require-dev": {
         "dbrekelmans/bdi": "^1.0",
