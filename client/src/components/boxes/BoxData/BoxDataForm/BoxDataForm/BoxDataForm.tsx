@@ -43,7 +43,7 @@ export interface DepositBoxFormProps {
 export const DepositBoxForm = ({ boxId, editMode }: DepositBoxFormProps) => {
   const [message, setMessage] = useState<FormMessage | undefined>();
   const [total, setTotal] = useState(0);
-  const { boxData, handleAmountsChange } = useDepositContext();
+  const { boxData, handleAmountsChange, cleanAmounts } = useDepositContext();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -70,6 +70,12 @@ export const DepositBoxForm = ({ boxId, editMode }: DepositBoxFormProps) => {
   const handleSubmit = () => {
     mutation.mutate();
   };
+
+  useEffect(() => {
+    return () => {
+      cleanAmounts();
+    };
+  }, [cleanAmounts]);
 
   const amounts: string[] = Object.keys(boxData['amounts']);
   const values: string[] = Object.keys(MONEY_VALUES);

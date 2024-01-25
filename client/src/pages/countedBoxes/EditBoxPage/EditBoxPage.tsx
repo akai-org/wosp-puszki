@@ -7,32 +7,50 @@ import {
   useDepositContextValues,
   useGetBoxQuery,
 } from '@/utils';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 export const EditBoxPage = () => {
   const { id } = useParams();
-  const queryData = id ? useGetBoxQuery(id).data : undefined;
+  const queryData = useGetBoxQuery(id as string).data;
+  const [data, setData] = useState<BoxData | null>(null);
+  const [canShow, setCanShow] = useState(false);
 
-  // TODO: Fix any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const amounts: any = {};
+  // Not elegant, but working
+  useEffect(() => {
+    if (canShow) return;
+    setTimeout(() => {
+      setCanShow(true);
+    }, 100);
+  }, [canShow]);
 
-  if (queryData) {
-    Array.from(AMOUNTS_KEYS).forEach((key) => {
-      amounts[key] = queryData[key];
-    });
-  }
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const amounts: any = {};
 
-  const data: BoxData | null = queryData
-    ? {
-        amounts,
-        comment: queryData?.comment || '',
-      }
-    : null;
+    if (queryData) {
+      Array.from(AMOUNTS_KEYS).forEach((key) => {
+        amounts[key] = queryData[key];
+      });
+    }
+
+    setData(
+      queryData
+        ? {
+            amounts,
+            comment: queryData?.comment || '',
+          }
+        : null,
+    );
+
+    return () => {
+      setData(null);
+    };
+  }, [queryData]);
 
   return (
     <Modal title="Modyfikuj zawartość puszki">
-      <div>{data && <EditBoxForm id={id as string} data={data} />}</div>
+      <div>{data && canShow && <EditBoxForm id={id as string} data={data} />}</div>
     </Modal>
   );
 };
