@@ -91,7 +91,7 @@ export const ListBoxesPage = () => {
     {
       titleName: 'Godzina wydania',
       keyName: 'give_hour',
-      sortType: 'date',
+      sortType: 'time',
       width: 200,
     },
     {

@@ -186,6 +186,16 @@ export function CreateColumns<DataType extends { [key: string]: string | number 
             Date.parse(b[keyName as keyof DataType] as string),
         },
       };
+    } else if (sortType === 'time') {
+      return {
+        sorter: {
+          compare: (a: DataType, b: DataType) =>
+            collator.compare(
+              a[keyName as keyof DataType] as string,
+              b[keyName as keyof DataType] as string,
+            ),
+        },
+      };
     }
   };
 

@@ -61,9 +61,9 @@ export const createDisplayableBoxData = (data: boxResponse[], onlyUnsettled = fa
       amount_USD: item.amount_USD,
       amount_PLN: item.amount_PLN,
       id: item.id,
-      give_hour: item.time_given,
+      give_hour: new Date(item.time_given).toLocaleTimeString(),
       name: `${item.collector.firstName} ${item.collector.lastName}`,
-      status: item.is_confirmed && item.is_counted ? 'settled' : 'unsettled',
+      status: (item.is_counted || item.counting_user_id != null) ? 'settled' : 'unsettled',
       volunteer_id: item.collectorIdentifier,
     });
   }

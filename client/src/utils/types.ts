@@ -35,7 +35,7 @@ export interface IdNumber {
 export interface TableColumns {
   titleName: string;
   keyName: string;
-  sortType?: 'number' | 'string' | 'date';
+  sortType?: 'number' | 'string' | 'date' | 'time';
   search?: boolean;
   ellipsis?: boolean;
   actions?: {
