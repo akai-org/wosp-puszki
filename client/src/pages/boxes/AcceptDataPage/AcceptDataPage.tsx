@@ -26,7 +26,6 @@ export const AcceptDataPage = () => {
   );
   const { collectorName, collectorIdentifier, boxIdentifier, isBoxSpecial } =
     useGetBoxData();
-
   setStationUnavailable();
 
   const mutation = useMutation({
@@ -51,18 +50,7 @@ export const AcceptDataPage = () => {
     mutation.mutate();
   };
 
-  const errors = (
-    <>
-      {settlingErrorMessage && settlingErrorMessage}
-      {isBoxSpecial ? (
-        <Typography.Text className={s.errorText}>
-          Puszka została oznaczona jako specjalna. Prosimy o{' '}
-          <span className={s.boldText}>DYSKRETNE</span> zawołanie szefa sztabu,
-          koordynatora rozliczenia albo wolontariuszy, przed przejściem dalej
-        </Typography.Text>
-      ) : null}
-    </>
-  );
+  const errors = <>{settlingErrorMessage && settlingErrorMessage}</>;
 
   return (
     <Space className={s.AcceptDataPage}>
@@ -73,6 +61,15 @@ export const AcceptDataPage = () => {
         onAccept={onAccept}
         isLoading={mutation.isLoading}
         error={errors}
+        boxSpecialPrompt={
+          <Typography.Text
+            className={[s.errorText, isBoxSpecial ? s.visible : s.hidden].join(' ')}
+          >
+            Puszka została oznaczona jako specjalna. Prosimy o{' '}
+            <span className={s.boldText}>DYSKRETNE</span> zawołanie szefa sztabu,
+            koordynatora rozliczenia albo wolontariuszy, przed przejściem dalej
+          </Typography.Text>
+        }
       />
     </Space>
   );

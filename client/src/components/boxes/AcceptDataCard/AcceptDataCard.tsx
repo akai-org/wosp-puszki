@@ -10,6 +10,7 @@ type AcceptData = {
   isLoading: boolean;
   onAccept: () => void;
   error?: ReactNode;
+  boxSpecialPrompt?: ReactNode;
 };
 
 const { Text, Title } = Typography;
@@ -21,6 +22,7 @@ export const AcceptDataCard = ({
   onAccept,
   isLoading,
   error,
+  boxSpecialPrompt,
 }: AcceptData) => {
   return (
     <div className={s.AcceptDataCard}>
@@ -45,6 +47,7 @@ export const AcceptDataCard = ({
           <p>Potwierdź, że puszka nie nosi śladów uszkodzeń.</p>
           <p>Nie oddawaj rozliczonej puszki wolontariuszowi.</p>
         </div>
+        {boxSpecialPrompt}
         <Button
           type={'primary'}
           className={s.AcceptBtn}
