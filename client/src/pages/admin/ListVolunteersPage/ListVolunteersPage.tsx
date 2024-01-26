@@ -66,7 +66,7 @@ export const ListVolunteersPage = () => {
 
   const displayableData = createDisplayableVolunteersData(data);
   // Tworzenie kolumn
-  const columns = CreateColumns(columnsOptions, displayableData);
+  const columns = CreateColumns(columnsOptions);
 
   return (
     <Layout>

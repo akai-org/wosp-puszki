@@ -16,7 +16,7 @@ export const sum = (
 
   for (const key in keys) {
     total +=
-      boxData.amounts[keys[key]] *
+      (boxData.amounts[keys[key]] as number) *
       moneyValues[MONEY_AMOUNTS_VALUES[keys[key]] as keyof typeof moneyValues];
   }
 

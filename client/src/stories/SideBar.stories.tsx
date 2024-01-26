@@ -40,18 +40,22 @@ export const Admin: Story = {
       {
         label: 'Strona Główna',
         url: '',
+        permission: 'volounteer',
       },
       {
         label: 'Przeliczone puszki',
         url: 'counted_boxes',
+        permission: 'volounteer',
       },
       {
         label: 'Admin',
         url: 'admin',
+        permission: 'volounteer',
       },
       {
         label: 'Puszki',
         url: 'boxes',
+        permission: 'volounteer',
       },
     ],
     username: 'superadmin',
@@ -64,10 +68,12 @@ export const User: Story = {
       {
         label: 'Strona Główna',
         url: '',
+        permission: 'volounteer',
       },
       {
         label: 'Puszki',
         url: 'boxes',
+        permission: 'volounteer',
       },
     ],
     username: 'User',
@@ -80,18 +86,22 @@ export const NarrowAdmin: Story = {
       {
         label: 'Strona Główna',
         url: '',
+        permission: 'volounteer',
       },
       {
         label: 'Przeliczone puszki',
         url: 'counted_boxes',
+        permission: 'volounteer',
       },
       {
         label: 'Admin',
         url: 'admin',
+        permission: 'volounteer',
       },
       {
         label: 'Puszki',
         url: 'boxes',
+        permission: 'volounteer',
       },
     ],
     username: 'superadmin',

@@ -1,46 +1,59 @@
 import { AllRootProvidersWrapper, renderWithWrapper } from '@tests/utils/wrappers';
 import { screen } from '@testing-library/react';
 import { Navbar } from './Navbar';
+import { SubNavLink } from '@/utils';
 
-const testArgs = {
+const testArgs: {
+  CountedBoxesNavLinks: SubNavLink[];
+  AdminPanelNavLinks: SubNavLink[];
+  GiveOrSettleBoxNavLinks: SubNavLink[];
+} = {
   CountedBoxesNavLinks: [
     {
       label: 'Lista puszek',
       url: 'countedBoxes',
+      permission: 'volounteer',
     },
   ],
   AdminPanelNavLinks: [
     {
       label: 'Dodaj użytkownika',
       url: 'admin/users/add',
+      permission: 'volounteer',
     },
     {
       label: 'Lista użytkowników',
       url: 'admin',
       withDot: true,
+      permission: 'volounteer',
     },
     {
       label: 'Dodaj wolontariusza',
       url: 'admin/volunteers/add',
+      permission: 'volounteer',
     },
     {
       label: 'Lista wolontariuszy',
       url: 'admin/volunteers/list',
       withDot: true,
+      permission: 'volounteer',
     },
     {
       label: 'Logi',
       url: 'admin/logs',
+      permission: 'volounteer',
     },
   ],
   GiveOrSettleBoxNavLinks: [
     {
       label: 'Wydaj puszkę',
       url: 'boxes',
+      permission: 'volounteer',
     },
     {
       label: 'Rozlicz puszkę',
       url: 'boxes/settle',
+      permission: 'volounteer',
     },
   ],
 };

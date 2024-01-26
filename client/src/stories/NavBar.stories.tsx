@@ -27,6 +27,7 @@ export const CountedBoxesNav: Story = {
       {
         label: 'Lista puszek',
         url: 'countedBoxes',
+        permission: 'volounteer',
       },
     ],
   },
@@ -38,25 +39,30 @@ export const AdminPanelNav: Story = {
       {
         label: 'Dodaj użytkownika',
         url: 'admin/users/add',
+        permission: 'volounteer',
       },
       {
         label: 'Lista użytkowników',
         url: 'admin',
         withDot: true,
+        permission: 'volounteer',
       },
       {
         label: 'Dodaj wolontariusza',
         url: 'admin/volunteers/add',
         show: true,
+        permission: 'volounteer',
       },
       {
         label: 'Lista wolontariuszy',
         url: 'admin/volunteers/list',
         withDot: true,
+        permission: 'volounteer',
       },
       {
         label: 'Logi',
         url: 'admin/logs',
+        permission: 'volounteer',
       },
     ],
   },
@@ -68,10 +74,12 @@ export const GiveOrSettleBoxNav: Story = {
       {
         label: 'Wydaj puszkę',
         url: 'boxes',
+        permission: 'volounteer',
       },
       {
         label: 'Rozlicz puszkę',
         url: 'boxes/settle',
+        permission: 'volounteer',
       },
     ],
   },

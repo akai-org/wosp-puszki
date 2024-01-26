@@ -36,7 +36,7 @@ export const ListUsersPage = () => {
   const usersData = createUsersData(data);
 
   // Tworzenie kolumn
-  const columns = CreateColumns(columnsOptions, usersData);
+  const columns = CreateColumns(columnsOptions);
 
   return (
     <Layout>
