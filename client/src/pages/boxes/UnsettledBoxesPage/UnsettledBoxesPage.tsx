@@ -74,6 +74,7 @@ export const UnsettledBoxesPage = () => {
       titleName: 'Status',
       keyName: 'status',
       width: 200,
+      search: true,
       status: {
         key: 'status',
         options: {
