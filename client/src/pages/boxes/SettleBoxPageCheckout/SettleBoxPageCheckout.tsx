@@ -81,6 +81,7 @@ export const SettleBoxPageCheckout = () => {
       <ContentColumns boxData={boxData} total={total} />
       <Space className={s.action}>
         <Text>Nie oddawaj puszki wolontariuszowi</Text>
+        <Text className={s.error}>{error ? 'Napotkano nieznany błąd' : null}</Text>
         <Button
           data-testid="submitButton"
           className={s.confirm}
