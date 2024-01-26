@@ -6,7 +6,7 @@ import { MoneyDisplay } from '@components/Display/MoneyDisplay/MoneyDisplay';
 export const DisplayPage = () => {
   return (
     <div className={s.wrapper}>
-      <div className={s.waves}></div>
+      {/* <div className={s.waves}></div> */}
       <Space direction="horizontal" className={s.innerWrapper}>
         <MoneyDisplay />
         <MapDisplay />
