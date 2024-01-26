@@ -25,7 +25,10 @@ export const GiveBoxForm = () => {
     {
       mutationFn: (volunteerId: number) =>
         fetcher(APIManager.giveBoxURL(volunteerId), { method: 'POST' }),
-      onError: (error) => setMessage({ type: 'error', content: recognizeError(error) }),
+      onError: (error) => {
+        console.log(error);
+        setMessage({ type: 'error', content: recognizeError(error) });
+      },
       onSuccess: (data) => {
         setMessage({
           type: 'success',

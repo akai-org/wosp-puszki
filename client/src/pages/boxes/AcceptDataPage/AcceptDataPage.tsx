@@ -42,6 +42,9 @@ export const AcceptDataPage = () => {
         setSettlingErrorMessage(settlingError);
       }
       if (isFailedFetched(error)) openNotification('error', NO_CONNECT_WITH_SERVER);
+      else {
+        setSettlingErrorMessage('Nieznany błąd');
+      }
     },
   });
 
