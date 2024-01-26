@@ -1,6 +1,15 @@
 @import './src/less/variables';
 
 .currencies {
+  margin-top: 35px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 15px 100px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  background-color: #e20613;
   text-shadow: @currencies-test-shadow;
   display: flex;
   font-family: 'Oswald-Bold', sans-serif;
@@ -11,6 +20,7 @@
     margin: 0 1.875rem;
     & > div {
       color: white !important;
+      margin: 0!important;
     }
   }
 }
@@ -35,6 +45,7 @@
 
 .eBox {
   text-shadow: @currencies-test-shadow;
+  margin-top: 20px;
   display: flex;
   font-family: 'Oswald-Bold', sans-serif;
   font-size: 2.1875rem !important;
