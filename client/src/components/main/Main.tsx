@@ -12,18 +12,18 @@ import { COLLECTED_AUCTION_ID, COLLECTED_ESKARBONKA_ID, COLLECTED_TOTAL_ID } fro
 
 const { Content } = Layout;
 const { Title } = Typography;
-const auction = true;
+const auction = false;
 
 export const Main = () => {
   const navigate = useNavigate();
   const { data: amountsData } = useAmountsQuery();
   const { username } = useAuthContext();
-  
+
   // TODO: Change buttons to links
   return (
     <Content className={s.container}>
       {!auction && <Collected piggy={amountsData.amount_PLN_eskarbonka} total={amountsData.amount_total_in_PLN}/>}
-      
+
       {auction && <Space direction="vertical" size={10} align="center">
         <Title level={2} style={{ margin: 0, fontWeight: 400 }}>
           Zebraliśmy z puszek:
