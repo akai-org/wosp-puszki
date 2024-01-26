@@ -93,6 +93,7 @@ export type VolunteerDataType = {
   id: string;
   amount_PLN: number;
   status: string;
+  phone_number: string;
 };
 
 export type UserDataType = {
@@ -341,6 +342,7 @@ export interface Volunteer {
   identifier: string;
   firstName: string;
   lastName: string;
+  phoneNumber?: string;
   created_at: number;
   updated_at: string;
   boxes: Omit<boxResponse, 'collector'>[];

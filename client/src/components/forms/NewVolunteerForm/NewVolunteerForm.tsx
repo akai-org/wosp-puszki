@@ -6,6 +6,7 @@ import {
   FIRST_NAME_REQUIRED,
   ID_NUMBER_REQUIRED,
   LAST_NAME_REQUIRED,
+  PHONE_NUMBER_REQUIRED,
   TYPE_OF_BOX_REQUIRED,
   boxTypeFormSelectOptions,
   fetcher,
@@ -19,6 +20,7 @@ interface NewVolunteerValues extends Pick<BoxTypeFormInput, 'box_type'> {
   firstName: string;
   lastName: string;
   collectorIdentifier: string;
+  phoneNumber: string;
 }
 
 export const NewVolunteerForm = () => {
@@ -40,6 +42,7 @@ export const NewVolunteerForm = () => {
           firstName: values.firstName,
           lastName: values.lastName,
           collectorIdentifier: values.collectorIdentifier,
+          phoneNumber: values.phoneNumber
         },
       }),
 
@@ -89,6 +92,11 @@ export const NewVolunteerForm = () => {
         label="Nazwisko"
         name="lastName"
         rules={[{ required: true, message: LAST_NAME_REQUIRED }]}
+      />
+      <FormInput
+        label="Nr. telefonu"
+        name="phoneNumber"
+        rules={[{ required: true, message: PHONE_NUMBER_REQUIRED }]}
       />
       <FormSelect
         name="box_type"
