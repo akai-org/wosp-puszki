@@ -17,14 +17,15 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
+import { Typography } from 'antd';
 
 export const AcceptDataPage = () => {
   const navigate = useNavigate();
   const [settlingErrorMessage, setSettlingErrorMessage] = useState<string | undefined>(
     undefined,
   );
-  const { collectorName, collectorIdentifier, boxIdentifier } = useGetBoxData();
-
+  const { collectorName, collectorIdentifier, boxIdentifier, isBoxSpecial } =
+    useGetBoxData();
   setStationUnavailable();
 
   const mutation = useMutation({
@@ -49,6 +50,8 @@ export const AcceptDataPage = () => {
     mutation.mutate();
   };
 
+  const errors = <>{settlingErrorMessage && settlingErrorMessage}</>;
+
   return (
     <Space className={s.AcceptDataPage}>
       <AcceptDataCard
@@ -57,7 +60,16 @@ export const AcceptDataPage = () => {
         id_number={collectorIdentifier}
         onAccept={onAccept}
         isLoading={mutation.isLoading}
-        error={settlingErrorMessage}
+        error={errors}
+        boxSpecialPrompt={
+          <Typography.Text
+            className={[s.errorText, isBoxSpecial ? s.visible : s.hidden].join(' ')}
+          >
+            Puszka została oznaczona jako specjalna. Prosimy o{' '}
+            <span className={s.boldText}>DYSKRETNE</span> zawołanie szefa sztabu,
+            koordynatora rozliczenia albo wolontariuszy, przed przejściem dalej
+          </Typography.Text>
+        }
       />
     </Space>
   );

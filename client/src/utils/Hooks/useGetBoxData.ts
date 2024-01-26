@@ -5,8 +5,14 @@ import { useNavigate } from 'react-router-dom';
 
 export const useGetBoxData = () => {
   const navigate = useNavigate();
-  const { boxIdentifier, collectorName, collectorIdentifier, createBox, deleteBox } =
-    useBoxContext();
+  const {
+    boxIdentifier,
+    collectorName,
+    collectorIdentifier,
+    createBox,
+    deleteBox,
+    isBoxSpecial,
+  } = useBoxContext();
 
   if (!isBoxExists(collectorName, collectorIdentifier, boxIdentifier)) {
     navigate(SETTLE_PROCESS_PATH);
@@ -18,5 +24,6 @@ export const useGetBoxData = () => {
     collectorIdentifier: collectorIdentifier as NonNullable<typeof collectorIdentifier>,
     createBox,
     deleteBox,
+    isBoxSpecial,
   };
 };

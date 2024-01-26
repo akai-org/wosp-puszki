@@ -4,6 +4,7 @@ import {
   STORAGE_BOX_IDENTIFIER,
   STORAGE_COLLECTOR_IDENTIFIER,
   STORAGE_COLLECTOR_NAME,
+  STORAGE_IS_BOX_SPECIAL,
 } from '@/utils';
 
 export const BoxContext = createContext<IBoxContext | null>(null);
@@ -26,27 +27,35 @@ export const useBoxContextValues = () => {
   const [boxIdentifier, updateBoxIdentifier] = useState<string | null>(() =>
     localStorage.getItem(STORAGE_BOX_IDENTIFIER),
   );
+  const [isBoxSpecial, updateIsBoxSpecial] = useState<boolean | null>(
+    () => !!localStorage.getItem(STORAGE_IS_BOX_SPECIAL),
+  );
 
   const createBox = async (
     collectorName: string,
     collectorIdentifier: string,
     boxIdentifier: string,
+    isBoxSpecial: boolean,
   ) => {
     localStorage.setItem(STORAGE_COLLECTOR_NAME, collectorName);
     localStorage.setItem(STORAGE_COLLECTOR_IDENTIFIER, collectorIdentifier);
     localStorage.setItem(STORAGE_BOX_IDENTIFIER, boxIdentifier);
+    localStorage.setItem(STORAGE_IS_BOX_SPECIAL, isBoxSpecial ? '1' : '');
     updateCollectorName(collectorName);
     updateCollectorIdentifier(collectorIdentifier);
     updateBoxIdentifier(boxIdentifier);
+    updateIsBoxSpecial(isBoxSpecial);
   };
 
   const deleteBox = () => {
     localStorage.removeItem(STORAGE_COLLECTOR_NAME);
     localStorage.removeItem(STORAGE_COLLECTOR_IDENTIFIER);
     localStorage.removeItem(STORAGE_BOX_IDENTIFIER);
+    localStorage.setItem(STORAGE_IS_BOX_SPECIAL, '');
     updateCollectorName(null);
     updateCollectorIdentifier(null);
     updateBoxIdentifier(null);
+    updateIsBoxSpecial(null);
   };
 
   return {
@@ -55,5 +64,6 @@ export const useBoxContextValues = () => {
     boxIdentifier,
     createBox,
     deleteBox,
+    isBoxSpecial,
   };
 };
