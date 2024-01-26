@@ -89,7 +89,7 @@ export const createDisplayableVolunteersData = (data: Volunteer[]) => {
 };
 
 function getStatusName(boxes: Omit<boxResponse, 'collector'>[]): string {
-  return filter(boxes, (box) => !(box.is_confirmed && box.is_counted)).length !== 0
+  return filter(boxes, (box) => !(item.is_counted || item.counting_user_id != null)).length !== 0
             ? 'Nierozliczona'
             : 'Rozliczona'
 }
