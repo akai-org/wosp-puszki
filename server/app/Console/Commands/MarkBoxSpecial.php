@@ -38,11 +38,8 @@ class MarkBoxSpecial extends Command
      */
     public function handle()
     {
-        $boxID = $this->ask('Podaj numer puszki do oznaczenia:');
-
-        $box = CharityBox::find($boxID);
-        $box->is_special_box = true;
-        $box->save();
-        $this->info('Puszka oznaczona jako specjalna');
+        $boxID = $this->ask('Podaj numer WOLONTARIUSZA do oznaczenia:');
+        CharityBox::where('collectorIdentifier', $boxID)->update(['is_special_box' => true]);
+        $this->info('Puszki wolontariusza zostały oznaczone jako specjalne');
     }
 }

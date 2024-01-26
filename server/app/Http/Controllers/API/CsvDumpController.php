@@ -14,7 +14,7 @@ class CsvDumpController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth.basic:,name');
         $this->middleware('collectorcoordinator');
     }
     /**
@@ -56,12 +56,12 @@ class CsvDumpController extends Controller
         }
         $data = $bo->getAll();
         $csvData = [];
-        $csvData[] = ['ID puszki','Wolontariusz','Godzina oddania','Godzina liczenia','Kwota w złotówkach'];
+        $csvData[] = ['ID Wolo','Wolontariusz','Godzina oddania','Godzina liczenia','Zebrane PLN', 'Zebrane EUR', 'Zebrane USD', 'Zebrane GBP', "Inne"];
 
         foreach ($data as $row) {
             $collectorName = $row->collector->firstName . ' ' . $row->collector->lastName;
             $csvData[] = [
-                $row->id,
+                $row->collector_id,
                 $collectorName,
                 $row->time_given,
                 $row->time_counted,
@@ -69,7 +69,7 @@ class CsvDumpController extends Controller
                 $row->amount_EUR,
                 $row->amount_USD,
                 $row->amount_GBP,
-                //TODO kolumna z sumą w złotówkach
+                $row->comment
             ];
         }
         $date = Carbon::now();
