@@ -186,6 +186,16 @@ export function CreateColumns<DataType extends { [key: string]: string | number 
             Date.parse(b[keyName as keyof DataType] as string),
         },
       };
+    } else if (sortType === 'time') {
+      return {
+        sorter: {
+          compare: (a: DataType, b: DataType) =>
+            collator.compare(
+              a[keyName as keyof DataType] as string,
+              b[keyName as keyof DataType] as string,
+            ),
+        },
+      };
     }
   };
 
@@ -355,8 +365,8 @@ export function CreateColumns<DataType extends { [key: string]: string | number 
       dataIndex: column.keyName,
       key: column.keyName,
       width: column.width,
-      ...setStatus(column.status),
       ...getColumnSearchProps(column.keyName, column.search),
+      ...setStatus(column.status),
       ...getSorter(column.sortType, column.keyName),
       ...renderActions(column.keyName, column.actions),
       ...getFixed(column.fixed, column.width),

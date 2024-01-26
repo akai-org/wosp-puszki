@@ -74,6 +74,7 @@ export const ListBoxesPage = () => {
       titleName: 'Status',
       keyName: 'status',
       width: 200,
+      search: true,
       status: {
         key: 'status',
         options: {
@@ -91,7 +92,7 @@ export const ListBoxesPage = () => {
     {
       titleName: 'Godzina wydania',
       keyName: 'give_hour',
-      sortType: 'date',
+      sortType: 'time',
       width: 200,
     },
     {

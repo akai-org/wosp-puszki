@@ -74,11 +74,12 @@ export const UnsettledBoxesPage = () => {
       titleName: 'Status',
       keyName: 'status',
       width: 200,
+      search: true,
       status: {
         key: 'status',
         options: {
           on: { value: 'settled', description: 'Rozliczona' },
-          off: { value: 'unsettled', description: 'Nie Rozliczona' },
+          off: { value: 'unsettled', description: 'nierozliczona' },
         },
       },
     },
@@ -91,7 +92,7 @@ export const UnsettledBoxesPage = () => {
     {
       titleName: 'Godzina wydania',
       keyName: 'give_hour',
-      sortType: 'date',
+      sortType: 'time',
       width: 200,
     },
     {
@@ -141,7 +142,7 @@ export const UnsettledBoxesPage = () => {
       </IconButton>
       <Content className={s.content}>
         <Space direction="vertical" size="small" className={s.space}>
-          <Title level={4}>Lista puszek nie rozliczonych</Title>
+          <Title level={4}>Lista puszek nierozliczonych</Title>
           <Table
             size="middle"
             columns={columns}

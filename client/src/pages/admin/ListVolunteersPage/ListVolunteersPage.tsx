@@ -58,7 +58,7 @@ export const ListVolunteersPage = () => {
         key: 'status',
         options: {
           on: { value: 'Rozliczona', description: 'Rozliczona' },
-          off: { value: 'Nierozliczona', description: 'Nie Rozliczona' },
+          off: { value: 'Nierozliczona', description: 'nierozliczona' },
         },
       },
     },

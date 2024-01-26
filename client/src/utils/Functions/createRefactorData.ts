@@ -61,9 +61,9 @@ export const createDisplayableBoxData = (data: boxResponse[], onlyUnsettled = fa
       amount_USD: item.amount_USD,
       amount_PLN: item.amount_PLN,
       id: item.id,
-      give_hour: item.time_given,
+      give_hour: new Date(item.time_given).toLocaleTimeString(),
       name: `${item.collector.firstName} ${item.collector.lastName}`,
-      status: item.is_confirmed && item.is_counted ? 'settled' : 'unsettled',
+      status: (item.is_counted || item.counting_user_id != null) ? 'settled' : 'unsettled',
       volunteer_id: item.collectorIdentifier,
     });
   }
@@ -89,7 +89,7 @@ export const createDisplayableVolunteersData = (data: Volunteer[]) => {
 };
 
 function getStatusName(boxes: Omit<boxResponse, 'collector'>[]): string {
-  return filter(boxes, (box) => !(box.is_confirmed && box.is_counted)).length !== 0
+  return filter(boxes, (box) => !(box.is_counted || box.counting_user_id != null)).length !== 0
             ? 'Nierozliczona'
             : 'Rozliczona'
 }

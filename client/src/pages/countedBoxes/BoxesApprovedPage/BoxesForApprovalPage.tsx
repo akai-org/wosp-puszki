@@ -93,7 +93,7 @@ export const BoxesForApprovalPage = () => {
     {
       titleName: 'Godz. przeliczenia',
       keyName: 'time_counted',
-      sortType: 'date',
+      sortType: 'time',
       width: 60,
       search: true,
     },

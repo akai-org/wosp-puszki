@@ -55,7 +55,7 @@ const SettleProcessRoute = () => {
     links.push({ url: All_BOXES_PATH, label: 'Wszystkie puszki' });
     links.push({
       url: UNSETTLED_BOXES_PATH,
-      label: 'Lista puszek nie rozliczonych',
+      label: 'Lista puszek nierozliczonych',
     });
   }
   return (
@@ -87,7 +87,7 @@ const SettleProcessRoute = () => {
             },
             {
               url: UNSETTLED_BOXES_PATH,
-              label: 'Lista puszek nie rozliczonych',
+              label: 'Lista puszek nierozliczonych',
               permission: 'collectorcoordinator',
             },
           ]}
