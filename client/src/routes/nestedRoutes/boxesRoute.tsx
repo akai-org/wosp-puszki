@@ -60,7 +60,7 @@ export const boxesRoute = {
           },
           {
             url: UNSETTLED_BOXES_LIST_PAGE_ROUTE,
-            label: 'Lista puszek nie rozliczonych',
+            label: 'Lista puszek nierozliczonych',
             permission: 'collectorcoordinator',
           },
         ]}

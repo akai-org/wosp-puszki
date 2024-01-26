@@ -78,7 +78,7 @@ export const UnsettledBoxesPage = () => {
         key: 'status',
         options: {
           on: { value: 'settled', description: 'Rozliczona' },
-          off: { value: 'unsettled', description: 'Nie Rozliczona' },
+          off: { value: 'unsettled', description: 'nierozliczona' },
         },
       },
     },
@@ -141,7 +141,7 @@ export const UnsettledBoxesPage = () => {
       </IconButton>
       <Content className={s.content}>
         <Space direction="vertical" size="small" className={s.space}>
-          <Title level={4}>Lista puszek nie rozliczonych</Title>
+          <Title level={4}>Lista puszek nierozliczonych</Title>
           <Table
             size="middle"
             columns={columns}
