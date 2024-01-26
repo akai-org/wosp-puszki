@@ -4,9 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Venturecraft\Revisionable\RevisionableTrait;
 
 class CharityBox extends Model
 {
+    use RevisionableTrait;
+
     protected $casts = [
         'is_given_to_collector' => 'boolean',
     ];
@@ -14,6 +17,16 @@ class CharityBox extends Model
     public function collector()
     {
         return $this->belongsTo('App\Collector');
+    }
+
+    public function givenToCollectorUser()
+    {
+        return $this->belongsTo('App\User', 'given_to_collector_user_id', 'id');
+    }
+
+    public function countingUser()
+    {
+        return $this->belongsTo('App\User', 'counting_user_id', 'id');
     }
 
     public function personConfirming()

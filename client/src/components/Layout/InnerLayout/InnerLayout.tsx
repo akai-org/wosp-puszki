@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import { Layout } from 'antd';
 import s from './InnerLayout.module.less';
-import { SubNavLink } from '@/utils';
+import { SubNavLink, filterLinksByPermission, useAuthContext } from '@/utils';
 import { FC } from 'react';
 import { Navbar } from '../Navbar/Navbar';
 
@@ -11,9 +11,10 @@ interface Props {
 }
 
 export const InnerLayout: FC<Props> = ({ links, hideNavbar }) => {
+  const { roles } = useAuthContext();
   const layoutHeader = hideNavbar ? null : (
     <Layout.Header className={s.customNavbar}>
-      <Navbar links={links} />
+      <Navbar links={filterLinksByPermission(links, roles)} />
     </Layout.Header>
   );
 

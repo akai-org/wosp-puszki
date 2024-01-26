@@ -25,12 +25,8 @@ export const CountedBoxesNav: Story = {
   args: {
     links: [
       {
-        label: 'Lista puszek do zatwierdzenia',
+        label: 'Lista puszek',
         url: 'countedBoxes',
-      },
-      {
-        label: 'Lista puszek zatwierdzonych',
-        url: 'countedBoxes/approved',
       },
     ],
   },

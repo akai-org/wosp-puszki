@@ -59,7 +59,7 @@ import type { FilterConfirmProps } from 'antd/es/table/interface';
 import type { TableColumns } from '@/utils';
 
 // Ant design
-import { Space, Button, Input, Tag } from 'antd';
+import { Space, Button, Input, Tag, Tooltip } from 'antd';
 import { CloseOutlined, SearchOutlined } from '@ant-design/icons';
 
 // React
@@ -89,31 +89,65 @@ export function CreateColumns<DataType extends { [key: string]: string | number 
                 // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
                 <p
                   key={action.title}
-                  style={{ color: action.color, cursor: 'pointer' }}
-                  onClick={() =>
-                    fetcher(`${APIManager.baseAPIRUrl}${action.link}${record['id']}`, {
-                      method: 'POST',
-                      returnVoid: true,
-                      body: {
-                        box_id: record['id'],
+                  style={{ color: action.color, cursor: 'pointer', margin: '0' }}
+                  onClick={async () => {
+                    await fetcher(
+                      `${APIManager.baseAPIRUrl}${action.link}${record['id']}`,
+                      {
+                        method: 'POST',
+                        returnVoid: true,
+                        body: {
+                          box_id: record['id'],
+                        },
                       },
-                    })
-                  }
+                    );
+                    if (action.callback) action.callback();
+                  }}
                 >
                   {action.title}
                 </p>
               );
-            } else {
+            }
+            if (action.buttonType === 'tooltip') {
               return (
                 <Link
                   to={action.link ? `${action.link}${record[linkId]}` : '#'}
-                  style={{ color: action.color }}
                   key={action.title}
                 >
-                  {action.title}
+                  <Tooltip title={action.title}>
+                    <Button
+                      shape="circle"
+                      size="small"
+                      style={{
+                        borderColor: 'gray',
+                        color: action.color,
+                      }}
+                      icon={action.icon}
+                    ></Button>
+                  </Tooltip>
                 </Link>
               );
             }
+            return (
+              <Link
+                to={action.link ? `${action.link}${record['id']}` : '#'}
+                key={action.title}
+              >
+                <Button
+                  size="small"
+                  style={{
+                    outline: action.color,
+                    color: action.color,
+                    boxSizing: 'content-box',
+                    padding: '0.1rem 0.3rem',
+                  }}
+                  icon={action.icon}
+                  type={action.buttonType ? action.buttonType : 'default'}
+                >
+                  {action.title}
+                </Button>
+              </Link>
+            );
           })}
         </Space>
       ),

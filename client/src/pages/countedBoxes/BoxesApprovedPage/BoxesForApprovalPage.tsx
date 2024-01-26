@@ -1,129 +1,218 @@
 // Utility functions
 import type { TableColumns } from '@/utils';
-import { CreateColumns, useUnverifiedBoxesQuery, useVerifiedBoxesQuery } from '@/utils';
+import {
+  APIManager,
+  CANNOT_DOWNLOAD_DATA,
+  CreateColumns,
+  NO_CONNECT_WITH_SERVER,
+  fetcher,
+  getTopPermission,
+  openNotification,
+  permissions,
+  useAuthContext,
+  useUnverifiedBoxesQuery,
+  useVerifiedBoxesQuery,
+} from '@/utils';
 
 // Style and ant design
 import s from './BoxesPage.module.less';
 import { Typography, Space, Layout, Table } from 'antd';
 import { createDisplayableData } from '@/utils/Functions/createRefactorData';
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
+import {
+  CheckOutlined,
+  CloseOutlined,
+  EditOutlined,
+  SearchOutlined,
+} from '@ant-design/icons';
 
 const { Title } = Typography;
 const { Content } = Layout;
 
 export const BoxesForApprovalPage = () => {
+  const { roles } = useAuthContext();
+  const topRole = getTopPermission(roles);
+  const isPermitted = topRole !== null && topRole <= permissions['admin'];
+
   // Ustawienia dla poszczególnych kolumn
-  const columnsOptions: TableColumns[] = [
+  const baseColumnsOptions: TableColumns[] = [
     {
       titleName: 'ID',
-      keyName: 'id',
-      sortType: 'number',
+      keyName: 'collectorId',
       search: true,
       fixed: 'left',
-      width: 70,
+      width: 20,
     },
     {
       titleName: 'Wolontariusz',
       keyName: 'name',
       sortType: 'string',
       search: true,
+      ellipsis: true,
       fixed: 'left',
-      width: 200,
-    },
-    {
-      titleName: 'EUR',
-      keyName: 'amount_EUR',
-      sortType: 'number',
-      afterText: '€',
-      width: 100,
-    },
-    {
-      titleName: 'GBP',
-      keyName: 'amount_GBP',
-      sortType: 'number',
-      afterText: '£',
-      width: 100,
-    },
-    {
-      titleName: 'USD',
-      keyName: 'amount_USD',
-      sortType: 'number',
-      afterText: '$',
-      width: 100,
+      width: 80,
     },
     {
       titleName: 'PLN',
       keyName: 'amount_PLN',
       sortType: 'number',
-      width: 100,
+      width: 50,
       afterText: 'PLN',
+    },
+    {
+      titleName: 'EUR',
+      keyName: 'amount_EUR',
+      afterText: '€',
+      width: 30,
+    },
+    {
+      titleName: 'GBP',
+      keyName: 'amount_GBP',
+      afterText: '£',
+      width: 30,
+    },
+    {
+      titleName: 'USD',
+      keyName: 'amount_USD',
+      afterText: '$',
+      width: 30,
     },
     {
       titleName: 'Inne',
       keyName: 'comment',
       search: true,
-      width: 200,
+      ellipsis: true,
+      width: 60,
     },
     {
-      titleName: 'Godzina przeliczenia',
+      titleName: 'Stanowisko',
+      keyName: 'countingStation',
+      search: true,
+      width: 40,
+    },
+    {
+      titleName: 'Godz. przeliczenia',
       keyName: 'time_counted',
       sortType: 'date',
-      width: 150,
+      width: 60,
+      search: true,
     },
+  ];
+
+  const { data: unverifiedData, refetch: refetchUnverified } = useUnverifiedBoxesQuery();
+  const verifiedColumnsOptions: TableColumns[] = [
+    ...baseColumnsOptions,
     {
-      titleName: 'Actions',
+      titleName: 'Akcje',
       keyName: 'actions',
       fixed: 'right',
-      width: 220,
+      width: 100,
       actions: [
+        {
+          title: ' Cofnij zatwierdzenie',
+          link: '/charityBoxes/unverified/',
+          color: 'red',
+          icon: <CloseOutlined />,
+          buttonType: 'default',
+          type: 'query',
+          callback() {
+            refetchVerified();
+            refetchUnverified();
+          },
+        },
         {
           title: 'Podgląd',
           link: '/liczymy/countedBoxes/show/',
           color: 'blue',
+          icon: <SearchOutlined />,
+          buttonType: 'tooltip',
         },
         {
-          title: 'Modyfikuj',
+          title: 'Edytuj',
           link: '/liczymy/countedBoxes/edit/',
-          color: 'blue',
+          color: 'gray',
+          icon: <EditOutlined />,
+          buttonType: 'tooltip',
         },
       ],
     },
   ];
 
-  const { data: unverifiedData } = useUnverifiedBoxesQuery();
-
   const displayableData = createDisplayableData(unverifiedData);
 
-  const { data: verifiedData } = useVerifiedBoxesQuery();
+  const { data: verifiedData, refetch: refetchVerified } = useVerifiedBoxesQuery();
+
+  const unverifiedColumnsOptions: TableColumns[] = [
+    ...baseColumnsOptions,
+    {
+      titleName: 'Akcje',
+      keyName: 'actions',
+      fixed: 'right',
+      width: 100,
+      actions: [
+        {
+          title: ' Zatwierdź',
+          link: '/charityBoxes/verified/',
+          color: 'green',
+          icon: <CheckOutlined />,
+          buttonType: 'default',
+          type: 'query',
+          callback() {
+            refetchVerified();
+            refetchUnverified();
+          },
+        },
+        {
+          title: 'Podgląd',
+          link: '/liczymy/countedBoxes/show/',
+          color: 'blue',
+          icon: <SearchOutlined />,
+          buttonType: 'tooltip',
+        },
+        {
+          title: 'Edytuj',
+          link: '/liczymy/countedBoxes/edit/',
+          color: 'gray',
+          icon: <EditOutlined />,
+          buttonType: 'tooltip',
+        },
+      ],
+    },
+  ];
 
   const displayableVerifiedData = createDisplayableData(verifiedData);
 
-  const verifiedColumns = CreateColumns(columnsOptions);
+  const verifiedColumns = CreateColumns(verifiedColumnsOptions);
 
   // Tworzenie kolumn
-  const columns = CreateColumns(columnsOptions);
+  const columns = CreateColumns(unverifiedColumnsOptions);
 
   return (
-    <Layout>
+    <Layout className={'boxesList'}>
       <Content className={s.content}>
-        <Space direction="vertical" size="small" className={s.space}>
-          <Title level={4}>Do zatwierdzenia</Title>
-          <Table
-            size="middle"
-            columns={columns}
-            pagination={false}
-            dataSource={displayableData}
-            rowKey="id"
-            scroll={{ y: '70vh' }}
-            rowClassName={s.table_row}
-          />
-        </Space>
+        {isPermitted ? (
+          <Space direction="vertical" size="small" className={s.space}>
+            <Title level={4}>Do zatwierdzenia</Title>
+            <Table
+              size="small"
+              bordered={true}
+              columns={columns}
+              pagination={false}
+              dataSource={displayableData}
+              rowKey="id"
+              rowClassName={s.table_row}
+              scroll={{ y: '70vh' }}
+              className={'table'}
+            />
+          </Space>
+        ) : null}
         <Space direction="vertical" size="small" className={s.space}>
           <Title level={4}>Zatwierdzone</Title>
           <Table
-            size="middle"
+            size="small"
+            bordered={true}
             columns={verifiedColumns}
-            pagination={false}
+            pagination={{ pageSize: 50, position: ['bottomCenter'] }}
             dataSource={displayableVerifiedData}
             rowKey="id"
             scroll={{ y: '70vh' }}

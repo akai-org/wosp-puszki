@@ -1,10 +1,22 @@
 import { ReactNode } from 'react';
-import { MONEY_VALUES, useAuthContextValues, useBoxContextValues } from '@/utils';
+import {
+  MONEY_VALUES,
+  permissions,
+  useAuthContextValues,
+  useBoxContextValues,
+} from '@/utils';
 import { useDepositContext } from '@/utils/Contexts/DepositContext';
 
-export interface SubNavLink {
+export interface NavLink extends WithPermission {
   url: string;
   label: string;
+}
+
+export interface WithPermission {
+  permission: UserRole;
+}
+
+export interface SubNavLink extends NavLink {
   show?: boolean;
   withDot?: boolean;
 }
@@ -25,11 +37,15 @@ export interface TableColumns {
   keyName: string;
   sortType?: 'number' | 'string' | 'date';
   search?: boolean;
+  ellipsis?: boolean;
   actions?: {
     title: string;
     link: string;
     color?: string;
     type?: string;
+    icon?: ReactNode;
+    buttonType?: 'link' | 'primary' | 'default' | 'tooltip';
+    callback?: () => void;
   }[];
   fixed?: 'left' | 'right';
   width?: number;
@@ -59,7 +75,7 @@ export type DataType = {
 };
 
 export type BoxDataType = {
-  box_id: number;
+  id: number;
   volunteer_id: string;
   name: string;
   amount_EUR: string;
@@ -127,6 +143,7 @@ export interface IAuthContext {
   deleteCredentials: () => void;
   credentials: string | null;
   username: string | null;
+  roles: UserRole[];
 }
 
 export interface ISidebarStateContext {
@@ -243,14 +260,7 @@ export interface IBoxes {
   };
   time_given: string;
   is_counted: number;
-  counting_user_id: {
-    id: number;
-    created_at: string;
-    updated_at: string;
-    name: string;
-    comment: string;
-    remember_token: string;
-  };
+  counting_user_id: number;
   time_counted: string;
   is_confirmed: boolean;
   user_confirmed_id: number;
@@ -336,4 +346,11 @@ export interface Volunteer {
   created_at: number;
   updated_at: string;
   boxes: Omit<boxResponse, 'collector'>[];
+}
+
+export type UserRole = keyof typeof permissions;
+
+export interface IAuthResponse {
+  user: string;
+  roles: UserRole[];
 }

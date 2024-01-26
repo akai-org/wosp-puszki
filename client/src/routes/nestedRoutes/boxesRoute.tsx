@@ -8,7 +8,6 @@ import {
   BOXES_ROUTE,
   SETTLE_PROCESS_PATH,
   UNSETTLED_BOXES_LIST_PAGE_ROUTE,
-  useAuthContext,
 } from '@/utils';
 import { ShowBoxPage } from '@/pages/countedBoxes/ShowBoxPage/ShowBoxPage';
 
@@ -20,7 +19,7 @@ const boxesSubroutes: RouteObject[] = [
   {
     path: BOXES_LIST_PAGE_ROUTE,
     element: (
-      <ProtectedRoute adminOnly>
+      <ProtectedRoute>
         <ListBoxesPage />
       </ProtectedRoute>
     ),
@@ -29,7 +28,7 @@ const boxesSubroutes: RouteObject[] = [
   {
     path: UNSETTLED_BOXES_LIST_PAGE_ROUTE,
     element: (
-      <ProtectedRoute adminOnly>
+      <ProtectedRoute>
         <UnsettledBoxesPage />
       </ProtectedRoute>
     ),
@@ -37,30 +36,36 @@ const boxesSubroutes: RouteObject[] = [
   },
 ];
 
-const BoxesRoute = () => {
-  const { username } = useAuthContext();
-  const lastTwoCharacters = username?.slice(-2);
-  const isAdmin = isNaN(parseInt(lastTwoCharacters as string));
-  const links = [
-    { url: BOXES_PATH, label: 'Wydaj puszkę' },
-    { url: SETTLE_PROCESS_PATH, label: 'Rozlicz puszkę' },
-  ];
-  if (isAdmin) {
-    links.push({ url: BOXES_LIST_PAGE_ROUTE, label: 'Wszystkie puszki' });
-    links.push({
-      url: UNSETTLED_BOXES_LIST_PAGE_ROUTE,
-      label: 'Lista puszek nie rozliczonych',
-    });
-  }
-  return (
-    <ProtectedRoute>
-      <InnerLayoutManager prefix={BOXES_PATH} excludingLinks={[]} links={links} />
-    </ProtectedRoute>
-  );
-};
-
 export const boxesRoute = {
   path: BOXES_ROUTE,
-  element: <BoxesRoute />,
+  element: (
+    <ProtectedRoute>
+      <InnerLayoutManager
+        prefix={BOXES_PATH}
+        links={[
+          {
+            url: BOXES_PATH,
+            label: 'Wydaj puszkę',
+            permission: 'collectorcoordinator',
+          },
+          {
+            url: SETTLE_PROCESS_PATH,
+            label: 'Rozlicz puszkę',
+            permission: 'volounteer',
+          },
+          {
+            url: BOXES_LIST_PAGE_ROUTE,
+            label: 'Wszystkie puszki',
+            permission: 'collectorcoordinator',
+          },
+          {
+            url: UNSETTLED_BOXES_LIST_PAGE_ROUTE,
+            label: 'Lista puszek nie rozliczonych',
+            permission: 'collectorcoordinator',
+          },
+        ]}
+      />
+    </ProtectedRoute>
+  ),
   children: boxesSubroutes,
 };

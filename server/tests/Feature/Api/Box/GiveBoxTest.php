@@ -8,6 +8,9 @@ beforeEach(function () {
     $this->collectorCoordinatorRoleId = Role::where('name', '=', 'collectorcoordinator')->first()->id;
     $this->collectorcoordinator = User::with('roles')->whereRelation('roles', 'name', 'collectorcoordinator')->first();
     $this->assertEquals($this->collectorcoordinator->name, 'wolokord');
+    $this->volounteerRoleId = Role::where('name', '=', 'volounteer')->first()->id;
+    $this->volounteer = User::with('roles')->orderBy('id')->whereRelation('roles', 'name', 'volounteer')->first();
+    $this->assertEquals($this->volounteer->name, 'wosp01');
 });
 
 test('as a collectorcoordinator I can give out a box through API', function () {
@@ -16,7 +19,7 @@ test('as a collectorcoordinator I can give out a box through API', function () {
     $this->collector = Collector::orderBy('id', 'desc')->first();
 
     //Wchodzę na rozliczanie puszki
-    $response = $this->post('api/collectors/' . $this->collector->identifier . '/boxes');
+    $response = $this->post('api/collectors/' . $this->collector->identifier . '/box/create');
 
     $response->assertStatus(200);
 
@@ -67,5 +70,19 @@ test('as a collectorcoordinator I can give out a box through API', function () {
             ]
         ]
     );
+
+});
+
+test('as a user I can NOT give out a box through API', function () {
+    $this->actingAs($this->volounteer);
+
+    $this->collector = Collector::orderBy('id', 'desc')->first();
+
+    //Wchodzę na rozliczanie puszki
+    $response = $this->post('api/collectors/' . $this->collector->identifier . '/box/create');
+
+    $response->assertStatus(302);
+
+    $response->assertRedirectToRoute('main');
 
 });

@@ -9,14 +9,14 @@ export const MainLayout = () => {
   // const isLoggedIn = true;
   const [isLoggedIn, setLoggedState] = useState(false);
 
-  const { username, credentials, deleteCredentials } = useAuthContext();
+  const { username, credentials, deleteCredentials, roles } = useAuthContext();
   if (username !== null && !isLoggedIn) {
     setLoggedState(true);
   }
 
   const { show, toggleSidebar } = useSidebarStateContext();
 
-  const links = getSidebarLinks(username);
+  const links = getSidebarLinks(roles);
 
   return (
     <Layout style={{ minHeight: '100vh' }}>

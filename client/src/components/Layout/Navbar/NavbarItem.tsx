@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import s from './NavbarItem.module.less';
 import { SubNavLink } from '@/utils';
 
-export const NavbarItem: React.FC<SubNavLink> = (props) => {
+export const NavbarItem: React.FC<Omit<SubNavLink, 'permission'>> = (props) => {
   return (
     <>
       <NavLink

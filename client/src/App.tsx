@@ -13,7 +13,7 @@ import {
 
 const router = createBrowserRouter(routes, { basename: '/system' });
 
-export const queryClient = new QueryClient();
+export const queryClient = new QueryClient({defaultOptions: {mutations: {networkMode: 'always'}, queries: {networkMode: 'always'}}});
 
 function App() {
   const authValues = useAuthContextValues();

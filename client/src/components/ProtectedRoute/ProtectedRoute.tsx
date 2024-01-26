@@ -1,26 +1,35 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuthContext } from '@/utils';
+import { UserRole, getTopPermission, permissions, useAuthContext } from '@/utils';
 
 interface Props {
   reversed?: boolean;
   redirectTo?: string;
   children: JSX.Element;
-  adminOnly?: boolean;
+  permission?: UserRole;
 }
 
 export const ProtectedRoute = ({
   reversed,
   children,
   redirectTo = '/liczymy/login',
-  adminOnly = false,
+  permission = 'volounteer',
 }: Props) => {
-  const { credentials, username } = useAuthContext();
-
+  const { credentials, roles } = useAuthContext();
+  const topPermission = getTopPermission(roles);
   // if reversed is set to true, redirects when user is authenticated
   const shouldRedirect = !((credentials || reversed) && !(credentials && reversed));
-  const userIsNotAdmin = adminOnly && !isNaN(parseInt(username?.slice(-2) as string));
-  if (shouldRedirect || userIsNotAdmin) {
+
+  //
+  if (topPermission) {
+    const isProperPermission = topPermission <= permissions[permission];
+    if (shouldRedirect || !isProperPermission) {
+      return <Navigate to={redirectTo} replace />;
+    }
+    return children;
+  }
+
+  if (shouldRedirect && !topPermission) {
     return <Navigate to={redirectTo} replace />;
   }
   return children;

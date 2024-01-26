@@ -59,3 +59,13 @@ export function isServerError(error: NetworkError) {
   if (error.status >= 500 && error.status < 600) return true;
   return false;
 }
+
+export function getIsBoxAlreadySettlingError(error: unknown) {
+  if (error instanceof Error && typeof error.message === 'string') {
+    const parsed = JSON.parse(error.message);
+    if (parsed.error_message && parsed.status === 500) {
+      return parsed.error_message;
+    }
+  }
+  return false;
+}
