@@ -1,34 +1,41 @@
 import { AllRootProvidersWrapper, renderWithWrapper } from '@tests/utils/wrappers';
 import { screen } from '@testing-library/react';
 import { Sidebar } from './Sidebar';
+import { NavLink } from '@/utils';
 
-const testArgs = {
+const testArgs: { adminLinks: NavLink[]; userLinks: NavLink[]; credentials: string } = {
   adminLinks: [
     {
       label: 'Strona Główna',
       url: '',
+      permission: 'volounteer',
     },
     {
       label: 'Przeliczone puszki',
       url: 'counted_boxes',
+      permission: 'volounteer',
     },
     {
       label: 'Admin',
       url: 'admin',
+      permission: 'volounteer',
     },
     {
       label: 'Puszki',
       url: 'boxes',
+      permission: 'volounteer',
     },
   ],
   userLinks: [
     {
       label: 'Strona Główna',
       url: '',
+      permission: 'volounteer',
     },
     {
       label: 'Puszki',
       url: 'boxes',
+      permission: 'volounteer',
     },
   ],
   credentials: 'abcd',
