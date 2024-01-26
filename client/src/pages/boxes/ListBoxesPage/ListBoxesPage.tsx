@@ -8,7 +8,6 @@ import { Typography, Space, Layout, Table } from 'antd';
 import { createDisplayableBoxData } from '@/utils/Functions/createRefactorData';
 import { Outlet } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import { c } from 'msw/lib/glossary-de6278a9';
 import { IconButton } from '@/components';
 
 const { Title } = Typography;
