@@ -196,12 +196,6 @@
     &#10;
     &#10;
 
-    #path_gray {
-      &#10;
-      animation: dash 6s linear infinite reverse;
-      &#10;
-    }
-
     &#10;
     &#10;
 
