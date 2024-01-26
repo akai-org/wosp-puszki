@@ -19,7 +19,8 @@ const exchangeRateValues: Record<baseExchangeName, baseExchangeValue> = {
 export const ExchangeRate: FC<Props> = ({ exchangeRate, exchangeName }) => {
   return (
     <div className={s.exchangeRate}>
-      1{exchangeRateValues[exchangeName]} → {parseMoney(exchangeRate, 'pln')}
+      1{exchangeRateValues[exchangeName]} <span className={s.arrowMargin}>→</span>{' '}
+      {parseMoney(exchangeRate, 'pln')}
     </div>
   );
 };

@@ -16,7 +16,13 @@ export const Currencies = () => {
 
   return (
     <>
-      <img id="rescale" height={80} src={collected} alt="" className={s.collectedImage} />
+      <img
+        id="rescale"
+        height={100}
+        src={collected}
+        alt=""
+        className={s.collectedImage}
+      />
       <Typography.Title id="rescale" className={s.collectedText}>
         {parseMoney(data.amount_total_in_PLN, 'pln')}
       </Typography.Title>
