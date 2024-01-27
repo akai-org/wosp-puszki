@@ -21,28 +21,35 @@ const { Text } = Typography;
 export const GiveBoxForm = () => {
   const [message, setMessage] = useState<FormMessage | undefined>();
   const [form] = useForm();
-  const mutation = useMutation<{ collectorIdentifier: number }, unknown, number, unknown>(
-    {
-      mutationFn: (volunteerId: number) =>
-        fetcher(APIManager.giveBoxURL(volunteerId), { method: 'POST' }),
-      onError: (error) => {
-        console.log(error);
-        setMessage({ type: 'error', content: recognizeError(error) });
-      },
-      onSuccess: (data) => {
-        setMessage({
-          type: 'success',
-          content: `Pomyślnie wydano puszkę dla identyfikatora: ${data.collectorIdentifier}`,
-        });
-        form.resetFields();
-      },
+  const mutation = useMutation<
+    { collectorIdentifier: number },
+    unknown,
+    number | string,
+    unknown
+  >({
+    mutationFn: (volunteerId: number | string) =>
+      fetcher(APIManager.giveBoxURL(volunteerId), { method: 'POST' }),
+    onError: (error) => {
+      console.log(error);
+      setMessage({ type: 'error', content: recognizeError(error) });
     },
-  );
+    onSuccess: (data) => {
+      setMessage({
+        type: 'success',
+        content: `Pomyślnie wydano puszkę dla identyfikatora: ${data.collectorIdentifier}`,
+      });
+      form.resetFields();
+    },
+  });
 
   const onFinish = (values: BoxTypeFormInput) => {
-    const volunteerId = parseInt(values.id_number) + values.box_type;
-    if (!isNaN(volunteerId)) {
-      mutation.mutate(volunteerId);
+    if (!isNaN(Number(values.id_number))) {
+      if (values.box_type === 0) {
+        mutation.mutate(values.id_number);
+      } else {
+        const volunteerId = parseInt(values.id_number) + values.box_type;
+        mutation.mutate(volunteerId);
+      }
       setMessage(undefined);
     } else {
       setMessage({ type: 'error', content: 'Podano nieprawidłowy identyfikator' });
