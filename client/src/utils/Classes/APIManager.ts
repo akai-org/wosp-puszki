@@ -6,8 +6,8 @@ export class APIManager {
   static addCollectorURL = `${this.baseAPIRUrl}/collectors`;
   static usersURL = `${this.baseAPIRUrl}/users`;
 
-  static giveBoxURL = (volunteerId: number) =>
+  static giveBoxURL = (volunteerId: number | string) =>
     `${this.baseAPIRUrl}/collectors/${volunteerId}/box/create`;
-  static findBoxURL = (volunteerId: number) =>
+  static findBoxURL = (volunteerId: number | string) =>
     `${this.baseAPIRUrl}/collectors/${volunteerId}/box/latestUncounted`;
 }

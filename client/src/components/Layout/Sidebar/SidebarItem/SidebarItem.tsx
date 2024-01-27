@@ -5,7 +5,11 @@ import s from './SidebarItem.module.less';
 import { Icon } from '@iconify/react';
 import { LINKS_ICONS } from '@/utils/Constants/LinksIcons';
 
-export const SidebarItem: React.FC<SubNavLink> = ({ url, label, show }) => {
+export const SidebarItem: React.FC<Omit<SubNavLink, 'permission'>> = ({
+  url,
+  label,
+  show,
+}) => {
   return (
     <NavLink
       to={url}

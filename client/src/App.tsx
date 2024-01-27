@@ -11,9 +11,14 @@ import {
   useSidebarStateValues,
 } from '@/utils';
 
-const router = createBrowserRouter(routes, { basename: '/system' });
+const router = createBrowserRouter(routes, { basename: '/' });
 
-export const queryClient = new QueryClient({defaultOptions: {mutations: {networkMode: 'always'}, queries: {networkMode: 'always'}}});
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    mutations: { networkMode: 'always' },
+    queries: { networkMode: 'always' },
+  },
+});
 
 function App() {
   const authValues = useAuthContextValues();

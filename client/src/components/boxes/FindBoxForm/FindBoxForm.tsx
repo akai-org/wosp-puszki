@@ -55,8 +55,9 @@ export const FindBoxForm = () => {
 
   setStationAvailable();
 
-  const mutation = useMutation<boxResponse, unknown, number, unknown>({
-    mutationFn: (volunteerId: number) => fetcher(APIManager.findBoxURL(volunteerId)),
+  const mutation = useMutation<boxResponse, unknown, number | string, unknown>({
+    mutationFn: (volunteerId: number | string) =>
+      fetcher(APIManager.findBoxURL(volunteerId)),
     onError: (error) => {
       setMessage({ type: 'error', content: recognizeError(error) });
     },
@@ -69,6 +70,7 @@ export const FindBoxForm = () => {
         [data.collector.firstName, data.collector.lastName].join(' '),
         data.collectorIdentifier,
         data.id.toString(),
+        !!data.is_special_box,
       );
       form.resetFields();
       // TODO: Probalby can get rid of setTimeout
@@ -80,9 +82,13 @@ export const FindBoxForm = () => {
   });
 
   const onFinish = (values: FormInput) => {
-    const volunteerId = parseInt(values.id_number) + values.box_type;
-    if (!isNaN(volunteerId)) {
-      mutation.mutate(volunteerId);
+    if (!isNaN(Number(values.id_number))) {
+      if (values.box_type === 0) {
+        mutation.mutate(values.id_number);
+      } else {
+        const volunteerId = parseInt(values.id_number) + values.box_type;
+        mutation.mutate(volunteerId);
+      }
       setMessage(undefined);
     } else {
       setMessage({ type: 'error', content: 'Podano nieprawidłowy identyfikator' });

@@ -3,6 +3,7 @@ import {
   UseAuthContextValues,
   UseBoxContextValues,
   UseDepositContextValues,
+  UserRole,
 } from '@/utils';
 
 export const baseAuthContextValues = {
@@ -10,6 +11,7 @@ export const baseAuthContextValues = {
   deleteCredentials: vi.fn(),
   createCredentials: vi.fn(),
   username: 'superadmin',
+  roles: ['admin'] as UserRole[],
 };
 export const baseBoxContextValues = {
   createBox: vi.fn(),
@@ -17,6 +19,7 @@ export const baseBoxContextValues = {
   collectorName: 'wosp01',
   collectorIdentifier: '20',
   boxIdentifier: '302',
+  isBoxSpecial: false,
 };
 
 export const baseDepositContextValues = {

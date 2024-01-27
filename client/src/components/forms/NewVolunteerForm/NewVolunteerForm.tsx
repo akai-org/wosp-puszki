@@ -42,7 +42,7 @@ export const NewVolunteerForm = () => {
           firstName: values.firstName,
           lastName: values.lastName,
           collectorIdentifier: values.collectorIdentifier,
-          phoneNumber: values.phoneNumber
+          phoneNumber: values.phoneNumber,
         },
       }),
 
@@ -59,9 +59,11 @@ export const NewVolunteerForm = () => {
   });
 
   const onSubmit = (values: NewVolunteerValues) => {
-    const volunteerId = parseInt(values.collectorIdentifier) + values.box_type;
-    values.collectorIdentifier = volunteerId.toString();
-    if (!isNaN(volunteerId)) {
+    if (!isNaN(Number(values.collectorIdentifier))) {
+      if (values.box_type !== 0) {
+        const volunteerId = parseInt(values.collectorIdentifier) + values.box_type;
+        values.collectorIdentifier = volunteerId.toString();
+      }
       mutation.mutate(values);
       setMessage(undefined);
     } else {

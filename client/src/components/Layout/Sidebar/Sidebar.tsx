@@ -1,11 +1,9 @@
 import { FC } from 'react';
 import { Logged, NoLogged } from './SidebarVariants';
+import { NavLink } from '@/utils';
 
 interface SidebarTypes {
-  links: {
-    label: string;
-    url: string;
-  }[];
+  links: NavLink[];
   username: string | null;
   show: boolean;
   credentials: string | null;
