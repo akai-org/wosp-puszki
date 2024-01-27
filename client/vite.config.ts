@@ -11,7 +11,7 @@ interface VitestConfigExport extends UserConfig {
 }
 
 export default defineConfig({
-  base: '/system/',
+  base: '/',
   plugins: [
     svgr(),
     react(),
