@@ -59,13 +59,11 @@ export const NewVolunteerForm = () => {
   });
 
   const onSubmit = (values: NewVolunteerValues) => {
-    const isNum = parseInt(values.collectorIdentifier);
-    if (!isNaN(isNum)) {
+    if (!isNaN(Number(values.collectorIdentifier))) {
       if (values.box_type !== 0) {
         const volunteerId = parseInt(values.collectorIdentifier) + values.box_type;
         values.collectorIdentifier = volunteerId.toString();
       }
-      console.log(values);
       mutation.mutate(values);
       setMessage(undefined);
     } else {

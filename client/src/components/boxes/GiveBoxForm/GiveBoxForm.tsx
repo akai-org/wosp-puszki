@@ -34,7 +34,6 @@ export const GiveBoxForm = () => {
       setMessage({ type: 'error', content: recognizeError(error) });
     },
     onSuccess: (data) => {
-      console.log(data);
       setMessage({
         type: 'success',
         content: `Pomyślnie wydano puszkę dla identyfikatora: ${data.collectorIdentifier}`,
@@ -44,10 +43,8 @@ export const GiveBoxForm = () => {
   });
 
   const onFinish = (values: BoxTypeFormInput) => {
-    const isNum = parseInt(values.id_number);
-    if (!isNaN(isNum)) {
+    if (!isNaN(Number(values.id_number))) {
       if (values.box_type === 0) {
-        console.log(values.id_number);
         mutation.mutate(values.id_number);
       } else {
         const volunteerId = parseInt(values.id_number) + values.box_type;

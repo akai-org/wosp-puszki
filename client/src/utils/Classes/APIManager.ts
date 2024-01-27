@@ -8,6 +8,6 @@ export class APIManager {
 
   static giveBoxURL = (volunteerId: number | string) =>
     `${this.baseAPIRUrl}/collectors/${volunteerId}/box/create`;
-  static findBoxURL = (volunteerId: number) =>
+  static findBoxURL = (volunteerId: number | string) =>
     `${this.baseAPIRUrl}/collectors/${volunteerId}/box/latestUncounted`;
 }
