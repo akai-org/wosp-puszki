@@ -14,7 +14,7 @@ export const Collected: FC<Collected> = ({ piggy, total }) => {
     <Space direction="vertical" size={40} className={s.collected}>
       <Space direction="vertical" size={10} align="center">
         <Title level={2} style={{ margin: 0, fontWeight: 400 }}>
-          Zebraliśmy
+          Zebraliśmy:
         </Title>
         <Title
           data-testid={COLLECTED_TOTAL_ID}
