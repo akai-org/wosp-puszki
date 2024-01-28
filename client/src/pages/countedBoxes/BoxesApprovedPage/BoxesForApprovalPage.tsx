@@ -1,13 +1,8 @@
 // Utility functions
 import type { TableColumns } from '@/utils';
 import {
-  APIManager,
-  CANNOT_DOWNLOAD_DATA,
   CreateColumns,
-  NO_CONNECT_WITH_SERVER,
-  fetcher,
   getTopPermission,
-  openNotification,
   permissions,
   useAuthContext,
   useUnverifiedBoxesQuery,
@@ -18,7 +13,7 @@ import {
 import s from './BoxesPage.module.less';
 import { Typography, Space, Layout, Table } from 'antd';
 import { createDisplayableData } from '@/utils/Functions/createRefactorData';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import {
   CheckOutlined,
   CloseOutlined,
@@ -125,13 +120,6 @@ export const BoxesForApprovalPage = () => {
           link: '/liczymy/countedBoxes/show/',
           color: 'blue',
           icon: <SearchOutlined />,
-          buttonType: 'tooltip',
-        },
-        {
-          title: 'Edytuj',
-          link: '/liczymy/countedBoxes/edit/',
-          color: 'gray',
-          icon: <EditOutlined />,
           buttonType: 'tooltip',
         },
       ],
