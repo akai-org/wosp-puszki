@@ -49,8 +49,8 @@ export const MONEY_AMOUNTS_VALUES = {
   count_200zl: '200zł',
   count_500zl: '500zł',
   amount_EUR: 'EUR',
-  amount_USD: 'GBP',
-  amount_GBP: 'USD',
+  amount_USD: 'USD',
+  amount_GBP: 'GBP',
 };
 
 export const FOREIGN_AMOUNTS_KEYS: ForeignAmountsKeys[] = [
