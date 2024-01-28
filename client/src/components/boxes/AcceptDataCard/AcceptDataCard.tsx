@@ -36,10 +36,6 @@ export const AcceptDataCard = ({
           <Text>Numer identyfikatora i na puszce</Text>
           <Text>{id_number}</Text>
         </Space>
-        <Space className={s.Label}>
-          <Text>ID puszki w bazie</Text>
-          <Text>{id_box}</Text>
-        </Space>
       </Space>
       <Space className={s.InfoSection}>
         <div className={s.InfoNote} style={{ gap: '0px' }}>
