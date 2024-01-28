@@ -1,16 +1,9 @@
 import { RouteObject } from 'react-router-dom';
-import {
-  AddUserPage,
-  AddVolunteerPage,
-  ListUsersPage,
-  ListVolunteersPage,
-  LogsPage,
-} from '@/pages';
+import { AddUserPage, ListUsersPage, ListVolunteersPage, LogsPage } from '@/pages';
 import { InnerLayout } from '@/components';
 import { ProtectedRoute } from '@components/ProtectedRoute/ProtectedRoute';
 import {
   ADD_USER_PAGE_ROUTE,
-  ADD_VOLUNTEER_PAGE_ROUTE,
   ADMIN_ROUTE,
   LOGS_PAGE_ROUTE,
   VOLUNTEERS_LIST_PAGE_ROUTE,
@@ -42,14 +35,6 @@ const adminSubroutes: RouteObject[] = [
     ),
   },
   {
-    path: ADD_VOLUNTEER_PAGE_ROUTE,
-    element: (
-      <ProtectedRoute permission="superadmin">
-        <AddVolunteerPage />
-      </ProtectedRoute>
-    ),
-  },
-  {
     path: LOGS_PAGE_ROUTE,
     element: (
       <ProtectedRoute permission="collectorcoordinator">
@@ -74,11 +59,6 @@ export const adminRoute = {
             url: '',
             label: 'Lista użytkowników',
             withDot: true,
-            permission: 'superadmin',
-          },
-          {
-            url: ADD_VOLUNTEER_PAGE_ROUTE,
-            label: 'Dodaj wolontariusza',
             permission: 'superadmin',
           },
           {
