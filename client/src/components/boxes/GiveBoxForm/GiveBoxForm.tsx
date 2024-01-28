@@ -70,6 +70,8 @@ export const GiveBoxForm = () => {
         <Space className={s.inputField} size={0}>
           <Text className={s.inputFieldName}>Numer Identyfikatora: </Text>
           <FormInput
+            // eslint-disable-next-line jsx-a11y/no-autofocus
+            autoFocus
             name="id_number"
             className={s.input}
             rules={[{ required: true, message: ID_NUMBER_REQUIRED }]}
