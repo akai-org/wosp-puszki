@@ -2,7 +2,7 @@
 
 return [
     'static-rates' => env('STATIC_RATES'),
-    'eur' => env('RATE_EUR'),
-    'gbp' => env('RATE_GBP'),
-    'usd' => env('RATE_USD')
+    'eur' => env('EUR_RATE'),
+    'gbp' => env('GBP_RATE'),
+    'usd' => env('USD_RATE')
 ];
