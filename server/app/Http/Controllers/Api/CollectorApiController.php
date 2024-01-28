@@ -191,8 +191,9 @@ final class CollectorApiController extends ApiController
      * Function to give a collector new box by his identifier id number
      * @return JsonResponse
      */
-    public function createBoxForCollector(int $collectorIdentifier, Request $request)
+    public function createBoxForCollector(string $collectorIdentifier, Request $request)
     {
+        // $this->error($collectorIdentifier);
         $bo = new BoxOperator((string)$request->user()->id);
 
         try {
@@ -236,7 +237,7 @@ final class CollectorApiController extends ApiController
      * Function to get collector's uncounted charity box
      * @return JsonResponse
      */
-    public function getCollectorLatUncountedBox(int $collectorIdentifier, Request $request)
+    public function getCollectorLatUncountedBox(string $collectorIdentifier, Request $request)
     {
         $bo = new BoxOperator((string)$request->user()->id);
 

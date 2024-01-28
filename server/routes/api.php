@@ -81,7 +81,7 @@ Route::group(['as' => 'api', 'middleware' => ['web', 'auth.basic:,name']], funct
 
 //API
 //Zwracamy dane z głównej strony w formie JSON
-Route::get('/stats', ['uses' => 'AmountDisplayController@displayApi']);
+Route::get('/stats', ['uses' => 'AmountDisplayController@displayRawJson']);
 
 Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], function (){
     //Zbieracze (collector)
