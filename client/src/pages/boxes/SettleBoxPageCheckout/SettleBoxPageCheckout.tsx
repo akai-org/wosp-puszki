@@ -12,6 +12,7 @@ import {
   createFullRoutePath,
   DEPOSIT_BOX_PAGE_ROUTE,
   useGetBoxData,
+  FIND_BOX_BUSY_PAGE_ROUTE,
 } from '@/utils';
 import { Button, Space, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
@@ -29,6 +30,7 @@ export const SettleBoxPageCheckout = () => {
 
   // state for sum of values
   const [total, setTotal] = useState(0);
+  const [busy, setBusy] = useState(false);
 
   // get data and functions from contexts
   const { boxData, cleanAmounts } = useDepositContext();
@@ -50,12 +52,16 @@ export const SettleBoxPageCheckout = () => {
     if (isError) {
       if (isFailedFetched(error)) openNotification('error', NO_CONNECT_WITH_SERVER);
     }
-    if (isSuccess) {
+    if (isSuccess && !busy) {
       deleteBox();
       cleanAmounts();
       navigate(SETTLE_PROCESS_PATH);
+    } else if (isSuccess && busy) {
+      deleteBox();
+      cleanAmounts();
+      navigate(createFullRoutePath(SETTLE_PROCESS_PATH, FIND_BOX_BUSY_PAGE_ROUTE));
     }
-  }, [cleanAmounts, deleteBox, error, isError, isSuccess, navigate]);
+  }, [cleanAmounts, deleteBox, error, isError, isSuccess, navigate, busy]);
 
   // go to the previous page
   const goBackToDeposit = () => {
@@ -64,6 +70,12 @@ export const SettleBoxPageCheckout = () => {
 
   // submit whole process, send data to server
   const confirmData = async () => {
+    await mutateAsync();
+  };
+
+  // submit whole process, send data to server but don't mark the station as available
+  const confirmDataBusy = async () => {
+    setBusy(true);
     await mutateAsync();
   };
 
@@ -89,6 +101,14 @@ export const SettleBoxPageCheckout = () => {
           disabled={isLoading}
         >
           {isLoading ? <Spinner /> : 'Potwierdź rozliczenie puszki'}
+        </Button>
+        <Button
+          data-testid="submitBusyButton"
+          className={s.confirmBusy}
+          onClick={confirmDataBusy}
+          disabled={isLoading}
+        >
+          {isLoading ? <Spinner /> : 'Przelicz kolejną puszkę'}
         </Button>
         <Button
           data-testid="backButton"

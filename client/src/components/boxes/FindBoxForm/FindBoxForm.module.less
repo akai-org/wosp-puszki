@@ -3,10 +3,14 @@
 .container {
   height: 100vh;
   gap: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
-.container,
+.formContainer,
 .form {
+  gap: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -18,7 +22,9 @@
   width: @input-width;
 }
 
-.input, .inputContainer, .break {
+.input,
+.inputContainer,
+.break {
   position: relative;
 }
 

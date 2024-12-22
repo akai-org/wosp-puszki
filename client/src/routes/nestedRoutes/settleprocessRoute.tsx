@@ -13,6 +13,7 @@ import {
   CHECKOUT_BOX_PAGE_ROUTE,
   DEPOSIT_BOX_PAGE_ROUTE,
   FIND_BOX_PAGE_ROUTE,
+  FIND_BOX_BUSY_PAGE_ROUTE,
   SETTLE_PROCESS_PATH,
   SettleProcessProvider,
   UNSETTLED_BOXES_PATH,
@@ -28,6 +29,10 @@ const settleProcessSubroutes: RouteObject[] = [
   },
   {
     path: FIND_BOX_PAGE_ROUTE,
+    element: <FindBoxPage />,
+  },
+  {
+    path: FIND_BOX_BUSY_PAGE_ROUTE,
     element: <FindBoxPage />,
   },
   {
@@ -65,6 +70,7 @@ const SettleProcessRoute = () => {
           prefix={SETTLE_PROCESS_PATH}
           excludingLinks={[
             FIND_BOX_PAGE_ROUTE,
+            FIND_BOX_BUSY_PAGE_ROUTE,
             ACCEPT_BOX_PAGE_ROUTE,
             DEPOSIT_BOX_PAGE_ROUTE,
             CHECKOUT_BOX_PAGE_ROUTE,

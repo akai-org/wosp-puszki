@@ -1,4 +1,4 @@
-@import "./src/less/variables";
+@import './src/less/variables';
 
 .pageCheckout {
   min-height: 100vh;
@@ -43,12 +43,21 @@
 
 .confirm {
   background-color: var(--color-red-primary);
-  border-color: var(--color-red-primary);
 }
 
 .confirm:hover {
   background-color: var(--color-red-primary);
   border-color: var(--color-red-primary);
+  color: var(--color-white-primary);
+}
+
+.confirmBusy {
+  background-color: #132bcf;
+}
+
+.confirmBusy:hover {
+  background-color: #132bcf;
+  border-color: #132bcf;
   color: var(--color-white-primary);
 }
 
@@ -208,5 +217,5 @@
 }
 
 .error {
-  color: @red-6
+  color: @red-6;
 }
