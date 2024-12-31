@@ -4,7 +4,8 @@ import { APIManager, CreateColumns, fetcher, useGetAllBoxesQuery } from '@/utils
 
 // Style and ant design
 import s from '../BoxesPage.module.less';
-import { Typography, Space, Layout, Table } from 'antd';
+import { Typography, Space, Layout } from 'antd';
+import { CustomTable } from '@/components/CustomTable/CustomTable';
 import { createDisplayableBoxData } from '@/utils/Functions/createRefactorData';
 import { Outlet } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
@@ -145,7 +146,7 @@ export const ListBoxesPage = () => {
       <Content className={s.content}>
         <Space direction="vertical" size="small" className={s.space}>
           <Title level={4}>Lista puszek</Title>
-          <Table
+          <CustomTable
             size="middle"
             columns={columns}
             pagination={false}
