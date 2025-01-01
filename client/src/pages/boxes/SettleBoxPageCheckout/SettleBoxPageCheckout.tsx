@@ -73,7 +73,7 @@ export const SettleBoxPageCheckout = () => {
   const { roles } = useAuthContext();
   const topPermission = getTopPermission(roles);
   const isPermitted =
-    topPermission !== null && topPermission < permissions['collectorcoordinator'];
+    topPermission !== null && topPermission <= permissions['collectorcoordinator'];
 
   return (
     <Content className={s.pageCheckout}>
