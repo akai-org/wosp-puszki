@@ -25,6 +25,7 @@ export const createDisplayableData = (data: IBoxes[]) => {
       amount_PLN: item.amount_PLN,
       comment: item.comment,
       countingStation: item.counting_user_id > 3 ? item.counting_user_id - 3 : null,
+      give_hour: new Date(item.time_given).toLocaleTimeString(),
       time_counted: new Date(item.time_counted).toLocaleTimeString(),
     });
   }
