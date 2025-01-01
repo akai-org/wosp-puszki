@@ -12,6 +12,9 @@ import {
   createFullRoutePath,
   DEPOSIT_BOX_PAGE_ROUTE,
   useGetBoxData,
+  useAuthContext,
+  getTopPermission,
+  permissions,
 } from '@/utils';
 import { Button, Space, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
@@ -67,15 +70,18 @@ export const SettleBoxPageCheckout = () => {
     await mutateAsync();
   };
 
+  const { roles } = useAuthContext();
+  const topPermission = getTopPermission(roles);
+  const isPermitted =
+    topPermission !== null && topPermission < permissions['collectorcoordinator'];
+
   return (
     <Content className={s.pageCheckout}>
       <Header
         title={
           'Potwierdzenie rozliczenia puszki wolontariusza ' +
           collectorIdentifier +
-          ' ( ID puszki w bazie: ' +
-          boxIdentifier +
-          ' )'
+          (isPermitted ? ' ( ID puszki w bazie: ' + boxIdentifier + ' )' : '')
         }
       />
       <ContentColumns boxData={boxData} total={total} />
