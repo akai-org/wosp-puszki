@@ -82,6 +82,7 @@ export const ListVolunteersPage = () => {
             rowKey="volunteer_id" // To należy zmienić przy okazji podłączenia API
             scroll={{ y: '70vh' }}
             rowClassName={s.table_row}
+            tableKey="ListVolunteersPage_volunteersTable"
           />
         </Space>
       </Content>

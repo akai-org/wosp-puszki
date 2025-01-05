@@ -154,6 +154,7 @@ export const ListBoxesPage = () => {
             rowKey="id" // To należy zmienić przy okazji podłączenia API
             scroll={{ y: '70vh' }}
             rowClassName={s.table_row}
+            tableKey="ListBoxesPage_boxesTable"
           />
         </Space>
         <Outlet />

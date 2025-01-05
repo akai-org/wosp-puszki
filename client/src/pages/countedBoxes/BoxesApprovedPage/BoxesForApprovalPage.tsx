@@ -192,6 +192,7 @@ export const BoxesForApprovalPage = () => {
               rowClassName={s.table_row}
               scroll={{ y: '70vh' }}
               className={'table'}
+              tableKey="BoxesForApprovalPage_unverifiedBoxesTable"
             />
           </Space>
         ) : null}
@@ -206,6 +207,7 @@ export const BoxesForApprovalPage = () => {
             rowKey="id"
             scroll={{ y: '70vh' }}
             rowClassName={s.table_row}
+            tableKey="BoxesForApprovalPage_verifiedBoxesTable"
           />
         </Space>
 

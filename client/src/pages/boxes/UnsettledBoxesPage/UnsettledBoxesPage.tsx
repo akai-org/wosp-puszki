@@ -152,6 +152,7 @@ export const UnsettledBoxesPage = () => {
             rowKey="id" // To należy zmienić przy okazji podłączenia API
             scroll={{ y: '70vh' }}
             rowClassName={s.table_row}
+            tableKey="UnsettledBoxesPage_boxesTable"
           />
         </Space>
         <Outlet />
