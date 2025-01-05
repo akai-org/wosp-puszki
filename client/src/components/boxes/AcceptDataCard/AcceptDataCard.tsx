@@ -1,4 +1,5 @@
 import { Typography, Space, Button } from 'antd';
+import { useAuthContext, getTopPermission, permissions } from '@/utils';
 import { Spinner } from '@components/Layout/Spinner/Spinner';
 import s from './AcceptDataCard.module.less';
 import { ReactNode } from 'react';
@@ -24,9 +25,13 @@ export const AcceptDataCard = ({
   error,
   boxSpecialPrompt,
 }: AcceptData) => {
+  const { roles } = useAuthContext();
+  const topRole = getTopPermission(roles);
+  const isPermitted = topRole !== null && topRole <= permissions['collectorcoordinator'];
+
   return (
     <div className={s.AcceptDataCard}>
-      <Title level={4}>Znaleziono puszkę: {id_box}</Title>
+      <Title level={4}>Znaleziono puszkę{isPermitted && <>: {id_box}</>}</Title>
       <Space className={s.DataLabels}>
         <Space className={s.LabelTop}>
           <Text>Wolontariusz</Text>
