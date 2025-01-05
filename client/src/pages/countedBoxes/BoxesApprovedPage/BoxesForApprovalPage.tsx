@@ -86,6 +86,13 @@ export const BoxesForApprovalPage = () => {
       width: 40,
     },
     {
+      titleName: 'Godz. wydania',
+      keyName: 'give_hour',
+      sortType: 'time',
+      width: 60,
+      search: true,
+    },
+    {
       titleName: 'Godz. przeliczenia',
       keyName: 'time_counted',
       sortType: 'time',
