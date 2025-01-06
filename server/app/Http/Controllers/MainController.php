@@ -13,7 +13,6 @@ class MainController extends Controller
     }
 
     public function index(Request $request) {
-
         $user = $request->user();
 
         $data = [

@@ -28,6 +28,7 @@ class Kernel extends ConsoleKernel
                  ->everyFifteenMinutes();
                  
         $schedule->command('backup:run')->everyFifteenMinutes();
+        //$schedule->command('AllegroAPI:GetAucSum user')->everySecond();
     }
 
     /**
