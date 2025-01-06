@@ -8,6 +8,7 @@ import {
   useBoxContext,
   boxResponse,
   setStationAvailable,
+  setStationUnavailable,
   APIManager,
   fetcher,
   FormMessage,
@@ -23,9 +24,12 @@ import {
   createFullRoutePath,
   SETTLE_PROCESS_PATH,
   ACCEPT_BOX_PAGE_ROUTE,
+  FIND_BOX_PAGE_ROUTE,
+  FIND_BOX_BUSY_PAGE_ROUTE,
 } from '@/utils';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useForm } from 'antd/es/form/Form';
+import { StationAvalibility } from './StationAvalibility';
 
 const { Text } = Typography;
 
@@ -52,8 +56,14 @@ export const FindBoxForm = () => {
   const [message, setMessage] = useState<FormMessage | undefined>();
   const [form] = useForm();
   const { createBox } = useBoxContext();
+  const location = useLocation();
 
-  setStationAvailable();
+  if (location.pathname === `${SETTLE_PROCESS_PATH}/${FIND_BOX_PAGE_ROUTE}`) {
+    setStationAvailable();
+  }
+  if (location.pathname === `${SETTLE_PROCESS_PATH}/${FIND_BOX_BUSY_PAGE_ROUTE}`) {
+    setStationUnavailable();
+  }
 
   const mutation = useMutation<boxResponse, unknown, number | string, unknown>({
     mutationFn: (volunteerId: number | string) =>
@@ -122,53 +132,56 @@ export const FindBoxForm = () => {
 
   return (
     <Content className={s.container}>
-      <FormWrapper
-        form={form}
-        onFinish={onFinish}
-        name="boxToSettleForm"
-        className={s.form}
-        borderColor="black"
-        label="Znajdź puszkę do rozliczenia"
-        message={message}
-        disabled={mutation.isLoading || isLoadingBreak}
-        initialValues={{ box_type: 0 }}
-      >
-        <Space direction="vertical">
-          <Space direction="vertical" className={s.form}>
-            <Space className={s.inputContainer} size={0}>
-              <Text className={s.text}>Numer Identyfikatora:</Text>
-              <FormInput
-                name="id_number"
-                className={s.input}
-                placeholder="Np. 123"
-                rules={[{ required: true, message: ID_NUMBER_REQUIRED }]}
+      <Content className={s.formContainer}>
+        <FormWrapper
+          form={form}
+          onFinish={onFinish}
+          name="boxToSettleForm"
+          className={s.form}
+          borderColor="black"
+          label="Znajdź puszkę do rozliczenia"
+          message={message}
+          disabled={mutation.isLoading || isLoadingBreak}
+          initialValues={{ box_type: 0 }}
+        >
+          <Space direction="vertical">
+            <Space direction="vertical" className={s.form}>
+              <Space className={s.inputContainer} size={0}>
+                <Text className={s.text}>Numer Identyfikatora:</Text>
+                <FormInput
+                  name="id_number"
+                  className={s.input}
+                  placeholder="Np. 123"
+                  rules={[{ required: true, message: ID_NUMBER_REQUIRED }]}
+                />
+              </Space>
+              <FormSelect
+                name="box_type"
+                options={options}
+                placeholder="Wybierz rodzaj"
+                className={s.select}
+                rules={[{ required: true, message: TYPE_OF_BOX_REQUIRED }]}
               />
+              <FormButton
+                variant={'form'}
+                htmlType="submit"
+                type="primary"
+                isLoading={mutation.isLoading}
+              >
+                Wyszukaj puszkę
+              </FormButton>
             </Space>
-            <FormSelect
-              name="box_type"
-              options={options}
-              placeholder="Wybierz rodzaj"
-              className={s.select}
-              rules={[{ required: true, message: TYPE_OF_BOX_REQUIRED }]}
-            />
-            <FormButton
-              variant={'form'}
-              htmlType="submit"
-              type="primary"
-              isLoading={mutation.isLoading}
-            >
-              Wyszukaj puszkę
-            </FormButton>
           </Space>
-        </Space>
-      </FormWrapper>
-      <FormButton
-        disabled={isLoadingBreak || mutation.isLoading}
-        type="primary"
-        onClick={handleBreak}
-      >
-        Nie chcę rozliczać dalej - przerwa
-      </FormButton>
+        </FormWrapper>
+        <FormButton
+          disabled={isLoadingBreak || mutation.isLoading}
+          type="primary"
+          onClick={handleBreak}
+        >
+          Nie chcę rozliczać dalej - przerwa
+        </FormButton>
+      </Content>
+      <StationAvalibility />
     </Content>
   );
 };

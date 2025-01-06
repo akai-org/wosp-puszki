@@ -17,6 +17,7 @@ export const BOXES_LIST_PAGE_ROUTE = 'listBoxes';
 export const UNSETTLED_BOXES_LIST_PAGE_ROUTE = 'unsettled';
 // settle process paths
 export const FIND_BOX_PAGE_ROUTE = 'find';
+export const FIND_BOX_BUSY_PAGE_ROUTE = 'find/busy';
 export const ACCEPT_BOX_PAGE_ROUTE = 'accept';
 export const DEPOSIT_BOX_PAGE_ROUTE = 'deposit';
 export const CHECKOUT_BOX_PAGE_ROUTE = 'checkout';
