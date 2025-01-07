@@ -94,9 +94,9 @@ final class RatesApiController extends ApiController
         $rates = $fetcher->fetchRates();
         return json_encode([
             'rates' => [
-                'EUR' => $rates['EUR'],
-                'USD' => $rates['USD'],
-                'GBP' => $rates['GBP'],
+                'EUR' => (float) $rates['EUR'],
+                'USD' => (float) $rates['USD'],
+                'GBP' => (float) $rates['GBP'],
             ]
         ]);
     }

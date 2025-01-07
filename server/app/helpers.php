@@ -29,11 +29,11 @@ function totalCollectedArray() {
 
     //Zliczamy Inne waluty
     //EUR
-    $amount_EUR = CharityBox::where('is_confirmed', '=', 1)->sum('amount_EUR');
+    $amount_EUR = round(CharityBox::where('is_confirmed', '=', 1)->sum('amount_EUR'), 2);
     //USD
-    $amount_USD = CharityBox::where('is_confirmed', '=', 1)->sum('amount_USD');
+    $amount_USD = round(CharityBox::where('is_confirmed', '=', 1)->sum('amount_USD'), 2);
     //GBP
-    $amount_GBP = CharityBox::where('is_confirmed', '=', 1)->sum('amount_GBP');
+    $amount_GBP = round(CharityBox::where('is_confirmed', '=', 1)->sum('amount_GBP'), 2);
 
     //Pobieranie kursu
     $fetcher = resolveRatesFetcher();
