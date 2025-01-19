@@ -4,7 +4,8 @@ import { APIManager, CreateColumns, fetcher, useGetAllBoxesQuery } from '@/utils
 
 // Style and ant design
 import s from '../BoxesPage.module.less';
-import { Typography, Space, Layout, Table } from 'antd';
+import { Typography, Space, Layout } from 'antd';
+import { CustomTable } from '@/components/CustomTable/CustomTable';
 import { createDisplayableBoxData } from '@/utils/Functions/createRefactorData';
 import { Outlet } from 'react-router-dom';
 import { IconButton } from '@/components';
@@ -143,7 +144,7 @@ export const UnsettledBoxesPage = () => {
       <Content className={s.content}>
         <Space direction="vertical" size="small" className={s.space}>
           <Title level={4}>Lista puszek nierozliczonych</Title>
-          <Table
+          <CustomTable
             size="middle"
             columns={columns}
             pagination={false}
@@ -151,6 +152,7 @@ export const UnsettledBoxesPage = () => {
             rowKey="id" // To należy zmienić przy okazji podłączenia API
             scroll={{ y: '70vh' }}
             rowClassName={s.table_row}
+            tableKey="UnsettledBoxesPage_boxesTable"
           />
         </Space>
         <Outlet />

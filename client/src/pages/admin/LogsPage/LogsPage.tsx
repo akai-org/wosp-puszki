@@ -8,7 +8,8 @@ import { createDisplayableLogData } from '@/utils/Functions/createRefactorData';
 
 // Style and ant design
 import s from '../AdminPage.module.less';
-import { Typography, Space, Layout, Table } from 'antd';
+import { Typography, Space, Layout } from 'antd';
+import { CustomTable } from '@/components/CustomTable/CustomTable';
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -70,7 +71,7 @@ export const LogsPage = () => {
       <Content className={s.content}>
         <Space direction="vertical" size="small" className={s.space}>
           <Title level={4}>Logi</Title>
-          <Table
+          <CustomTable
             size="middle"
             columns={columns}
             pagination={false}
@@ -78,6 +79,7 @@ export const LogsPage = () => {
             rowKey="log_id"
             scroll={{ y: '70vh' }}
             rowClassName={(record) => record.type + '-color'}
+            tableKey="LogsPage_logsTable"
           />
         </Space>
       </Content>

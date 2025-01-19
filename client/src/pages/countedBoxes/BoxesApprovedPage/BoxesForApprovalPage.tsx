@@ -11,7 +11,8 @@ import {
 
 // Style and ant design
 import s from './BoxesPage.module.less';
-import { Typography, Space, Layout, Table } from 'antd';
+import { Typography, Space, Layout } from 'antd';
+import { CustomTable } from '@/components/CustomTable/CustomTable';
 import { createDisplayableData } from '@/utils/Functions/createRefactorData';
 import { Outlet } from 'react-router-dom';
 import {
@@ -188,7 +189,7 @@ export const BoxesForApprovalPage = () => {
         {isPermitted ? (
           <Space direction="vertical" size="small" className={s.space}>
             <Title level={4}>Do zatwierdzenia</Title>
-            <Table
+            <CustomTable
               size="small"
               bordered={true}
               columns={columns}
@@ -198,12 +199,13 @@ export const BoxesForApprovalPage = () => {
               rowClassName={s.table_row}
               scroll={{ y: '70vh' }}
               className={'table'}
+              tableKey="BoxesForApprovalPage_unverifiedBoxesTable"
             />
           </Space>
         ) : null}
         <Space direction="vertical" size="small" className={s.space}>
           <Title level={4}>Zatwierdzone</Title>
-          <Table
+          <CustomTable
             size="small"
             bordered={true}
             columns={verifiedColumns}
@@ -212,6 +214,7 @@ export const BoxesForApprovalPage = () => {
             rowKey="id"
             scroll={{ y: '70vh' }}
             rowClassName={s.table_row}
+            tableKey="BoxesForApprovalPage_verifiedBoxesTable"
           />
         </Space>
 

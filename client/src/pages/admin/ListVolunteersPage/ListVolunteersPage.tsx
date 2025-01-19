@@ -4,7 +4,8 @@ import { CreateColumns, useGetVolunteersQuery } from '@/utils';
 
 // Style and ant design
 import s from '../AdminPage.module.less';
-import { Typography, Space, Layout, Table } from 'antd';
+import { Typography, Space, Layout } from 'antd';
+import { CustomTable } from '@/components/CustomTable/CustomTable';
 import { createDisplayableVolunteersData } from '@/utils/Functions/createRefactorData';
 
 const { Title } = Typography;
@@ -73,7 +74,7 @@ export const ListVolunteersPage = () => {
       <Content className={s.content}>
         <Space direction="vertical" size="small" className={s.space}>
           <Title level={4}>Lista wolontariuszy</Title>
-          <Table
+          <CustomTable
             size="middle"
             columns={columns}
             pagination={false}
@@ -81,6 +82,7 @@ export const ListVolunteersPage = () => {
             rowKey="volunteer_id" // To należy zmienić przy okazji podłączenia API
             scroll={{ y: '70vh' }}
             rowClassName={s.table_row}
+            tableKey="ListVolunteersPage_volunteersTable"
           />
         </Space>
       </Content>
