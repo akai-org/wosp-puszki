@@ -90,7 +90,7 @@ Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], func
     Route::get('collectors', [CollectorApiController::class, 'index'])->name('collector.list')->middleware('collectorcoordinator');
     Route::get('collectors/{id}', [CollectorApiController::class, 'show'])->name('collector.show')->middleware('collectorcoordinator');
     // Formularz dodawania wolontariusza
-    Route::post('collectors', [CollectorApiController::class, 'create'])->name('collector.create.post')->middleware('admin');
+    Route::post('collectors', [CollectorApiController::class, 'create'])->name('collector.create.post')->middleware('collectorcoordinator');
     // Stworzenie puszki dla wolontariusza
     Route::post('collectors/{collectorIdentifier}/box/create', [CollectorApiController::class, 'createBoxForCollector'])->name('collector.create.box')->middleware(['collectorcoordinator']);
     // Chwycenie ostatniej nierozliczonej puszki wolontariusza
