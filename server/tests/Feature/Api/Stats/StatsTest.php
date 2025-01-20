@@ -15,12 +15,15 @@ test('as a volounteer I can get stats', function () {
     $response->assertJson(fn (AssertableJson $json) =>
     $json->whereType('rates', 'array')
         ->whereAllType([
-            'amount_PLN' => 'string',
-            'amount_EUR' => 'string',
-            'amount_GBP' => 'string',
-            'amount_USD' => 'string',
-            'amount_total_in_PLN' => 'string',
-            'collectors_in_city' => 'integer',
+                'amount_PLN' => ['double', 'integer'],
+                'amount_PLN_unconfirmed' => ['double', 'integer'],
+                'amount_PLN_eskarbonka' => ['double', 'integer'],
+                'amount_EUR' => ['double', 'integer'],
+                'amount_GBP' => ['double', 'integer'],
+                'amount_USD' => ['double', 'integer'],
+                'rates' => 'array',
+                'amount_total_in_PLN' => ['double', 'integer'],
+                'collectors_in_city' => 'integer',
         ])
     );
 

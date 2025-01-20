@@ -4,14 +4,8 @@ namespace App\Http\Controllers;
 
 use App\BoxEvent;
 use App\CharityBox;
-use App\Events\BoxConfirmed;
 use App\Lib\BoxOperator\BoxOperator;
-use Auth;
 use Illuminate\Http\Request;
-use Money\Money;
-use Money\Currencies\ISOCurrencies;
-use Money\Formatter\DecimalMoneyFormatter;
-use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 
 class CharityBoxController extends Controller
@@ -21,6 +15,10 @@ class CharityBoxController extends Controller
     {
         //Zabezpieczamy autoryzacją (każdy zalogowany użytkownik ma dostęp)
         $this->middleware('auth');
+
+        $this->middleware('admin')->only(
+            ['getVerifyList', 'getVerify', 'postVerify', 'getList', 'getListAway', 'getModify', 'postModify']
+        );
     }
 
     //Dodaj nową puszkę (formularz)
