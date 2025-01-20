@@ -82,7 +82,7 @@ Route::prefix('liczymy')->group(function () {
     Route::prefix('collector')->group(function (){
         //Dodawanie wolontariusza
         //Formularz
-        Route::middleware('admin')->group(function(){
+        Route::middleware('collectorcoordinator')->group(function(){
             Route::get('create', [CollectorController::class, 'getCreate'])->name('collector.create');
             //Dodawanie do bazy
             Route::post('create', [CollectorController::class, 'postCreate'])->name('collector.create.post');

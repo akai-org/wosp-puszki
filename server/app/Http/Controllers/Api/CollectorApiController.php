@@ -13,7 +13,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use OpenApi\Annotations as OA;
-use Response;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @author kabix09
