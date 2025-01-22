@@ -41,7 +41,10 @@ export const Currencies = () => {
         </Typography.Paragraph>
       </Space>
       <Space className={s.eBox}>
-        <img height={60} src={eskarbonka} alt="" />
+        <Typography.Paragraph id="rescale" className={s.eText}>
+          <span>E</span>
+          <span>SKARBONKA</span>
+        </Typography.Paragraph>
         <Typography.Paragraph id="rescale">
           {parseMoney(data.amount_PLN_eskarbonka, 'pln')}
         </Typography.Paragraph>

@@ -11,7 +11,7 @@ export const Footer: FC<Props> = ({ exchangeRates }) => {
   return (
     <Space direction="vertical" className={s.footer}>
       <Space align="center">
-        © 2017-2023
+        © 2017-2025
         <a id="rescale" href="http://wosp.put.poznan.pl/">
           SZTAB WOŚP PRZY POLITECHNICE POZNAŃSKIEJ
         </a>
