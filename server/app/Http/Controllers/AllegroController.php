@@ -7,13 +7,19 @@ use App\Lib\Rates\RatesFetcher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
+use Illuminate\Support\Facades\Cache;
 
 class AllegroController extends Controller
 {
     public function setAuthToken(Request $request){
         $code= $request->code;
-        $access_token = $this->getAccessToken($code);
+        $response = $this->getAccessToken($code);
+        $access_token= json_decode($response)->access_token;
+        $refresh_token=json_decode($response)->refresh_token;
         echo "access_token = ", $access_token;
+           echo "access_token = ", $refresh_token;
+        Cache::put('allegro_auth_token',$access_token,43200);
+        Cache::put('allegro_refresh_token',$refresh_token,43200);
     }    
     protected function getCurl($headers, $content) {
         $ch = curl_init();
@@ -44,7 +50,7 @@ class AllegroController extends Controller
         if ($tokenResult === false || $resultCode !== 200) {
             exit ("Something went wrong $resultCode $tokenResult");
         }
-        return json_decode($tokenResult)->access_token;
-    }
-    
+       
+        return $tokenResult;
+    }    
 }
