@@ -39,11 +39,11 @@ class DisplayStats extends Command
             ->limit(5)
             ->get(['id', 'time_counted']);
 
-    // 5 boxes with biggest time outside (time_counted - time_given) and their amounts
-    $biggestTimeOutsideBoxes = $query
-        ->orderByRaw('EXTRACT(EPOCH FROM (time_counted - time_given)) DESC')
-        ->limit(5)
-        ->get(['id', 'time_counted', 'time_given', 'amount_PLN']);
+        // 5 boxes with biggest time outside (time_counted - time_given) and their amounts
+        $biggestTimeOutsideBoxes = CharityBox::confirmed()
+            ->orderByRaw('EXTRACT(EPOCH FROM (time_counted - time_given)) DESC')
+            ->limit(5)
+            ->get(['id', 'time_counted', 'time_given', 'amount_PLN']);
 
         $statistics = [
             'biggest_boxes' => $biggestBoxes,
