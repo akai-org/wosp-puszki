@@ -12,8 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Response;
 use OpenApi\Annotations as OA;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @author kabix09
