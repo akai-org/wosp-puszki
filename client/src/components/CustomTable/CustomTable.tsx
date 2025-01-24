@@ -42,7 +42,7 @@ export const CustomTable = <T extends object>({
             checked={visibleColumns.includes(col.key!)}
             onChange={() => handleToggleColumn(col.key!)}
           >
-            {typeof col.title === 'function' ? col.title({}) : col.title}
+            {col.title as string}
           </Checkbox>
         ))}
       </Space>
