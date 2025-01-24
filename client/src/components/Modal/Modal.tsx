@@ -3,7 +3,7 @@ import s from './Modal.module.less';
 import Title from 'antd/lib/typography/Title';
 import { useNavigate } from 'react-router-dom';
 import { Header } from 'antd/lib/layout/layout';
-import { useEffect } from 'react';
+import { JSX, useEffect } from 'react';
 import { useSidebarStateContext } from '@/utils';
 import { CloseOutlined } from '@ant-design/icons';
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { JSX } from 'react';
 import { Navigate } from 'react-router-dom';
 import { UserRole, getTopPermission, permissions, useAuthContext } from '@/utils';
 

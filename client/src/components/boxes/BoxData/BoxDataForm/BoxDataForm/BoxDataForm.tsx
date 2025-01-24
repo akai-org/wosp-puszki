@@ -19,7 +19,7 @@ import {
 import { useMutation } from '@tanstack/react-query';
 import { Form, Space } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
-import { useEffect, useState } from 'react';
+import { JSX, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DepositColumn } from '@/components';
 import { InputNumberBox } from '@/components';
