@@ -31,7 +31,7 @@ export const CustomTable = <T extends object>({
     });
   };
 
-  const filteredColumns = columns.filter((col) => visibleColumns.includes(col.key));
+  const filteredColumns = columns.filter((col) => visibleColumns.includes(col.key!));
 
   return (
     <div>
@@ -39,10 +39,10 @@ export const CustomTable = <T extends object>({
         {columns.map((col) => (
           <Checkbox
             key={col.key}
-            checked={visibleColumns.includes(col.key)}
+            checked={visibleColumns.includes(col.key!)}
             onChange={() => handleToggleColumn(col.key!)}
           >
-            {col.title}
+            {col.title as string}
           </Checkbox>
         ))}
       </Space>
