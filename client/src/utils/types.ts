@@ -230,6 +230,7 @@ export interface IDisplayPageContent {
   amount_total_in_PLN: number;
   collectors_in_city: number;
   amount_PLN_eskarbonka: number;
+  amount_allegro: number;
 }
 
 export interface IStations {
