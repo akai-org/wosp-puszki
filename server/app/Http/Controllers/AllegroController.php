@@ -17,10 +17,10 @@ class AllegroController extends Controller
         $access_token= json_decode($response)->access_token;
         $refresh_token=json_decode($response)->refresh_token;
         echo "access_token = ", $access_token;
-           echo "access_token = ", $refresh_token;
+        echo "refresh_token = ", $refresh_token;
         Cache::put('allegro_auth_token',$access_token,43200);
         Cache::put('allegro_refresh_token',$refresh_token,43200);
-    }    
+    }
     protected function getCurl($headers, $content) {
         $ch = curl_init();
         curl_setopt_array($ch, array(
@@ -33,8 +33,7 @@ class AllegroController extends Controller
         ));
         return $ch;
     }
-    
-    
+
     protected function getAccessToken($authorization_code) {
         $client_id=env('CLIENT_ID');
         $client_secret=env('CLIENT_SECRET');
@@ -46,11 +45,11 @@ class AllegroController extends Controller
         $tokenResult = curl_exec($ch);
         $resultCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
-    
+
         if ($tokenResult === false || $resultCode !== 200) {
             exit ("Something went wrong $resultCode $tokenResult");
         }
-       
+
         return $tokenResult;
-    }    
+    }
 }
