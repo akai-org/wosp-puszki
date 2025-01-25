@@ -113,7 +113,7 @@ export const SettleBoxPageCheckout = () => {
           onClick={confirmDataBusy}
           disabled={isLoading}
         >
-          {isLoading ? <Spinner /> : 'Przelicz kolejną puszkę tego wolontariusza'}
+          {isLoading ? <Spinner /> : 'Przelicz kolejną puszkę wolontariusza przy stanowisku'}
         </Button>
         <Button
           data-testid="backButton"
