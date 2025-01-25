@@ -48,6 +48,7 @@ export const amountsInitData: IDisplayPageContent = {
     USD: 0,
   },
   amount_PLN_eskarbonka: 0,
+  amount_allegro: 0,
 };
 
 export const stationState = {
