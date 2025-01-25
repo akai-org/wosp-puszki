@@ -57,6 +57,7 @@ import type { InputRef } from 'antd';
 import type { ColumnType } from 'antd/es/table';
 import type { FilterConfirmProps } from 'antd/es/table/interface';
 import type { TableColumns } from '@/utils';
+import type { HighlighterProps } from 'react-highlight-words';
 
 // Ant design
 import { Space, Button, Input, Tag, Tooltip } from 'antd';
@@ -68,6 +69,8 @@ import { useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { Link } from 'react-router-dom';
 import { Key } from 'antd/lib/table/interface';
+
+const HighlighterComponent = Highlighter as typeof React.Component<HighlighterProps>;
 
 export function CreateColumns<DataType extends { [key: string]: string | number }>(
   columnsOptions: TableColumns[],
@@ -295,7 +298,7 @@ export function CreateColumns<DataType extends { [key: string]: string | number 
       },
       render: (text) =>
         searchedColumn === dataIndex ? (
-          <Highlighter
+          <HighlighterComponent
             highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
             searchWords={[searchText]}
             autoEscape
