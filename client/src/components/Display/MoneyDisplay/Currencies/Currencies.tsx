@@ -48,6 +48,13 @@ export const Currencies = () => {
         <Typography.Paragraph id="rescale">
           {parseMoney(data.amount_PLN_eskarbonka, 'pln')}
         </Typography.Paragraph>
+        <Typography.Paragraph id="rescale" className={s.eText}>
+          <span></span>
+          <span>+ AUKCJE</span>
+        </Typography.Paragraph>
+        <Typography.Paragraph id="rescale">
+          {parseMoney(data.amount_allegro, 'pln')}
+        </Typography.Paragraph>
       </Space>
     </>
   );
