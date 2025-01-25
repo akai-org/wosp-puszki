@@ -56,15 +56,16 @@ class CsvDumpController extends Controller
         }
         $data = $bo->getAll();
         $csvData = [];
-        $csvData[] = ['ID Wolo','Wolontariusz','Godzina oddania','Godzina liczenia','Zebrane PLN', 'Zebrane EUR', 'Zebrane USD', 'Zebrane GBP', "Inne"];
-
+        $csvData[] = ['ID Wolo','Imię i Nazwisko', 'Numer telefonu', 'Godzina oddania','Godzina liczenia','Godzina potwierdzenia', 'Zebrane PLN', 'Zebrane EUR', 'Zebrane USD', 'Zebrane GBP', "Inne"];
         foreach ($data as $row) {
             $collectorName = $row->collector->firstName . ' ' . $row->collector->lastName;
             $csvData[] = [
-                $row->collector_id,
+                $row->collectorIdentifier,
                 $collectorName,
+                $row->collector->phoneNumber,
                 $row->time_given,
                 $row->time_counted,
+                $row->time_confirmed,
                 $row->amount_PLN,
                 $row->amount_EUR,
                 $row->amount_USD,

@@ -253,8 +253,8 @@ class BoxOperator {
 
     public function getAll() : Collection
     {
-      return CharityBox::with('collector')
-        ->get(['id','collector_id','time_given','time_counted','amount_PLN','amount_EUR','amount_USD','amount_GBP']);
+      return CharityBox::with('collector')->orderBy('collectorIdentifier')
+        ->get(['id', 'collector_id', 'collectorIdentifier', 'time_given','time_counted', 'time_confirmed', 'amount_PLN','amount_EUR','amount_USD','amount_GBP']);
     }
 
     public function lastChangedBox() : CharityBox
