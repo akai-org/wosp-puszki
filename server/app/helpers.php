@@ -6,6 +6,7 @@ use App\Lib\AppStatusManager;
 use App\Lib\Rates\CurrentRatesFetcher;
 use App\Lib\Rates\RatesFetcher;
 use App\Lib\Rates\StaticRatesFetcher;
+use Illuminate\Support\Facades\Cache;
 
 // TODO jeżeli ten skrypt będzie refaktoryzowany, to te metode trzeba bedzie zastpic DI
 function resolveRatesFetcher(): RatesFetcher {
@@ -61,7 +62,8 @@ function totalCollectedArray() {
         'amount_USD' => $amount_USD,
         'rates' => $rates,
         'amount_total_in_PLN' =>  round($total_PLN, 2),
-        'collectors_in_city' => $collectors_in_city
+        'collectors_in_city' => $collectors_in_city,
+        'amount_allegro' => Cache::get('allegro_sum')
     ];
 
     return $data;
