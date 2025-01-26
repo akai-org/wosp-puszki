@@ -52,7 +52,7 @@ class ScrapMoneyBox extends Command
     public function handle()
     {
         Log::info('Moneybox scrape ran');
-        $moneyboxId = 'dizebacoge';//config('wosp.moneybox.id');
+        $moneyboxId = config('wosp.moneybox.id');
         $moneyboxValueSelector = config('wosp.moneybox.selector');
         $url = 'https://eskarbonka.wosp.org.pl/' . $moneyboxId;
 
