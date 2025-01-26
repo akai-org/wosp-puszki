@@ -58,9 +58,9 @@ class ScrapMoneyBox extends Command
         $browser = $this->argument('browser');
         if(isset($this->browsers[$browser])){
             $client = $this->browsers[$browser](
-                [
-                    'port' => random_int(4000, 5000), // defaults to 9080
-                ]
+//                [
+//                    'port' => random_int(4000, 5000), // defaults to 9080
+//                ]
             );
         }else{
             $this->error($browser . ' is not a supported browser.');
