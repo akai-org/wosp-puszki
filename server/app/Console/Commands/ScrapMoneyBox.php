@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Lib\AppStatusManager;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class ScrapMoneyBox extends Command
 {
@@ -48,6 +49,7 @@ class ScrapMoneyBox extends Command
      */
     public function handle()
     {
+        Log::info('Moneybox scrape ran');
         $moneyboxId = config('wosp.moneybox.id');
         $moneyboxValueSelector = config('wosp.moneybox.selector');
         $url = 'https://eskarbonka.wosp.org.pl/' . $moneyboxId;
@@ -71,6 +73,7 @@ class ScrapMoneyBox extends Command
         $matches = [];
         $result = preg_match('/[ \d]+([,.]\d{,2})?/', $moneyInBox, $matches);
         if($result !== 1){
+            Log::error('Could not fetch the moneybox value');
             $this->error('Could not fetch the moneybox value');
         }else{
             // Normalize the decimal point to full stop and not comma and remove spaces from inside

@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
+
 class AllegroFetch extends Command
 {
     /**
@@ -81,6 +83,7 @@ class AllegroFetch extends Command
             }
             curl_close($ch);
         }
+        Log::info('Fetched allegro: ' . $sum);
         Cache::put('allegro_sum', $sum, 3600);
         $this->info($sum);
     }
