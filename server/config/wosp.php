@@ -3,6 +3,6 @@
 return [
     'moneybox' => [
         'id' => env('MONEYBOX_ID'),
-        'selector' => '.price',
+        'selector' => 'span[class=count-field]',
     ],
 ];
