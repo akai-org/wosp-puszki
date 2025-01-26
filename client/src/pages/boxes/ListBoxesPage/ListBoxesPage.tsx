@@ -72,15 +72,15 @@ export const ListBoxesPage = () => {
       width: 100,
     },
     {
-      titleName: 'Status',
+      titleName: 'Rozliczona',
       keyName: 'status',
       width: 200,
       search: true,
       status: {
         key: 'status',
         options: {
-          on: { value: 'settled', description: 'Rozliczona' },
-          off: { value: 'unsettled', description: 'Nierozliczona' },
+          on: { value: 'Tak', description: 'Tak' },
+          off: { value: 'Nie', description: 'Nie' },
         },
       },
     },
