@@ -24,8 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('scrap:moneyBox')
-                 ->everyFifteenMinutes();
+        $schedule->command('scrap:moneybox')
+                 ->everyFiveMinutes();
         $schedule->command('allegro:fetch')
                  ->everyFifteenMinutes();
         $schedule->command('backup:run')->everyFifteenMinutes();
