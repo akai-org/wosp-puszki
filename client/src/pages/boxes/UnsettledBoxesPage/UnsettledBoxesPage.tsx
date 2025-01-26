@@ -79,8 +79,8 @@ export const UnsettledBoxesPage = () => {
       status: {
         key: 'status',
         options: {
-          on: { value: 'settled', description: 'Rozliczona' },
-          off: { value: 'unsettled', description: 'nierozliczona' },
+          on: { value: 'Tak', description: 'Tak' },
+          off: { value: 'Nie', description: 'Nie' },
         },
       },
     },

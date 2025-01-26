@@ -51,15 +51,15 @@ export const ListVolunteersPage = () => {
       afterText: 'PLN',
     },
     {
-      titleName: 'Status',
+      titleName: 'Rozliczona',
       keyName: 'status',
       width: 200,
       search: true,
       status: {
         key: 'status',
         options: {
-          on: { value: 'Rozliczona', description: 'Rozliczona' },
-          off: { value: 'Nierozliczona', description: 'nierozliczona' },
+          on: { value: 'Tak', description: 'Tak' },
+          off: { value: 'Nie', description: 'Nie' },
         },
       },
     },
