@@ -83,6 +83,7 @@ class User extends Authenticatable
     //https://github.com/VentureCraft/revisionable/issues/295
     private function getSystemUserId()
     {
+        Log:info('getSystemUserId called');
         $user_id = $this->traitGetSystemUserId();
 
         if(is_null($user_id)) {
