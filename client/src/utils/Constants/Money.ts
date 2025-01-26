@@ -28,8 +28,8 @@ export const MONEY_VALUES = {
   '200zł': 200,
   '500zł': 500,
   EUR: 4.76,
-  GBP: 5.36,
   USD: 4.45,
+  GBP: 5.36,
 };
 
 export const MONEY_AMOUNTS_VALUES = {
