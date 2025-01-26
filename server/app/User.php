@@ -8,11 +8,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
 
 class User extends Authenticatable
 {
-    use Notifiable;
-    use \Venturecraft\Revisionable\RevisionableTrait {
-        // Define original 'getSystemUserId' as alias.
-        RevisionableTrait::getSystemUserId as traitGetSystemUserId;
-    }
+    use Notifiable, RevisionableTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -31,11 +27,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-    public static function boot()
-    {
-        parent::boot();
-    }
 
     public function roles()
     {
@@ -78,18 +69,5 @@ class User extends Authenticatable
     public function hasRole($role)
     {
         return null !== $this->roles()->where('name', $role)->first();
-    }
-
-    //https://github.com/VentureCraft/revisionable/issues/295
-    private function getSystemUserId()
-    {
-        Log:info('getSystemUserId called');
-        $user_id = $this->traitGetSystemUserId();
-
-        if(is_null($user_id)) {
-            $user_id = 1;
-        }
-
-        return $user_id;
     }
 }
