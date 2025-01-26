@@ -82,7 +82,9 @@ class ScrapMoneyBox extends Command
         }else{
             // Normalize the decimal point to full stop and not comma and remove spaces from inside
             $normalizedAmount = str_replace([ ',', ' ' ], [ '.', '' ], $matches[0]);
+            Log::info('Moneybox scrape got ' . $normalizedAmount);
             AppStatusManager::saveStatusValue(AppStatusManager::MONEYBOX_VALUE, $normalizedAmount);
         }
+        Log::info('Moneybox scrape finished');
     }
 }
