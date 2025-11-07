@@ -15,8 +15,10 @@ export const createDisplayableData = (data: IBoxes[]) => {
   for (const item of data) {
     const name = `${item.collector.firstName} ${item.collector.lastName}`;
 
-    const originalCountingUserId =
-      item.original_counting_user_id || item.counting_user_id;
+    let originalCountingUserId = item.counting_user_id;
+    if (item.metadata?.original_counting_user_id) {
+      originalCountingUserId = item.metadata.original_counting_user_id;
+    }
 
     displayableData.push({
       id: item.id,

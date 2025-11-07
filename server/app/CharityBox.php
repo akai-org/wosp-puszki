@@ -12,6 +12,7 @@ class CharityBox extends Model
 
     protected $casts = [
         'is_given_to_collector' => 'boolean',
+        'metadata' => 'array',
     ];
 
     protected $appends = [
