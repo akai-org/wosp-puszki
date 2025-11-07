@@ -15,6 +15,11 @@ export const createDisplayableData = (data: IBoxes[]) => {
   for (const item of data) {
     const name = `${item.collector.firstName} ${item.collector.lastName}`;
 
+    let originalCountingUserId = item.counting_user_id;
+    if (item.metadata?.original_counting_user_id) {
+      originalCountingUserId = item.metadata.original_counting_user_id;
+    }
+
     displayableData.push({
       id: item.id,
       collectorId: item.collectorIdentifier,
@@ -24,7 +29,7 @@ export const createDisplayableData = (data: IBoxes[]) => {
       amount_USD: item.amount_USD,
       amount_PLN: item.amount_PLN,
       comment: item.comment,
-      countingStation: item.counting_user_id > 3 ? item.counting_user_id - 3 : null,
+      countingStation: originalCountingUserId > 3 ? originalCountingUserId - 3 : null,
       give_hour: new Date(item.time_given).toLocaleTimeString(),
       time_counted: new Date(item.time_counted).toLocaleTimeString(),
     });
