@@ -28,7 +28,7 @@ const { Content } = Layout;
 export const BoxesForApprovalPage = () => {
   const { roles } = useAuthContext();
   const topRole = getTopPermission(roles);
-  const isPermitted = topRole !== null && topRole <= permissions['admin'];
+  const isPermitted = topRole !== null && topRole <= permissions['collectorcoordinator'];
 
   // Ustawienia dla poszczególnych kolumn
   const baseColumnsOptions: TableColumns[] = [
