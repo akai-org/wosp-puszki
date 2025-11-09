@@ -61,6 +61,13 @@ Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], func
         Route::post('charityBoxes/verified/{id}', [CharityBoxApiController::class, 'postVerifyCharityBox'])->name('api.box.verify');
 
     });
+       Route::middleware('collectorcoordinator')->group(function () {
+        Route::get('charityBoxes/verified', [CharityBoxApiController::class, 'getVerifiedList'])->name('api.box.verified');
+        Route::get('charityBoxes/unverified', [CharityBoxApiController::class, 'getUnverifiedList'])->name('api.box.unverified');
+        Route::post('charityBoxes/unverified/{id}', [CharityBoxApiController::class, 'postUnverifyCharityBox'])->name('api.box.unverify');
+        Route::post('charityBoxes/verified/{id}', [CharityBoxApiController::class, 'postVerifyCharityBox'])->name('api.box.verify');
+
+    });
 
     Route::post('charityBoxes/{id}/startCounting', [CharityBoxApiController::class, 'startCounting'])->name('api.box.count.start');
     Route::post('charityBoxes/{id}/finishCounting', [CharityBoxApiController::class, 'confirm'])->name('api.box.count.finish');
