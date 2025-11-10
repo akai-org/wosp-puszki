@@ -104,7 +104,6 @@ class BoxOperator {
 
 
     public function updateBoxByBoxID(Request $request, int $boxID) : CharityBox {
-        //Zapisz puszkę do bazy
         $box = CharityBox::where('id', '=', $boxID)->first();
 
         if($box->is_confirmed) {
@@ -113,9 +112,19 @@ class BoxOperator {
 
         $box->is_counted=true;
 
-        if ($request->user()->hasRole('volounteer')) {
+        // Inicjalizacja metadata jeśli nie istnieje
+        $metadata = $box->metadata ? json_decode($box->metadata, true) : [];
+
+        $isFirstCounting = $box->counting_user_id === null;
+
+        // Zapis pierwotnego counting_user_id przy pierwszym rozliczeniu 
+        if ($isFirstCounting) {
             $box->counting_user_id = $this->operatingUserId;
+            $metadata['original_counting_user_id'] = $this->operatingUserId;
+            $metadata['original_counting_time'] = Carbon::now()->toISOString();
         }
+
+        $box->metadata = json_encode($metadata);
 
         $data = $this->getBoxDataFromRequest($request);
 

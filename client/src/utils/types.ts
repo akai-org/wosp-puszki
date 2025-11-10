@@ -289,6 +289,15 @@ export interface IBoxes {
   amount_GBP: string;
   comment: string;
   is_special_box: number;
+  metadata?: {
+    original_counting_user_id?: number;
+    original_counting_time?: string;
+    edits?: Array<{
+      user_id: number;
+      time: string;
+      role: string[];
+    }>;
+  } | null;
 }
 
 export interface DisplayableData {
