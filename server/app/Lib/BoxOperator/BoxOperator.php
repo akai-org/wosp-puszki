@@ -88,8 +88,62 @@ class BoxOperator {
         $box->collectorIdentifier);
     }
 
-    if ($request->user()->hasRole('volounteer') && $box->counting_user_id != null && $box->counting_user_id != $this->operatingUserId) {
-      throw new \Exception('Puszka jest już w trakcie liczenia. Proszę zgłosić to do koordynatora rozliczenia.');
+    /**
+     * @throws ValidationException
+     */
+    public function findLatestUncountedByCollectorIdentifier(string $identifier): CharityBox {
+        // Searching for the user
+        // Providing data for validation
+        Validator::make(['identifier' => $identifier], [
+            'identifier' => 'required|exists:collectors,identifier|alpha_num|between:1,255'
+        ],
+            [
+                'identifier.exists' => 'Wolontariusz o takim ID nie istnieje.'
+            ])->validate();
+
+        $collector = Collector::where('identifier', '=', $identifier)->first();
+
+        //Puszki zbieracza
+        $boxes = $collector->boxes()->orderBy('id', 'desc')->with('collector')->notCounted()->get();
+
+        if(count($boxes) == 0) {
+            throw new \Exception('Wszystkie puszki wolontariusza ' . $collector->display . ' są rozliczone.');
+        }
+
+        $event = new BoxEvent();
+        $event->type = 'found';
+        $event->box_id = $boxes[0]->id;
+        $event->user_id = $this->operatingUserId;
+        $event->comment = 'Collector: ' . $collector->display;
+        $event->save();
+
+        return $boxes[0]->load('collector');
+    }
+
+    public function startCountByBoxID(Request $request, int $boxID) : CharityBox {
+        $box = CharityBox::where('id', '=', $boxID)->first();
+
+        if($box->isCounted) {
+            throw new \Exception('Puszka została już rozliczona, numer puszki: ' . $box->id . 'Wolontariusz: '.
+                $box->collectorIdentifier);
+        }
+
+        if($request->user()->hasRole('volounteer') && $box->counting_user_id != null && $box->counting_user_id != $this->operatingUserId) {
+            throw new \Exception('Puszka jest już w trakcie liczenia. Proszę zgłosić to do koordynatora rozliczenia.');
+        }
+
+
+        $event = new BoxEvent();
+        $event->type = 'startedCounting';
+        $event->box_id = $box->id;
+        $event->user_id = $this->operatingUserId;
+        $event->comment = 'Collector: ' . $box->collector->display;
+        $event->save();
+
+        $box->counting_user_id = $this->operatingUserId;
+        $box->save();
+
+        return $box;
     }
 
 
@@ -102,12 +156,12 @@ class BoxOperator {
     return $box;
   }
 
-        // Inicjalizacja metadata jeśli nie istnieje
+        // Initialize metadata if there is none
         $metadata = $box->metadata ? json_decode($box->metadata, true) : [];
 
         $isFirstCounting = $box->counting_user_id === null;
 
-        // Zapis pierwotnego counting_user_id przy pierwszym rozliczeniu 
+        // Save the original counting user ID and time if this is the first counting
         if ($isFirstCounting) {
             $box->counting_user_id = $this->operatingUserId;
             $metadata['original_counting_user_id'] = $this->operatingUserId;
@@ -228,24 +282,9 @@ class BoxOperator {
 
   }
 
-  //Zlicz całość puszki
-  private function getTotalPLN(Request $request): Money {
-    $total = Money::PLN(0);
-    $total = $total->add(Money::PLN($request->input('count_1gr')));
-    $total = $total->add(Money::PLN($request->input('count_2gr') * 2));
-    $total = $total->add(Money::PLN($request->input('count_5gr') * 5));
-    $total = $total->add(Money::PLN($request->input('count_10gr') * 10));
-    $total = $total->add(Money::PLN($request->input('count_20gr') * 20));
-    $total = $total->add(Money::PLN($request->input('count_50gr') * 50));
-    $total = $total->add(Money::PLN($request->input('count_1zl') * 100));//1zł=100gr
-    $total = $total->add(Money::PLN($request->input('count_2zl') * 200));
-    $total = $total->add(Money::PLN($request->input('count_5zl') * 500));
-    $total = $total->add(Money::PLN($request->input('count_10zl') * 1000));
-    $total = $total->add(Money::PLN($request->input('count_20zl') * 2000));
-    $total = $total->add(Money::PLN($request->input('count_50zl') * 5000));
-    $total = $total->add(Money::PLN($request->input('count_100zl') * 10000));
-    $total = $total->add(Money::PLN($request->input('count_200zl') * 20000));
-    $total = $total->add(Money::PLN($request->input('count_500zl') * 50000));
+    // Format money to string
+    private function formatMoney(Money $money) : string {
+        $currencies = new ISOCurrencies();
 
     return $total;
   }
