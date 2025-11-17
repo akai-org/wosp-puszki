@@ -48,8 +48,8 @@ class BoxOperator {
      * @throws ValidationException
      */
     public function findLatestUncountedByCollectorIdentifier(string $identifier): CharityBox {
-        //Wyszukujemy użytkownika
-        //Podajemy dane do sprawdzenia
+        // Searching for the user
+        // Providing data for validation
         Validator::make(['identifier' => $identifier], [
             'identifier' => 'required|exists:collectors,identifier|alpha_num|between:1,255'
         ],
@@ -112,12 +112,12 @@ class BoxOperator {
 
         $box->is_counted=true;
 
-        // Inicjalizacja metadata jeśli nie istnieje
+        // Initialize metadata if there is none
         $metadata = $box->metadata ? json_decode($box->metadata, true) : [];
 
         $isFirstCounting = $box->counting_user_id === null;
 
-        // Zapis pierwotnego counting_user_id przy pierwszym rozliczeniu 
+        // Save the original counting user ID and time if this is the first counting
         if ($isFirstCounting) {
             $box->counting_user_id = $this->operatingUserId;
             $metadata['original_counting_user_id'] = $this->operatingUserId;
@@ -251,7 +251,7 @@ class BoxOperator {
         return $total;
     }
 
-    // Sformatuj obiekt Money do wyświetlenia
+    // Format money to string
     private function formatMoney(Money $money) : string {
         $currencies = new ISOCurrencies();
 
