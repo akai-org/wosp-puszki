@@ -122,9 +122,9 @@ class DataDumpController extends Controller
     $file = $this->getFileName($lastDumped, 'xlsx');
     if ($lastChangedBoxDate->lt($lastDumped)) {// porównujemy date ostatniej zmieniony puszki z datą ostatniego exportu
       $filePath = 'charity_box_exports/' . $file;
-      // if (Storage::exists($filePath)) {
-      //   return response()->download(storage_path("app/{$filePath}"), $file);
-      // }
+      if (Storage::exists($filePath)) {
+        return response()->download(storage_path("app/{$filePath}"), $file);
+      }
     }
     $data = $bo->getAll();
     $dataLen = count($data) + 1;
