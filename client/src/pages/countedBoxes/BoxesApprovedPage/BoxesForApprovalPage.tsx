@@ -81,6 +81,13 @@ export const BoxesForApprovalPage = () => {
       width: 60,
     },
     {
+      titleName: 'Uwagi dodatkowe',
+      keyName: 'additional_comment',
+      search: true,
+      ellipsis: true,
+      width: 60,
+    },
+    {
       titleName: 'Stanowisko',
       keyName: 'countingStation',
       search: true,

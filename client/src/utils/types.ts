@@ -205,6 +205,7 @@ export interface boxResponse {
   amount_USD: string;
   amount_GBP: string;
   comment: string;
+  additional_comment: string;
   created_at: string;
   updated_at: string;
   is_special_box: number;
@@ -288,6 +289,7 @@ export interface IBoxes {
   amount_USD: string;
   amount_GBP: string;
   comment: string;
+  additional_comment: string;
   is_special_box: number;
 }
 
