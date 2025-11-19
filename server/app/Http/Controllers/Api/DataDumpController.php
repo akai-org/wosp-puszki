@@ -120,13 +120,14 @@ class DataDumpController extends Controller
     $lastChangedBoxDate = $bo->lastChangedBox()->updated_at;
     $lastDumped = Cache::get('lastXlsxDump', Carbon::create(1990));
     $file = $this->getFileName($lastDumped, 'xlsx');
-    if ($lastChangedBoxDate->lt($lastDumped)) {// porównujemy date ostatniej zmieniony puszki z datą ostatniego exportu
+    // Compare date of last box modification with last export date
+    if ($lastChangedBoxDate->lt($lastDumped)) {
       $filePath = 'charity_box_exports/' . $file;
       if (Storage::exists($filePath)) {
         return response()->download(storage_path("app/{$filePath}"), $file);
       }
     }
-    $data = $bo->getAll();
+    $data = $bo->getAll()->sortBy(['collectorIdentifier', 'time_given'])->values()->all();
     $dataLen = count($data) + 1;
     $columnNames = ['ID Wolo', 'Imię i Nazwisko', 'Numer telefonu', 'Godzina oddania', 'Godzina liczenia', 'Godzina potwierdzenia', 'Zebrane PLN', 'Zebrane EUR', 'Zebrane USD', 'Zebrane GBP', "Inne"];
 
@@ -137,7 +138,8 @@ class DataDumpController extends Controller
     for ($i = 1; $i < count($columnNames) + 1; $i++) {
       $activeWorksheet->setCellValue([$i, 1], $columnNames[$i - 1]);
     }
-    foreach ($data as $i => $value) {
+    for ($i = 0; $i < $dataLen - 1; $i++) {
+      $value = $data[$i];
       $collectorName = $value->collector->firstName . ' ' . $value->collector->lastName;
       $Y = $i + 2;
       $activeWorksheet->setCellValue("A" . "{$Y}", $value->collectorIdentifier);
@@ -165,7 +167,8 @@ class DataDumpController extends Controller
     $date = Carbon::now();
     $xlsxFileName = $this->getFileName($date, 'xlsx');
 
-    ob_start(); // Trzeba exportować do bufora, bo Writer nie daje opcji pobrania output streamu
+    // Writer can't return data stream directly so we need to write to the buffer first
+    ob_start();
     $writer = new Xlsx($spreadsheet);
     $writer->save('php://output');
     $xlsxContent = ob_get_contents();
@@ -174,7 +177,8 @@ class DataDumpController extends Controller
     $storagePath = 'charity_box_exports';
     $filePath = $storagePath . '/' . $xlsxFileName;
     Storage::put($filePath, $xlsxContent);
-    Cache::set('lastXlsxDump', $date); //Dodajemy do cache date exportu
+    // Cache last export date
+    Cache::set('lastXlsxDump', $date);
 
     return response()->download(storage_path("app/{$filePath}"), $file);
   }
