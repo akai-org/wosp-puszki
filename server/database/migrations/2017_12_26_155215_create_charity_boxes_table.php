@@ -85,7 +85,7 @@ class CreateCharityBoxesTable extends Migration
             //Komentarz
             $table->string('comment')->default('')->nullable();
             //Uwagi dodatkowe
-            $table->string('addictional_comment')->default('')->nullable();
+            $table->string('additional_comment')->default('')->nullable();
             $table->timestamps();
         });
     }
