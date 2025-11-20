@@ -54,7 +54,7 @@ export const DepositBoxForm = ({ boxId, editMode }: DepositBoxFormProps) => {
     mutationFn: () =>
       fetcher(`${APIManager.baseAPIRUrl}/charityBoxes/${boxId}`, {
         method: 'PUT',
-        body: { comment: boxData.comment, ...boxData.amounts },
+        body: { comment: boxData.comment, additional_comment: boxData.additional_comment, ...boxData.amounts },
       }),
     onSuccess: () =>
       navigate(
@@ -127,6 +127,20 @@ export const DepositBoxForm = ({ boxId, editMode }: DepositBoxFormProps) => {
                   onChange={(e) => {
                     const { value } = e.target;
                     handleAmountsChange('comment', value);
+                  }}
+                ></TextArea>
+              </Form.Item>
+            </Space>
+             <Space className={s.other}>
+              Dodatkowe uwagi
+              <Form.Item style={{ marginBottom: 0 }}>
+                <TextArea
+                  className={s.textArea}
+                  value={boxData['additional_comment']}
+                  disabled={!editMode || mutation.isLoading}
+                  onChange={(e) => {
+                    const { value } = e.target;
+                    handleAmountsChange('additional_comment', value);
                   }}
                 ></TextArea>
               </Form.Item>

@@ -140,6 +140,7 @@ class BoxOperator {
         $box->amount_USD = $data['amount_USD'];
         $box->amount_GBP = $data['amount_GBP'];
         $box->comment = $data['comment'];
+        $box->additional_comment = $data['additional_comment'];
 
         $box->time_counted = Carbon::now();
 
@@ -203,7 +204,8 @@ class BoxOperator {
             'amount_EUR' => 'required|numeric|between:0,10000',
             'amount_USD' => 'required|numeric|between:0,10000',
             'amount_GBP' => 'required|numeric|between:0,10000',
-            'comment' => ''
+            'comment' => '',
+            'additional_comment' => ''
         ]);
 
         if ($validator->fails()) {

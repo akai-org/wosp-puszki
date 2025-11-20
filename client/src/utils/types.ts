@@ -322,6 +322,7 @@ export type ForeignAmountsKeys = 'amount_EUR' | 'amount_USD' | 'amount_GBP';
 export interface BoxData {
   amounts: Record<AmountsKeys, number | null>;
   comment: string;
+  additional_comment: string;
 }
 
 export interface IDepositContext {
