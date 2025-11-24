@@ -12,8 +12,19 @@ class CharityBox extends Model
 
     protected $casts = [
         'is_given_to_collector' => 'boolean',
-        'metadata' => 'array',
     ];
+
+    protected $appends = [
+        'original_counting_user_id',
+    ];
+
+    public function getOriginalCountingUserIdAttribute() {
+        $history = $this->revisionHistory->where('key', 'counting_user_id')->sortBy('created_at')->first();
+        if ($history) {
+            return (int) $history->new_value;
+        }
+        return $this->counting_user_id;
+    }
 
     public function collector()
     {
