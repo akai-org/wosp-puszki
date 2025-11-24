@@ -156,19 +156,10 @@ class BoxOperator {
     return $box;
   }
 
-        // Initialize metadata if there is none
-        $metadata = $box->metadata ? json_decode($box->metadata, true) : [];
-
-        $isFirstCounting = $box->counting_user_id === null;
-
-        // Save the original counting user ID and time if this is the first counting
-        if ($isFirstCounting) {
+        // If this is the first time the box is being counted, set the counting user.
+        if ($box->counting_user_id === null) {
             $box->counting_user_id = $this->operatingUserId;
-            $metadata['original_counting_user_id'] = $this->operatingUserId;
-            $metadata['original_counting_time'] = Carbon::now()->toISOString();
         }
-
-        $box->metadata = json_encode($metadata);
 
         $data = $this->getBoxDataFromRequest($request);
 
