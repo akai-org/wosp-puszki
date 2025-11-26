@@ -51,7 +51,8 @@ class DataDumpController extends Controller
     $lastChangedBoxDate = $bo->lastChangedBox()->updated_at;
     $lastDumped = Cache::get('lastCsvDump', Carbon::create(1990));
     $file = $this->getFileName($lastDumped, 'csv');
-    if ($lastChangedBoxDate->lt($lastDumped)) {// porównujemy date ostatniej zmieniony puszki z datą ostatniego exportu
+    // Compare date of last box modification with last export date
+    if ($lastChangedBoxDate->lt($lastDumped)) {
       $filePath = 'charity_box_exports/' . $file;
       if (Storage::exists($filePath)) {
         return response()->download(storage_path("app/{$filePath}"), $file);
@@ -84,7 +85,8 @@ class DataDumpController extends Controller
     $storagePath = 'charity_box_exports';
     $filePath = $storagePath . '/' . $csvFileName;
     Storage::put($filePath, $csvFile->toString());
-    Cache::set('lastCsvDump', $date); //Dodajemy do cache date exportu
+    // Cache last export date
+    Cache::set('lastCsvDump', $date);
 
     return response()->download(storage_path("app/{$filePath}"), $file);
   }
