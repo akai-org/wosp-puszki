@@ -62,7 +62,7 @@ final class CharityBoxApiController extends ApiController
      */
     public function index()
     {
-        return new CharityBoxResource(CharityBox::with('collector')->get());
+        return new CharityBoxResource(CharityBox::with(['collector', 'revisionHistory'])->get());
     }
 
     /**
