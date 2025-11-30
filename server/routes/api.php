@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\CountedBoxApiController;
 use App\Http\Controllers\Api\LogsApiController;
 use App\Http\Controllers\Api\RatesApiController;
 use App\Http\Controllers\Api\UserApiController;
+use App\Http\Controllers\MovementController;
 use Illuminate\Http\Request;
 
 /*
@@ -61,7 +62,7 @@ Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], func
         Route::post('charityBoxes/verified/{id}', [CharityBoxApiController::class, 'postVerifyCharityBox'])->name('api.box.verify');
 
     });
-    
+
 
     Route::post('charityBoxes/{id}/startCounting', [CharityBoxApiController::class, 'startCounting'])->name('api.box.count.start');
     Route::post('charityBoxes/{id}/finishCounting', [CharityBoxApiController::class, 'confirm'])->name('api.box.count.finish');
@@ -104,4 +105,5 @@ Route::group(['as' => 'api.', 'middleware' => ['web']], function () {
     Route::post('/stations/{id}/ready', [AvailabilityApiController::class, 'postReady']);
     Route::post('/stations/{id}/busy', [AvailabilityApiController::class, 'postBusy']);
     Route::post('/stations/{id}/unknown', [AvailabilityApiController::class, 'postUnknown']);
+    Route::post('/stations/{id}/ready-deployed', [MovementController::class, 'markStationReadyDeployed']);
 });
