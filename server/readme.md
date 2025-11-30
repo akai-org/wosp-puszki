@@ -6,7 +6,7 @@
 
 #### wymagania
 
--   PHP >= 8.1
+-   PHP >= 8.3
 -   Baza Posggres
 -   Node (tested 20.11.0 lts)
 
