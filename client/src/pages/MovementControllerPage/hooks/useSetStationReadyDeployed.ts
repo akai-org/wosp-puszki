@@ -6,12 +6,15 @@ export const useSetStationReadyDeployed = () => {
 
   return useMutation({
     mutationFn: (stationNumber: number) =>
-      fetcher(APIManager.setStationStatusURL(stationNumber, 'ready_deployed'), {
+      fetcher(APIManager.setStationReadyDeployedURL(stationNumber), {
         method: 'POST',
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['movement-controller-stations'] });
+      queryClient.refetchQueries({ queryKey: ['movement-controller-stations'] });
+    },
+    onError: (error) => {
+      console.error('Failed to set station ready_deployed:', error);
     },
   });
 };
-

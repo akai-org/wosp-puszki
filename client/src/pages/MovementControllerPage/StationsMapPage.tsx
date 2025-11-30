@@ -90,8 +90,16 @@ export const StationsMapPage = () => {
 
   const handleConfirm = () => {
     if (!selectedStation) return;
-    setReadyDeployed(selectedStation);
-    setSelectedStation(null);
+    setReadyDeployed(selectedStation, {
+      onSuccess: () => {
+        console.log('Station status changed successfully');
+        setSelectedStation(null);
+      },
+      onError: (error) => {
+        console.error('Failed to change station status:', error);
+        setSelectedStation(null);
+      }
+    });
   };
 
   const handleCancel = () => {

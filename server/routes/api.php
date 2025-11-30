@@ -101,6 +101,7 @@ Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], func
 
 Route::group(['as' => 'api.', 'middleware' => ['web']], function () {
     Route::get('/stations', [AvailabilityApiController::class, 'index']);
+    Route::get('/stations/all', [MovementController::class, 'getAllStations']);
     Route::get('/stations/status', [AvailabilityApiController::class, 'getStatusList']);
     Route::post('/stations/{id}/ready', [AvailabilityApiController::class, 'postReady']);
     Route::post('/stations/{id}/busy', [AvailabilityApiController::class, 'postBusy']);

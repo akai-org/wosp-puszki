@@ -18,7 +18,16 @@ class MovementController extends Controller
     public function markStationReadyDeployed(Request $request, $stationId)
     {
         try {
-            // Find the charity box with status 'ready' for this station
+            $currentStatus = Cache::get("station_{$stationId}_status", 0);
+
+            if ($currentStatus !== 1 && $currentStatus !== '1' && $currentStatus !== 'ready') {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Station is not in ready status',
+                    'current_status' => $currentStatus
+                ], 400);
+            }
+
             $box = CharityBox::where('counting_user_id', $stationId)
                 ->where('is_counted', false)
                 ->where('is_confirmed', false)
@@ -26,32 +35,22 @@ class MovementController extends Controller
                 ->orderBy('time_given', 'desc')
                 ->first();
 
-            if (!$box) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'No ready box found for this station'
-                ], 404);
-            }
+            Cache::put("station_{$stationId}_status", 3, now()->addHours(24));
+            Cache::put("station_{$stationId}_timestamp", time(), now()->addHours(24));
 
-            $currentStatus = Cache::get("station_{$stationId}_status", 'unavailable');
-
-            if ($currentStatus !== 'ready') {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Station is not in ready status'
-                ], 400);
-            }
-
-            Cache::put("station_{$stationId}_status", 'ready_deployed', now()->addHours(24));
-            Cache::put("station_{$stationId}_timestamp", now()->toIso8601String(), now()->addHours(24));
-
-            return response()->json([
+            $response = [
                 'success' => true,
                 'message' => 'Station marked as ready_deployed',
                 'station' => $stationId,
-                'status' => 'ready_deployed',
-                'box_id' => $box->id
-            ]);
+                'status' => 3,
+                'status_name' => 'ready_deployed',
+            ];
+
+            if ($box) {
+                $response['box_id'] = $box->id;
+            }
+
+            return response()->json($response);
 
         } catch (\Exception $e) {
             return response()->json([
@@ -72,14 +71,22 @@ class MovementController extends Controller
         try {
             $stations = [];
 
-            // Get status for all 28 stations
             for ($i = 1; $i <= 28; $i++) {
-                $status = Cache::get("station_{$i}_status", 'unavailable');
+                $status = Cache::get("station_{$i}_status", 0);
                 $timestamp = Cache::get("station_{$i}_timestamp", null);
+
+                if (is_string($status)) {
+                    $status = match($status) {
+                        'ready', 'available' => 1,
+                        'occupied', 'busy' => 2,
+                        'ready_deployed' => 3,
+                        default => 0
+                    };
+                }
 
                 $stations[] = [
                     'station' => $i,
-                    'status' => $status,
+                    'status' => (int)$status,
                     'time' => $timestamp
                 ];
             }
@@ -95,4 +102,3 @@ class MovementController extends Controller
         }
     }
 }
-
