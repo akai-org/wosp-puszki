@@ -8,14 +8,16 @@ import { Button } from 'antd';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 
 export const StationsMapPage = () => {
-  const { data: stations, isLoading } = useMovementControllerStations();
+  const { data: stationsData, isLoading } = useMovementControllerStations();
   const { mutate: setReadyDeployed, isLoading: isMutating } =
     useSetStationReadyDeployed();
   const containerRef = useRef<HTMLDivElement>(null);
   const [selectedStation, setSelectedStation] = useState<number | null>(null);
 
+  const stations = Array.isArray(stationsData) ? stationsData : [];
+
   useEffect(() => {
-    if (!stations) return;
+    if (!stations || stations.length === 0) return;
 
     stations.forEach((station) => {
       const element = containerRef.current?.querySelector(`#station${station.station}`);
@@ -106,24 +108,6 @@ export const StationsMapPage = () => {
 
   return (
     <div className={s.pageContainer}>
-      <div className={s.legend}>
-        <div className={s.legendItem}>
-          <div className={s.legendBox} style={{ backgroundColor: '#000' }}></div>
-          <span>NIEDOSTĘPNE</span>
-        </div>
-        <div className={s.legendItem}>
-          <div className={s.legendBox} style={{ backgroundColor: '#93c01f' }}></div>
-          <span>WOLNE</span>
-        </div>
-        <div className={s.legendItem}>
-          <div className={s.legendBox} style={{ backgroundColor: '#e11e14' }}></div>
-          <span>ZAJĘTE</span>
-        </div>
-        <div className={s.legendItem}>
-          <div className={s.legendBox} style={{ backgroundColor: '#800080' }}></div>
-          <span>KTOŚ IDZIE</span>
-        </div>
-      </div>
       <div className={s.mapContainer} ref={containerRef}>
         <MapVertical id="vertical-map" />
       </div>
@@ -151,4 +135,3 @@ export const StationsMapPage = () => {
     </div>
   );
 };
-

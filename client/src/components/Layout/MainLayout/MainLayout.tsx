@@ -2,17 +2,21 @@ import { Layout } from 'antd';
 import { Outlet } from 'react-router-dom';
 import s from './MainLayout.module.less';
 import { Sidebar } from '@components/Layout/Sidebar/Sidebar';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { getSidebarLinks, useAuthContext, useSidebarStateContext } from '@/utils';
 
 export const MainLayout = () => {
-  // const isLoggedIn = true;
   const [isLoggedIn, setLoggedState] = useState(false);
 
   const { username, credentials, deleteCredentials, roles } = useAuthContext();
-  if (username !== null && !isLoggedIn) {
-    setLoggedState(true);
-  }
+
+  useEffect(() => {
+    if (username !== null) {
+      setLoggedState(true);
+    } else {
+      setLoggedState(false);
+    }
+  }, [username]);
 
   const { show, toggleSidebar } = useSidebarStateContext();
 
