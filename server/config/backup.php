@@ -28,7 +28,10 @@ return [
                  */
                 'exclude' => [
                     base_path('vendor'),
+<<<<<<< HEAD
                     storage_path('app/backups'),
+=======
+>>>>>>> 322130e (Adjusted versions of PHP (8.1->8.3), Laravel (10->12) and outdated dependencies)
                     base_path('node_modules'),
                 ],
 
@@ -215,7 +218,11 @@ return [
              * After cleaning up the backups remove the oldest backup until
              * this amount of megabytes has been reached.
              */
+<<<<<<< HEAD
             'delete_oldest_backups_when_using_more_megabytes_than' => 50000,
+=======
+            'delete_oldest_backups_when_using_more_megabytes_than' => 5000,
+>>>>>>> 322130e (Adjusted versions of PHP (8.1->8.3), Laravel (10->12) and outdated dependencies)
         ],
 
         /*
