@@ -13,7 +13,7 @@ export const ProtectedRoute = ({
   reversed,
   children,
   redirectTo = '/liczymy/login',
-  permission = 'volounteer',
+  permission = 'movementcontroller',
 }: Props) => {
   const { credentials, roles } = useAuthContext();
   const topPermission = getTopPermission(roles);
