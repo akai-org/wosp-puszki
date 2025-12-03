@@ -5,6 +5,7 @@ export const permissions = {
   admin: 2,
   collectorcoordinator: 3,
   volounteer: 4,
+  movementcontroller: 5,
 } as const;
 
 export const boxTypeFormSelectOptions = [

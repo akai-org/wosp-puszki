@@ -4,6 +4,7 @@ import {
   adminRoute,
   boxesRoute,
   countedBoxesRoute,
+  stationsMapRoute,
 } from './nestedRoutes';
 import { LoginPage, HomePage, NotFoundPage } from '@/pages';
 import { MainLayout } from '@/components';
@@ -45,6 +46,7 @@ export const routes: RouteObject[] = [
       adminRoute,
       boxesRoute,
       settleProcessRoute,
+      stationsMapRoute,
     ],
   },
 ];

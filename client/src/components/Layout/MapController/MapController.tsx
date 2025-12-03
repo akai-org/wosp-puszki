@@ -19,6 +19,9 @@ export const MapController = () => {
       ?.classList.remove('volunteer-unavailable');
     containerRef.current
       ?.querySelector(`#station${stationNumber}`)
+      ?.classList.remove('volunteer-ready-deployed');
+    containerRef.current
+      ?.querySelector(`#station${stationNumber}`)
       ?.classList.add(handleNewStatus(newStatusId));
   };
 
@@ -43,6 +46,8 @@ function handleNewStatus(statusId: number): volunteerStatusClass {
       return 'volunteer-available';
     case stationState.occupied:
       return 'volunteer-occupied';
+    case stationState.ready_deployed:
+      return 'volunteer-ready-deployed';
     default:
       return 'volunteer-unavailable';
   }

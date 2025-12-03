@@ -3,6 +3,7 @@ import {
   BOXES_ROUTE_NAME,
   COUNTED_BOXES_ROUTE_NAME,
   MAIN_ROUTE_NAME,
+  STATIONS_MAP_ROUTE_NAME,
 } from './Paths';
 
 export const LINKS_ICONS = new Map();
@@ -17,3 +18,4 @@ LINKS_ICONS.set(
   'material-symbols:admin-panel-settings-outline-rounded',
 );
 LINKS_ICONS.set(BOXES_ROUTE_NAME, 'mingcute:box-3-line');
+LINKS_ICONS.set(STATIONS_MAP_ROUTE_NAME, 'material-symbols:map-outline');
