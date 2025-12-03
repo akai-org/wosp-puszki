@@ -9,6 +9,7 @@ import {
   useAuthContextValues,
   SidebarStateContext,
   useSidebarStateValues,
+  useStationNotifications,
 } from '@/utils';
 
 const router = createBrowserRouter(routes, { basename: '/' });
@@ -20,6 +21,17 @@ export const queryClient = new QueryClient({
   },
 });
 
+function AppContent() {
+  useStationNotifications();
+
+  return (
+    <>
+      <RouterProvider router={router} fallbackElement={<Spin />} />
+      <ReactQueryDevtools position="bottom-right" initialIsOpen={false} />
+    </>
+  );
+}
+
 function App() {
   const authValues = useAuthContextValues();
   const sidebarValues = useSidebarStateValues();
@@ -28,8 +40,7 @@ function App() {
     <AuthContext.Provider value={authValues}>
       <SidebarStateContext.Provider value={sidebarValues}>
         <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router} fallbackElement={<Spin />} />
-          <ReactQueryDevtools position="bottom-right" initialIsOpen={false} />
+          <AppContent />
         </QueryClientProvider>
       </SidebarStateContext.Provider>
     </AuthContext.Provider>

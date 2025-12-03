@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { ReactComponent as MapVertical } from '@assets/map_vertical.svg';
 import s from './StationsMapPage.module.less';
 import { stationState } from '@/utils';
@@ -14,7 +14,10 @@ export const StationsMapPage = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [selectedStation, setSelectedStation] = useState<number | null>(null);
 
-  const stations = Array.isArray(stationsData) ? stationsData : [];
+  const stations = useMemo(
+    () => (Array.isArray(stationsData) ? stationsData : []),
+    [stationsData],
+  );
 
   useEffect(() => {
     if (!stations || stations.length === 0) return;
@@ -98,7 +101,7 @@ export const StationsMapPage = () => {
       onError: (error) => {
         console.error('Failed to change station status:', error);
         setSelectedStation(null);
-      }
+      },
     });
   };
 
