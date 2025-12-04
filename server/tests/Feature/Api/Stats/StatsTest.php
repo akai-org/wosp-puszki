@@ -24,6 +24,7 @@ test('as a volounteer I can get stats', function () {
                 'rates' => 'array',
                 'amount_total_in_PLN' => ['double', 'integer'],
                 'collectors_in_city' => 'integer',
+                'amount_allegro' => ['double', 'integer','null'],
         ])
     );
 
