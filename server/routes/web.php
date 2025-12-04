@@ -26,6 +26,7 @@ use App\Http\Controllers\LogsController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AllegroController;
+use App\Http\Controllers\HelpController;
 
 Route::get('/', ['uses' => 'AmountDisplayController@display']);
 Route::get('/outside', ['uses' => 'AmountDisplayController@displayFromStoredJsonGreen']);
@@ -39,6 +40,7 @@ Route::get('/raw/pln', ['as' => 'display.raw.pln', 'uses' => 'AmountDisplayContr
 Route::get('/raw/all', ['as' => 'display.raw.all', 'uses' => 'AmountDisplayController@getTotalRawWithForeign']);
 Route::get('/allegro',[AllegroController::class, 'setAuthToken']);
 
+
 //Interfejsy admina i superadmina, pod adresem /liczymy
 Route::prefix('liczymy')->group(function () {
 
@@ -48,6 +50,13 @@ Route::prefix('liczymy')->group(function () {
     Route::post('login', [LoginController::class, 'login'])->name('login.post');
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
     
+    Route::post('/request-help', [HelpController::class, 'store']);
+    Route::middleware(['auth', 'collectorcoordinator'])->group(function() {
+        Route::post('/resolve-help', [HelpController::class, 'resolve']);
+    });
+
+
+
 
 
     //Panel główny
