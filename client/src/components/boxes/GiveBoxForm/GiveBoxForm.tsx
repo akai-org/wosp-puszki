@@ -30,7 +30,7 @@ export const GiveBoxForm = () => {
       console.log(error);
       setMessage({ type: 'error', content: recognizeError(error) });
     },
-    onSuccess: (data) => {
+    onSuccess: (data: any) => {
       setMessage({
         type: 'success',
         content: `Pomyślnie wydano puszkę dla identyfikatora: ${data.collectorIdentifier}`,
