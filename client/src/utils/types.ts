@@ -341,6 +341,7 @@ export type moneyValuesType = typeof MONEY_VALUES;
 
 export type BoxTypeFormInput = {
   id_number: string;
+  additional_comment: string;
   box_type: 0 | 10000 | 20000;
 };
 
