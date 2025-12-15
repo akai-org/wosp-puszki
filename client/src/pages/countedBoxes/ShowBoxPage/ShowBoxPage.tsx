@@ -117,6 +117,17 @@ export const ShowBoxPage: FC<Props> = ({ displayOnly = false }) => {
             </Link>
           )}
           {displayOnly ? null : actions}
+          <Space>
+            {queryData?.collector && (
+              <div style={{ fontSize: '16px' }}>
+                <strong>Wolontariusz:</strong> {queryData.collector.firstName}{' '}
+                {queryData.collector.lastName}
+                <br />
+                {/* <strong>Kontakt: </strong> {queryData.collector.phoneNumber} */}
+                {/*Not merged yet*/}
+              </div>
+            )}
+          </Space>
         </Space>
       </Space>
     </Modal>
