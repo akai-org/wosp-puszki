@@ -198,7 +198,6 @@ final class CollectorApiController extends ApiController
         try {
             $box = $bo->giveByCollectorIdentifier((string)$collectorIdentifier);
             if(!is_null($request->input('additional_comment'))) {
-                Log::info($request->input('additional_comment'));
                 $box->additional_comment = $request->input('additional_comment');
                 $box->save();
             }

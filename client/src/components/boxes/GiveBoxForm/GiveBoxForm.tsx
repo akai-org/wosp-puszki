@@ -25,7 +25,9 @@ export const GiveBoxForm = () => {
   const [form] = useForm();
 
   const mutation = useMutation({
-      mutationFn: (boxForm: boxFromHelp) => fetcher(APIManager.giveBoxURL(boxForm.id), { method: 'POST', body: {additional_comment : boxForm.text} }),
+    mutationFn: (boxForm: boxFromHelp) => fetcher(APIManager.giveBoxURL(boxForm.id), {
+      method: 'POST', body: { additional_comment: boxForm.text }
+    }),
     onError: (error) => {
       console.log(error);
       setMessage({ type: 'error', content: recognizeError(error) });

@@ -45,7 +45,7 @@ export const DepositBoxForm = ({ boxId, editMode }: DepositBoxFormProps) => {
   const [total, setTotal] = useState(0);
   const { boxData, handleAmountsChange } = useDepositContext();
   const navigate = useNavigate();
-
+  console.log(boxData);
   useEffect(() => {
     setTotal(sum(boxData, ZLOTY_AMOUNTS_KEYS, MONEY_VALUES));
   }, [boxData]);
