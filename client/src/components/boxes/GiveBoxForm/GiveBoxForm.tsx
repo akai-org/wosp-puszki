@@ -44,7 +44,6 @@ export const GiveBoxForm = () => {
 
   const onFinish = (values: BoxTypeFormInput) => {
     if (!isNaN(Number(values.id_number))) {
-      console.log(values);
       if (values.box_type === 0) {
         mutation.mutate({ id: values.id_number, text: values.additional_comment });
       } else {

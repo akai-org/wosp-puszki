@@ -28,7 +28,7 @@ export const DepositBoxPage = () => {
           Rozliczenie puszki wolontariusza {collectorName} ( {collectorIdentifier} ){' '}
           {isPermitted && ` ( ID puszki w bazie: ${boxIdentifier} )`}
         </Title>
-        <DepositBoxForm boxId={boxIdentifier} />
+        <DepositBoxForm boxId={boxIdentifier} autofill/>
       </Content>
     </Space>
   );

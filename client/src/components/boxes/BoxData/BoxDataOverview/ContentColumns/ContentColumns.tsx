@@ -53,7 +53,7 @@ export const ContentColumns: FC<Props> = ({ boxData, total }) => {
         {FOREIGN_AMOUNTS_KEYS.map((key) => (
           <ContentLine_Two
             denomination={MONEY_AMOUNTS_VALUES[key]}
-            amount={boxData.amounts[key] as number}
+            amount={Number(boxData.amounts[key])}
             data_testid={key}
             key={key}
           />
