@@ -50,8 +50,6 @@ export const DepositBoxForm = ({ boxId, editMode, autofill }: DepositBoxFormProp
   const { boxData, handleAmountsChange } = useDepositContext();
   const navigate = useNavigate();
 
-  console.log(autofill);
-
   const queryData = useGetBoxQuery(boxId as string).data;
   const [canShow, setCanShow] = useState(false);
 
