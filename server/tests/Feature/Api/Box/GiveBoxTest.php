@@ -57,6 +57,7 @@ test('as a collectorcoordinator I can give out a box through API', function () {
             "amount_USD" => "0.00",
             "amount_GBP" => "0.00",
             "comment" => '',
+            "additional_comment" => '',
 //            "created_at" => $this->box->created_at->timezone('UTC')->format('Y-m-d\TH:i:s.u\Z'),
 //            "updated_at" => $this->box->updated_at->timezone('UTC')->format('Y-m-d\TH:i:s.u\Z'),
             "is_special_box" => 0,

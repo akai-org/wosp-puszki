@@ -28,6 +28,7 @@ const testData = {
     amount_GBP: 1,
   },
   comment: '',
+  additional_comment: ''
 };
 
 describe('Sum function', () => {
