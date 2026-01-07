@@ -20,6 +20,7 @@ class CollectorsSeeder extends Seeder
             $collector->firstName = 'imie_' . $i;
             $collector->lastName = 'nazwisko_' . $i;
             $collector->identifier = $i; //nr wolontariusza/numer sztabu
+            $collector->phoneNumber = "+48 666 666 666";
             $collector->save();
         }
 

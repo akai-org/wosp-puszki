@@ -102,6 +102,8 @@ export const UnsettledBoxesPage = () => {
       fixed: 'right',
       width: 100,
       actions: [
+        // Under no circumstance should you implement any additional buttons here
+        // Any new features should go into /liczymy/countedBoxes
         {
           title: 'Podgląd',
           link: '/liczymy/boxes/unsettled/show/',
