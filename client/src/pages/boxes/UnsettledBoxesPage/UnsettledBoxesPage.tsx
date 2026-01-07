@@ -121,10 +121,10 @@ export const UnsettledBoxesPage = () => {
       const url = window.URL.createObjectURL(new Blob([data]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute(
-        'download',
-        `charity_boxes${(Math.random() * 10000000000).toFixed(0)}.xlsx`,
-      );
+      const filename = `charity_boxes_${new Date()
+        .toLocaleString()
+        .replace(/[.:, ]/g, '_')}.xlsx`;
+      link.setAttribute('download', filename);
       document.body.appendChild(link);
       link.click();
     },
