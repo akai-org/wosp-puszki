@@ -40,13 +40,9 @@ services:
       dockerfile: Dockerfile
     env_file:
       - .env.laravel
-    environment:
-      - APP_URL=http://127.0.0.1:8000
     depends_on:
       - db
     restart: unless-stopped
-    ports:
-      - '8000:80'
     volumes:
       - app_storage:/app/storage/app
       - logs_storage:/app/storage/logs
