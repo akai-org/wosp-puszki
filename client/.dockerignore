@@ -18,7 +18,6 @@ cypress/videos/
 reports/
 
 # Ignore environment and config files (sensitive data)
-*.env*
 *.log
 
 # Ignore TypeScript build artifacts (if using TypeScript)
