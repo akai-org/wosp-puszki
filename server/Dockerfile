@@ -8,6 +8,11 @@ ENV WEB_DOCUMENT_INDEX=index.php
 
 USER root
 
+RUN apk add postgresql-client chromium chromium-chromedriver
+
+ENV CHROME_BIN=/usr/bin/chromium-browser \
+    CHROME_DRIVER=/usr/bin/chromedriver
+
 WORKDIR /app
 
 COPY . .
