@@ -1,29 +1,30 @@
-version: '3.1'
+version: "3.1"
 
 services:
-  app:
-    environment:
-      - WEB_DOCUMENT_ROOT=/app/public
-      - APP_DEBUG=true
-      - DB_CONNECTION=pgsql
-      - DB_DATABASE=postgres
-      - DB_HOST=db
-      - DB_PASSWORD=root_password
-      - DB_PORT=5432
-      - DB_USERNAME=postgres
-    build: .
-    ports:
-        - "8000:80"
+    app:
+        environment:
+            - WEB_DOCUMENT_ROOT=/app/public
+            - APP_DEBUG=true
+            - DB_CONNECTION=pgsql
+            - DB_DATABASE=postgres
+            - DB_HOST=db
+            - DB_PASSWORD=root_password
+            - DB_PORT=5432
+            - DB_USERNAME=postgres
+        build: .
+        ports:
+            - "8000:80"
+        command: ["supervisord"]
 
-  db:
-    hostname: db
-    image: postgres:16.1
-    environment:
-      - POSTGRES_PASSWORD=root_password
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-    volumes:
-      - postgresdata:/var/lib/postgresql/data
+    db:
+        hostname: db
+        image: postgres:16.1
+        environment:
+            - POSTGRES_PASSWORD=root_password
+            - POSTGRES_DB=postgres
+            - POSTGRES_USER=postgres
+        volumes:
+            - postgresdata:/var/lib/postgresql/data
 
 volumes:
-  postgresdata:
+    postgresdata:

@@ -23,6 +23,3 @@ php artisan view:cache
 
 # echo "Detecting drivers..."
 php vendor/bin/bdi detect drivers
-
-# Start supervisord (which starts nginx and php-fpm in this image)
-exec supervisord

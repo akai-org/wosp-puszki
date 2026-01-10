@@ -32,6 +32,7 @@ services:
     volumes:
       - app_storage:/app/storage/app
       - logs_storage:/app/storage/logs
+    command: ['supervisord']
 
   scheduler:
     build:
@@ -49,8 +50,7 @@ services:
     volumes:
       - app_storage:/app/storage/app
       - logs_storage:/app/storage/logs
-    working_dir: /app
-    command: php artisan schedule:work
+    command: ['php', 'artisan', 'schedule:work', '--verbose']
 
   db:
     image: postgres:16.1

@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Lib\Rates\CurrentRatesFetcher;
 use App\Lib\Rates\RatesFetcher;
 use App\Lib\Rates\StaticRatesFetcher;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -16,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        URL::forceRootUrl(config('app.url'));
     }
 
     /**
