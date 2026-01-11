@@ -289,6 +289,7 @@ export interface IBoxes {
   amount_GBP: string;
   comment: string;
   is_special_box: number;
+  original_counting_user_id?: number;
 }
 
 export interface DisplayableData {
