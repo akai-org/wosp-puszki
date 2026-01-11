@@ -1,8 +1,5 @@
 FROM webdevops/php-nginx:8.3-alpine
 
-# Install system dependencies if needed (webdevops has most)
-# RUN apk add --no-cache ...
-
 ENV WEB_DOCUMENT_ROOT=/app/public
 ENV WEB_DOCUMENT_INDEX=index.php
 
@@ -32,5 +29,3 @@ RUN chown -R application:application /app
 # Copy entrypoint
 COPY docker/entrypoint.sh /opt/docker/provision/entrypoint.d/99-entrypoint.sh
 RUN chmod +x /opt/docker/provision/entrypoint.d/99-entrypoint.sh
-
-# The base image handles starting services via supervisord

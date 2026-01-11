@@ -30,4 +30,4 @@ Deployment contains the following containers:
 - proxy - nginx instance that handles both frontend and backend access, available under port 80
 - client - react application that creates frontend for users
 - server - laravel application that handles user traffic
-- scheduler - laravel application that handles all scheduled actions like backups + local access, available under port 8000
+- scheduler - laravel application that handles all scheduled actions like backups
