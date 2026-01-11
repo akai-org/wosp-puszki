@@ -18,7 +18,7 @@ services:
 
     db:
         hostname: db
-        image: postgres:16.1
+        image: postgres:18
         environment:
             - POSTGRES_PASSWORD=root_password
             - POSTGRES_DB=postgres
