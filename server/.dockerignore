@@ -4,6 +4,7 @@ vendor
 public/build
 public/storage
 storage/*.key
+.env
 env
 .env.backup
 docker-compose.yml
