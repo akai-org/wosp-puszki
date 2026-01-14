@@ -40,7 +40,6 @@ Route::get('/raw/pln', ['as' => 'display.raw.pln', 'uses' => 'AmountDisplayContr
 Route::get('/raw/all', ['as' => 'display.raw.all', 'uses' => 'AmountDisplayController@getTotalRawWithForeign']);
 Route::get('/allegro',[AllegroController::class, 'setAuthToken']);
 
-
 //Interfejsy admina i superadmina, pod adresem /liczymy
 Route::prefix('liczymy')->group(function () {
 
@@ -54,10 +53,6 @@ Route::prefix('liczymy')->group(function () {
     Route::middleware(['auth', 'collectorcoordinator'])->group(function() {
         Route::post('/resolve-help', [HelpController::class, 'resolve']);
     });
-
-
-
-
 
     //Panel główny
     Route::get('/', [MainController::class, 'index'])->name('main');
