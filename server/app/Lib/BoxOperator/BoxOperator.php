@@ -284,7 +284,31 @@ class BoxOperator {
   private function formatMoney(Money $money): string {
     $currencies = new ISOCurrencies();
 
-    $moneyFormatter = new DecimalMoneyFormatter($currencies);
+    public function getAll(): Collection {
+      $boxes = DB::table('charity_boxes')->join('collectors', 'charity_boxes.collector_id', '=', 'collectors.id')
+        ->select(
+          'charity_boxes.id',
+          'charity_boxes.collector_id',
+          'charity_boxes.collectorIdentifier',
+          'charity_boxes.time_given',
+          'charity_boxes.time_counted',
+          'charity_boxes.time_confirmed',
+          'charity_boxes.amount_PLN',
+          'charity_boxes.amount_EUR',
+          'charity_boxes.amount_USD',
+          'charity_boxes.amount_GBP',
+          'charity_boxes.comment',
+          'collectors.firstName',
+          'collectors.lastName',
+          'collectors.phoneNumber'
+        )
+        // PostgreSQL orderBy sorts alphabetically by default, we need to cast to numeric for proper sorting
+        ->orderByRaw('CAST("charity_boxes"."collectorIdentifier" AS NUMERIC)')
+        ->get();
+      // Cast from Illuminate\Support\Collection to Eloquent Collection
+      $boxes = new Collection($boxes);
+      return $boxes;
+    }
 
     return $moneyFormatter->format($money); // outputs 1.00 (decimal)
   }
