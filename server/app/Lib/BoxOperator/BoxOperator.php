@@ -350,7 +350,7 @@ class BoxOperator {
           'collectors.lastName',
           'collectors.phoneNumber'
         )
-        // PostgreSQL orderBy sorts alphanumerically by default, we need to cast to numeric for proper sorting
+        // PostgreSQL orderBy sorts alphabetically by default, we need to cast to numeric for proper sorting
         ->orderByRaw('CAST("charity_boxes"."collectorIdentifier" AS NUMERIC)')
         ->get();
       // Cast from Illuminate\Support\Collection to Eloquent Collection
