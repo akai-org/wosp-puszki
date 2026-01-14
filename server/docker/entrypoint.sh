@@ -3,7 +3,7 @@ set -e
 
 # Run migrations
 echo "Running migrations..."
-php artisan migrate
+php artisan migrate --force
 
 # Clear caches
 echo "Clearing caches..."
