@@ -63,7 +63,7 @@ export const createDisplayableBoxData = (data: boxResponse[], onlyUnsettled = fa
       amount_USD: item.amount_USD,
       amount_PLN: item.amount_PLN,
       id: item.id,
-      comment: item.comment,
+      additional_comment: item.comment,
       give_hour: new Date(item.time_given).toLocaleTimeString(),
       name: `${item.collector.firstName} ${item.collector.lastName}`,
       status: item.is_counted || item.counting_user_id != null ? 'Tak' : 'Nie',

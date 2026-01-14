@@ -53,14 +53,12 @@ export const DepositBoxForm = ({ boxId, editMode, autofill }: DepositBoxFormProp
   const queryData = useGetBoxQuery(boxId as string).data;
   const [canShow, setCanShow] = useState(false);
 
-  //Not elegant, but working
   useEffect(() => {
-    if (autofill) {
-      if (canShow) return;
-      setTimeout(() => {
-        setCanShow(true);
-      }, 100);
-    }
+    if (!autofill) return;
+    if (canShow) return;
+    setTimeout(() => {
+      setCanShow(true);
+    }, 100);
   }, [canShow]);
 
   useEffect(() => {

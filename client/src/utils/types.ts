@@ -84,7 +84,7 @@ export type BoxDataType = {
   amount_PLN: string;
   status: string;
   give_hour: string;
-  comment: string;
+  additional_comment: string;
 };
 
 export type VolunteerDataType = {
