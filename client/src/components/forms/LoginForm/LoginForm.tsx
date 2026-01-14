@@ -22,12 +22,6 @@ export const LoginForm = () => {
     onError: (error) => {
       setErrorMessage(recognizeError(error));
     },
-    onSuccess: () => {
-      const hide = localStorage.getItem('HIDE_INSTRUCTIONS_ON_LOGIN');
-      if (!hide) {
-        localStorage.setItem('SHOW_INSTRUCTIONS_ON_LOGIN', 'true');
-      }
-    },
   });
   const onSubmit = async (values: LoginFormValues) => {
     setErrorMessage(undefined);

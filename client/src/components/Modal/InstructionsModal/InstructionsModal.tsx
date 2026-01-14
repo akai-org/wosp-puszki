@@ -89,36 +89,11 @@ export const InstructionsModal = ({ isOpen, onClose }: InstructionsModalProps) =
       footer={null}
       maskClosable={false}
       className={s.instructionsModal}
-      bodyStyle={{ padding: 0 }}
     >
       <Row>
-        <Col
-          xs={24}
-          md={14}
-          style={{
-            background: '#f0f2f5',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            minHeight: '450px',
-            borderRight: '1px solid #f0f0f0',
-            padding: '20px',
-          }}
-        >
-          <div style={{ width: '100%', textAlign: 'center' }}>
-            <div
-              style={{
-                width: '150px',
-                minWidth: '150px',
-                flex: '0 0 auto',
-                marginBottom: '32px',
-                marginLeft: '-12px',
-                marginRight: 'auto',
-                alignSelf: 'flex-start',
-                transform: 'scale(0.7)',
-                transformOrigin: 'left center',
-              }}
-            >
+        <Col xs={24} md={14} className={s.leftColumn}>
+          <div className={s.imageWrapper}>
+            <div className={s.stepsContainer}>
               <Steps size="small" current={currentStep} progressDot>
                 {INSTRUCTION_STEPS.map((step, index) => (
                   <Steps.Step key={index} />
@@ -131,45 +106,24 @@ export const InstructionsModal = ({ isOpen, onClose }: InstructionsModalProps) =
               alt={currentContent.title}
               preview={false}
               fallback="https://placehold.co/600x400?text=Brak+Zdjecia"
-              style={{
-                maxWidth: '100%',
-                maxHeight: '350px',
-                objectFit: 'contain',
-                borderRadius: '8px',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-              }}
+              className={s.image}
             />
           </div>
         </Col>
 
-        <Col
-          xs={24}
-          md={10}
-          style={{
-            padding: '32px',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-          }}
-        >
+        <Col xs={24} md={10} className={s.rightColumn}>
           <div>
-            <Title level={3} style={{ marginBottom: '16px', color: '#d32f2f' }}>
+            <Title level={3} className={s.stepTitle}>
               {currentContent.title}
             </Title>
 
-            <Paragraph style={{ fontSize: '16px', color: '#595959', lineHeight: '1.6' }}>
+            <Paragraph className={s.stepDescription}>
               {currentContent.description}
             </Paragraph>
           </div>
 
-          <div style={{ marginTop: '32px' }}>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                marginBottom: '16px',
-              }}
-            >
+          <div className={s.controlsContainer}>
+            <div className={s.buttonsContainer}>
               <Button
                 onClick={handlePrev}
                 disabled={currentStep === 0}
@@ -178,11 +132,7 @@ export const InstructionsModal = ({ isOpen, onClose }: InstructionsModalProps) =
                 Wstecz
               </Button>
 
-              <Button
-                type="primary"
-                onClick={handleNext}
-                style={{ background: '#d32f2f', borderColor: '#d32f2f' }}
-              >
+              <Button type="primary" onClick={handleNext} className={s.primaryButton}>
                 {currentStep === INSTRUCTION_STEPS.length - 1 ? 'Zakończ' : 'Dalej'}
                 {currentStep !== INSTRUCTION_STEPS.length - 1 && <RightOutlined />}
               </Button>
