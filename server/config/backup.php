@@ -18,7 +18,7 @@ return [
                  * The list of directories and files that will be included in the backup.
                  */
                 'include' => [
-                    base_path(), // Zostawilem to z nowego configa (backup calego projektu)
+                    base_path(), 
                 ],
 
                 /*
@@ -27,6 +27,7 @@ return [
                  * Directories used by the backup process will automatically be excluded.
                  */
                 'exclude' => [
+                    storage_path('app/backups'),
                     base_path('vendor'),
                     base_path('node_modules'),
                 ],
@@ -54,7 +55,7 @@ return [
              * MySQL, PostgreSQL, SQLite and Mongo databases are supported.
              */
             'databases' => [
-                'pgsql', // PRZEPISANE ZE STAREGO PLIKU (było env/mysql)
+                'pgsql',
             ],
         ],
 
@@ -99,7 +100,7 @@ return [
              * The disk names on which the backups will be stored.
              */
             'disks' => [
-                'backup', // PRZEPISANE ZE STAREGO PLIKU (było local)
+                'backup', 
             ],
         ],
 
@@ -112,7 +113,7 @@ return [
          * The password to be used for archive encryption.
          * Set to `null` to disable encryption.
          */
-        'password' => env('BACKUP_ARCHIVE_PASSWORD'),
+        'password' =>null,
 
         /*
          * The encryption algorithm to be used for archive encryption.
@@ -137,8 +138,7 @@ return [
     'notifications' => [
 
         'notifications' => [
-            // Wyłączyłem powiadomienia (puste tablice), aby uniknąć błędu "Sending notification failed"
-            // jeśli nie masz skonfigurowanego maila.
+            // turned off email notifaction due to errors
             \Spatie\Backup\Notifications\Notifications\BackupHasFailedNotification::class => [],
             \Spatie\Backup\Notifications\Notifications\UnhealthyBackupWasFoundNotification::class => [],
             \Spatie\Backup\Notifications\Notifications\CleanupHasFailedNotification::class => [],
@@ -181,7 +181,7 @@ return [
     'monitor_backups' => [
         [
             'name' => env('APP_NAME', 'laravel-backup'),
-            'disks' => ['backup'], // PRZEPISANE ZE STAREGO PLIKU (zgodność z destination)
+            'disks' => ['backup'], 
             'health_checks' => [
                 \Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumAgeInDays::class => 1,
                 \Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumStorageInMegabytes::class => 5000,
@@ -197,9 +197,6 @@ return [
 
         'default_strategy' => [
 
-            /*
-             * PRZEPISANE ZE STAREGO PLIKU - Twoje ustawienia retencji
-             */
             'keep_all_backups_for_days' => 3,
 
             'keep_daily_backups_for_days' => 0,

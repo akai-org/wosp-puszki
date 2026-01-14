@@ -33,7 +33,8 @@ class HelpController extends Controller
             'station_number' => 'required|integer'
         ]);
 
-        $stationNumber = (int) $request->input('station_number');        $currentList = Cache::get('stations_needing_help', []);
+        $stationNumber = (int) $request->input('station_number');        
+        $currentList = Cache::get('stations_needing_help', []);
 
         $updatedList = array_values(array_filter($currentList, function($value) use ($stationNumber) {
             return $value != $stationNumber;
