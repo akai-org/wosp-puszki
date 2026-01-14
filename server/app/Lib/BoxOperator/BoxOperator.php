@@ -8,6 +8,7 @@ use App\Collector;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use Money\Currencies\ISOCurrencies;
@@ -251,10 +252,30 @@ class BoxOperator {
         return $moneyFormatter->format($money); // outputs 1.00 (decimal)
     }
 
-    public function getAll() : Collection
-    {
-      return CharityBox::with('collector')->orderBy('collectorIdentifier')
-        ->get(['id', 'collector_id', 'collectorIdentifier', 'time_given','time_counted', 'time_confirmed', 'amount_PLN','amount_EUR','amount_USD','amount_GBP']);
+    public function getAll(): Collection {
+        $boxes = DB::table('charity_boxes')->join('collectors', 'charity_boxes.collector_id', '=', 'collectors.id')
+            ->select(
+              'charity_boxes.id',
+              'charity_boxes.collector_id',
+              'charity_boxes.collectorIdentifier',
+              'charity_boxes.time_given',
+              'charity_boxes.time_counted',
+              'charity_boxes.time_confirmed',
+              'charity_boxes.amount_PLN',
+              'charity_boxes.amount_EUR',
+              'charity_boxes.amount_USD',
+              'charity_boxes.amount_GBP',
+              'charity_boxes.comment',
+              'collectors.firstName',
+              'collectors.lastName',
+              'collectors.phoneNumber'
+            )
+            // PostgreSQL orderBy sorts alphanumerically by default, we need to cast to numeric for proper sorting
+            ->orderByRaw('CAST("charity_boxes"."collectorIdentifier" AS NUMERIC)')
+            ->get();
+        // Cast from Illuminate\Support\Collection to Eloquent Collection
+        $boxes = new Collection($boxes);
+        return $boxes;
     }
 
     public function lastChangedBox() : CharityBox
