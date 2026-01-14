@@ -1,7 +1,6 @@
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 
-// Rozwiązanie problemu z typami TS dla window
 declare global {
     interface Window {
         Pusher: any;
