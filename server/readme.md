@@ -37,6 +37,9 @@ php artisan migrate --seed
 //Permissiony do storage
 sudo chmod -R 755 storage/
 
+//Serwer websocketów Laravel Reverb
+php artisan reverb:start
+
 
 Usupełniamy kursy walut w pliku .env, odwiedzając
 http://localhost:8000/liczymy/rates i wklejając poniżej
