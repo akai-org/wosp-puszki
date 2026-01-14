@@ -129,7 +129,7 @@ class DataDumpController extends Controller
         return response()->download(storage_path("app/{$filePath}"), $file);
       }
     }
-    $data = $bo->getAll()->sortBy(['collectorIdentifier', 'time_given'])->values()->all();
+    $data = $bo->getAll();
     $dataLen = count($data) + 1;
     $columnNames = ['ID Wolo', 'Imię i Nazwisko', 'Numer telefonu', 'Godzina oddania', 'Godzina liczenia', 'Godzina potwierdzenia', 'Zebrane PLN', 'Zebrane EUR', 'Zebrane USD', 'Zebrane GBP', "Inne"];
 
@@ -142,11 +142,11 @@ class DataDumpController extends Controller
     }
     for ($i = 0; $i < $dataLen - 1; $i++) {
       $value = $data[$i];
-      $collectorName = $value->collector->firstName . ' ' . $value->collector->lastName;
+      $collectorName = $value->firstName . ' ' . $value->lastName;
       $Y = $i + 2;
       $activeWorksheet->setCellValue("A" . "{$Y}", $value->collectorIdentifier);
       $activeWorksheet->setCellValue("B" . "{$Y}", $collectorName);
-      $activeWorksheet->setCellValue("C" . "{$Y}", $value->collector->phoneNumber);
+      $activeWorksheet->setCellValue("C" . "{$Y}", $value->phoneNumber);
       $activeWorksheet->setCellValue("D" . "{$Y}", $value->time_given);
       $activeWorksheet->setCellValue("E" . "{$Y}", $value->time_counted);
       $activeWorksheet->setCellValue("F" . "{$Y}", $value->time_confirmed);
