@@ -84,8 +84,6 @@ class CreateCharityBoxesTable extends Migration
             $table->decimal('amount_GBP',12,2)->default(0);
             //Komentarz
             $table->string('comment')->default('')->nullable();
-            //Uwagi dodatkowe
-            $table->string('additional_comment')->default('')->nullable();
             $table->timestamps();
         });
     }
