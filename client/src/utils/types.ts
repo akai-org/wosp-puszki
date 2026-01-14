@@ -251,6 +251,7 @@ export interface IBoxes {
     identifier: number;
     firstName: string;
     lastName: string;
+    phoneNumber: string | null;
   };
   is_given_to_collector: number;
   given_to_collector_user_id: {
