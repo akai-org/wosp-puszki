@@ -84,6 +84,7 @@ export type BoxDataType = {
   amount_PLN: string;
   status: string;
   give_hour: string;
+  additional_comment: string;
 };
 
 export type VolunteerDataType = {
@@ -205,6 +206,7 @@ export interface boxResponse {
   amount_USD: string;
   amount_GBP: string;
   comment: string;
+  additional_comment: string;
   created_at: string;
   updated_at: string;
   is_special_box: number;
@@ -289,6 +291,7 @@ export interface IBoxes {
   amount_USD: string;
   amount_GBP: string;
   comment: string;
+  additional_comment: string;
   is_special_box: number;
   original_counting_user_id?: number;
 }
@@ -321,6 +324,7 @@ export type ForeignAmountsKeys = 'amount_EUR' | 'amount_USD' | 'amount_GBP';
 export interface BoxData {
   amounts: Record<AmountsKeys, number | null>;
   comment: string;
+  additional_comment: string;
 }
 
 export interface IDepositContext {
@@ -339,6 +343,7 @@ export type moneyValuesType = typeof MONEY_VALUES;
 
 export type BoxTypeFormInput = {
   id_number: string;
+  additional_comment: string;
   box_type: 0 | 10000 | 20000;
 };
 

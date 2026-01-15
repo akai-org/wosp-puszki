@@ -45,6 +45,7 @@ export const ShowBoxPage: FC<Props> = ({ displayOnly = false }) => {
     setData({
       amounts,
       comment: queryData?.comment || '',
+      additional_comment: queryData?.additional_comment || ''
     });
     return () => {
       setData(null);

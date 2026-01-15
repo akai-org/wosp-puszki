@@ -195,9 +195,12 @@ final class CollectorApiController extends ApiController
     {
         // $this->error($collectorIdentifier);
         $bo = new BoxOperator((string)$request->user()->id);
-
         try {
             $box = $bo->giveByCollectorIdentifier((string)$collectorIdentifier);
+            if(!is_null($request->input('additional_comment'))) {
+                $box->additional_comment = $request->input('additional_comment');
+                $box->save();
+            }
         } catch (\Exception $e) {
             return Response::json([
                 'error' => $e->getMessage()

@@ -42,6 +42,7 @@ const testData = {
     amount_GBP: 1,
   },
   comment: '',
+  additional_comment: ''
 };
 
 beforeEach(() => {

@@ -122,6 +122,7 @@ test('as a volounteer I can settle a charity box', function () {
         'amount_GBP' => 0,
         'amount_USD' => 0,
         'comment' => '',
+        'additional_comment' => '',
     ];
 
     $response = $this->followingRedirects()->post('/liczymy/box/count/' . $this->box->id, array_merge(
@@ -169,6 +170,7 @@ test('as a volounteer I can settle a charity box', function () {
             'amount_USD' =>  '0.00',
             'amount_GBP' =>  '0.00',
             'comment' =>  null,
+            'additional_comment' => null,
             'is_special_box' => 0
         ]
     ));

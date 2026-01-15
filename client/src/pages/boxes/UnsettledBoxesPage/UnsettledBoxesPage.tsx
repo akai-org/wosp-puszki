@@ -84,8 +84,7 @@ export const UnsettledBoxesPage = () => {
     },
     {
       titleName: 'Inne',
-      keyName: 'id',
-      beforeText: 'Puszka nr.',
+      keyName: 'comment',
       width: 175,
     },
     {

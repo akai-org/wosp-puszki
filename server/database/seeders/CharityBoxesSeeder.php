@@ -121,6 +121,7 @@ class CharityBoxesSeeder extends Seeder
 
             //Komentarz
             $charityBox->comment = 'Puszka nr ' . $i;
+            $charityBox->additional_comment = 'Uwaga ' . $i;
 
             $charityBox->save();
         }

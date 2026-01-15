@@ -18,25 +18,25 @@ import { useForm } from 'antd/es/form/Form';
 
 const { Text } = Typography;
 
+declare interface boxFromHelp { id: string | number, text: string };
+
 export const GiveBoxForm = () => {
   const [message, setMessage] = useState<FormMessage | undefined>();
   const [form] = useForm();
-  const mutation = useMutation<
-    { collectorIdentifier: number },
-    unknown,
-    number | string,
-    unknown
-  >({
-    mutationFn: (volunteerId: number | string) =>
-      fetcher(APIManager.giveBoxURL(volunteerId), { method: 'POST' }),
+
+  const mutation = useMutation({
+    mutationFn: (boxForm: boxFromHelp) => fetcher(APIManager.giveBoxURL(boxForm.id), {
+      method: 'POST', body: { additional_comment: boxForm.text }
+    }),
     onError: (error) => {
       console.log(error);
       setMessage({ type: 'error', content: recognizeError(error) });
     },
-    onSuccess: (data) => {
+    onSuccess: (data: any) => {
       setMessage({
         type: 'success',
         content: `Pomyślnie wydano puszkę dla identyfikatora: ${data.collectorIdentifier}`,
+
       });
       form.resetFields();
     },
@@ -45,10 +45,10 @@ export const GiveBoxForm = () => {
   const onFinish = (values: BoxTypeFormInput) => {
     if (!isNaN(Number(values.id_number))) {
       if (values.box_type === 0) {
-        mutation.mutate(values.id_number);
+        mutation.mutate({ id: values.id_number, text: values.additional_comment });
       } else {
         const volunteerId = parseInt(values.id_number) + values.box_type;
-        mutation.mutate(volunteerId);
+        mutation.mutate({ id: volunteerId, text: values.additional_comment });
       }
       setMessage(undefined);
     } else {
@@ -75,6 +75,16 @@ export const GiveBoxForm = () => {
             name="id_number"
             className={s.input}
             rules={[{ required: true, message: ID_NUMBER_REQUIRED }]}
+          />
+        </Space>
+        <Space className={s.inputField} size={0}>
+          <Text className={s.inputFieldComment}>Uwagi dodatkowe: </Text>
+          <FormInput
+            // eslint-disable-next-line jsx-a11y/no-autofocus
+            autoFocus
+            name="additional_comment"
+            className={s.input}
+            rules={[{ required: false }]}
           />
         </Space>
         <FormSelect

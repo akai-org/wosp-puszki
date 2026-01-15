@@ -16,7 +16,6 @@ const { Content } = Layout;
 
 export const ListBoxesPage = () => {
   const { data } = useGetAllBoxesQuery();
-
   // Ustawienia dla poszczególnych kolumn
   const columnsOptions: TableColumns[] = [
     {
@@ -86,8 +85,7 @@ export const ListBoxesPage = () => {
     },
     {
       titleName: 'Inne',
-      keyName: 'id',
-      beforeText: 'Puszka nr.',
+      keyName: 'comment',
       width: 175,
     },
     {

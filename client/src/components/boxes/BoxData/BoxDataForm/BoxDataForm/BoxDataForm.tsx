@@ -15,6 +15,8 @@ import {
   recognizeError,
   sum,
   useDepositContext,
+  useGetBoxData,
+  useGetBoxQuery
 } from '@/utils';
 import { useMutation } from '@tanstack/react-query';
 import { Form, Space } from 'antd';
@@ -24,6 +26,7 @@ import { useNavigate } from 'react-router-dom';
 import { DepositColumn } from '@/components';
 import { InputNumberBox } from '@/components';
 import s from './BoxDataForm.module.less';
+import { callbackify } from 'util';
 
 //indexes that are used for splitting array of inputs to match our design
 const moneySlice = {
@@ -38,13 +41,31 @@ const moneySlice = {
 export interface DepositBoxFormProps {
   boxId: string;
   editMode?: boolean;
+  autofill?: boolean;
 }
 
-export const DepositBoxForm = ({ boxId, editMode }: DepositBoxFormProps) => {
+export const DepositBoxForm = ({ boxId, editMode, autofill }: DepositBoxFormProps) => {
   const [message, setMessage] = useState<FormMessage | undefined>();
   const [total, setTotal] = useState(0);
   const { boxData, handleAmountsChange } = useDepositContext();
   const navigate = useNavigate();
+
+  const queryData = useGetBoxQuery(boxId as string).data;
+  const [canShow, setCanShow] = useState(false);
+
+  useEffect(() => {
+    if (!autofill) return;
+    if (canShow) return;
+    setTimeout(() => {
+      setCanShow(true);
+    }, 100);
+  }, [canShow]);
+
+  useEffect(() => {
+    if (autofill && canShow && queryData) {
+      boxData.additional_comment = queryData?.additional_comment!;
+    }
+  }, [canShow, queryData]);
 
   useEffect(() => {
     setTotal(sum(boxData, ZLOTY_AMOUNTS_KEYS, MONEY_VALUES));
@@ -54,7 +75,7 @@ export const DepositBoxForm = ({ boxId, editMode }: DepositBoxFormProps) => {
     mutationFn: () =>
       fetcher(`${APIManager.baseAPIRUrl}/charityBoxes/${boxId}`, {
         method: 'PUT',
-        body: { comment: boxData.comment, ...boxData.amounts },
+        body: { comment: boxData.comment, additional_comment: boxData.additional_comment, ...boxData.amounts },
       }),
     onSuccess: () =>
       navigate(
@@ -127,6 +148,20 @@ export const DepositBoxForm = ({ boxId, editMode }: DepositBoxFormProps) => {
                   onChange={(e) => {
                     const { value } = e.target;
                     handleAmountsChange('comment', value);
+                  }}
+                ></TextArea>
+              </Form.Item>
+            </Space>
+             <Space className={s.other}>
+              Dodatkowe uwagi
+              <Form.Item style={{ marginBottom: 0 }}>
+                <TextArea
+                  className={s.textArea}
+                  value={boxData['additional_comment']}
+                  disabled={!editMode || mutation.isLoading}
+                  onChange={(e) => {
+                    const { value } = e.target;
+                    handleAmountsChange('additional_comment', value);
                   }}
                 ></TextArea>
               </Form.Item>

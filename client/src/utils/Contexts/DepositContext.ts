@@ -23,6 +23,7 @@ const clearBoxDataValues = {
     amount_GBP: null,
   },
   comment: '',
+  additional_comment: ''
 };
 
 export const DepositContext = createContext<IDepositContext | null>(null);
@@ -43,15 +44,22 @@ export const useDepositContextValues = (defaultBoxData?: BoxData | null) => {
   }, [defaultBoxData]);
 
   const handleAmountsChange = (id: string, value: number | string) => {
-    id != 'comment'
-      ? setBoxData((prevBoxData) => ({
-          ...prevBoxData,
-          amounts: { ...prevBoxData.amounts, [id]: value },
-        }))
-      : setBoxData((prevBoxData) => ({
+    if (id == 'comment') {
+      setBoxData((prevBoxData) => ({
           ...prevBoxData,
           comment: value as string,
         }));
+    } else if (id == 'additional_comment') {
+      setBoxData((prevBoxData) => ({
+          ...prevBoxData,
+          additional_comment: value as string,
+        }));
+    } else {
+      setBoxData((prevBoxData) => ({
+          ...prevBoxData,
+          amounts: { ...prevBoxData.amounts, [id]: value },
+        }))
+    }
   };
 
   const cleanAmounts = useCallback(() => {
