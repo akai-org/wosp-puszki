@@ -82,7 +82,8 @@ body {
 }
 
 .logOutButton,
-.toggleSidebarButton {
+.toggleSidebarButton,
+.instructionsButton {
   width: 100%;
 }
 
@@ -112,4 +113,44 @@ body {
 
 .userNameDescription {
   text-align: left;
+}
+
+.instructionsButton {
+  font-weight: bold;
+  border-radius: 0.625rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+  height: 2.5rem;
+}
+
+.instructionsButtonInside {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: none;
+  top: auto;
+  left: auto;
+
+  p {
+    margin: 0;
+    font-size: 0.875rem;
+  }
+}
+
+.instructionsButtonIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.collapsedInstructionsIcon {
+  gap: 5px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
 }

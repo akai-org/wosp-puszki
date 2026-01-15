@@ -253,6 +253,7 @@ export interface IBoxes {
     identifier: number;
     firstName: string;
     lastName: string;
+    phoneNumber: string | null;
   };
   is_given_to_collector: number;
   given_to_collector_user_id: {
@@ -292,6 +293,7 @@ export interface IBoxes {
   comment: string;
   additional_comment: string;
   is_special_box: number;
+  original_counting_user_id?: number;
 }
 
 export interface DisplayableData {

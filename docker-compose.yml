@@ -1,0 +1,78 @@
+services:
+  proxy:
+    image: nginx:alpine
+    ports:
+      - '80:80'
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - client
+      - server
+    restart: unless-stopped
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    expose:
+      - '8080'
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    env_file:
+      - .env.laravel
+    depends_on:
+      - db
+    restart: unless-stopped
+    expose:
+      - '80'
+    volumes:
+      - app_storage:/app/storage/app
+      - logs_storage:/app/storage/logs
+    command: ['supervisord']
+
+  scheduler:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    env_file:
+      - .env.laravel
+    depends_on:
+      - db
+    restart: unless-stopped
+    volumes:
+      - app_storage:/app/storage/app
+      - logs_storage:/app/storage/logs
+    command: ['php', 'artisan', 'schedule:work', '--verbose']
+
+  db:
+    image: postgres:18
+    environment:
+      - POSTGRES_DB=${DB_DATABASE:-postgres}
+      - POSTGRES_USER=${DB_USERNAME:-postgres}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-root_password}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    expose:
+      - '5432'
+    ports:
+      - '5432:5432'
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  app_storage:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./server/storage/app
+  logs_storage:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./server/storage/logs

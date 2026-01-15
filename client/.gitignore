@@ -33,3 +33,4 @@ docs
 !.yarn/sdks
 !.yarn/versions
 public/mockServiceWorker.js
+.env

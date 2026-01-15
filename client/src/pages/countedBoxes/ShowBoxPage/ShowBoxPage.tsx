@@ -101,6 +101,14 @@ export const ShowBoxPage: FC<Props> = ({ displayOnly = false }) => {
   return (
     <Modal title={'Zawartość puszki'}>
       <Space direction="vertical">
+        {queryData?.collector && (
+          <div style={{ fontSize: '16px', marginBottom: '20px' }}>
+            <strong>Wolontariusz: </strong> {queryData.collector.firstName}{' '}
+            {queryData.collector.lastName}
+            <br />
+            <strong>Kontakt: </strong> {queryData.collector.phoneNumber || 'Brak numeru'}
+          </div>
+        )}
         {data ? (
           <ContentColumns
             boxData={data}

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\API\CsvDumpController;
+use App\Http\Controllers\API\DataDumpController;
 use App\Http\Controllers\Api\AvailabilityApiController;
 use App\Http\Controllers\Api\CharityBoxApiController;
 use App\Http\Controllers\Api\CollectorApiController;
@@ -46,8 +46,8 @@ Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], func
     Route::get('charityBoxes/count/collected/sum', [CountedBoxApiController::class, 'collectedAmountOfMoney'])->name('api.box.count.collected.sum');
     Route::get('charityBoxes/count/collected/{currency}', [CountedBoxApiController::class, 'collectedAmountOfMoneyByCurrency'])->name('api.box.count.collected.currency');
 
-    Route::get('charityBoxes/count/confirmed/', [CountedBoxApiController::class, 'confirmed'])->name('api.box.count.confirmed.currency');
-    Route::get('charityBoxes/count/confirmed/sum', [CountedBoxApiController::class, 'confirmedAmountOfMoney'])->name('api.box.count.confirmed.currency');
+    Route::get('charityBoxes/count/confirmed/', [CountedBoxApiController::class, 'confirmed'])->name('api.box.count.confirmed');
+    Route::get('charityBoxes/count/confirmed/sum', [CountedBoxApiController::class, 'confirmedAmountOfMoney'])->name('api.box.count.confirmed.sum');
     Route::get('charityBoxes/count/confirmed/{currency}', [CountedBoxApiController::class, 'confirmedAmountOfMoneyByCurrency'])->name('api.box.count.confirmed.currency');
 
     // Potwierdź puszkę (dla administratora)
@@ -58,15 +58,16 @@ Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], func
         Route::get('charityBoxes/verified', [CharityBoxApiController::class, 'getVerifiedList'])->name('api.box.verified');
         Route::get('charityBoxes/unverified', [CharityBoxApiController::class, 'getUnverifiedList'])->name('api.box.unverified');
         Route::post('charityBoxes/unverified/{id}', [CharityBoxApiController::class, 'postUnverifyCharityBox'])->name('api.box.unverify');
-        Route::post('charityBoxes/verified/{id}', [CharityBoxApiController::class, 'postVerifyCharityBox'])->name('api.box.verify');
+        Route::post('charityBoxes/verified/{id}', [CharityBoxApiController::class, 'postVerifyCharityBox'])->name('api.box.verifyCollector');
 
     });
-    
+
 
     Route::post('charityBoxes/{id}/startCounting', [CharityBoxApiController::class, 'startCounting'])->name('api.box.count.start');
     Route::post('charityBoxes/{id}/finishCounting', [CharityBoxApiController::class, 'confirm'])->name('api.box.count.finish');
 
-    Route::get('charityBoxes/csv', [CsvDumpController::class,'getCharityBoxesCSV'])->name('box.create-csv')->middleware(['collectorcoordinator']);
+    Route::get('charityBoxes/csv', [DataDumpController::class,'getCharityBoxesCSV'])->name('box.create-csv')->middleware(['collectorcoordinator']);
+    Route::get('charityBoxes/xlsx', [DataDumpController::class,'getCharityBoxesXLSX'])->name('box.create-xlsx')->middleware(['collectorcoordinator']);
 
     Route::apiResource('charityBoxes', CharityBoxApiController::class);
 });
