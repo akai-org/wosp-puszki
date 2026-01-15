@@ -1,19 +1,19 @@
 import {
-  IDisplayPageContent,
-  IStations,
-  fetcher,
   APIManager,
-  isFailedFetched,
-  openNotification,
-  closeNotification,
-  NO_CONNECT_WITH_SERVER,
-  STATUS_CANT_BE_UPDATED,
-  MULTIPLE_STATUS_CANT_BE_UPDATED,
-  IBoxes,
-  LogDataType,
-  CANNOT_DOWNLOAD_DATA,
-  IUser,
   boxResponse,
+  CANNOT_DOWNLOAD_DATA,
+  closeNotification,
+  fetcher,
+  IBoxes,
+  IDisplayPageContent,
+  isFailedFetched,
+  IStations,
+  IUser,
+  LogDataType,
+  MULTIPLE_STATUS_CANT_BE_UPDATED,
+  NO_CONNECT_WITH_SERVER,
+  openNotification,
+  STATUS_CANT_BE_UPDATED,
   Volunteer,
 } from '@/utils';
 import { useQuery } from '@tanstack/react-query';
@@ -168,7 +168,7 @@ export const useVerifiedBoxesQuery = () =>
   );
 
 export const useGetBoxQuery = (id: string) =>
-  useQuery(GET_BOX_QUERY_KEY, () =>
+  useQuery([id, ...GET_BOX_QUERY_KEY], () =>
     fetcher<IBoxes>(`${APIManager.baseAPIRUrl}/charityBoxes/${id}`).catch((error) => {
       openNotification('error', NO_CONNECT_WITH_SERVER, CANNOT_DOWNLOAD_DATA);
       throw error;
