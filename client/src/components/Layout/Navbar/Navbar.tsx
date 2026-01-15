@@ -7,10 +7,10 @@ interface Props {
   links: SubNavLink[];
 }
 
-export const Navbar: FC<Props> = (props) => {
+export const Navbar: FC<Props> = ({ links }) => {
   return (
     <div className={s.navbar}>
-      {props.links.map((item) => (
+      {links.map((item) => (
         <NavbarItem
           url={item.url}
           label={item.label}
