@@ -2,6 +2,7 @@ import { vi } from 'vitest';
 import {
   UseAuthContextValues,
   UseBoxContextValues,
+  UseCountedByContextValues,
   UseDepositContextValues,
   UserRole,
 } from '@/utils';
@@ -20,6 +21,12 @@ export const baseBoxContextValues = {
   collectorIdentifier: '20',
   boxIdentifier: '302',
   isBoxSpecial: false,
+};
+
+export const baseCountedByContextValues = {
+  setCountedBy: vi.fn(),
+  clearCountedBy: vi.fn(),
+  countedBy: null,
 };
 
 export const baseDepositContextValues = {
@@ -52,5 +59,7 @@ export const baseDepositContextValues = {
 
 export const getBaseAuthContextValues: UseAuthContextValues = () => baseAuthContextValues;
 export const getBaseBoxContextValues: UseBoxContextValues = () => baseBoxContextValues;
+export const getBaseCountedByContextValues: UseCountedByContextValues = () =>
+  baseCountedByContextValues;
 export const getBaseDepositContextValues: UseDepositContextValues = () =>
   baseDepositContextValues;
