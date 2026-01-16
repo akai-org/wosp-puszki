@@ -10,6 +10,7 @@ namespace App\Virtual\Resources;
  * @OA\Schema(
  *     title="Charity Box Resource",
  *     description="Charity Box resource",
+ *
  *     @OA\Xml(
  *         name="CharityBoxResource"
  *     )
@@ -26,6 +27,4 @@ final class CharityBoxResource
      * @var \App\Virtual\Models\CharityBox[]
      */
     private $data;
-
-
 }

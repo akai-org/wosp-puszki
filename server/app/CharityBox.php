@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Venturecraft\Revisionable\RevisionableTrait;
 
 class CharityBox extends Model
@@ -18,11 +18,13 @@ class CharityBox extends Model
         'original_counting_user_id',
     ];
 
-    public function getOriginalCountingUserIdAttribute() {
+    public function getOriginalCountingUserIdAttribute()
+    {
         $history = $this->revisionHistory->where('key', 'counting_user_id')->sortBy('created_at')->first();
         if ($history) {
             return (int) $history->new_value;
         }
+
         return $this->counting_user_id;
     }
 
@@ -43,25 +45,29 @@ class CharityBox extends Model
 
     public function personConfirming()
     {
-        return $this->belongsTo('App\User','user_confirmed_id','id');
+        return $this->belongsTo('App\User', 'user_confirmed_id', 'id');
     }
 
-    public function events() {
+    public function events()
+    {
         return $this->hasMany('App\BoxEvent');
     }
 
-    public function getTotalWithForeignAttribute() {
+    public function getTotalWithForeignAttribute()
+    {
         $totalWithForeign = array_sum([
-                $this->amount_PLN,
-                $this->amount_EUR * config('rates.eur'),
-                $this->amount_GBP * config('rates.gbp'),
-                $this->amount_USD * config('rates.usd')
+            $this->amount_PLN,
+            $this->amount_EUR * config('rates.eur'),
+            $this->amount_GBP * config('rates.gbp'),
+            $this->amount_USD * config('rates.usd'),
         ]);
+
         return number_format($totalWithForeign, 2, ',', ' ');
     }
 
-    public function getDisplayIdAttribute() {
-        return ' (ID puszki w bazie: ' . $this->id . ')';
+    public function getDisplayIdAttribute()
+    {
+        return ' (ID puszki w bazie: '.$this->id.')';
     }
 
     public function scopeNotCounted(Builder $query): Builder

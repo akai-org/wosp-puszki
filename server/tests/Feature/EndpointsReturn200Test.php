@@ -1,7 +1,5 @@
 <?php
 
-use App\User;
-
 test('homepage loads', function () {
     $response = $this->get('/');
 

@@ -194,6 +194,6 @@ return [
     |
     */
 
-    'same_site' => "",
+    'same_site' => '',
 
 ];

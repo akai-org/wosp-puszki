@@ -1,11 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests\Api;
 
 class UpdateCountingCharityBoxRequest extends BoxCharityBoxRequest
 {
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -32,11 +32,11 @@ class UpdateCountingCharityBoxRequest extends BoxCharityBoxRequest
                 'count_100zl' => 'required|integer|between:0,10000',
                 'count_200zl' => 'required|integer|between:0,10000',
                 'count_500zl' => 'required|integer|between:0,10000',
-                //Waluty obce
+                // Waluty obce
                 'amount_EUR' => 'required|numeric|between:0,10000',
                 'amount_USD' => 'required|numeric|between:0,10000',
                 'amount_GBP' => 'required|numeric|between:0,10000',
-                'comment' => ''
+                'comment' => '',
             ]
         );
     }

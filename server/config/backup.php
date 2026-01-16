@@ -18,7 +18,7 @@ return [
                  * The list of directories and files that will be included in the backup.
                  */
                 'include' => [
-                    base_path(), 
+                    base_path(),
                 ],
 
                 /*
@@ -101,7 +101,7 @@ return [
              * The disk names on which the backups will be stored.
              */
             'disks' => [
-                'backup', 
+                'backup',
             ],
         ],
 
@@ -114,7 +114,7 @@ return [
          * The password to be used for archive encryption.
          * Set to `null` to disable encryption.
          */
-        'password' =>null,
+        'password' => null,
 
         /*
          * The encryption algorithm to be used for archive encryption.
@@ -182,7 +182,7 @@ return [
     'monitor_backups' => [
         [
             'name' => env('APP_NAME', 'laravel-backup'),
-            'disks' => ['backup'], 
+            'disks' => ['backup'],
             'health_checks' => [
                 \Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumAgeInDays::class => 1,
                 \Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumStorageInMegabytes::class => 5000,

@@ -20,20 +20,25 @@ class AppStatusManager
     /**
      * Reads a value stored with the given key in the database
      */
-    public static function readStatusValue(string $status_key, string $defaultValue): string {
+    public static function readStatusValue(string $status_key, string $defaultValue): string
+    {
         $status = AppStatus::find($status_key);
 
-        if($status === null) return $defaultValue;
+        if ($status === null) {
+            return $defaultValue;
+        }
+
         return $status->value;
     }
 
     /**
      * Saves the value to the database with the specified key
      */
-    public static function saveStatusValue(string $status_key, string $value): void {
+    public static function saveStatusValue(string $status_key, string $value): void
+    {
         AppStatus::updateOrCreate(
-            [ 'id' => $status_key ],
-            [ 'value' => $value ]
+            ['id' => $status_key],
+            ['value' => $value]
         );
     }
 }

@@ -1,16 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
-use App\Lib\Rates\RatesFetcher;
-use App\Utils\CurrencyEnum;
-use App\Utils\RatesConverter\Converters\ConvertEurToPln;
-use App\Utils\RatesConverter\Converters\ConvertGbpToPln;
-use App\Utils\RatesConverter\Converters\ConvertUsdToPln;
-use App\Utils\RatesFetcherFactory;
 use Money\Currency;
 use OpenApi\Annotations as OA;
+
 use function App\resolveRatesFetcher;
 
 /**
@@ -23,12 +19,10 @@ use function App\resolveRatesFetcher;
  **/
 final class RatesApiController extends ApiController
 {
-    public function __construct()
-    {
-    }
-//* security={
-//*          {"bearer_token":{}},
-//*      },
+    public function __construct() {}
+    // * security={
+    // *          {"bearer_token":{}},
+    // *      },
 
     /**
      * @OA\Get(
@@ -37,11 +31,14 @@ final class RatesApiController extends ApiController
      *      tags={"Rates"},
      *      summary="Get list of currencies rate",
      *      description="Return daily list of currency rate from NBP",
+     *
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
+     *
      *          @OA\JsonContent(
      *              type="object",
+     *
      *              @OA\Property(
      *                  property="rates",
      *                  type="array",
@@ -50,7 +47,9 @@ final class RatesApiController extends ApiController
      *                      "USD": "4.42",
      *                      "GBP": "5.36",
      *                  },
+     *
      *                  @OA\Items(
+     *
      *                      @OA\Property(
      *                          property="EUR",
      *                          type="float",
@@ -70,6 +69,7 @@ final class RatesApiController extends ApiController
      *              ),
      *          )
      *      ),
+     *
      *      @OA\Response(
      *          response=400,
      *          description="Bad Request"
@@ -92,12 +92,13 @@ final class RatesApiController extends ApiController
     {
         $fetcher = resolveRatesFetcher();
         $rates = $fetcher->fetchRates();
+
         return json_encode([
             'rates' => [
                 'EUR' => (float) $rates['EUR'],
                 'USD' => (float) $rates['USD'],
                 'GBP' => (float) $rates['GBP'],
-            ]
+            ],
         ]);
     }
 
@@ -108,19 +109,24 @@ final class RatesApiController extends ApiController
      *      tags={"Rates"},
      *      summary="Get currency rate",
      *      description="Return daily currency rate from NBP",
+     *
      *      @OA\Parameter(
      *          name="currency",
      *          description="Currency code",
      *          required=true,
      *          in="path",
+     *
      *          @OA\Schema(
      *              type="string"
      *          )
      *      ),
+     *
      *      @OA\Response(
      *          response=200,
      *          description="Successful operation",
+     *
      *          @OA\JsonContent(
+     *
      *              @OA\Property(
      *                  property="rates",
      *                  type="float",
@@ -128,6 +134,7 @@ final class RatesApiController extends ApiController
      *              ),
      *          )
      *       ),
+     *
      *      @OA\Response(
      *          response=400,
      *          description="Bad Request"
@@ -161,7 +168,7 @@ final class RatesApiController extends ApiController
             'GBP' => json_encode([
                 'rates' => $rates['GBP'],
             ]),
-            default => json_encode(["rates" => 1, "message" => "Unknown currency"]),
+            default => json_encode(['rates' => 1, 'message' => 'Unknown currency']),
         };
     }
 }

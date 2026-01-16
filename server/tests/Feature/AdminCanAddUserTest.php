@@ -20,7 +20,6 @@ test('as a superadmin I can see add user form with correct labels in order', fun
         'Typ użytkownika',
     ]);
 
-
     $response->assertStatus(200);
 });
 
@@ -42,18 +41,18 @@ test('as a superadmin I can add a user', function () {
 
     $this->assertDatabaseHas('role_user', [
         'role_id' => $this->superAdminRoleId,
-        'user_id' => $this->addedUser->id
+        'user_id' => $this->addedUser->id,
     ]);
 
-    //Check if visible on list
+    // Check if visible on list
     $response = $this->get('/liczymy/user/list');
 
     $response->assertSee('testUser');
 
 });
 
-afterEach(function ()  {
-    if(!empty($this->addedUser)) {
+afterEach(function () {
+    if (! empty($this->addedUser)) {
         $this->addedUser->delete();
         $userId = $this->addedUser->id;
         DB::delete("DELETE FROM role_user where role_id = $this->superAdminRoleId  and user_id = $userId;");

@@ -10,16 +10,15 @@ class IsCollectorCoordinator
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
-        //Check if user is admin or superadmin
-        if($request->user()->hasAnyRole(['collectorcoordinator', 'admin', 'superadmin'])){
+        // Check if user is admin or superadmin
+        if ($request->user()->hasAnyRole(['collectorcoordinator', 'admin', 'superadmin'])) {
             return $next($request);
         } else {
-            //Nie dozwolono (brak admina/superadmina)
+            // Nie dozwolono (brak admina/superadmina)
             return redirect()->route('main')->with('error', 'Nie znaleziono.');
         }
     }

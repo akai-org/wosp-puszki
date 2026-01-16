@@ -3,7 +3,7 @@
 use App\Lib\Rates\CurrentRatesFetcher;
 
 test('it correctly fetches rates data from NBP', function () {
-    $fetcher = new CurrentRatesFetcher();
+    $fetcher = new CurrentRatesFetcher;
     $rates = $fetcher->fetchRates();
 
     $this->assertIsArray($rates);
@@ -12,7 +12,7 @@ test('it correctly fetches rates data from NBP', function () {
     $this->assertIsFloat($rates['GBP']);
     $this->assertIsFloat($rates['EUR']);
 
-    //These tests will fail in geopolitical turmoil
+    // These tests will fail in geopolitical turmoil
     $this->assertGreaterThanOrEqual(4.00, $rates['USD']);
     $this->assertGreaterThanOrEqual(4.00, $rates['GBP']);
     $this->assertGreaterThanOrEqual(4.00, $rates['EUR']);
@@ -21,4 +21,3 @@ test('it correctly fetches rates data from NBP', function () {
     $this->assertLessThanOrEqual(6.00, $rates['GBP']);
     $this->assertLessThanOrEqual(5.00, $rates['EUR']);
 });
-

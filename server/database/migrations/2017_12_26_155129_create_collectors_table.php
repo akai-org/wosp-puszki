@@ -1,12 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateCollectorsTable extends Migration
 {
-    //To jest tabela zawierająca wolontariuszy zbierających pieniądze do puszek
+    // To jest tabela zawierająca wolontariuszy zbierających pieniądze do puszek
     /**
      * Run the migrations.
      *
@@ -16,11 +16,11 @@ class CreateCollectorsTable extends Migration
     {
         Schema::create('collectors', function (Blueprint $table) {
             $table->bigIncrements('id');
-            //Identifier to identyfikator wolontariusza (ten z ajdika)
+            // Identifier to identyfikator wolontariusza (ten z ajdika)
             $table->string('identifier');
-            //Imię
+            // Imię
             $table->string('firstName');
-            //Nazwisko
+            // Nazwisko
             $table->string('lastName');
             $table->timestamps();
         });

@@ -23,8 +23,6 @@ class Role extends GenericModel
      *     example="volunteer",
      *     enum={"volounteer", "admin", "superadmin"}
      * )
-     *
-     * @var string
      */
     public string $name;
 
@@ -35,8 +33,6 @@ class Role extends GenericModel
      *     type="string",
      *     example="Wolontariusz liczący",
      * )
-     *
-     * @var string
      */
     public string $description;
 }

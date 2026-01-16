@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Virtual\Models;
@@ -23,8 +24,6 @@ final class Station
      *     type="integer",
      *     example="1"
      * )
-     *
-     * @var int
      */
     public int $station;
 
@@ -35,8 +34,6 @@ final class Station
      *     type="bit",
      *     example="1"
      * )
-     *
-     * @var int
      */
     public int $status;
 
@@ -47,8 +44,6 @@ final class Station
      *     type="datetime",
      *     example="2023-12-06 12:38:42"
      * )
-     *
-     * @var \DateTime|null
      */
     public ?\DateTime $time;
 }

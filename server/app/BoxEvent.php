@@ -8,11 +8,14 @@ use Venturecraft\Revisionable\RevisionableTrait;
 class BoxEvent extends Model
 {
     use RevisionableTrait;
-    public function user() {
+
+    public function user()
+    {
         return $this->belongsTo('App\User');
     }
 
-    public function box() {
+    public function box()
+    {
         return $this->belongsTo('App\CharityBox');
     }
 }

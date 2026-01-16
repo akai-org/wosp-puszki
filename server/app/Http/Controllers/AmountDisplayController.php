@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\CharityBox;
 use App\Lib\Rates\RatesFetcher;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 class AmountDisplayController extends Controller
 {
@@ -17,44 +14,57 @@ class AmountDisplayController extends Controller
         $this->ratesFetcher = $fetcher;
     }
 
-    function getRates() {
-        //Wyświetla Stawki do wklejenia do pliku
+    public function getRates()
+    {
+        // Wyświetla Stawki do wklejenia do pliku
         return view('rates')->with('rates', $this->ratesFetcher->fetchRates());
     }
 
-    //Wyświetl zliczoną ilość pieniędzy
-    function display() {
+    // Wyświetl zliczoną ilość pieniędzy
+    public function display()
+    {
         $data = \App\totalCollectedReal();
+
         return view('amount')->with('data', $data);
     }
 
-    //Wyświetl zliczoną ilość pieniędzy - przesłaną z zewnątrz
-    function displayFromStoredJson() {
+    // Wyświetl zliczoną ilość pieniędzy - przesłaną z zewnątrz
+    public function displayFromStoredJson()
+    {
         $data = json_decode(Storage::get('raw2.txt'), true);
+
         return view('amount_simplest')->with('data', $data);
     }
 
-    //Wyświetl zliczoną ilość pieniędzy - przesłaną z zewnątrz
-    function displayFromStoredJsonGreen() {
+    // Wyświetl zliczoną ilość pieniędzy - przesłaną z zewnątrz
+    public function displayFromStoredJsonGreen()
+    {
         $data = json_decode(Storage::get('raw2.txt'), true);
+
         return view('amount_simplest_green')->with('data', $data);
     }
 
-    function displayApi() {
+    public function displayApi()
+    {
         $data = \App\totalCollectedReal();
+
         return response()->json($data);
     }
 
-    function getTotalRawPln() {
+    public function getTotalRawPln()
+    {
         return \App\totalCollected();
     }
 
-    function getTotalRawWithForeign() {
+    public function getTotalRawWithForeign()
+    {
         return \App\totalCollectedWithForeign();
     }
 
-    function displayRawJson() {
+    public function displayRawJson()
+    {
         $data = \App\totalCollectedArray();
+
         return response()->json($data);
     }
 }

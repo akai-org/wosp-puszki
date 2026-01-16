@@ -27,6 +27,7 @@
     },
     "require-dev": {
         "dbrekelmans/bdi": "^1.0",
+        "laravel/pint": "^1.27",
         "mockery/mockery": "^1.6",
         "pestphp/pest": "^3.0",
         "pestphp/pest-plugin-laravel": "^3.0"

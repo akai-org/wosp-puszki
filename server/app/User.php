@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Venturecraft\Revisionable\RevisionableTrait;
 
 class User extends Authenticatable
@@ -34,40 +34,40 @@ class User extends Authenticatable
     }
 
     /**
-     * @param string|array $roles
+     * @param  string|array  $roles
      * @return bool
      */
-
     public function authorizeRoles($roles)
     {
-        //Autoryzacja użytkowników
+        // Autoryzacja użytkowników
         if (is_array($roles)) {
             return $this->hasAnyRole($roles) ||
                 abort(401, 'Brak dostępu.');
         }
+
         return $this->hasRole($roles) ||
             abort(401, 'Brak dostępu.');
     }
 
     /**
      * Check multiple roles
-     * @param array $roles
+     *
+     * @param  array  $roles
      * @return bool
      */
-
     public function hasAnyRole($roles)
     {
-        return null !== $this->roles()->whereIn('name', $roles)->first();
+        return $this->roles()->whereIn('name', $roles)->first() !== null;
     }
 
     /**
      * Check one role
-     * @param string $role
+     *
+     * @param  string  $role
      * @return bool
      */
-
     public function hasRole($role)
     {
-        return null !== $this->roles()->where('name', $role)->first();
+        return $this->roles()->where('name', $role)->first() !== null;
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\API\DataDumpController;
 use App\Http\Controllers\Api\AvailabilityApiController;
 use App\Http\Controllers\Api\CharityBoxApiController;
 use App\Http\Controllers\Api\CollectorApiController;
 use App\Http\Controllers\Api\CountedBoxApiController;
+use App\Http\Controllers\API\DataDumpController;
 use App\Http\Controllers\Api\LogsApiController;
 use App\Http\Controllers\Api\RatesApiController;
 use App\Http\Controllers\Api\UserApiController;
@@ -25,9 +25,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['middleware' => ['auth.basic:,name']], function (){
-    Route::get('health', function(Request $request) {
-        $roles = auth()->user()->roles()->get()->map(fn($role) => $role->name);
+Route::group(['middleware' => ['auth.basic:,name']], function () {
+    Route::get('health', function (Request $request) {
+        $roles = auth()->user()->roles()->get()->map(fn ($role) => $role->name);
+
         return response()->json(['user' => auth()->user()->name, 'roles' => $roles]);
     });
 });
@@ -62,12 +63,11 @@ Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], func
 
     });
 
-
     Route::post('charityBoxes/{id}/startCounting', [CharityBoxApiController::class, 'startCounting'])->name('api.box.count.start');
     Route::post('charityBoxes/{id}/finishCounting', [CharityBoxApiController::class, 'confirm'])->name('api.box.count.finish');
 
-    Route::get('charityBoxes/csv', [DataDumpController::class,'getCharityBoxesCSV'])->name('box.create-csv')->middleware(['collectorcoordinator']);
-    Route::get('charityBoxes/xlsx', [DataDumpController::class,'getCharityBoxesXLSX'])->name('box.create-xlsx')->middleware(['collectorcoordinator']);
+    Route::get('charityBoxes/csv', [DataDumpController::class, 'getCharityBoxesCSV'])->name('box.create-csv')->middleware(['collectorcoordinator']);
+    Route::get('charityBoxes/xlsx', [DataDumpController::class, 'getCharityBoxesXLSX'])->name('box.create-xlsx')->middleware(['collectorcoordinator']);
 
     Route::apiResource('charityBoxes', CharityBoxApiController::class);
 });
@@ -77,18 +77,18 @@ Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], func
     Route::get('logs/box/{id}', [LogsApiController::class, 'getBox'])->name('logs.box')->middleware('admin');
 });
 
-Route::group(['as' => 'api', 'middleware' => ['web', 'auth.basic:,name']], function() {
+Route::group(['as' => 'api', 'middleware' => ['web', 'auth.basic:,name']], function () {
     Route::apiResource('currency/rates', RatesApiController::class);
 });
 
-//API
-//Zwracamy dane z głównej strony w formie JSON
+// API
+// Zwracamy dane z głównej strony w formie JSON
 Route::get('/stats', ['uses' => 'AmountDisplayController@displayRawJson']);
 
-Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], function (){
-    //Zbieracze (collector)
+Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], function () {
+    // Zbieracze (collector)
 
-    //Lista wolontariuszy (dla administratorów)
+    // Lista wolontariuszy (dla administratorów)
     Route::get('collectors', [CollectorApiController::class, 'index'])->name('collector.list')->middleware('collectorcoordinator');
     Route::get('collectors/{id}', [CollectorApiController::class, 'show'])->name('collector.show')->middleware('collectorcoordinator');
     // Formularz dodawania wolontariusza
