@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Events\HelpRequested;
 use App\Events\HelpResolved;
+use App\Events\SpecialBoxIsCounted;
 use App\Listeners\SendDiscordHelpRequest;
 use App\Listeners\SendDiscordHelpResolved;
+use App\Listeners\SpecialBoxIsCountedListener;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -24,6 +26,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         HelpResolved::class => [
             SendDiscordHelpResolved::class
+        ],
+        SpecialBoxIsCounted::class => [
+            SpecialBoxIsCountedListener::class
         ]
     ];
 
