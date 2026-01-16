@@ -9,7 +9,7 @@ class MainController extends Controller
 {
     public function __construct()
     {
-        //Zabezpieczamy autoryzacją (każdy zalogowany użytkownik ma dostęp)
+        // Zabezpieczamy autoryzacją (każdy zalogowany użytkownik ma dostęp)
         $this->middleware('auth');
     }
 
@@ -19,7 +19,7 @@ class MainController extends Controller
         $user = $request->user();
         $stations = Cache::get('stations_needing_help', []);
         $data = [
-            'username' => $user->name
+            'username' => $user->name,
         ];
 
         return view('main')->with('data', $data)->with('stations', $stations);

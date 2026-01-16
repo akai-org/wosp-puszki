@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Lib\Rates\RatesFetcher;
+use Illuminate\Support\Facades\Storage;
+use function App\totalCollected;
+use function App\totalCollectedArray;
+use function App\totalCollectedReal;
+use function App\totalCollectedWithForeign;
 
 class AmountDisplayController extends Controller
 {
@@ -13,31 +18,32 @@ class AmountDisplayController extends Controller
         $this->ratesFetcher = $fetcher;
     }
 
-    function getRates()
+    public function getRates()
     {
-        //Wyświetla Stawki do wklejenia do pliku
         return view('rates')->with('rates', $this->ratesFetcher->fetchRates());
     }
 
-    function displayApi()
+    public function displayApi()
     {
-        $data = \App\totalCollectedReal();
+        $data = totalCollectedReal();
+
         return response()->json($data);
     }
 
-    function getTotalRawPln()
+    public function getTotalRawPln()
     {
-        return \App\totalCollected();
+        return totalCollected();
     }
 
-    function getTotalRawWithForeign()
+    public function getTotalRawWithForeign()
     {
-        return \App\totalCollectedWithForeign();
+        return totalCollectedWithForeign();
     }
 
-    function displayRawJson()
+    public function displayRawJson()
     {
-        $data = \App\totalCollectedArray();
+        $data = totalCollectedArray();
+
         return response()->json($data);
     }
 }

@@ -33,9 +33,10 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(RatesFetcher::class, function () {
             if (config('rates.static-rates')) {
-                return new StaticRatesFetcher();
+                return new StaticRatesFetcher;
             }
-            return new CurrentRatesFetcher();
+
+            return new CurrentRatesFetcher;
         });
     }
 }

@@ -10,6 +10,7 @@ namespace App\Virtual\Resources;
  * @OA\Schema(
  *     title="User Resource",
  *     description="User resource",
+ *
  *     @OA\Xml(
  *         name="UserResource"
  *     )

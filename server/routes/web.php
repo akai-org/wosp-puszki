@@ -11,8 +11,8 @@
 |
 */
 
-use App\Http\Controllers\AllegroController;
 use App\Http\Controllers\AmountDisplayController;
+use App\Http\Controllers\AllegroController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CharityBoxApiController;
 use App\Http\Controllers\CharityBoxController;
@@ -74,7 +74,7 @@ Route::prefix('box')->group(function () {
     Route::post('findConfirm', function () {
         return redirect()->route('box.count', ['boxID' => request()->input('boxID')]);
     })->name('box.findConfirm')->middleware('auth');
-  
+
     Route::get('count/{boxID}', [CharityBoxController::class, 'getCount'])->name('box.count');
     Route::post('count/{boxID}', [CharityBoxController::class, 'postCount'])->name('box.count.post');
 

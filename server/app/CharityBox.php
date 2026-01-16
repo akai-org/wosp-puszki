@@ -126,6 +126,7 @@ class CharityBox extends Model
         if ($history) {
             return (int)$history->new_value;
         }
+
         return $this->counting_user_id;
     }
 
@@ -160,14 +161,15 @@ class CharityBox extends Model
             $this->amount_PLN,
             $this->amount_EUR * config('rates.eur'),
             $this->amount_GBP * config('rates.gbp'),
-            $this->amount_USD * config('rates.usd')
+            $this->amount_USD * config('rates.usd'),
         ]);
+
         return number_format($totalWithForeign, 2, ',', ' ');
     }
 
     public function getDisplayIdAttribute()
     {
-        return ' (ID puszki w bazie: ' . $this->id . ')';
+        return ' (ID puszki w bazie: '.$this->id.')';
     }
 
     public function scopeNotCounted(Builder $query): Builder

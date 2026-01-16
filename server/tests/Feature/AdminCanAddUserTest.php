@@ -42,10 +42,10 @@ test('as a superadmin I can add a user', function () {
 
     $this->assertDatabaseHas('role_user', [
         'role_id' => $this->superAdminRoleId,
-        'user_id' => $this->addedUser->id
+        'user_id' => $this->addedUser->id,
     ]);
 
-    //Check if visible on list
+    // Check if visible on list
     $response = $this->get('/user/list');
 
     $response->assertSee('testUser');

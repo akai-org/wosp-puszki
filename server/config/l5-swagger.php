@@ -5,7 +5,7 @@ return [
     'documentations' => [
         'default' => [
             'api' => [
-                'title' => env('SWAGGER_API_HOST', 'Wosp Puszki') . 'Swagger API',
+                'title' => env('SWAGGER_API_HOST', 'Wosp Puszki').'Swagger API',
             ],
 
             'routes' => [

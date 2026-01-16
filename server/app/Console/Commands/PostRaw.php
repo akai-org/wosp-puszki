@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use function App\totalCollectedWithForeign;
 use Illuminate\Console\Command;
 
 class PostRaw extends Command
@@ -43,7 +42,7 @@ class PostRaw extends Command
         $total = $totalArr['amount_total_in_PLN'];
         $ch = curl_init();
 
-        curl_setopt($ch, CURLOPT_URL,$url);
+        curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS,
             "total=$total");
@@ -55,9 +54,9 @@ class PostRaw extends Command
         // receive server response ...
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-        $server_output = curl_exec ($ch);
+        $server_output = curl_exec($ch);
 
-        curl_close ($ch);
+        curl_close($ch);
 
         $this->info($server_output);
 

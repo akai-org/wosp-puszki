@@ -40,7 +40,7 @@ class Kernel extends HttpKernel
 
         'api' => [
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-//            'throttle:api',
+            //            'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];
@@ -55,7 +55,7 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        //Middleware na admina i superadmina
+        // Middleware na admina i superadmina
         'admin' => Middleware\IsAdmin::class,
         'superadmin' => Middleware\IsSuperAdmin::class,
         'collectorcoordinator' => Middleware\IsCollectorCoordinator::class,

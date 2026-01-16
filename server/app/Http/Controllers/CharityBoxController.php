@@ -10,10 +10,9 @@ use Illuminate\Http\Request;
 
 class CharityBoxController extends Controller
 {
-
     public function __construct()
     {
-        //Zabezpieczamy autoryzacją (każdy zalogowany użytkownik ma dostęp)
+        // Zabezpieczamy autoryzacją (każdy zalogowany użytkownik ma dostęp)
         $this->middleware('auth');
 
         $this->middleware('admin')->only(
@@ -21,13 +20,13 @@ class CharityBoxController extends Controller
         );
     }
 
-    //Dodaj nową puszkę (formularz)
+    // Dodaj nową puszkę (formularz)
     public function getCreate()
     {
         return view('box.create');
     }
 
-    //Dodaj nową puszkę
+    // Dodaj nową puszkę
     public function postCreate(Request $request)
     {
         $bo = new BoxOperator($request->user()->id);
@@ -39,16 +38,16 @@ class CharityBoxController extends Controller
                 ->with('error', $e->getMessage());
         }
 
-        return view('box.create')->with('message', 'Wydano puszkę wolontariuszowi ' . $box->collector->display . $box->display_id);
+        return view('box.create')->with('message', 'Wydano puszkę wolontariuszowi '.$box->collector->display.$box->display_id);
     }
 
-    //Znajdź puszkę (formularz)
+    // Znajdź puszkę (formularz)
     public function getFind()
     {
         return view('box.find');
     }
 
-    //Znajdź puszkę (formularz)
+    // Znajdź puszkę (formularz)
     public function postFind(Request $request)
     {
         $bo = new BoxOperator($request->user()->id);
@@ -63,7 +62,7 @@ class CharityBoxController extends Controller
         return view('box.found')->with('box', $box);
     }
 
-    //Rozlicz puszkę (formularz)
+    // Rozlicz puszkę (formularz)
     public function getCount(Request $request, $boxID)
     {
         $bo = new BoxOperator($request->user()->id);
@@ -78,7 +77,7 @@ class CharityBoxController extends Controller
         return view('box.count')->with('box', $box);
     }
 
-    //Rozlicz puszkę
+    // Rozlicz puszkę
     public function postCount(Request $request, $boxID)
     {
         $bo = new BoxOperator($request->user()->id);
@@ -93,11 +92,11 @@ class CharityBoxController extends Controller
         // Flash input in case user wants to go back
         $request->flash();
 
-        //Przedstawiamy do weryfikacji
+        // Przedstawiamy do weryfikacji
         return view('box.confirm')->with('box', $box);
     }
 
-    //Potwierdź puszkę (dla wolontariusza)
+    // Potwierdź puszkę (dla wolontariusza)
     public function confirm(Request $request, $boxID)
     {
         $bo = new BoxOperator($request->user()->id);
@@ -109,19 +108,19 @@ class CharityBoxController extends Controller
                 ->with('error', 'ERROR');
         }
 
-        //Zwróć info że puszka zapisana
+        // Zwróć info że puszka zapisana
         return redirect()->route('box.find')
-            ->with('message', 'Puszka wolontariusza ' . $box->collector->display . ' została przesłana do zatwierdzenia. (' . $box->amount_PLN . 'zł)');
+            ->with('message', 'Puszka wolontariusza '.$box->collector->display.' została przesłana do zatwierdzenia. ('.$box->amount_PLN.'zł)');
     }
 
-    //Lista puszek do potwierdzenia (dla administratora)
+    // Lista puszek do potwierdzenia (dla administratora)
     public function getVerifyList()
     {
-        //Używa API w CharityBoxApiController
+        // Używa API w CharityBoxApiController
         return view('box.verifyList');
     }
 
-    //Wyświetl pojedynczą puszkę
+    // Wyświetl pojedynczą puszkę
     public function getDisplay(Request $request, $boxID)
     {
         $box = CharityBox::where('id', '=', $boxID)->first();
@@ -129,12 +128,12 @@ class CharityBoxController extends Controller
         return view('box.display')->with('box', $box);
     }
 
-    //Potwierdź puszkę (dla administratora)
+    // Potwierdź puszkę (dla administratora)
     public function getVerify(Request $request, $boxID)
     {
         $box = CharityBox::where('id', '=', $boxID)->first();
 
-        //Sprawdź czy puszka jest przeliczona
+        // Sprawdź czy puszka jest przeliczona
         if ($box->is_given_to_collector && $box->is_counted && !$box->is_confirmed) {
             return view('box.verify')->with('box', $box);
         } else {
@@ -142,7 +141,7 @@ class CharityBoxController extends Controller
         }
     }
 
-    //Potwierdź puszkę (dla administratora)
+    // Potwierdź puszkę (dla administratora)
     public function postVerify(Request $request)
     {
         $box = CharityBox::where('id', '=', $request->boxID)->first();
@@ -151,28 +150,28 @@ class CharityBoxController extends Controller
         $box->time_confirmed = Carbon::now();
         $box->save();
 
-        //Drukuj potwierdzenie?
-        //TODO
-        //Zapisujemy event do bazy
+        // Drukuj potwierdzenie?
+        // TODO
+        // Zapisujemy event do bazy
 
-        $event = new BoxEvent();
+        $event = new BoxEvent;
         $event->type = 'verified';
         $event->box_id = $box->id;
         $event->user_id = $request->user()->id;
         $event->comment = '';
         $event->save();
 
-        //BoxConfirmed::dispatch();
+        // BoxConfirmed::dispatch();
 
         return json_encode(
             [
-                'message' => 'Puszka nr ' . $box->id . ' potwierdzona (' . $box->amount_PLN . 'zł)',
-                'status' => 'success'
+                'message' => 'Puszka nr '.$box->id.' potwierdzona ('.$box->amount_PLN.'zł)',
+                'status' => 'success',
             ]
         );
     }
 
-    //Wyświetl wszystkie puszki (dla administratora)
+    // Wyświetl wszystkie puszki (dla administratora)
     public function getList()
     {
         $boxes = CharityBox::with('collector')->get(); // remove n+1 problem
@@ -180,7 +179,7 @@ class CharityBoxController extends Controller
         return view('box.list')->with('boxes', $boxes);
     }
 
-    //Wyświeltl puszki, które nie zostały rozliczone (dla administratora)
+    // Wyświeltl puszki, które nie zostały rozliczone (dla administratora)
     public function getListAway()
     {
         $boxes = CharityBox::with('collector')->where('is_counted', '=', 0)->get(); // remove n+1 problem
@@ -188,13 +187,11 @@ class CharityBoxController extends Controller
         return view('box.list')->with('boxes', $boxes);
     }
 
-    //Modyfikuj puszkę (dla administratora)
+    // Modyfikuj puszkę (dla administratora)
     public function getModify($boxID)
     {
         $box = CharityBox::where('id', '=', $boxID)->first();
 
-        //TODO fix this nicer
-        //abezpieczenie że zatwierdzonej puszki nie można modyfikować
         if ($box->is_confirmed) {
             abort('404', 'Nie można modyfikować zatwierdzonej puszki.');
         }
@@ -202,7 +199,7 @@ class CharityBoxController extends Controller
         return view('box.modify')->with('box', $box);
     }
 
-    //Modyfikuj puszkę (dla administratora)
+    // Modyfikuj puszkę (dla administratora)
     public function postModify(Request $request, $boxID)
     {
         $bo = new BoxOperator($request->user()->id);
@@ -213,6 +210,6 @@ class CharityBoxController extends Controller
             abort(404);
         }
 
-        return redirect()->route('box.verify.list')->with('message', 'Zapisano puszkę wolontariusza ' . $box->collectorIdentifier . ', ID w bazie:' . $box->id . ' (' . $box->amount_PLN . 'zł)');
+        return redirect()->route('box.verify.list')->with('message', 'Zapisano puszkę wolontariusza '.$box->collectorIdentifier.', ID w bazie:'.$box->id.' ('.$box->amount_PLN.'zł)');
     }
 }

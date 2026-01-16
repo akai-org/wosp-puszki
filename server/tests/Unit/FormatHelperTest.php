@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use Tests\TestCase;
 use TypeError;
+
 use function App\wantedFormat;
 
 class FormatHelperTest extends TestCase
@@ -13,9 +14,9 @@ class FormatHelperTest extends TestCase
      *
      * @return void
      */
-    public function testFormatsZero()
+    public function test_formats_zero()
     {
-        $this->assertEquals(wantedFormat(0), "0,00");
+        $this->assertEquals(wantedFormat(0), '0,00');
     }
 
     /**
@@ -23,9 +24,9 @@ class FormatHelperTest extends TestCase
      *
      * @return void
      */
-    public function testFormatsUnit()
+    public function test_formats_unit()
     {
-        $this->assertEquals(wantedFormat(1.00), "1,00");
+        $this->assertEquals(wantedFormat(1.00), '1,00');
     }
 
     /**
@@ -33,9 +34,9 @@ class FormatHelperTest extends TestCase
      *
      * @return void
      */
-    public function testFormatsHundred()
+    public function test_formats_hundred()
     {
-        $this->assertEquals(wantedFormat(100), "100,00");
+        $this->assertEquals(wantedFormat(100), '100,00');
     }
 
     /**
@@ -43,20 +44,19 @@ class FormatHelperTest extends TestCase
      *
      * @return void
      */
-    public function testFormatsThousand()
+    public function test_formats_thousand()
     {
-        $this->assertEquals(wantedFormat(1000), "1 000,00");
+        $this->assertEquals(wantedFormat(1000), '1 000,00');
     }
-
 
     /**
      * Does it format 10000 PLN correctly
      *
      * @return void
      */
-    public function testFormatsTenThousand()
+    public function test_formats_ten_thousand()
     {
-        $this->assertEquals(wantedFormat(10000.00), "10 000,00");
+        $this->assertEquals(wantedFormat(10000.00), '10 000,00');
     }
 
     /**
@@ -64,9 +64,9 @@ class FormatHelperTest extends TestCase
      *
      * @return void
      */
-    public function testFormatsFiftyThousandWithGrosze()
+    public function test_formats_fifty_thousand_with_grosze()
     {
-        $this->assertEquals(wantedFormat(50000.47), "50 000,47");
+        $this->assertEquals(wantedFormat(50000.47), '50 000,47');
     }
 
     /**
@@ -74,9 +74,9 @@ class FormatHelperTest extends TestCase
      *
      * @return void
      */
-    public function testFormatsOneHundredAndThreeThousandWithGrosze()
+    public function test_formats_one_hundred_and_three_thousand_with_grosze()
     {
-        $this->assertEquals(wantedFormat(103000.22), "103 000,22");
+        $this->assertEquals(wantedFormat(103000.22), '103 000,22');
     }
 
     /**
@@ -84,9 +84,9 @@ class FormatHelperTest extends TestCase
      *
      * @return void
      */
-    public function testFormatsOverFiveHundredTwentyThousandThousandWithGrosze()
+    public function test_formats_over_five_hundred_twenty_thousand_thousand_with_grosze()
     {
-        $this->assertEquals(wantedFormat(525002.67), "525 002,67");
+        $this->assertEquals(wantedFormat(525002.67), '525 002,67');
     }
 
     /**
@@ -94,10 +94,10 @@ class FormatHelperTest extends TestCase
      *
      * @return void
      */
-    public function testFormatsOverAMillionWithGrosze()
+    public function test_formats_over_a_million_with_grosze()
     {
         $output = wantedFormat(1427132.51);
-        $this->assertEquals($output, "1 427 132,51");
+        $this->assertEquals($output, '1 427 132,51');
         $this->assertIsString($output);
     }
 
@@ -106,9 +106,9 @@ class FormatHelperTest extends TestCase
      *
      * @return void
      */
-    public function testItFailsOnNonNumericValues()
+    public function test_it_fails_on_non_numeric_values()
     {
         $this->expectException(TypeError::class);
-        $output = wantedFormat("String");
+        $output = wantedFormat('String');
     }
 }

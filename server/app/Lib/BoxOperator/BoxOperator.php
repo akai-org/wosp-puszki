@@ -28,7 +28,7 @@ class BoxOperator
     {
         $collector = Collector::where('identifier', '=', $identifier)->first();
 
-        $box = new CharityBox();
+        $box = new CharityBox;
         $box->collectorIdentifier = $collector->identifier;
         $box->collector_id = $collector->id;
         $box->is_given_to_collector = true;
@@ -38,11 +38,11 @@ class BoxOperator
 
         $box = $box->fresh()->load('collector');
 
-        $event = new BoxEvent();
+        $event = new BoxEvent;
         $event->type = 'give';
         $event->box_id = $box->id;
         $event->user_id = $this->operatingUserId;
-        $event->comment = 'Collector: ' . $collector->display;
+        $event->comment = 'Collector: '.$collector->display;
         $event->save();
 
         return $box;
@@ -56,26 +56,26 @@ class BoxOperator
         // Searching for the user
         // Providing data for validation
         Validator::make(['identifier' => $identifier], [
-            'identifier' => 'required|exists:collectors,identifier|alpha_num|between:1,255'
+            'identifier' => 'required|exists:collectors,identifier|alpha_num|between:1,255',
         ],
             [
-                'identifier.exists' => 'Wolontariusz o takim ID nie istnieje.'
+                'identifier.exists' => 'Wolontariusz o takim ID nie istnieje.',
             ])->validate();
 
         $collector = Collector::where('identifier', '=', $identifier)->first();
 
-        //Puszki zbieracza
+        // Puszki zbieracza
         $boxes = $collector->boxes()->orderBy('id', 'desc')->with('collector')->notCounted()->get();
 
         if (count($boxes) == 0) {
-            throw new \Exception('Wszystkie puszki wolontariusza ' . $collector->display . ' są rozliczone.');
+            throw new \Exception('Wszystkie puszki wolontariusza '.$collector->display.' są rozliczone.');
         }
 
-        $event = new BoxEvent();
+        $event = new BoxEvent;
         $event->type = 'found';
         $event->box_id = $boxes[0]->id;
         $event->user_id = $this->operatingUserId;
-        $event->comment = 'Collector: ' . $collector->display;
+        $event->comment = 'Collector: '.$collector->display;
         $event->save();
 
         return $boxes[0]->load('collector');
@@ -86,7 +86,7 @@ class BoxOperator
         $box = CharityBox::where('id', '=', $boxID)->first();
 
         if ($box->isCounted) {
-            throw new \Exception('Puszka została już rozliczona, numer puszki: ' . $box->id . 'Wolontariusz: ' .
+            throw new \Exception('Puszka została już rozliczona, numer puszki: '.$box->id.'Wolontariusz: '.
                 $box->collectorIdentifier);
         }
 
@@ -94,12 +94,11 @@ class BoxOperator
             throw new \Exception('Puszka jest już w trakcie liczenia. Proszę zgłosić to do koordynatora rozliczenia.');
         }
 
-
-        $event = new BoxEvent();
+        $event = new BoxEvent;
         $event->type = 'startedCounting';
         $event->box_id = $box->id;
         $event->user_id = $this->operatingUserId;
-        $event->comment = 'Collector: ' . $box->collector->display;
+        $event->comment = 'Collector: '.$box->collector->display;
         $event->save();
 
         $box->counting_user_id = $this->operatingUserId;
@@ -108,8 +107,7 @@ class BoxOperator
         return $box;
     }
 
-
-    public function updateBoxByBoxID(Request $request, int $boxID): CharityBox
+    public function updateBoxByBoxID(Request $request, int $boxID) : CharityBox
     {
         $box = CharityBox::where('id', '=', $boxID)->first();
 
@@ -163,7 +161,7 @@ class BoxOperator
 
         $box = $box->fresh()->load('collector');
 
-        $event = new BoxEvent();
+        $event = new BoxEvent;
         $event->type = 'updated';
         $event->box_id = $box->id;
         $event->user_id = $this->operatingUserId;
@@ -186,7 +184,7 @@ class BoxOperator
 
         $box = $box->fresh()->load('collector');
 
-        $event = new BoxEvent();
+        $event = new BoxEvent;
         $event->type = 'confirmed';
         $event->box_id = $box->id;
         $event->user_id = $this->operatingUserId;
@@ -196,11 +194,10 @@ class BoxOperator
         return $box;
     }
 
-
-    private function getBoxDataFromRequest(Request $request): array
+    private function getBoxDataFromRequest(Request $request) : array
     {
         $validator = Validator::make($request->all(), [
-            //PLN
+            // PLN
             'count_1gr' => 'required|integer|between:0,15000',
             'count_2gr' => 'required|integer|between:0,15000',
             'count_5gr' => 'required|integer|between:0,10000',
@@ -216,7 +213,8 @@ class BoxOperator
             'count_100zl' => 'required|integer|between:0,10000',
             'count_200zl' => 'required|integer|between:0,10000',
             'count_500zl' => 'required|integer|between:0,10000',
-            //Waluty obce
+
+            // Waluty obce
             'amount_EUR' => 'required|numeric|between:0,10000',
             'amount_USD' => 'required|numeric|between:0,10000',
             'amount_GBP' => 'required|numeric|between:0,10000',
@@ -231,7 +229,7 @@ class BoxOperator
         ]);
 
         if ($validator->fails()) {
-            throw new \Exception('Błąd walidacji puszki ' . $validator->errors()->first());
+            throw new \Exception('Błąd walidacji puszki '.$validator->errors()->first());
         }
 
         return array_merge(
@@ -243,7 +241,7 @@ class BoxOperator
 
     }
 
-    //Zlicz całość puszki
+    // Zlicz całość puszki
     private function getTotalPLN(Request $request): Money
     {
         $total = Money::PLN(0);
@@ -253,7 +251,7 @@ class BoxOperator
         $total = $total->add(Money::PLN($request->input('count_10gr') * 10));
         $total = $total->add(Money::PLN($request->input('count_20gr') * 20));
         $total = $total->add(Money::PLN($request->input('count_50gr') * 50));
-        $total = $total->add(Money::PLN($request->input('count_1zl') * 100));//1zł=100gr
+        $total = $total->add(Money::PLN($request->input('count_1zl') * 100)); // 1zł=100gr
         $total = $total->add(Money::PLN($request->input('count_2zl') * 200));
         $total = $total->add(Money::PLN($request->input('count_5zl') * 500));
         $total = $total->add(Money::PLN($request->input('count_10zl') * 1000));
@@ -304,6 +302,7 @@ class BoxOperator
             ->get();
         // Cast from Illuminate\Support\Collection to Eloquent Collection
         $boxes = new Collection($boxes);
+
         return $boxes;
     }
 
