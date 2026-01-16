@@ -11,7 +11,7 @@ beforeEach(function () {
 });
 
 test('as a superadmin I can see add user form with correct labels in order', function () {
-    $response = $this->get('/liczymy/user/create');
+    $response = $this->get('/user/create');
 
     $response->assertSeeInOrder([
         'Nazwa użytkownika',
@@ -25,7 +25,7 @@ test('as a superadmin I can see add user form with correct labels in order', fun
 });
 
 test('as a superadmin I can add a user', function () {
-    $response = $this->post('/liczymy/user/create', [
+    $response = $this->post('/user/create', [
         'userName' => 'testUser',
         'password' => 'haslo1234',
         'password_confirmation' => 'haslo1234',
@@ -46,14 +46,14 @@ test('as a superadmin I can add a user', function () {
     ]);
 
     //Check if visible on list
-    $response = $this->get('/liczymy/user/list');
+    $response = $this->get('/user/list');
 
     $response->assertSee('testUser');
 
 });
 
-afterEach(function ()  {
-    if(!empty($this->addedUser)) {
+afterEach(function () {
+    if (!empty($this->addedUser)) {
         $this->addedUser->delete();
         $userId = $this->addedUser->id;
         DB::delete("DELETE FROM role_user where role_id = $this->superAdminRoleId  and user_id = $userId;");

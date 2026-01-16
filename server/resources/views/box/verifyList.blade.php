@@ -64,7 +64,7 @@
 
 @push('scripts')
     <script>
-        function reloadBoxesToVerify(){
+        function reloadBoxesToVerify() {
             //ładowanie listy puszek
             //Czyścimy listę puszek
             $('#toconfirm-table > tbody').empty();
@@ -76,35 +76,35 @@
                     $.each(data, function (index, box) {
                         $('#toconfirm-table').append(
                             '<tr>' +
-                            '<td>'+box.collectorIdentifier+'</td>' +
-                            '<td>'+box.collector.firstName + ' ' + box.collector.lastName + '</td>' +
-                            '<td>'+box.amount_EUR+'€</td>' +
-                            '<td>'+box.amount_GBP+'£</td>' +
-                            '<td>'+box.amount_USD +'$</td>' +
-                            '<td style="font-weight:bold;">'+box.amount_PLN+'zł</td>\n' +
-                            '<td>'+(box.counting_user.name)+'</td>'+
-                            '<td>'+box.comment+'</td>' +
+                            '<td>' + box.collectorIdentifier + '</td>' +
+                            '<td>' + box.collector.firstName + ' ' + box.collector.lastName + '</td>' +
+                            '<td>' + box.amount_EUR + '€</td>' +
+                            '<td>' + box.amount_GBP + '£</td>' +
+                            '<td>' + box.amount_USD + '$</td>' +
+                            '<td style="font-weight:bold;">' + box.amount_PLN + 'zł</td>\n' +
+                            '<td>' + (box.counting_user.name) + '</td>' +
+                            '<td>' + box.comment + '</td>' +
                             '<td>' +
-                            '<form id="confirm-form-'+box.id+'" method="post" onsubmit="">' +
+                            '<form id="confirm-form-' + box.id + '" method="post" onsubmit="">' +
                             '{{ csrf_field() }}' +
-                            '<input type="hidden" name="boxID" value="'+box.id+'">' +
+                            '<input type="hidden" name="boxID" value="' + box.id + '">' +
                             '<input class="confirm btn btn-success btn-sm" type="button"  name="confirm" value="Zatwierdź"/>' +
                             '</form>' +
                             '</td>' +
-                            '<td><a href="'+
-                            '{{ url('/liczymy/box/display') }}/'+
-                            +box.id+'">Podgląd</a>' +
+                            '<td><a href="' +
+                            '{{ url('/box/display') }}/' +
+                            +box.id + '">Podgląd</a>' +
                             '</td>' +
-                            '<td><a href="{{ url('/liczymy/box/modify')}}/'+box.id+'">Modyfikuj</a>' +
+                            '<td><a href="{{ url('/box/modify')}}/' + box.id + '">Modyfikuj</a>' +
                             '</td>' +
-                            '<td>'+box.time_counted+'</td>');
+                            '<td>' + box.time_counted + '</td>');
                         //Dodajemy listener do wysłania
 
-                        $("#confirm-form-"+box.id+" > input.confirm").click(function (e) {
+                        $("#confirm-form-" + box.id + " > input.confirm").click(function (e) {
                             e.preventDefault();
 
                             $.ajax({
-                                url: '{{ url('/liczymy/box/verify') }}',
+                                url: '{{ url('/box/verify') }}',
                                 type: "POST",
                                 data: {
                                     'boxID': box.id,
@@ -127,7 +127,7 @@
             });
         }
 
-        function reloadVerifiedBoxes(){
+        function reloadVerifiedBoxes() {
             //ładowanie listy puszek
             //Czyścimy listę puszek
             $('#confirmed-table > tbody').empty();
@@ -139,35 +139,35 @@
                     $.each(data, function (index, box) {
                         $('#confirmed-table').append(
                             '<tr>' +
-                            '<td>'+box.collectorIdentifier+'</td>' +
-                            '<td>'+box.collector.firstName + ' ' + box.collector.lastName + '</td>' +
-                            '<td>'+box.amount_EUR+'€</td>' +
-                            '<td>'+box.amount_GBP+'£</td>' +
-                            '<td>'+box.amount_USD +'$</td>' +
-                            '<td style="font-weight:bold;">'+box.amount_PLN+'zł</td>\n' +
-                            '<td>'+(box.counting_user.name)+'</td>'+
-                            '<td>'+box.comment+'</td>' +
+                            '<td>' + box.collectorIdentifier + '</td>' +
+                            '<td>' + box.collector.firstName + ' ' + box.collector.lastName + '</td>' +
+                            '<td>' + box.amount_EUR + '€</td>' +
+                            '<td>' + box.amount_GBP + '£</td>' +
+                            '<td>' + box.amount_USD + '$</td>' +
+                            '<td style="font-weight:bold;">' + box.amount_PLN + 'zł</td>\n' +
+                            '<td>' + (box.counting_user.name) + '</td>' +
+                            '<td>' + box.comment + '</td>' +
                             '<td>' +
-                            '<form id="un-confirm-form-'+box.id+'" method="post" onsubmit="">' +
+                            '<form id="un-confirm-form-' + box.id + '" method="post" onsubmit="">' +
                             '{{ csrf_field() }}' +
-                            '<input type="hidden" name="boxID" value="'+box.id+'">' +
+                            '<input type="hidden" name="boxID" value="' + box.id + '">' +
                             '<input class="unconfirm btn btn-danger btn-sm" type="button" name="unconfirm" value="Cofnij zatwierdzenie"/>' +
                             '</form>' +
                             '</td>' +
-                            '<td><a href="'+
-                            '{{ url('/liczymy/box/display') }}/'+
-                            +box.id+'">Podgląd</a>' +
+                            '<td><a href="' +
+                            '{{ url('/box/display') }}/' +
+                            +box.id + '">Podgląd</a>' +
                             '</td>' +
                             '<td>Najpierw cofnij</a>' +
                             '</td>' +
-                            '<td>'+box.time_confirmed+'</td>');
+                            '<td>' + box.time_confirmed + '</td>');
                         //Dodajemy listener do wysłania
 
-                        $("#un-confirm-form-"+box.id+" > input.unconfirm").click(function (e) {
+                        $("#un-confirm-form-" + box.id + " > input.unconfirm").click(function (e) {
                             e.preventDefault();
 
                             $.ajax({
-                                url: '{{ url('/liczymy/api/box/unverify') }}',
+                                url: '{{ url('/api/box/unverify') }}',
                                 type: "POST",
                                 data: {
                                     'boxID': box.id,

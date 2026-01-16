@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Lib\Rates\CurrentRatesFetcher;
 use App\Lib\Rates\RatesFetcher;
 use App\Lib\Rates\StaticRatesFetcher;
+use App\User;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
@@ -17,7 +18,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        URL::forceRootUrl(config('app.url'));
+        URL::useOrigin(config('app.url'));
+        \Gate::define('viewPulse', function (User $user) {
+            return $user->hasRole('superadmin') || $user->hasRole('admin');
+        });
     }
 
     /**
