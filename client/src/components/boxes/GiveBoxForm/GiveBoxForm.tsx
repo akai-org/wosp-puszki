@@ -3,31 +3,36 @@ import { Space, Typography } from 'antd';
 import s from './GiveBoxForm.module.less';
 import {
   APIManager,
+  BoxTypeFormInput,
+  boxTypeFormSelectOptions,
   fetcher,
   FormMessage,
   ID_NUMBER_REQUIRED,
-  BoxTypeFormInput,
   recognizeError,
   TYPE_OF_BOX_REQUIRED,
-  boxTypeFormSelectOptions,
 } from '@/utils';
 
-import { FormWrapper, FormInput, FormSelect, FormButton } from '@/components';
+import { FormButton, FormInput, FormSelect, FormWrapper } from '@/components';
 import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'antd/es/form/Form';
 
 const { Text } = Typography;
 
-declare interface boxFromHelp { id: string | number, text: string };
+declare interface boxFromHelp {
+  id: string | number;
+  text: string;
+}
 
 export const GiveBoxForm = () => {
   const [message, setMessage] = useState<FormMessage | undefined>();
   const [form] = useForm();
 
   const mutation = useMutation({
-    mutationFn: (boxForm: boxFromHelp) => fetcher(APIManager.giveBoxURL(boxForm.id), {
-      method: 'POST', body: { additional_comment: boxForm.text }
-    }),
+    mutationFn: (boxForm: boxFromHelp) =>
+      fetcher(APIManager.giveBoxURL(boxForm.id), {
+        method: 'POST',
+        body: { additional_comment: boxForm.text },
+      }),
     onError: (error) => {
       console.log(error);
       setMessage({ type: 'error', content: recognizeError(error) });
@@ -36,7 +41,6 @@ export const GiveBoxForm = () => {
       setMessage({
         type: 'success',
         content: `Pomyślnie wydano puszkę dla identyfikatora: ${data.collectorIdentifier}`,
-
       });
       form.resetFields();
     },
@@ -80,8 +84,6 @@ export const GiveBoxForm = () => {
         <Space className={s.inputField} size={0}>
           <Text className={s.inputFieldComment}>Uwagi dodatkowe: </Text>
           <FormInput
-            // eslint-disable-next-line jsx-a11y/no-autofocus
-            autoFocus
             name="additional_comment"
             className={s.input}
             rules={[{ required: false }]}

@@ -1,32 +1,29 @@
-import { FormButton } from '@/components';
+import { DepositColumn, FormButton, InputNumberBox } from '@/components';
 import { CalculatorView } from '@/components/Calculator/CalculatorView';
 import {
-  APIManager,
   AmountsKeys,
+  APIManager,
   CHECKOUT_BOX_PAGE_ROUTE,
   COUNTED_BOXES_PATH,
-  FormMessage,
-  MONEY_VALUES,
-  SETTLE_PROCESS_PATH,
-  ZLOTY_AMOUNTS_KEYS,
   createFullRoutePath,
   fetcher,
+  FormMessage,
+  MONEY_VALUES,
   moneyValuesType,
   recognizeError,
+  SETTLE_PROCESS_PATH,
   sum,
   useDepositContext,
-  useGetBoxData,
-  useGetBoxQuery
+  useGetBoxQuery,
+  ZLOTY_AMOUNTS_KEYS,
 } from '@/utils';
 import { useMutation } from '@tanstack/react-query';
 import { Form, Space } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import { JSX, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { DepositColumn } from '@/components';
-import { InputNumberBox } from '@/components';
 import s from './BoxDataForm.module.less';
-import { callbackify } from 'util';
+import { CallForHelpView } from '@components/CallForHelp';
 
 //indexes that are used for splitting array of inputs to match our design
 const moneySlice = {
@@ -75,7 +72,11 @@ export const DepositBoxForm = ({ boxId, editMode, autofill }: DepositBoxFormProp
     mutationFn: () =>
       fetcher(`${APIManager.baseAPIRUrl}/charityBoxes/${boxId}`, {
         method: 'PUT',
-        body: { comment: boxData.comment, additional_comment: boxData.additional_comment, ...boxData.amounts },
+        body: {
+          comment: boxData.comment,
+          additional_comment: boxData.additional_comment,
+          ...boxData.amounts,
+        },
       }),
     onSuccess: () =>
       navigate(
@@ -152,7 +153,7 @@ export const DepositBoxForm = ({ boxId, editMode, autofill }: DepositBoxFormProp
                 ></TextArea>
               </Form.Item>
             </Space>
-             <Space className={s.other}>
+            <Space className={s.other}>
               Dodatkowe uwagi
               <Form.Item style={{ marginBottom: 0 }}>
                 <TextArea
@@ -185,6 +186,7 @@ export const DepositBoxForm = ({ boxId, editMode, autofill }: DepositBoxFormProp
         )}
       </Form>
       <CalculatorView />
+      <CallForHelpView />
     </>
   );
 };

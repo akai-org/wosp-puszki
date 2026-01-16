@@ -1,21 +1,21 @@
 import {
-  MONEY_VALUES,
-  NO_CONNECT_WITH_SERVER,
-  ZLOTY_AMOUNTS_KEYS,
-  isFailedFetched,
-  openNotification,
-  setStationUnavailable,
-  sum,
-  useDepositContext,
-  useFinishCounting,
-  SETTLE_PROCESS_PATH,
   createFullRoutePath,
   DEPOSIT_BOX_PAGE_ROUTE,
-  useGetBoxData,
   FIND_BOX_BUSY_PAGE_ROUTE,
-  useAuthContext,
   getTopPermission,
+  isFailedFetched,
+  MONEY_VALUES,
+  NO_CONNECT_WITH_SERVER,
+  openNotification,
   permissions,
+  setStationUnavailable,
+  SETTLE_PROCESS_PATH,
+  sum,
+  useAuthContext,
+  useDepositContext,
+  useFinishCounting,
+  useGetBoxData,
+  ZLOTY_AMOUNTS_KEYS,
 } from '@/utils';
 import { Button, Space, Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
@@ -26,6 +26,8 @@ import { ContentColumns } from '@/components/boxes/BoxData/BoxDataOverview/Conte
 import { Spinner } from '@components/Layout/Spinner/Spinner';
 import { Content } from 'antd/lib/layout/layout';
 import { useEffect, useState } from 'react';
+import { CallForHelpView } from '@components/CallForHelp';
+
 const { Text } = Typography;
 
 export const SettleBoxPageCheckout = () => {
@@ -113,7 +115,11 @@ export const SettleBoxPageCheckout = () => {
           onClick={confirmDataBusy}
           disabled={isLoading}
         >
-          {isLoading ? <Spinner /> : 'Przelicz kolejną puszkę wolontariusza przy stanowisku'}
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            'Przelicz kolejną puszkę wolontariusza przy stanowisku'
+          )}
         </Button>
         <Button
           data-testid="backButton"
@@ -124,6 +130,7 @@ export const SettleBoxPageCheckout = () => {
           Wróć do poprzedniej strony
         </Button>
       </Space>
+      <CallForHelpView />
     </Content>
   );
 };

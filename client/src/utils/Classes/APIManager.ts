@@ -10,4 +10,7 @@ export class APIManager {
     `${this.baseAPIRUrl}/collectors/${volunteerId}/box/create`;
   static findBoxURL = (volunteerId: number | string) =>
     `${this.baseAPIRUrl}/collectors/${volunteerId}/box/latestUncounted`;
+
+  static helpRequestUrl = `${this.baseAPIRUrl}/help/request`;
+  static helpResolveUrl = `${this.baseAPIRUrl}/help/resolve`;
 }

@@ -2,27 +2,18 @@
 
 namespace App\Events;
 
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class HelpRequested implements ShouldBroadcast
+class HelpRequested
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $stationNumber;
+    public string $userName;
 
-    public function __construct(int $stationNumber)
+    public function __construct(string $userName)
     {
-        $this->stationNumber = $stationNumber;
-    }
-
-    public function broadcastOn(): array
-    {
-        return [
-            new Channel('help-center'),
-        ];
+        $this->userName = $userName;
     }
 }

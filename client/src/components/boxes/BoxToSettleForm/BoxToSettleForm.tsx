@@ -1,7 +1,8 @@
 import React from 'react';
 import { FormButton, FormWrapper } from '@/components';
 import { useNavigate } from 'react-router-dom';
-import { FIND_BOX_PAGE_ROUTE, SETTLE_PROCESS_PATH, createFullRoutePath } from '@/utils';
+import { createFullRoutePath, FIND_BOX_PAGE_ROUTE, SETTLE_PROCESS_PATH } from '@/utils';
+import { CallForHelpView } from '@components/CallForHelp';
 
 export const BoxToSettleForm = () => {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ export const BoxToSettleForm = () => {
       <FormButton htmlType="submit" type="primary">
         Jestem gotowy rozliczyć następną puszkę
       </FormButton>
+      <CallForHelpView />
     </FormWrapper>
   );
 };

@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Event;
+use App\Events\HelpRequested;
+use App\Events\HelpResolved;
+use App\Listeners\SendDiscordHelpRequest;
+use App\Listeners\SendDiscordHelpResolved;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -16,6 +19,12 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Event' => [
             'App\Listeners\EventListener',
         ],
+        HelpRequested::class => [
+            SendDiscordHelpRequest::class
+        ],
+        HelpResolved::class => [
+            SendDiscordHelpResolved::class
+        ]
     ];
 
     /**
