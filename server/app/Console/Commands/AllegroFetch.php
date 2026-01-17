@@ -47,6 +47,13 @@ class AllegroFetch extends Command
     {
         $auth_token = Cache::get('allegro_auth_token');
         $ch = curl_init();
+        if (empty(self::$url)) {
+            throw new \InvalidArgumentException('URL cannot be empty');
+        }
+
+        if (empty($auth_token)) {
+            throw new \InvalidArgumentException('Authorization token is required');
+        }
 
         curl_setopt_array($ch, [
             CURLOPT_URL => self::$url,
@@ -63,7 +70,7 @@ class AllegroFetch extends Command
             Cache::put('allegro_auth_token', $auth_token, 43200);
             curl_setopt_array($ch, [
                 CURLOPT_URL => self::$url,
-                CURLOPT_HTTPHEADER => ['Accept: application/vnd.allegro.public.v1+json','Authorization: Bearer '.$auth_token],
+                CURLOPT_HTTPHEADER => ['Accept: application/vnd.allegro.public.v1+json', 'Authorization: Bearer '.$auth_token],
                 CURLOPT_SSL_VERIFYPEER => false,
                 CURLOPT_RETURNTRANSFER => true,
             ]);
@@ -73,7 +80,7 @@ class AllegroFetch extends Command
         $info = curl_getinfo($ch);
         $sum = 0;
         if ($info['http_code'] == 200) {
-            $decodedRequest = json_decode($result, true);
+            $decodedRequest = json_decode((string)$result, true);
             var_dump(count($decodedRequest['offers']));
             foreach ($decodedRequest['offers'] as $offer) {
                 if ($offer['saleInfo']['biddersCount'] == 0) {
@@ -88,7 +95,7 @@ class AllegroFetch extends Command
         $this->info('' . $sum);
     }
 
-    function TokenRefresh($token)
+    function TokenRefresh(string $token): string
     {
         $client_id = config('services.allegro.client_id');
         $client_secret = config('services.allegro.client_secret');
@@ -104,11 +111,21 @@ class AllegroFetch extends Command
             exit("Something went wrong: $resultCode | $tokenResult");
         }
 
-        return json_decode($tokenResult)->access_token;
+        return json_decode((string)$tokenResult)->access_token;
     }
 
-    protected function getCurl($headers, $url, $content = null): CurlHandle
+    /**
+     * @param array<int, string> $headers
+     * @param string $url
+     * @param string|null $content
+     * @return CurlHandle
+     */
+    protected function getCurl(array $headers, string $url, $content = null): CurlHandle
     {
+        if (empty($url)) {
+            throw new \InvalidArgumentException('URL cannot be empty');
+        }
+
         $ch = curl_init();
         curl_setopt_array($ch, [
             CURLOPT_URL => $url,

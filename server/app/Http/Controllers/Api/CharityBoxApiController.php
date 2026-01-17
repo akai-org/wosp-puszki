@@ -115,7 +115,7 @@ final class CharityBoxApiController extends ApiController
      *      )
      * )
      */
-    public function show(CharityBox $charityBox)
+    public function show(CharityBox $charityBox): CharityBoxResource
     {
         return new CharityBoxResource($charityBox
             ->load(['collector'])
@@ -196,7 +196,7 @@ final class CharityBoxApiController extends ApiController
         return new CharityBoxResource($box);
     }
 
-    public function delete(int $id)
+    public function delete(int $id): void
     {
         // TODO: Implement delete() method.
     }
@@ -584,17 +584,13 @@ final class CharityBoxApiController extends ApiController
      *      )
      * )
      */
-    public function verify(Request $request, int $id)
+    public function verify(Request $request, int $id): JsonResponse
     {
         $box = CharityBox::where('id', '=', $id)->first();
         $box->is_confirmed = true;
         $box->user_confirmed_id = $request->user()->id;
         $box->time_confirmed = Carbon::now();
         $box->save();
-
-        // Drukuj potwierdzenie?
-        // TODO
-        // Zapisujemy event do bazy
 
         $event = new BoxEvent;
         $event->type = 'verified';

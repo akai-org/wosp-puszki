@@ -36,13 +36,12 @@ class AppStatus extends Model
     protected $fillable = ['id', 'value'];
 
     // https://github.com/VentureCraft/revisionable/issues/295
-    // @phpstan-ignore method.unused
-
-    public static function boot()
+    public static function boot(): void
     {
         parent::boot();
     }
 
+    // @phpstan-ignore method.unused
     private function getSystemUserId(): int
     {
         Log:

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\BoxEvent;
 use App\CharityBox;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 /**
@@ -20,8 +21,7 @@ class CharityBoxApiController extends Controller
         $this->middleware('admin');
     }
 
-    // Lista puszek do potwierdzenia (dla administratora)
-    public function getVerifyList()
+    public function getVerifyList(): JsonResponse
     {
         $boxesToConfirm = CharityBox::with('collector', 'countingUser')
             ->unconfirmed()
@@ -31,9 +31,8 @@ class CharityBoxApiController extends Controller
         return response()->json($boxesToConfirm);
     }
 
-    public function getVerifiedBoxes()
+    public function getVerifiedBoxes(): JsonResponse
     {
-        // Puszki potwierdzone
         $boxesConfirmed = CharityBox::with('collector', 'countingUser')
             ->confirmed()
             ->orderBy('time_confirmed', 'desc')
@@ -42,7 +41,7 @@ class CharityBoxApiController extends Controller
         return response()->json($boxesConfirmed);
     }
 
-    public function postUnVerify(Request $request)
+    public function postUnVerify(Request $request): false|string
     {
         $box = CharityBox::where('id', '=', $request->boxID)->first();
         $box->is_confirmed = false;

@@ -13,6 +13,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use SplTempFileObject;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class DataDumpController extends Controller
 {
@@ -48,7 +49,7 @@ class DataDumpController extends Controller
      *      ),
      * )
      */
-    public function getCharityBoxesCSV(Request $request)
+    public function getCharityBoxesCSV(Request $request): BinaryFileResponse
     {
         $bo = new BoxOperator($request->user()->id);
         $lastChangedBoxDate = $bo->lastChangedBox()->updated_at;
@@ -61,12 +62,10 @@ class DataDumpController extends Controller
                 return response()->download(storage_path("app/{$filePath}"), $file);
             }
         }
-        $data = $bo->getAll();
-        $csvData = [];
-        $csvData[] = ['ID Wolo', 'Imię i Nazwisko', 'Numer telefonu', 'Godzina oddania', 'Godzina liczenia', 'Godzina potwierdzenia', 'Zebrane PLN', 'Zebrane EUR', 'Zebrane USD', 'Zebrane GBP', 'Inne'];
-        foreach ($data as $row) {
-            $collectorName = $row->collector->firstName.' '.$row->collector->lastName;
-            $csvData[] = [
+        $headers = ['ID Wolo', 'Imię i Nazwisko', 'Numer telefonu', 'Godzina oddania', 'Godzina liczenia', 'Godzina potwierdzenia', 'Zebrane PLN', 'Zebrane EUR', 'Zebrane USD', 'Zebrane GBP', 'Inne'];
+        $csvData = $bo->getAll()->map(function ($row) {
+            $collectorName = $row->collector->firstName . ' ' . $row->collector->lastName;
+            return [
                 $row->collectorIdentifier,
                 $collectorName,
                 $row->collector->phoneNumber,
@@ -79,7 +78,7 @@ class DataDumpController extends Controller
                 $row->amount_GBP,
                 $row->comment,
             ];
-        }
+        })->prepend($headers)->toArray();
         $date = Carbon::now();
         $csvFileName = $this->getFileName($date, 'csv');
         $csvFile = Writer::createFromFileObject(new SplTempFileObject());
@@ -125,7 +124,7 @@ class DataDumpController extends Controller
      *      ),
      * )
      */
-    public function getCharityBoxesXLSX(Request $request)
+    public function getCharityBoxesXLSX(Request $request): BinaryFileResponse
     {
         $bo = new BoxOperator($request->user()->id);
         $lastChangedBoxDate = $bo->lastChangedBox()->updated_at;
@@ -141,7 +140,6 @@ class DataDumpController extends Controller
         $data = $bo->getAll();
         $dataLen = count($data) + 1;
         $columnNames = ['ID Wolo', 'Imię i Nazwisko', 'Numer telefonu', 'Godzina oddania', 'Godzina liczenia', 'Godzina potwierdzenia', 'Zebrane PLN', 'Zebrane EUR', 'Zebrane USD', 'Zebrane GBP', 'Inne'];
-
         $spreadsheet = new Spreadsheet();
         $activeWorksheet = $spreadsheet->getActiveSheet();
         $activeWorksheet->setTitle('Puszki');
@@ -151,11 +149,11 @@ class DataDumpController extends Controller
         }
         for ($i = 0; $i < $dataLen - 1; $i++) {
             $value = $data[$i];
-            $collectorName = $value->firstName.' '.$value->lastName;
+            $collectorName = $value->collector->firstName.' '.$value->collector->lastName;
             $Y = $i + 2;
             $activeWorksheet->setCellValue('A'."{$Y}", $value->collectorIdentifier);
             $activeWorksheet->setCellValue('B'."{$Y}", $collectorName);
-            $activeWorksheet->setCellValue('C'."{$Y}", $value->phoneNumber);
+            $activeWorksheet->setCellValue('C'."{$Y}", $value->collector->phoneNumber);
             $activeWorksheet->setCellValue('D'."{$Y}", $value->time_given);
             $activeWorksheet->setCellValue('E'."{$Y}", $value->time_counted);
             $activeWorksheet->setCellValue('F'."{$Y}", $value->time_confirmed);
@@ -187,7 +185,7 @@ class DataDumpController extends Controller
 
         $storagePath = 'charity_box_exports';
         $filePath = $storagePath.'/'.$xlsxFileName;
-        Storage::put($filePath, $xlsxContent);
+        Storage::put($filePath, (string)$xlsxContent);
         // Cache last export date
         Cache::set('lastXlsxDump', $date);
 

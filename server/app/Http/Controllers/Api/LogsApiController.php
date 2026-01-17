@@ -102,7 +102,7 @@ class LogsApiController extends ApiController
      *
      * @return JsonResponse
      */
-    public function getBox($id)
+    public function getBox(int $id)
     {
         $logs = BoxEvent::with('user')
             ->with('box')

@@ -63,12 +63,11 @@ class User extends Authenticatable
     ];
 
     /**
-     * @param  string|array  $roles
+     * @param array<string>|string $roles
      * @return bool
      */
-    public function authorizeRoles($roles)
+    public function authorizeRoles(array|string $roles): bool
     {
-        // Autoryzacja użytkowników
         if (is_array($roles)) {
             return $this->hasAnyRole($roles) ||
                 abort(401, 'Brak dostępu.');
@@ -81,14 +80,18 @@ class User extends Authenticatable
     /**
      * Check multiple roles
      *
-     * @param  array  $roles
+     * @param array<string> $roles
      * @return bool
      */
-    public function hasAnyRole($roles)
+    public function hasAnyRole(array $roles): bool
     {
         return $this->roles()->whereIn('name', $roles)->first() !== null;
     }
 
+
+    /**
+     * @return BelongsToMany<Role, $this>
+     */
     public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class);
@@ -100,7 +103,7 @@ class User extends Authenticatable
      * @param  string  $role
      * @return bool
      */
-    public function hasRole($role)
+    public function hasRole(string $role): bool
     {
         return $this->roles()->where('name', $role)->first() !== null;
     }

@@ -43,7 +43,7 @@ use ReflectionException;
  */
 abstract class ApiController extends Controller
 {
-    // @phpstan-ignore property.onlyWritten
+    // @phpstan-ignore property.onlyWritten, missingType.generics
     private ReflectionClass $proxyClass;
 
     /**
@@ -51,6 +51,7 @@ abstract class ApiController extends Controller
      */
     public function __construct(string $class)
     {
+        // @phpstan-ignore argument.type
         $this->proxyClass = new ReflectionClass($class);
     }
 }

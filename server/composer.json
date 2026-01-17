@@ -26,7 +26,8 @@
         "spatie/laravel-ignition": "^2.0",
         "symfony/panther": "^2.0",
         "venturecraft/revisionable": "1.*",
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "ext-mbstring": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.6",

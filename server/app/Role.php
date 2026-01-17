@@ -6,6 +6,7 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Carbon;
 use Venturecraft\Revisionable\Revision;
 use Venturecraft\Revisionable\RevisionableTrait;
@@ -34,7 +35,10 @@ class Role extends Model
 {
     use RevisionableTrait;
 
-    public function users()
+    /**
+     * @return BelongsToMany<User, $this>
+     */
+    public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
     }

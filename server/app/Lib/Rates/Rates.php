@@ -10,20 +10,20 @@ class Rates
 
     private const GBP_NAME = 'GBP';
 
-    // TODO można jakoś hintować typy tych zmiennych? Czy z api i configa lecą te same typy?
-    private $gbp;
+    private float $gbp;
+    private float $eur;
+    private float $usd;
 
-    private $eur;
-
-    private $usd;
-
-    public function __construct($usd, $eur, $gbp)
+    public function __construct(float $usd, float $eur, float $gbp)
     {
         $this->usd = $usd;
         $this->eur = $eur;
         $this->gbp = $gbp;
     }
 
+    /**
+     * @return float[]
+     */
     public function toArray(): array
     {
         return [

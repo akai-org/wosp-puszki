@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+
 class LogsController extends Controller
 {
     public function __construct()
@@ -10,14 +13,14 @@ class LogsController extends Controller
         $this->middleware('collectorcoordinator');
     }
 
-    public function getAll()
+    public function getAll(): Factory|View|\Illuminate\View\View
     {
         return view('logs.box.display')
             ->with('ApiUrl', route('api.logs.list'))
             ->with('enableRefresh', true);
     }
 
-    public function getBox($boxID)
+    public function getBox(int $boxID): Factory|View|\Illuminate\View\View
     {
         return view('logs.box.display')
             ->with('ApiUrl', route('api.logs.box', ['boxID' => $boxID]))

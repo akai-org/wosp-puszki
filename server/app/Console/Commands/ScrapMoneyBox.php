@@ -27,7 +27,7 @@ class ScrapMoneyBox extends Command
     /**
      * The supported browsers
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $browsers = [
         'firefox' => 'Symfony\\Component\\Panther\\Client::createFirefoxClient',

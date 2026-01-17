@@ -136,29 +136,44 @@ class CharityBox extends Model
         return $this->counting_user_id;
     }
 
+    /**
+     * @return BelongsTo<Collector, $this>
+     */
     public function collector(): BelongsTo
     {
-        return $this->belongsTo('App\Collector');
+        return $this->belongsTo(Collector::class);
     }
 
+    /**
+     * @return BelongsTo<User, $this>
+     */
     public function givenToCollectorUser(): BelongsTo
     {
-        return $this->belongsTo('App\User', 'given_to_collector_user_id', 'id');
+        return $this->belongsTo(User::class, 'given_to_collector_user_id', 'id');
     }
 
+    /**
+     * @return BelongsTo<User, $this>
+     */
     public function countingUser(): BelongsTo
     {
-        return $this->belongsTo('App\User', 'counting_user_id', 'id');
+        return $this->belongsTo(User::class, 'counting_user_id', 'id');
     }
 
+    /**
+     * @return BelongsTo<User, $this>
+     */
     public function personConfirming(): BelongsTo
     {
-        return $this->belongsTo('App\User', 'user_confirmed_id', 'id');
+        return $this->belongsTo(User::class, 'user_confirmed_id', 'id');
     }
 
-    public function events(): Builder|HasMany|CharityBox
+    /**
+     * @return Builder<BoxEvent>|HasMany<BoxEvent, $this>|BoxEvent
+     */
+    public function events(): Builder|HasMany|BoxEvent
     {
-        return $this->hasMany('App\BoxEvent');
+        return $this->hasMany(BoxEvent::class);
     }
 
     public function getTotalWithForeignAttribute(): string
@@ -178,6 +193,10 @@ class CharityBox extends Model
         return ' (ID puszki w bazie: '.$this->id.')';
     }
 
+    /**
+     * @param Builder<CharityBox> $query
+     * @return Builder<CharityBox>
+     */
     public function scopeNotCounted(Builder $query): Builder
     {
         return $query
@@ -186,6 +205,10 @@ class CharityBox extends Model
             ->where('is_confirmed', '=', false);
     }
 
+    /**
+     * @param Builder<CharityBox> $query
+     * @return Builder<CharityBox>
+     */
     public function scopeUnconfirmed(Builder $query): Builder
     {
         return $query
@@ -194,6 +217,10 @@ class CharityBox extends Model
             ->where('is_confirmed', '=', false);
     }
 
+    /**
+     * @param Builder<CharityBox> $query
+     * @return Builder<CharityBox>
+     */
     public function scopeConfirmed(Builder $query): Builder
     {
         return $query

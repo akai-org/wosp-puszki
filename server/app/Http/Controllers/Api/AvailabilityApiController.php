@@ -133,6 +133,9 @@ class AvailabilityApiController extends ApiController
         return new StationResource($this->getStationStatus($id));
     }
 
+    /**
+     * @return array{station: int, status: mixed, time: mixed}
+     */
     private function getStationStatus(int $id): array
     {
         return [

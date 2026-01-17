@@ -55,7 +55,7 @@ class PostRaw extends Command
 
         curl_close($ch);
 
-        $this->info($server_output);
+        $this->info((string)$server_output);
 
     }
 }

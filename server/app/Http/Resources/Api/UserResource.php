@@ -8,7 +8,11 @@ use Illuminate\Http\JsonResponse;
 
 class UserResource extends JsonResponse
 {
-    public function toArray($request)
+    /**
+     * @param string $request
+     * @return array<string, mixed>
+     */
+    public function toArray(string $request): array
     {
         // @phpstan-ignore staticMethod.notFound
         return parent::toArray($request);
