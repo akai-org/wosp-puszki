@@ -53,8 +53,6 @@ class BoxOperator
      */
     public function findLatestUncountedByCollectorIdentifier(string $identifier): CharityBox
     {
-        // Searching for the user
-        // Providing data for validation
         Validator::make(['identifier' => $identifier], [
             'identifier' => 'required|exists:collectors,identifier|alpha_num|between:1,255'
         ],
@@ -64,8 +62,6 @@ class BoxOperator
 
         $collector = Collector::where('identifier', '=', $identifier)->first();
 
-        //Puszki zbieracza
-        // @phpstan-ignore method.notFound
         $boxes = $collector->boxes()->orderBy('id', 'desc')->with('collector')->notCounted()->get();
 
         if (count($boxes) == 0) {
@@ -166,6 +162,11 @@ class BoxOperator
         return $box;
     }
 
+    /**
+     * @param Request $request
+     * @return array<string, mixed>
+     * @throws Exception
+     */
     private function getBoxDataFromRequest(Request $request): array
     {
         $validator = Validator::make($request->all(), [
@@ -241,6 +242,10 @@ class BoxOperator
 
     // Format money to string
 
+    /**
+     * @param int $boxID
+     * @return CharityBox
+     */
     public function confirmBoxByBoxID(int $boxID): CharityBox
     {
         $box = CharityBox::where('id', '=', $boxID)->first();
@@ -264,11 +269,17 @@ class BoxOperator
         return $box;
     }
 
-    public function getAll(): CharityBox|Collection|array
+    /**
+     * @return Collection<int, CharityBox>
+     */
+    public function getAll(): Collection
     {
         return CharityBox::with('collector')->orderByRaw('CAST("charity_boxes"."collectorIdentifier" AS NUMERIC)')->get();
     }
 
+    /**
+     * @return CharityBox
+     */
     public function lastChangedBox(): CharityBox
     {
         return CharityBox::with('collector')->orderBy('updated_at')->first();

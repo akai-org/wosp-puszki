@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Events\HelpRequested;
 use App\Events\HelpResolved;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 class HelpController extends Controller
 {
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $request->validate([
             'station_number' => 'required|integer'
@@ -27,7 +28,7 @@ class HelpController extends Controller
         return response()->json(['status' => 'Help requested!']);
     }
 
-    public function resolve(Request $request)
+    public function resolve(Request $request): JsonResponse
     {
         $request->validate([
             'station_number' => 'required|integer'

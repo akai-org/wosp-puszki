@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Lib\Rates\RatesFetcher;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 use function App\totalCollected;
 use function App\totalCollectedArray;
@@ -18,50 +21,46 @@ class AmountDisplayController extends Controller
         $this->ratesFetcher = $fetcher;
     }
 
-    function getRates()
+    function getRates(): Factory|View|\Illuminate\View\View
     {
-        //Wyświetla Stawki do wklejenia do pliku
         return view('rates')->with('rates', $this->ratesFetcher->fetchRates());
     }
 
-    //Wyświetl zliczoną ilość pieniędzy
-    function display()
+    function display(): Factory|View|\Illuminate\View\View
     {
         $data = totalCollectedReal();
         return view('amount')->with('data', $data);
     }
 
-    //Wyświetl zliczoną ilość pieniędzy - przesłaną z zewnątrz
-    function displayFromStoredJson()
+    function displayFromStoredJson(): Factory|View|\Illuminate\View\View
     {
         $data = json_decode(Storage::get('raw2.txt'), true);
         return view('amount_simplest')->with('data', $data);
     }
 
-    //Wyświetl zliczoną ilość pieniędzy - przesłaną z zewnątrz
-    function displayFromStoredJsonGreen()
+    function displayFromStoredJsonGreen(): Factory|View|\Illuminate\View\View
     {
         $data = json_decode(Storage::get('raw2.txt'), true);
         return view('amount_simplest_green')->with('data', $data);
     }
 
-    function displayApi()
+    function displayApi(): JsonResponse
     {
         $data = totalCollectedReal();
         return response()->json($data);
     }
 
-    function getTotalRawPln()
+    function getTotalRawPln(): string
     {
         return totalCollected();
     }
 
-    function getTotalRawWithForeign()
+    function getTotalRawWithForeign(): string
     {
         return totalCollectedWithForeign();
     }
 
-    function displayRawJson()
+    function displayRawJson(): JsonResponse
     {
         $data = totalCollectedArray();
         return response()->json($data);

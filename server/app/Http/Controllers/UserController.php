@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Role;
 use App\User;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -13,16 +16,15 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        //Zabezpieczamy autoryzacją (każdy zalogowany użytkownik ma dostęp)
         $this->middleware('superadmin');
     }
 
-    public function getCreate()
+    public function getCreate(): Factory|View|\Illuminate\View\View
     {
         return view('liczymy.user.create');
     }
 
-    public function postCreate(Request $request)
+    public function postCreate(Request $request): RedirectResponse
     {
         $request->validate([
             'userName' => 'required|alpha_num|between:1,255|unique:users,name',
@@ -45,12 +47,12 @@ class UserController extends Controller
             'Dodano użytkownika ' . $user->name);
     }
 
-    public function getPassword(User $user)
+    public function getPassword(User $user): Factory|View|\Illuminate\View\View
     {
         return view('liczymy.user.password')->with('user', $user);
     }
 
-    public function postPassword(Request $request, User $user)
+    public function postPassword(Request $request, User $user): RedirectResponse
     {
         $request->validate([
             'password' => 'required|confirmed|between:1,255'
@@ -63,7 +65,7 @@ class UserController extends Controller
             'Zmieniono hasło dla użytkownika: ' . $user->name);
     }
 
-    public function getList()
+    public function getList(): Factory|View|\Illuminate\View\View
     {
         $users = User::with('roles')->get();
         return view('liczymy.user.list')->with('users', $users);

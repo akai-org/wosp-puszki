@@ -50,7 +50,6 @@ class Kernel extends HttpKernel
             EncryptCookies::class,
             AddQueuedCookiesToResponse::class,
             StartSession::class,
-            // \Illuminate\Session\Middleware\AuthenticateSession::class,
             ShareErrorsFromSession::class,
             VerifyCsrfToken::class,
             SubstituteBindings::class,
@@ -58,7 +57,6 @@ class Kernel extends HttpKernel
 
         'api' => [
             EnsureFrontendRequestsAreStateful::class,
-//            'throttle:api',
             SubstituteBindings::class,
         ],
     ];
@@ -73,7 +71,6 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'auth' => Authenticate::class,
         'auth.basic' => AuthenticateWithBasicAuth::class,
-        //Middleware na admina i superadmina
         'admin' => Middleware\IsAdmin::class,
         'superadmin' => Middleware\IsSuperAdmin::class,
         'collectorcoordinator' => Middleware\IsCollectorCoordinator::class,

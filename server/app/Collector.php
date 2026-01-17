@@ -49,9 +49,12 @@ class Collector extends Model
         return $formatted;
     }
 
+    /**
+     * @return HasMany<CharityBox, $this>
+     */
     public function boxes(): HasMany
     {
-        return $this->hasMany('App\CharityBox');
+        return $this->hasMany(CharityBox::class);
     }
 
     public function getDisplayAttribute(): string

@@ -20,7 +20,6 @@ class IsSuperAdmin
         if ($request->user()->hasAnyRole(['superadmin'])) {
             return $next($request);
         } else {
-            //Nie dozwolono (brak admina/superadmina)
             return redirect()->route('main')->with('error', 'Nie znaleziono.');
         }
     }

@@ -8,9 +8,9 @@ class StaticRatesFetcher implements RatesFetcher
     private const EUR_RATES_CONFIG = 'rates.eur';
     private const GBP_RATES_CONFIG = 'rates.gbp';
 
-    private $usd;
-    private $eur;
-    private $gbp;
+    private float $usd;
+    private float $eur;
+    private float $gbp;
 
     public function __construct()
     {
@@ -19,6 +19,9 @@ class StaticRatesFetcher implements RatesFetcher
         $this->gbp = config(self::GBP_RATES_CONFIG);
     }
 
+    /**
+     * @return array<float>
+     */
     public function fetchRates(): array
     {
         return (new Rates($this->usd, $this->eur, $this->gbp))

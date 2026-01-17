@@ -31,7 +31,7 @@ class AvailabilityApiController extends ApiController
     public const STATUS_READY = 1;
     public const STATUS_BUSY = 2;
     public const STALE_TIMEOUT_IN_SECONDS = 300;
-    
+
     /**
      * @OA\Get(
      *  path="/api/stations",
@@ -124,6 +124,9 @@ class AvailabilityApiController extends ApiController
         return new StationResource($this->getStationStatus($id));
     }
 
+    /**
+     * @return array{station: int, status: mixed, time: mixed}
+     */
     private function getStationStatus(int $id): array
     {
         return [

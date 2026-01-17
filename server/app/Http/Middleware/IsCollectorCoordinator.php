@@ -20,7 +20,6 @@ class IsCollectorCoordinator
         if ($request->user()->hasAnyRole(['collectorcoordinator', 'admin', 'superadmin'])) {
             return $next($request);
         } else {
-            //Nie dozwolono (brak admina/superadmina)
             return redirect()->route('main')->with('error', 'Nie znaleziono.');
         }
     }

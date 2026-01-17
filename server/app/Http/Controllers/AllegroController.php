@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use CurlHandle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 class AllegroController extends Controller
 {
-    public function setAuthToken(Request $request)
+    public function setAuthToken(Request $request): void
     {
         $code = $request->code;
-        $response = $this->getAccessToken($code);
+        $response = (string)$this->getAccessToken($code);
         $access_token = json_decode($response)->access_token;
         $refresh_token = json_decode($response)->refresh_token;
         echo "access_token = ", $access_token;
@@ -19,7 +20,7 @@ class AllegroController extends Controller
         Cache::put('allegro_refresh_token', $refresh_token, 43200);
     }
 
-    protected function getAccessToken($authorization_code)
+    protected function getAccessToken(string $authorization_code): string|true
     {
         $client_id = config('services.allegro.client_id');
         $client_secret = config('services.allegro.client_secret');
@@ -39,7 +40,12 @@ class AllegroController extends Controller
         return $tokenResult;
     }
 
-    protected function getCurl($headers, $content)
+    /**
+     * @param array<int, string> $headers
+     * @param string $content
+     * @return CurlHandle
+     */
+    protected function getCurl(array $headers, string $content): CurlHandle
     {
         $ch = curl_init();
         curl_setopt_array($ch, array(

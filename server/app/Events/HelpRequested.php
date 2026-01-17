@@ -12,7 +12,7 @@ class HelpRequested implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $stationNumber;
+    public int $stationNumber;
 
     public function __construct(int $stationNumber)
     {

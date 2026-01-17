@@ -34,17 +34,13 @@ Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], func
     Route::get('users', [UserApiController::class, 'index'])->name('users.list')->middleware('admin');
     Route::get('users/{id}', [UserApiController::class, 'show'])->name('users.show')->middleware('admin');
     Route::post('users', [UserApiController::class, 'create'])->name('users.create')->middleware('admin');
-
-    // TODO add password/{user} with superadmin middleware
 });
 
 Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], function () {
 
 
-    // Potwierdź puszkę (dla administratora)
     Route::post('charityBoxes/{id}/verify', [CharityBoxApiController::class, 'verify'])->name('api.box.verify')->middleware('collectorcoordinator');
 
-    // add nonstandard requests (other than CRUD)
     Route::middleware('collectorcoordinator')->group(function () {
         Route::get('charityBoxes/verified', [CharityBoxApiController::class, 'getVerifiedList'])->name('api.box.verified');
         Route::get('charityBoxes/unverified', [CharityBoxApiController::class, 'getUnverifiedList'])->name('api.box.unverified');
@@ -69,20 +65,13 @@ Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], func
 });
 
 //API
-//Zwracamy dane z głównej strony w formie JSON
 Route::get('/stats', ['uses' => 'AmountDisplayController@displayRawJson']);
 
 Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], function () {
-    //Zbieracze (collector)
-
-    //Lista wolontariuszy (dla administratorów)
     Route::get('collectors', [CollectorApiController::class, 'index'])->name('collector.list')->middleware('collectorcoordinator');
     Route::get('collectors/{id}', [CollectorApiController::class, 'show'])->name('collector.show')->middleware('collectorcoordinator');
-    // Formularz dodawania wolontariusza
     Route::post('collectors', [CollectorApiController::class, 'create'])->name('collector.create.post')->middleware('collectorcoordinator');
-    // Stworzenie puszki dla wolontariusza
     Route::post('collectors/{collectorIdentifier}/box/create', [CollectorApiController::class, 'createBoxForCollector'])->name('collector.create.box')->middleware(['collectorcoordinator']);
-    // Chwycenie ostatniej nierozliczonej puszki wolontariusza
     Route::get('collectors/{collectorIdentifier}/box/latestUncounted', [CollectorApiController::class, 'getCollectorLatUncountedBox'])->name('collector.get.uncountedBox');
 });
 
