@@ -19,20 +19,6 @@ class AllegroController extends Controller
         Cache::put('allegro_refresh_token', $refresh_token, 43200);
     }
 
-    protected function getCurl($headers, $content)
-    {
-        $ch = curl_init();
-        curl_setopt_array($ch, array(
-            CURLOPT_URL => "https://allegro.pl/auth/oauth/token",
-            CURLOPT_HTTPHEADER => $headers,
-            CURLOPT_SSL_VERIFYPEER => false,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => $content
-        ));
-        return $ch;
-    }
-
     protected function getAccessToken($authorization_code)
     {
         $client_id = config('services.allegro.client_id');
@@ -51,5 +37,19 @@ class AllegroController extends Controller
         }
 
         return $tokenResult;
+    }
+
+    protected function getCurl($headers, $content)
+    {
+        $ch = curl_init();
+        curl_setopt_array($ch, array(
+            CURLOPT_URL => "https://allegro.pl/auth/oauth/token",
+            CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => $content
+        ));
+        return $ch;
     }
 }

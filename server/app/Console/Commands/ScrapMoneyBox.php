@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Lib\AppStatusManager;
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
@@ -56,7 +57,7 @@ class ScrapMoneyBox extends Command
         $moneyboxValueSelector = config('wosp.moneybox.selector');
         $url = 'https://eskarbonka.wosp.org.pl/' . $moneyboxId;
 
-        $client = new \GuzzleHttp\Client(['verify' => false]);
+        $client = new Client(['verify' => false]);
         $result = $client->get($url);
 
 

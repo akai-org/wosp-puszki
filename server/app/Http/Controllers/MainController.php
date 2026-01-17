@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Cache;
+
 class MainController extends Controller
 {
     public function __construct()
@@ -13,7 +13,8 @@ class MainController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
 
         $user = $request->user();
         $stations = Cache::get('stations_needing_help', []);

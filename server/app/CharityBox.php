@@ -2,8 +2,14 @@
 
 namespace App;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
+use Venturecraft\Revisionable\Revision;
 use Venturecraft\Revisionable\RevisionableTrait;
 
 /**
@@ -39,8 +45,8 @@ use Venturecraft\Revisionable\RevisionableTrait;
  * @property numeric $amount_USD
  * @property numeric $amount_GBP
  * @property string|null $comment
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property bool $is_special_box
  * @property string|null $metadata
  * @property string|null $additional_comment
@@ -48,16 +54,16 @@ use Venturecraft\Revisionable\RevisionableTrait;
  * @property string|null $first_counted_by_phone
  * @property string|null $second_counted_by_name
  * @property string|null $second_counted_by_phone
- * @property-read \App\Collector|null $collector
- * @property-read \App\User|null $countingUser
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\BoxEvent> $events
+ * @property-read Collector|null $collector
+ * @property-read User|null $countingUser
+ * @property-read Collection<int, BoxEvent> $events
  * @property-read int|null $events_count
  * @property-read mixed $display_id
  * @property-read mixed $original_counting_user_id
  * @property-read mixed $total_with_foreign
- * @property-read \App\User|null $givenToCollectorUser
- * @property-read \App\User|null $personConfirming
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Venturecraft\Revisionable\Revision> $revisionHistory
+ * @property-read User|null $givenToCollectorUser
+ * @property-read User|null $personConfirming
+ * @property-read Collection<int, Revision> $revisionHistory
  * @property-read int|null $revision_history_count
  * @method static Builder<static>|CharityBox confirmed()
  * @method static Builder<static>|CharityBox newModelQuery()
@@ -106,7 +112,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
  * @method static Builder<static>|CharityBox whereTimeGiven($value)
  * @method static Builder<static>|CharityBox whereUpdatedAt($value)
  * @method static Builder<static>|CharityBox whereUserConfirmedId($value)
- * @mixin \Eloquent
+ * @mixin Eloquent
  */
 class CharityBox extends Model
 {
@@ -129,27 +135,27 @@ class CharityBox extends Model
         return $this->counting_user_id;
     }
 
-    public function collector(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function collector(): BelongsTo
     {
         return $this->belongsTo('App\Collector');
     }
 
-    public function givenToCollectorUser(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function givenToCollectorUser(): BelongsTo
     {
         return $this->belongsTo('App\User', 'given_to_collector_user_id', 'id');
     }
 
-    public function countingUser(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function countingUser(): BelongsTo
     {
         return $this->belongsTo('App\User', 'counting_user_id', 'id');
     }
 
-    public function personConfirming(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function personConfirming(): BelongsTo
     {
         return $this->belongsTo('App\User', 'user_confirmed_id', 'id');
     }
 
-    public function events(): Builder|\Illuminate\Database\Eloquent\Relations\HasMany|CharityBox
+    public function events(): Builder|HasMany|CharityBox
     {
         return $this->hasMany('App\BoxEvent');
     }

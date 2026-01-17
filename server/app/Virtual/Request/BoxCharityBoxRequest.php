@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace App\Virtual\Request;
 
-use OpenApi\Annotations as OA;
-
 /**
  * @OA\Schema(
  *      title="Charity Box request",

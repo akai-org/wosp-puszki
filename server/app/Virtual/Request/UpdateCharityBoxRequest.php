@@ -2,9 +2,6 @@
 
 namespace App\Virtual\Request;
 
-use Money\Money;
-use OpenApi\Annotations as OA;
-
 /**
  * @OA\Schema(
  *      title="Modify Charity Box request",

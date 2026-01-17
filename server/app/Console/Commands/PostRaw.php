@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use function App\totalCollectedReal;
 
 class PostRaw extends Command
 {
@@ -38,7 +39,7 @@ class PostRaw extends Command
     public function handle(): void
     {
         $url = config('services.external_post.raw_url');
-        $totalArr = \App\totalCollectedReal();
+        $totalArr = totalCollectedReal();
         $total = $totalArr['amount_total_in_PLN'];
         $ch = curl_init();
 

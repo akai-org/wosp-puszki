@@ -6,6 +6,7 @@ use App\BoxEvent;
 use App\CharityBox;
 use App\Collector;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -68,7 +69,7 @@ class BoxOperator
         $boxes = $collector->boxes()->orderBy('id', 'desc')->with('collector')->notCounted()->get();
 
         if (count($boxes) == 0) {
-            throw new \Exception('Wszystkie puszki wolontariusza ' . $collector->display . ' są rozliczone.');
+            throw new Exception('Wszystkie puszki wolontariusza ' . $collector->display . ' są rozliczone.');
         }
 
         $event = new BoxEvent();
@@ -86,12 +87,12 @@ class BoxOperator
         $box = CharityBox::where('id', '=', $boxID)->first();
 
         if ($box->is_counted) {
-            throw new \Exception('Puszka została już rozliczona, numer puszki: ' . $box->id . 'Wolontariusz: ' .
+            throw new Exception('Puszka została już rozliczona, numer puszki: ' . $box->id . 'Wolontariusz: ' .
                 $box->collectorIdentifier);
         }
 
         if ($request->user()->hasRole('volounteer') && $box->counting_user_id != null && $box->counting_user_id != $this->operatingUserId) {
-            throw new \Exception('Puszka jest już w trakcie liczenia. Proszę zgłosić to do koordynatora rozliczenia.');
+            throw new Exception('Puszka jest już w trakcie liczenia. Proszę zgłosić to do koordynatora rozliczenia.');
         }
 
 
@@ -114,7 +115,7 @@ class BoxOperator
         $box = CharityBox::where('id', '=', $boxID)->first();
 
         if ($box->is_confirmed) {
-            throw new \Exception('Nie można modyfikować zatwierdzonej puszki.');
+            throw new Exception('Nie można modyfikować zatwierdzonej puszki.');
         }
 
         $box->is_counted = true;
@@ -165,30 +166,6 @@ class BoxOperator
         return $box;
     }
 
-    public function confirmBoxByBoxID(int $boxID): CharityBox
-    {
-        $box = CharityBox::where('id', '=', $boxID)->first();
-
-        $box->is_counted = true;
-        $box->counting_user_id = $this->operatingUserId;
-
-        $box->time_counted = Carbon::now();
-
-        $box->save();
-
-        $box = $box->fresh()->load('collector');
-
-        $event = new BoxEvent();
-        $event->type = 'confirmed';
-        $event->box_id = $box->id;
-        $event->user_id = $this->operatingUserId;
-        $event->comment = '';
-        $event->save();
-
-        return $box;
-    }
-
-
     private function getBoxDataFromRequest(Request $request): array
     {
         $validator = Validator::make($request->all(), [
@@ -217,7 +194,7 @@ class BoxOperator
         ]);
 
         if ($validator->fails()) {
-            throw new \Exception('Błąd walidacji puszki ' . $validator->errors()->first());
+            throw new Exception('Błąd walidacji puszki ' . $validator->errors()->first());
         }
 
         return array_merge(
@@ -229,7 +206,17 @@ class BoxOperator
 
     }
 
+    private function formatMoney(Money $money): string
+    {
+        $currencies = new ISOCurrencies();
+
+        $moneyFormatter = new DecimalMoneyFormatter($currencies);
+
+        return $moneyFormatter->format($money); // outputs 1.00 (decimal)
+    }
+
     //Zlicz całość puszki
+
     private function getTotalPLN(Request $request): Money
     {
         $total = Money::PLN(0);
@@ -253,13 +240,28 @@ class BoxOperator
     }
 
     // Format money to string
-    private function formatMoney(Money $money): string
+
+    public function confirmBoxByBoxID(int $boxID): CharityBox
     {
-        $currencies = new ISOCurrencies();
+        $box = CharityBox::where('id', '=', $boxID)->first();
 
-        $moneyFormatter = new DecimalMoneyFormatter($currencies);
+        $box->is_counted = true;
+        $box->counting_user_id = $this->operatingUserId;
 
-        return $moneyFormatter->format($money); // outputs 1.00 (decimal)
+        $box->time_counted = Carbon::now();
+
+        $box->save();
+
+        $box = $box->fresh()->load('collector');
+
+        $event = new BoxEvent();
+        $event->type = 'confirmed';
+        $event->box_id = $box->id;
+        $event->user_id = $this->operatingUserId;
+        $event->comment = '';
+        $event->save();
+
+        return $box;
     }
 
     public function getAll(): CharityBox|Collection|array

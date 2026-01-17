@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class LogsController extends Controller
 {
     public function __construct()
@@ -16,14 +14,16 @@ class LogsController extends Controller
 
     //Wszystkie logi
 
-    public function getAll(){
+    public function getAll()
+    {
         return view('liczymy.logs.box.display')
             ->with('ApiUrl', route('api.logs.list'))
             ->with('enableRefresh', true);
     }
 
     //Logi puszki
-    public function getBox($boxID){
+    public function getBox($boxID)
+    {
         return view('liczymy.logs.box.display')
             ->with('ApiUrl', route('api.logs.box', ['boxID' => $boxID]))
             ->with('enableRefresh', false);

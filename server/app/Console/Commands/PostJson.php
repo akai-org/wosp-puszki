@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Console\Command;
+use function App\totalCollectedReal;
 
 class PostJson extends Command
 {
@@ -41,7 +42,7 @@ class PostJson extends Command
     public function handle(): void
     {
         $url = config('services.json_post.url');
-        $totalArr = \App\totalCollectedReal();
+        $totalArr = totalCollectedReal();
         $ch = curl_init();
         $client = new Client();
 

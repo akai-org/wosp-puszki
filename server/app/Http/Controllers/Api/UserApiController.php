@@ -3,21 +3,12 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
-use App\Collector;
-use App\Http\Requests\Api\CollectorRequest;
 use App\Http\Requests\Api\UserRequest;
-use App\Http\Resources\Api\CharityBoxResource;
-use App\Http\Resources\Api\CollectorResource;
 use App\Http\Resources\Api\UserResource;
-use App\Lib\BoxOperator\BoxOperator;
 use App\Role;
 use App\User;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use OpenApi\Annotations as OA;
-use Response;
 
 /**
  * @author kabix09

@@ -10,24 +10,23 @@ use Illuminate\Support\Facades\Log;
 class AllegroFetch extends Command
 {
     /**
+     * Create a new command instance.
+     *
+     * @var string
+     */
+    private static $url = 'https://api.allegro.pl/sale/offers?sellingMode.format=AUCTION&limit=1000';
+    /**
      * The name and signature of the console command.
      *
      * @var string
      */
     protected $signature = 'allegro:fetch';
-
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Returns current sum of allegro auctions and stores it in cache';
-    /**
-     * Create a new command instance.
-     *
-     * @var string
-     */
-    private static $url = 'https://api.allegro.pl/sale/offers?sellingMode.format=AUCTION&limit=1000';
 
     /**
      * Create a new command instance.
@@ -90,23 +89,6 @@ class AllegroFetch extends Command
         $this->info('' . $sum);
     }
 
-    protected function getCurl($headers, $url, $content = null): CurlHandle
-    {
-        $ch = curl_init();
-        curl_setopt_array($ch, array(
-            CURLOPT_URL => $url,
-            CURLOPT_HTTPHEADER => $headers,
-            CURLOPT_SSL_VERIFYPEER => false,
-            CURLOPT_RETURNTRANSFER => true
-        ));
-        if ($content !== null) {
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
-        }
-        return $ch;
-    }
-
     function TokenRefresh($token)
     {
         $client_id = config('services.allegro.client_id');
@@ -124,5 +106,22 @@ class AllegroFetch extends Command
         }
 
         return json_decode($tokenResult)->access_token;
+    }
+
+    protected function getCurl($headers, $url, $content = null): CurlHandle
+    {
+        $ch = curl_init();
+        curl_setopt_array($ch, array(
+            CURLOPT_URL => $url,
+            CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_RETURNTRANSFER => true
+        ));
+        if ($content !== null) {
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $content);
+        }
+        return $ch;
     }
 }

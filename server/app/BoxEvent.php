@@ -2,7 +2,13 @@
 
 namespace App;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
+use Venturecraft\Revisionable\Revision;
 use Venturecraft\Revisionable\RevisionableTrait;
 
 /**
@@ -11,35 +17,41 @@ use Venturecraft\Revisionable\RevisionableTrait;
  * @property int $box_id
  * @property int $user_id
  * @property string $comment
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\CharityBox|null $box
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Venturecraft\Revisionable\Revision> $revisionHistory
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read CharityBox|null $box
+ * @property-read Collection<int, Revision> $revisionHistory
  * @property-read int|null $revision_history_count
- * @property-read \App\User|null $user
- * @method static \Illuminate\Database\Eloquent\Builder<static>|BoxEvent newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|BoxEvent newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|BoxEvent query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|BoxEvent whereBoxId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|BoxEvent whereComment($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|BoxEvent whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|BoxEvent whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|BoxEvent whereType($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|BoxEvent whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|BoxEvent whereUserId($value)
- * @mixin \Eloquent
+ * @property-read User|null $user
+ * @method static Builder<static>|BoxEvent newModelQuery()
+ * @method static Builder<static>|BoxEvent newQuery()
+ * @method static Builder<static>|BoxEvent query()
+ * @method static Builder<static>|BoxEvent whereBoxId($value)
+ * @method static Builder<static>|BoxEvent whereComment($value)
+ * @method static Builder<static>|BoxEvent whereCreatedAt($value)
+ * @method static Builder<static>|BoxEvent whereId($value)
+ * @method static Builder<static>|BoxEvent whereType($value)
+ * @method static Builder<static>|BoxEvent whereUpdatedAt($value)
+ * @method static Builder<static>|BoxEvent whereUserId($value)
+ * @mixin Eloquent
  */
 class BoxEvent extends Model
 {
     use RevisionableTrait;
 
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    /**
+     * @return BelongsTo<User, $this>
+     */
+    public function user(): BelongsTo
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(User::class);
     }
 
-    public function box(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    /**
+     * @return BelongsTo<CharityBox, $this>
+     */
+    public function box(): BelongsTo
     {
-        return $this->belongsTo('App\CharityBox');
+        return $this->belongsTo(CharityBox::class);
     }
 }

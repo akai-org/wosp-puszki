@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\CharityBox;
 use App\BoxEvent;
+use App\CharityBox;
 use Illuminate\Http\Request;
 
 /**
@@ -21,7 +21,8 @@ class CharityBoxApiController extends Controller
     }
 
     //Lista puszek do potwierdzenia (dla administratora)
-    public function getVerifyList(){
+    public function getVerifyList()
+    {
         $boxesToConfirm = CharityBox::with('collector', 'countingUser')
             ->unconfirmed()
             ->orderBy('time_counted', 'desc')
@@ -29,7 +30,8 @@ class CharityBoxApiController extends Controller
         return response()->json($boxesToConfirm);
     }
 
-    public function getVerifiedBoxes() {
+    public function getVerifiedBoxes()
+    {
         //Puszki potwierdzone
         $boxesConfirmed = CharityBox::with('collector', 'countingUser')
             ->confirmed()
@@ -39,7 +41,8 @@ class CharityBoxApiController extends Controller
         return response()->json($boxesConfirmed);
     }
 
-    public function postUnVerify(Request $request) {
+    public function postUnVerify(Request $request)
+    {
         $box = CharityBox::where('id', '=', $request->boxID)->first();
         $box->is_confirmed = false;
         $box->user_confirmed_id = null;
@@ -55,7 +58,7 @@ class CharityBoxApiController extends Controller
 
         return json_encode(
             [
-                'message' => 'Puszka nr ' . $box->id . ' anulowano zatwierdzenie ('.$box->amount_PLN.'zł)',
+                'message' => 'Puszka nr ' . $box->id . ' anulowano zatwierdzenie (' . $box->amount_PLN . 'zł)',
                 'status' => 'success'
             ]
         );

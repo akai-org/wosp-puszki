@@ -8,6 +8,7 @@ use App\Http\Requests\Api\CollectorRequest;
 use App\Http\Resources\Api\CharityBoxResource;
 use App\Http\Resources\Api\CollectorResource;
 use App\Lib\BoxOperator\BoxOperator;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -139,7 +140,7 @@ final class CollectorApiController extends ApiController
             'lastName' => 'required|alpha|between:1,255',
             'phoneNumber' => 'nullable|alpha_num|between:9,16'
         ]);
-        
+
         //Sprawdzenie czy wolontariusza nie ma już w bazie (po ID)
         $collectorExists = Collector::where('identifier', '=', $request->input('collectorIdentifier'))->exists();
         if ($collectorExists) {
@@ -202,7 +203,7 @@ final class CollectorApiController extends ApiController
                 $box->additional_comment = $request->input('additional_comment');
                 $box->save();
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return Response::json([
                 'error' => $e->getMessage()
             ], 400);
@@ -247,7 +248,7 @@ final class CollectorApiController extends ApiController
 
         try {
             $box = $bo->findLatestUncountedByCollectorIdentifier($collectorIdentifier);
-        } catch (\Exception) {
+        } catch (Exception) {
             return Response::json(sprintf('Error: Charity Box for Collector wit identifier: %s not found', $collectorIdentifier), 404);
         }
 

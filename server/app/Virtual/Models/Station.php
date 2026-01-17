@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Virtual\Models;
 
-use OpenApi\Annotations as OA;
+use DateTime;
 
 /**
  * @author kabix09
@@ -48,7 +48,7 @@ final class Station
      *     example="2023-12-06 12:38:42"
      * )
      *
-     * @var \DateTime|null
+     * @var DateTime|null
      */
-    public ?\DateTime $time;
+    public ?DateTime $time;
 }
