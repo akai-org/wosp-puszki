@@ -11,6 +11,7 @@ use App\Http\Requests\Api\UpdateCountingCharityBoxRequest;
 use App\Http\Resources\Api\CharityBoxResource;
 use App\Lib\BoxOperator\BoxOperator;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -182,7 +183,7 @@ final class CharityBoxApiController extends ApiController
 
         try {
             $box = $bo->updateBoxByBoxID($request, $id);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return new JsonResponse([
                 'error_message' => $e->getMessage(),
                 'status' => ResponseAlias::HTTP_BAD_REQUEST,
@@ -461,7 +462,7 @@ final class CharityBoxApiController extends ApiController
 
         try {
             $box = $bo->startCountByBoxID($request, $id);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return new JsonResponse([
                 'error_message' => $e->getMessage(),
                 'status' => Response::HTTP_INTERNAL_SERVER_ERROR,
@@ -525,7 +526,7 @@ final class CharityBoxApiController extends ApiController
 
         try {
             $box = $bo->confirmBoxByBoxID($id);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return new JsonResponse([
                 'error_message' => 'ERROR',
                 'status' => Response::HTTP_INTERNAL_SERVER_ERROR,

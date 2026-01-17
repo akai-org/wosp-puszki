@@ -12,6 +12,7 @@ use League\Csv\Writer;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Table;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use SplTempFileObject;
 
 class DataDumpController extends Controller
 {
@@ -81,7 +82,7 @@ class DataDumpController extends Controller
         }
         $date = Carbon::now();
         $csvFileName = $this->getFileName($date, 'csv');
-        $csvFile = Writer::createFromFileObject(new \SplTempFileObject());
+        $csvFile = Writer::createFromFileObject(new SplTempFileObject());
         $csvFile->insertAll($csvData);
 
         $storagePath = 'charity_box_exports';
@@ -91,6 +92,11 @@ class DataDumpController extends Controller
         Cache::set('lastCsvDump', $date);
 
         return response()->download(storage_path("app/{$filePath}"), $file);
+    }
+
+    public function getFileName(Carbon $date, string $ext): string
+    {
+        return 'charity_boxes'.$date->timestamp.'.'.$ext;
     }
 
     /**
@@ -186,10 +192,5 @@ class DataDumpController extends Controller
         Cache::set('lastXlsxDump', $date);
 
         return response()->download(storage_path("app/{$filePath}"), $file);
-    }
-
-    public function getFileName(Carbon $date, string $ext): string
-    {
-        return 'charity_boxes'.$date->timestamp.'.'.$ext;
     }
 }

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Virtual\Models;
 
-use OpenApi\Annotations as OA;
-
 /**
  * @author kabix09
  *

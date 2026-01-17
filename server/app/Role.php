@@ -2,28 +2,33 @@
 
 namespace App;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
+use Venturecraft\Revisionable\Revision;
 use Venturecraft\Revisionable\RevisionableTrait;
 
 /**
  * @property int $id
  * @property string $name
  * @property string $description
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Venturecraft\Revisionable\Revision> $revisionHistory
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Collection<int, Revision> $revisionHistory
  * @property-read int|null $revision_history_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\User> $users
+ * @property-read Collection<int, User> $users
  * @property-read int|null $users_count
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Role newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Role newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Role query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Role whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Role whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Role whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Role whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Role whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @method static Builder<static>|Role newModelQuery()
+ * @method static Builder<static>|Role newQuery()
+ * @method static Builder<static>|Role query()
+ * @method static Builder<static>|Role whereCreatedAt($value)
+ * @method static Builder<static>|Role whereDescription($value)
+ * @method static Builder<static>|Role whereId($value)
+ * @method static Builder<static>|Role whereName($value)
+ * @method static Builder<static>|Role whereUpdatedAt($value)
+ * @mixin Eloquent
  */
 class Role extends Model
 {

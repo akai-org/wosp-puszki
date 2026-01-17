@@ -8,7 +8,6 @@ use App\Http\Resources\Api\StationResource;
 use Cache;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use OpenApi\Annotations as OA;
 use ReflectionClass;
 
 /**
@@ -39,8 +38,6 @@ class AvailabilityApiController extends ApiController
 
     public const STALE_TIMEOUT_IN_SECONDS = 300;
 
-    public function __construct() {}
-
     /**
      * @OA\Get(
      *  path="/api/stations",
@@ -65,6 +62,37 @@ class AvailabilityApiController extends ApiController
     public function index(): StationResource
     {
         return $this->getList();
+    }
+
+    /**
+     * @return StationResource
+     */
+    private function getList(): StationResource
+    {
+        $output = [];
+        for ($i = 1; $i < 40; $i++) {
+            $st = Cache::get('station_' . $i . '_status');
+            if ($st === self::STATUS_READY || $st === self::STATUS_BUSY) {
+                $t = Cache::get('station_' . $i . '_timestamp');
+                if (time() - (int)$t > self::STALE_TIMEOUT_IN_SECONDS) {
+                    $this->setStationStatus($i, self::STATUS_UNKNOWN);
+                }
+            }
+
+            $output[] = [
+                'station' => $i,
+                'status' => Cache::get('station_' . $i . '_status') ?? self::STATUS_UNKNOWN,
+                'time' => Cache::get('station_' . $i . '_timestamp')
+            ];
+        }
+
+        return new StationResource($output);
+    }
+
+    private function setStationStatus(int $id, int $status): void
+    {
+        Cache::set('station_' . $id . '_status', $status);
+        Cache::set('station_' . $id . '_timestamp', time());
     }
 
     /**
@@ -103,6 +131,15 @@ class AvailabilityApiController extends ApiController
         $this->setStationStatus($id, self::STATUS_READY);
 
         return new StationResource($this->getStationStatus($id));
+    }
+
+    private function getStationStatus(int $id): array
+    {
+        return [
+            'station' => $id,
+            'status' => Cache::get('station_' . $id . '_status'),
+            'time' => Cache::get('station_' . $id . '_timestamp'),
+        ];
     }
 
     /**

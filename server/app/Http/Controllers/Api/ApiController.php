@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use ReflectionClass;
+use ReflectionException;
 
 /**
  * @author kabix09
@@ -46,7 +47,7 @@ abstract class ApiController extends Controller
     private ReflectionClass $proxyClass;
 
     /**
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function __construct(string $class)
     {

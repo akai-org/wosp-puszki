@@ -28,15 +28,7 @@ final class CharityBox extends GenericModel
     public int $collectorIdentifier;
 
     /**
-     * @OA\Property(
-     *     title="Collector",
-     *     description="Charty box collector user model"
-     * )
-     */
-    // @phpstan-ignore property.unused
-    private Collector $collector;
-
-    /**
+    /*
      * @OA\Property(
      *     title="Is Given To Collector",
      *     description="Flag whether charity box has been issued",
@@ -45,7 +37,6 @@ final class CharityBox extends GenericModel
      * )
      */
     public bool $is_given_to_collector;
-
     /**
      * @OA\Property(
      *     title="Given To Collector User",
@@ -55,7 +46,6 @@ final class CharityBox extends GenericModel
      * @vav User
      */
     public User $given_to_collector_user_id;
-
     /**
      * @OA\Property(
      *     title="Time Given",
@@ -68,7 +58,6 @@ final class CharityBox extends GenericModel
      * @var \DateTime
      */
     public $time_given;
-
     /**
      * @OA\Property(
      *     title="Is Counted",
@@ -78,7 +67,6 @@ final class CharityBox extends GenericModel
      * )
      */
     public bool $is_counted;
-
     /**
      * @OA\Property(
      *     title="Counting User",
@@ -86,7 +74,6 @@ final class CharityBox extends GenericModel
      * )
      */
     public User $counting_user_id;
-
     /**
      * @OA\Property(
      *     title="Time Counted",
@@ -99,7 +86,6 @@ final class CharityBox extends GenericModel
      * @var \DateTime
      */
     public $time_counted;
-
     /**
      * @OA\Property(
      *     title="Is Confirmed",
@@ -110,7 +96,6 @@ final class CharityBox extends GenericModel
      * @var bool
      */
     public $is_confirmed;
-
     /**
      * @OA\Property(
      *     title="User Confirmed",
@@ -119,7 +104,6 @@ final class CharityBox extends GenericModel
      * )
      */
     public User $user_confirmed_id;
-
     /**
      * @OA\Property(
      *     title="TimeConfirmed",
@@ -132,7 +116,6 @@ final class CharityBox extends GenericModel
      * @var \DateTime
      */
     public $time_confirmed;
-
     /**
      * @OA\Property(
      *     title="Count_1gr",
@@ -142,7 +125,6 @@ final class CharityBox extends GenericModel
      * )
      */
     public int $count_1gr;
-
     /**
      * @OA\Property(
      *     title="Count_2gr",
@@ -152,7 +134,6 @@ final class CharityBox extends GenericModel
      * )
      */
     public int $count_2gr;
-
     /**
      * @OA\Property(
      *     title="Count_5gr",
@@ -162,7 +143,6 @@ final class CharityBox extends GenericModel
      * )
      */
     public int $count_5gr;
-
     /**
      * @OA\Property(
      *     title="Count_10gr",
@@ -172,7 +152,6 @@ final class CharityBox extends GenericModel
      * )
      */
     public int $count_10gr;
-
     /**
      * @OA\Property(
      *     title="Count_20gr",
@@ -182,7 +161,6 @@ final class CharityBox extends GenericModel
      * )
      */
     public int $count_20gr;
-
     /**
      * @OA\Property(
      *     title="Count_50gr",
@@ -192,7 +170,6 @@ final class CharityBox extends GenericModel
      * )
      */
     public int $count_50gr;
-
     /**
      * @OA\Property(
      *     title="Count_1zl",
@@ -204,7 +181,6 @@ final class CharityBox extends GenericModel
      * @var int
      */
     public $count_1zl;
-
     /**
      * @OA\Property(
      *     title="Count_2zl",
@@ -214,7 +190,6 @@ final class CharityBox extends GenericModel
      * )
      */
     public int $count_2zl;
-
     /**
      * @OA\Property(
      *     title="Count_5zl",
@@ -224,7 +199,6 @@ final class CharityBox extends GenericModel
      * )
      */
     public int $count_5zl;
-
     /**
      * @OA\Property(
      *     title="Count_10zl",
@@ -234,7 +208,6 @@ final class CharityBox extends GenericModel
      * )
      */
     public int $count_10zl;
-
     /**
      * @OA\Property(
      *     title="Count_20zl",
@@ -244,7 +217,6 @@ final class CharityBox extends GenericModel
      * )
      */
     public int $count_20zl;
-
     /**
      * @OA\Property(
      *     title="Count_50zl",
@@ -254,7 +226,6 @@ final class CharityBox extends GenericModel
      * )
      */
     public int $count_50zl;
-
     /**
      * @OA\Property(
      *     title="Count_100zl",
@@ -264,7 +235,6 @@ final class CharityBox extends GenericModel
      * )
      */
     public int $count_100zl;
-
     /**
      * @OA\Property(
      *     title="Count_200zl",
@@ -274,7 +244,6 @@ final class CharityBox extends GenericModel
      * )
      */
     public int $count_200zl;
-
     /**
      * @OA\Property(
      *     title="Count_500zl",
@@ -284,7 +253,6 @@ final class CharityBox extends GenericModel
      * )
      */
     public int $count_500zl;
-
     /**
      * @OA\Property(
      *     title="Amount PLN",
@@ -294,7 +262,6 @@ final class CharityBox extends GenericModel
      * )
      */
     public float $amount_PLN;
-
     /**
      * @OA\Property(
      *     title="Amount EUR",
@@ -304,7 +271,6 @@ final class CharityBox extends GenericModel
      * )
      */
     public Money $amount_EUR;
-
     /**
      * @OA\Property(
      *     title="Amount USD",
@@ -314,7 +280,6 @@ final class CharityBox extends GenericModel
      * )
      */
     public Money $amount_USD;
-
     /**
      * @OA\Property(
      *     title="Amount GBP",
@@ -324,7 +289,6 @@ final class CharityBox extends GenericModel
      * )
      */
     public Money $amount_GBP;
-
     /**
      * @OA\Property(
      *     title="Comment",
@@ -334,7 +298,6 @@ final class CharityBox extends GenericModel
      * )
      */
     public string $comment;
-
     /**
      * @OA\Property(
      *     title="Is Special Box",
@@ -344,4 +307,7 @@ final class CharityBox extends GenericModel
      * )
      */
     public bool $is_special_box;
+
+    // @phpstan-ignore property.unused
+    private Collector $collector;
 }

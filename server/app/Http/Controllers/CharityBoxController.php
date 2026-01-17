@@ -6,6 +6,7 @@ use App\BoxEvent;
 use App\CharityBox;
 use App\Lib\BoxOperator\BoxOperator;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 
 class CharityBoxController extends Controller
@@ -33,7 +34,7 @@ class CharityBoxController extends Controller
 
         try {
             $box = $bo->giveByCollectorIdentifier($request->input('collectorIdentifier'));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return redirect()->route('box.create')
                 ->with('error', $e->getMessage());
         }
@@ -54,7 +55,7 @@ class CharityBoxController extends Controller
 
         try {
             $box = $bo->findLatestUncountedByCollectorIdentifier($request->input('collectorIdentifier'));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return redirect()->route('box.find')
                 ->with('error', 'Wszystkie puszki wolontariusza są rozliczone.');
         }
@@ -69,7 +70,7 @@ class CharityBoxController extends Controller
 
         try {
             $box = $bo->startCountByBoxID($request, $boxID);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return redirect()->route('box.find')
                 ->with('error', $e->getMessage());
         }
@@ -84,7 +85,7 @@ class CharityBoxController extends Controller
 
         try {
             $box = $bo->updateBoxByBoxID($request, $boxID);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return redirect()->route('box.find')
                 ->with('error', 'ERROR');
         }
@@ -103,7 +104,7 @@ class CharityBoxController extends Controller
 
         try {
             $box = $bo->confirmBoxByBoxID($boxID);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return redirect()->route('box.find')
                 ->with('error', 'ERROR');
         }
@@ -206,7 +207,7 @@ class CharityBoxController extends Controller
 
         try {
             $box = $bo->updateBoxByBoxID($request, $boxID);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             abort(404);
         }
 

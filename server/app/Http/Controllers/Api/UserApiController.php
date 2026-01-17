@@ -10,8 +10,6 @@ use App\Role;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use OpenApi\Annotations as OA;
-use Response;
 
 /**
  * @author kabix09

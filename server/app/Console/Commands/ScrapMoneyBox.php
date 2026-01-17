@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Lib\AppStatusManager;
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;

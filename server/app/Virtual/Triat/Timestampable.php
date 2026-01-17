@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Virtual\Triat;
 
+use DateTime;
+
 /**
  * @author kabix09
  *
@@ -20,7 +22,7 @@ trait Timestampable
      *     example="2023-03-18 10:22:25.323"
      * )
      *
-     * @var \DateTime
+     * @var DateTime
      */
     public $created_at;
 
@@ -33,14 +35,24 @@ trait Timestampable
      *     example="2023-03-18 10:22:25.323"
      * )
      *
-     * @var \DateTime
+     * @var DateTime
      */
     public $updated_at;
 
     /**
+     * Get createdAt
+     *
+     * @return DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
+
+    /**
      * Set createdAt
      *
-     * @param  \DateTime  $createdAt
+     * @param DateTime $createdAt
      */
     public function setCreatedAt($createdAt)
     {
@@ -50,34 +62,24 @@ trait Timestampable
     }
 
     /**
-     * Get createdAt
+     * Get updatedAt
      *
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getCreatedAt()
+    public function getUpdatedAt()
     {
-        return $this->created_at;
+        return $this->updated_at;
     }
 
     /**
      * Set updatedAt
      *
-     * @param  \DateTime  $updatedAt
+     * @param DateTime $updatedAt
      */
     public function setUpdatedAt($updatedAt)
     {
         $this->updated_at = $updatedAt;
 
         return $this;
-    }
-
-    /**
-     * Get updatedAt
-     *
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updated_at;
     }
 }

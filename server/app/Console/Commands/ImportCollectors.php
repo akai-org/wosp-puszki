@@ -35,9 +35,9 @@ class ImportCollectors extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $file = storage_path('app/wolontariusze_utf8.csv');
 

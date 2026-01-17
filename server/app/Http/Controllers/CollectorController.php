@@ -25,7 +25,6 @@ class CollectorController extends Controller
     public function postCreate(Request $request)
     {
         $this->middleware('admin');
-        // Walidacja danych
 
         $request->validate([
             'collectorIdentifier' => 'required|alpha_num|between:1,255',
@@ -53,7 +52,6 @@ class CollectorController extends Controller
             'Dodano wolontariusza '.$collector->show());
     }
 
-    // Wyświetlanie wszystkich wolontariuszy (dla Adminów i superadminów)
     public function getList()
     {
         $this->middleware('collectorcoordinator');
@@ -70,15 +68,12 @@ class CollectorController extends Controller
             $boxesConfirmed = $collector->boxes()->where('is_confirmed', '=', 1)->count();
 
             if ($boxesGiven === 0) {
-                // Brak puszek
                 $status[$collector->identifier]['color'] = '#FFFFFF';
                 $status[$collector->identifier]['message'] = 'Brak puszek';
             } elseif ($boxesGiven == $boxesConfirmed) {
-                // Wszystko rozliczone
                 $status[$collector->identifier]['color'] = '#82CA9D';
                 $status[$collector->identifier]['message'] = 'Rozliczony';
             } elseif ($boxesGiven == $boxesCounted) {
-                // Oczekuje na zatwierdzenie
                 $status[$collector->identifier]['color'] = '#FF8400';
                 $status[$collector->identifier]['message'] = 'Oczekuje na zatwierdzenie';
             } else {
