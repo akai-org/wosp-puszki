@@ -30,7 +30,7 @@ class DisplayStats extends Command
         $biggestBoxes = CharityBox::confirmed()
             ->orderBy('amount_PLN', 'desc')
             ->limit(5)
-            ->get('id', 'amount_PLN');
+            ->get(['id', 'amount_PLN']);
 
         // 5 last boxes with time of confirmation
         $lastBoxes = CharityBox::confirmed()

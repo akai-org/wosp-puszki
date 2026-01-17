@@ -25,5 +25,6 @@ final class CollectorResource
      *
      * @var \App\Virtual\Models\CharityBox[]
      */
+    // @phpstan-ignore property.unused
     private $data;
 }

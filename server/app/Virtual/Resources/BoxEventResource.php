@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Virtual\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
-
 /**
  * @author kabix09
  *
@@ -27,5 +25,6 @@ final class BoxEventResource
      *
      * @var \App\Virtual\Models\CharityBox[]
      */
+    // @phpstan-ignore property.unused
     private $data;
 }

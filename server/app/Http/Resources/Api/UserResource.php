@@ -9,6 +9,7 @@ class UserResource extends JsonResponse
 {
     public function toArray($request)
     {
+        // @phpstan-ignore staticMethod.notFound
         return parent::toArray($request);
     }
 }

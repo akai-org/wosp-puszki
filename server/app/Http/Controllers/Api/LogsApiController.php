@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\BoxEvent;
 use Illuminate\Http\JsonResponse;
-use OpenApi\Annotations as OA;
 
 /**
  * @author kabix09
@@ -53,13 +52,12 @@ class LogsApiController extends ApiController
      */
     public function index()
     {
-        //Json z logami zwracamy
-        $logs = BoxEvent::with('user')
-            ->with('box')
+        $logs = BoxEvent::with(['user', 'box'])
             ->orderBy('created_at', 'desc')
+            ->limit(300)
             ->get([
                 'type', 'comment', 'created_at', 'user_id', 'box_id'
-            ])->take(300);
+            ]);
 
         return response()->json($logs);
     }
@@ -92,7 +90,8 @@ class LogsApiController extends ApiController
      * Display a listing of Box Events
      * @return JsonResponse
      */
-    public function getBox($id) {
+    public function getBox($id)
+    {
         //Json z logami zwracamy
         $logs = BoxEvent::with('user')
             ->with('box')

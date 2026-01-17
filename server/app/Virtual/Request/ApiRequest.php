@@ -6,5 +6,6 @@ namespace App\Virtual\Request;
 
 class ApiRequest
 {
+    // @phpstan-ignore property.unused
     private $basic_token;
 }

@@ -23,11 +23,13 @@
         "spatie/laravel-backup": "^9.0",
         "spatie/laravel-ignition": "^2.0",
         "symfony/panther": "^2.0",
-        "venturecraft/revisionable": "1.*"
+        "venturecraft/revisionable": "1.*",
+        "ext-curl": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.6",
         "dbrekelmans/bdi": "^1.0",
+        "larastan/larastan": "^3.8",
         "mockery/mockery": "^1.6",
         "pestphp/pest": "^3.0",
         "pestphp/pest-plugin-laravel": "^3.0"

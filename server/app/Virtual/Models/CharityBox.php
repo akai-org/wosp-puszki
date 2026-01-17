@@ -2,9 +2,7 @@
 
 namespace App\Virtual\Models;
 
-use App\Virtual\Triat\Timestampable;
 use Money\Money;
-use OpenApi\Annotations as OA;
 
 /**
  * @OA\Schema(
@@ -30,7 +28,7 @@ final class CharityBox extends GenericModel
      */
     public int $collectorIdentifier;
 
-     /**
+    /**
      * @OA\Property(
      *     title="Collector",
      *     description="Charty box collector user model"
@@ -38,6 +36,7 @@ final class CharityBox extends GenericModel
      *
      * @var Collector
      */
+    // @phpstan-ignore property.unused
     private Collector $collector;
 
     /**
@@ -95,7 +94,7 @@ final class CharityBox extends GenericModel
      *
      * @var User
      */
-    public user $counting_user_id;
+    public User $counting_user_id;
 
     /**
      * @OA\Property(

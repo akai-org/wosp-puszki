@@ -25,5 +25,6 @@ final class UserResource
      *
      * @var \App\Virtual\Models\CharityBox[]
      */
+    // @phpstan-ignore property.unused
     private $data;
 }
