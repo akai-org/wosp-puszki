@@ -7,7 +7,6 @@ use App\Http\Controllers\Api\CountedBoxApiController;
 use App\Http\Controllers\API\DataDumpController;
 use App\Http\Controllers\Api\HelpApiController;
 use App\Http\Controllers\Api\LogsApiController;
-use App\Http\Controllers\Api\RatesApiController;
 use App\Http\Controllers\Api\UserApiController;
 use Illuminate\Http\Request;
 
@@ -28,7 +27,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => ['auth.basic:,name']], function () {
     Route::get('health', function (Request $request) {
-        $roles = auth()->user()->roles()->get()->map(fn ($role) => $role->name);
+        $roles = auth()->user()->roles()->get()->map(fn($role) => $role->name);
 
         return response()->json(['user' => auth()->user()->name, 'roles' => $roles]);
     });
@@ -44,13 +43,6 @@ Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], func
 
 Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], function () {
 
-    Route::get('charityBoxes/count/collected', [CountedBoxApiController::class, 'collected'])->name('api.box.count.collected');
-    Route::get('charityBoxes/count/collected/sum', [CountedBoxApiController::class, 'collectedAmountOfMoney'])->name('api.box.count.collected.sum');
-    Route::get('charityBoxes/count/collected/{currency}', [CountedBoxApiController::class, 'collectedAmountOfMoneyByCurrency'])->name('api.box.count.collected.currency');
-
-    Route::get('charityBoxes/count/confirmed/', [CountedBoxApiController::class, 'confirmed'])->name('api.box.count.confirmed');
-    Route::get('charityBoxes/count/confirmed/sum', [CountedBoxApiController::class, 'confirmedAmountOfMoney'])->name('api.box.count.confirmed.sum');
-    Route::get('charityBoxes/count/confirmed/{currency}', [CountedBoxApiController::class, 'confirmedAmountOfMoneyByCurrency'])->name('api.box.count.confirmed.currency');
 
     // Potwierdź puszkę (dla administratora)
     Route::post('charityBoxes/{id}/verify', [CharityBoxApiController::class, 'verify'])->name('api.box.verify')->middleware('collectorcoordinator');
@@ -82,12 +74,7 @@ Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], func
     Route::get('logs/box/{id}', [LogsApiController::class, 'getBox'])->name('logs.box')->middleware('admin');
 });
 
-Route::group(['as' => 'api', 'middleware' => ['web', 'auth.basic:,name']], function () {
-    Route::apiResource('currency/rates', RatesApiController::class);
-});
-
 // API
-// Zwracamy dane z głównej strony w formie JSON
 Route::get('/stats', ['uses' => 'AmountDisplayController@displayRawJson']);
 
 Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], function () {

@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Console\Command;
 
 class PostJson extends Command
@@ -34,11 +35,12 @@ class PostJson extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
+     * @throws GuzzleException
      */
-    public function handle()
+    public function handle(): void
     {
-        $url = env('JSON_POST_URL');
+        $url = config('services.json_post.url');
         $totalArr = \App\totalCollectedReal();
         $ch = curl_init();
         $client = new Client;
@@ -48,13 +50,6 @@ class PostJson extends Command
             'verify' => false,
         ]);
 
-        // in real life you should use something like:
-        // curl_setopt($ch, CURLOPT_POSTFIELDS,
-        //          http_build_query(array('postvar1' => 'value1')));
-
-        // receive server response ...
-
         $this->info('Request success '.$url);
-
     }
 }

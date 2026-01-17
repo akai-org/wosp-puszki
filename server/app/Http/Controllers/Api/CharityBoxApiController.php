@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 /**
  * @author kabix09
@@ -65,6 +66,7 @@ final class CharityBoxApiController extends ApiController
      */
     public function index()
     {
+        // @phpstan-ignore larastan.relationExistence
         return new CharityBoxResource(CharityBox::with(['collector', 'revisionHistory'])->get());
     }
 
@@ -176,15 +178,15 @@ final class CharityBoxApiController extends ApiController
      */
     public function update(UpdateCountingCharityBoxRequest $request, int $id)
     {
-        $bo = new BoxOperator((string) $request->user()->id);
+        $bo = new BoxOperator($request->user()->id);
 
         try {
             $box = $bo->updateBoxByBoxID($request, $id);
         } catch (\Exception $e) {
             return new JsonResponse([
                 'error_message' => $e->getMessage(),
-                'status' => Response::HTTP_BAD_REQUEST,
-            ], Response::HTTP_BAD_REQUEST);
+                'status' => ResponseAlias::HTTP_BAD_REQUEST,
+            ], ResponseAlias::HTTP_BAD_REQUEST);
         }
 
         // Flash input in case user wants to go back
@@ -197,13 +199,6 @@ final class CharityBoxApiController extends ApiController
     {
         // TODO: Implement delete() method.
     }
-
-    //     *      @OA\Parameter(
-    //     *          name="Authorization",
-    //     *          in="header",
-    //     *          description="Enter token in format (Basic base64(username:password))",
-    //     *          @OA\Schema(type="basic"),
-    //     *      ),
 
     /**
      * @OA\Get(
@@ -462,7 +457,7 @@ final class CharityBoxApiController extends ApiController
      */
     public function startCounting(Request $request, int $id)
     {
-        $bo = new BoxOperator((string) $request->user()->id);
+        $bo = new BoxOperator($request->user()->id);
 
         try {
             $box = $bo->startCountByBoxID($request, $id);
@@ -526,7 +521,7 @@ final class CharityBoxApiController extends ApiController
      */
     public function confirm(Request $request, int $id)
     {
-        $bo = new BoxOperator((string) $request->user()->id);
+        $bo = new BoxOperator($request->user()->id);
 
         try {
             $box = $bo->confirmBoxByBoxID($id);

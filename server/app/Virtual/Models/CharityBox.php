@@ -3,7 +3,6 @@
 namespace App\Virtual\Models;
 
 use Money\Money;
-use OpenApi\Annotations as OA;
 
 /**
  * @OA\Schema(
@@ -34,6 +33,7 @@ final class CharityBox extends GenericModel
      *     description="Charty box collector user model"
      * )
      */
+    // @phpstan-ignore property.unused
     private Collector $collector;
 
     /**
@@ -85,7 +85,7 @@ final class CharityBox extends GenericModel
      *     description="Id of user counting charity box",
      * )
      */
-    public user $counting_user_id;
+    public User $counting_user_id;
 
     /**
      * @OA\Property(

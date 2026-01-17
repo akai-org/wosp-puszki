@@ -34,7 +34,7 @@ class Collector extends Model
 {
     use RevisionableTrait;
 
-    public function show()
+    public function show(): string
     {
         $formatted = $this->firstName.' ';
         $formatted .= $this->lastName.' ';
@@ -44,12 +44,12 @@ class Collector extends Model
         return $formatted;
     }
 
-    public function boxes()
+    public function boxes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany('App\CharityBox');
     }
 
-    public function getDisplayAttribute()
+    public function getDisplayAttribute(): string
     {
         $formatted = $this->firstName.' ';
         $formatted .= $this->lastName.' ';

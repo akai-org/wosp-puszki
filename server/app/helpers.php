@@ -28,8 +28,8 @@ function totalCollected()
 function totalCollectedArray()
 {
     // Eskarbonka
-    $amount_PLN_eskarbonka = AppStatusManager::readStatusValue(AppStatusManager::MONEYBOX_VALUE, 0);
-    // Zliczamy rozliczone PLN z puszek
+    $amount_PLN_eskarbonka = AppStatusManager::readStatusValue(AppStatusManager::MONEYBOX_VALUE, '0');
+    //Zliczamy rozliczone PLN z puszek
     $amount_PLN = round(CharityBox::where('is_confirmed', '=', 1)->sum('amount_PLN'), 2);
     $amount_PLN_unconfirmed = round(CharityBox::all()->sum('amount_PLN'), 2);
 

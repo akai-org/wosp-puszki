@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use CurlHandle;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
@@ -42,9 +43,9 @@ class AllegroFetch extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $auth_token = Cache::get('allegro_auth_token');
         $ch = curl_init();
@@ -64,7 +65,7 @@ class AllegroFetch extends Command
             Cache::put('allegro_auth_token', $auth_token, 43200);
             curl_setopt_array($ch, [
                 CURLOPT_URL => self::$url,
-                CURLOPT_HTTPHEADER => ['Accept: application/vnd.allegro.public.v1+json', 'Authorization: Bearer '.$auth_token],
+                CURLOPT_HTTPHEADER => ['Accept: application/vnd.allegro.public.v1+json','Authorization: Bearer '.$auth_token],
                 CURLOPT_SSL_VERIFYPEER => false,
                 CURLOPT_RETURNTRANSFER => true,
             ]);
@@ -86,10 +87,10 @@ class AllegroFetch extends Command
         }
         Log::info('Fetched allegro: '.$sum);
         Cache::put('allegro_sum', $sum, 3600);
-        $this->info($sum);
+        $this->info('' . $sum);
     }
 
-    protected function getCurl($headers, $url, $content = null)
+    protected function getCurl($headers, $url, $content = null): CurlHandle
     {
         $ch = curl_init();
         curl_setopt_array($ch, [
@@ -107,10 +108,10 @@ class AllegroFetch extends Command
         return $ch;
     }
 
-    public function TokenRefresh($token)
+    function TokenRefresh($token)
     {
-        $client_id = env('CLIENT_ID');
-        $client_secret = env('CLIENT_SECRET');
+        $client_id = config('services.allegro.client_id');
+        $client_secret = config('services.allegro.client_secret');
         $authorization = base64_encode($client_id.':'.$client_secret);
         $headers = ["Authorization: Basic {$authorization}", 'Content-Type: application/x-www-form-urlencoded'];
         $content = "grant_type=refresh_token&refresh_token={$token}";

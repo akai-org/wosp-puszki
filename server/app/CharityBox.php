@@ -120,7 +120,7 @@ class CharityBox extends Model
         'original_counting_user_id',
     ];
 
-    public function getOriginalCountingUserIdAttribute()
+    public function getOriginalCountingUserIdAttribute(): ?int
     {
         $history = $this->revisionHistory->where('key', 'counting_user_id')->sortBy('created_at')->first();
         if ($history) {
@@ -130,32 +130,32 @@ class CharityBox extends Model
         return $this->counting_user_id;
     }
 
-    public function collector()
+    public function collector(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo('App\Collector');
     }
 
-    public function givenToCollectorUser()
+    public function givenToCollectorUser(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo('App\User', 'given_to_collector_user_id', 'id');
     }
 
-    public function countingUser()
+    public function countingUser(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo('App\User', 'counting_user_id', 'id');
     }
 
-    public function personConfirming()
+    public function personConfirming(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo('App\User', 'user_confirmed_id', 'id');
     }
 
-    public function events()
+    public function events(): Builder|\Illuminate\Database\Eloquent\Relations\HasMany|CharityBox
     {
         return $this->hasMany('App\BoxEvent');
     }
 
-    public function getTotalWithForeignAttribute()
+    public function getTotalWithForeignAttribute(): string
     {
         $totalWithForeign = array_sum([
             $this->amount_PLN,
@@ -167,7 +167,7 @@ class CharityBox extends Model
         return number_format($totalWithForeign, 2, ',', ' ');
     }
 
-    public function getDisplayIdAttribute()
+    public function getDisplayIdAttribute(): string
     {
         return ' (ID puszki w bazie: '.$this->id.')';
     }

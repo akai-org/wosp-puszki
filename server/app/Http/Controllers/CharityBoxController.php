@@ -44,7 +44,7 @@ class CharityBoxController extends Controller
     // Znajdź puszkę (formularz)
     public function getFind()
     {
-        return view('box.find');
+        return view('liczymy.box.find');
     }
 
     // Znajdź puszkę (formularz)
@@ -193,7 +193,7 @@ class CharityBoxController extends Controller
         $box = CharityBox::where('id', '=', $boxID)->first();
 
         if ($box->is_confirmed) {
-            abort('404', 'Nie można modyfikować zatwierdzonej puszki.');
+            abort(404, 'Nie można modyfikować zatwierdzonej puszki.');
         }
 
         return view('box.modify')->with('box', $box);

@@ -81,7 +81,7 @@ class DataDumpController extends Controller
         }
         $date = Carbon::now();
         $csvFileName = $this->getFileName($date, 'csv');
-        $csvFile = Writer::createFromFileObject(new \SplTempFileObject);
+        $csvFile = Writer::createFromFileObject(new \SplTempFileObject());
         $csvFile->insertAll($csvData);
 
         $storagePath = 'charity_box_exports';
@@ -136,7 +136,7 @@ class DataDumpController extends Controller
         $dataLen = count($data) + 1;
         $columnNames = ['ID Wolo', 'Imię i Nazwisko', 'Numer telefonu', 'Godzina oddania', 'Godzina liczenia', 'Godzina potwierdzenia', 'Zebrane PLN', 'Zebrane EUR', 'Zebrane USD', 'Zebrane GBP', 'Inne'];
 
-        $spreadsheet = new Spreadsheet;
+        $spreadsheet = new Spreadsheet();
         $activeWorksheet = $spreadsheet->getActiveSheet();
         $activeWorksheet->setTitle('Puszki');
 

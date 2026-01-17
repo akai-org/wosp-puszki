@@ -1,11 +1,10 @@
-<?php
+<?php /** @noinspection PhpPropertyOnlyWrittenInspection */
 
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use OpenApi\Annotations as OA;
 use ReflectionClass;
 
 /**
@@ -43,6 +42,7 @@ use ReflectionClass;
  */
 abstract class ApiController extends Controller
 {
+    // @phpstan-ignore property.onlyWritten
     private ReflectionClass $proxyClass;
 
     /**

@@ -33,23 +33,19 @@ class PostRaw extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
-        $url = env('RAW_POST_URL');
+        $url = config('services.external_post.raw_url');
         $totalArr = \App\totalCollectedReal();
         $total = $totalArr['amount_total_in_PLN'];
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS,
             "total=$total");
-
-        // in real life you should use something like:
-        // curl_setopt($ch, CURLOPT_POSTFIELDS,
-        //          http_build_query(array('postvar1' => 'value1')));
 
         // receive server response ...
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

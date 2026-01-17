@@ -36,12 +36,12 @@ class AllegroController extends Controller
 
     protected function getAccessToken($authorization_code)
     {
-        $client_id = env('CLIENT_ID');
-        $client_secret = env('CLIENT_SECRET');
+        $client_id = config('services.allegro.client_id');
+        $client_secret = config('services.allegro.client_secret');
         $authorization = base64_encode($client_id.':'.$client_secret);
         $authorization_code = urlencode($authorization_code);
         $headers = ["Authorization: Basic {$authorization}", 'Content-Type: application/x-www-form-urlencoded'];
-        $content = "grant_type=authorization_code&code=${authorization_code}&redirect_uri=http://localhost:8000/allegro";
+        $content = "grant_type=authorization_code&code={$authorization_code}&redirect_uri=http://localhost:8000/allegro";
         $ch = $this->getCurl($headers, $content);
         $tokenResult = curl_exec($ch);
         $resultCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
