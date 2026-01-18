@@ -13,6 +13,7 @@ import {
   recognizeError,
   SETTLE_PROCESS_PATH,
   sum,
+  useCountedByContext,
   useDepositContext,
   useGetBoxQuery,
   ZLOTY_AMOUNTS_KEYS,
@@ -42,6 +43,7 @@ export interface DepositBoxFormProps {
 }
 
 export const DepositBoxForm = ({ boxId, editMode, autofill }: DepositBoxFormProps) => {
+  const { countedBy } = useCountedByContext();
   const [message, setMessage] = useState<FormMessage | undefined>();
   const [total, setTotal] = useState(0);
   const { boxData, handleAmountsChange } = useDepositContext();
@@ -56,13 +58,13 @@ export const DepositBoxForm = ({ boxId, editMode, autofill }: DepositBoxFormProp
     setTimeout(() => {
       setCanShow(true);
     }, 100);
-  }, [canShow]);
+  }, [autofill, canShow]);
 
   useEffect(() => {
     if (autofill && canShow && queryData) {
-      boxData.additional_comment = queryData?.additional_comment!;
+      boxData.additional_comment = queryData?.additional_comment;
     }
-  }, [canShow, queryData]);
+  }, [autofill, boxData, canShow, queryData]);
 
   useEffect(() => {
     setTotal(sum(boxData, ZLOTY_AMOUNTS_KEYS, MONEY_VALUES));
@@ -76,6 +78,7 @@ export const DepositBoxForm = ({ boxId, editMode, autofill }: DepositBoxFormProp
           comment: boxData.comment,
           additional_comment: boxData.additional_comment,
           ...boxData.amounts,
+          ...countedBy,
         },
       }),
     onSuccess: () =>

@@ -1,5 +1,5 @@
 import { RouteObject } from 'react-router-dom';
-import { GiveBoxPage, UnsettledBoxesPage, ListBoxesPage } from '@/pages';
+import { GiveBoxPage, ListBoxesPage, UnsettledBoxesPage } from '@/pages';
 import { InnerLayoutManager } from '@/components';
 import { ProtectedRoute } from '@components/ProtectedRoute/ProtectedRoute';
 import {
