@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CharityBox;
+use App\Events\StationStatusChanged;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
@@ -35,8 +36,10 @@ class MovementController extends Controller
                 ->orderBy('time_given', 'desc')
                 ->first();
 
-            Cache::put("station_{$stationId}_status", 3, now()->addHours(24));
-            Cache::put("station_{$stationId}_timestamp", time(), now()->addHours(24));
+            Cache::put("station_{$stationId}_status", 3, now()->addHours(1));
+            Cache::put("station_{$stationId}_timestamp", time(), now()->addHours(1));
+
+            event(new StationStatusChanged((int)$stationId, 3));
 
             $response = [
                 'success' => true,

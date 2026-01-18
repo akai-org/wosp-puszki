@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { ReactComponent as MapVertical } from '@assets/map_vertical.svg';
 import s from './StationsMapPage.module.less';
 import { stationState } from '@/utils';
@@ -49,23 +49,24 @@ export const StationsMapPage = () => {
     });
   }, [stations]);
 
-  useEffect(() => {
-    if (!stations) return;
-
-    const handleStationClick = (e: Event) => {
+  const handleStationSelect = useCallback(
+    (e: Event) => {
       const target = e.target as SVGElement;
       const stationId = target.id.replace('station', '');
       const stationNumber = parseInt(stationId);
 
       if (!stationNumber || isNaN(stationNumber)) return;
 
-      const station = stations.find((s) => s.station === stationNumber);
+    const station = stations.find((s) => s.station === stationNumber);
 
       if (station && station.status === stationState.available) {
         setSelectedStation(stationNumber);
       }
-    };
+    },
+    [stations],
+  );
 
+  const manageStationListeners = useCallback(() => {
     const container = containerRef.current;
 
     stations.forEach((station) => {
@@ -73,7 +74,7 @@ export const StationsMapPage = () => {
       if (!element) return;
 
       if (station.status === stationState.available) {
-        element.addEventListener('click', handleStationClick);
+        element.addEventListener('click', handleStationSelect);
         element.classList.add(s.clickable);
       } else {
         element.classList.remove(s.clickable);
@@ -84,12 +85,16 @@ export const StationsMapPage = () => {
       stations.forEach((station) => {
         const element = container?.querySelector(`#station${station.station}`);
         if (element) {
-          element.removeEventListener('click', handleStationClick);
+          element.removeEventListener('click', handleStationSelect);
           element.classList.remove(s.clickable);
         }
       });
     };
-  }, [stations]);
+  }, [stations, handleStationSelect]);
+
+  useEffect(() => {
+    return manageStationListeners();
+  }, [manageStationListeners]);
 
   const handleConfirm = () => {
     if (!selectedStation) return;

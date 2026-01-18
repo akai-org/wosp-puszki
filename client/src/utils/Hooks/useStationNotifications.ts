@@ -1,33 +1,36 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useAuthContext, getIDfromUsername, openNotification } from '@/utils';
+import { useMovementControllerStations } from '@/pages/MovementControllerPage/hooks/useMovementControllerStations';
+
 export const useStationNotifications = () => {
   const { username } = useAuthContext();
+  const { data: stations } = useMovementControllerStations();
+  const previousStatusRef = useRef<number | null>(null);
 
   useEffect(() => {
-    if (!username) return;
+    if (!username || !stations) return;
 
     const isStationUser = username.toLowerCase().startsWith('wosp');
     if (!isStationUser) return;
 
     const stationNumber = getIDfromUsername(username);
+    const myStation = stations.find((s) => s.station === stationNumber);
 
-    const handleStationStatusChange = (event: Event) => {
-      const customEvent = event as CustomEvent<{ stationNumber: number }>;
-      const { stationNumber: changedStation } = customEvent.detail;
+    if (!myStation) return;
 
-      if (changedStation === stationNumber) {
-        openNotification(
-          'info',
-          'Ktoś idzie do Twojego stanowiska!',
-          'Kontroler ruchu wysłał wolontariusza w Twoją stronę. Przygotuj się do odbioru puszki.',
-          'station-approaching-notification',
-        );
-      }
-    };
+    if (
+      previousStatusRef.current !== null &&
+      previousStatusRef.current !== 3 &&
+      myStation.status === 3
+    ) {
+      openNotification(
+        'info',
+        'Ktoś idzie do Twojego stanowiska!',
+        'Kontroler ruchu wysłał wolontariusza w Twoją stronę. Przygotuj się do odbioru puszki.',
+        'station-approaching-notification',
+      );
+    }
 
-    window.addEventListener('stationReadyDeployed', handleStationStatusChange);
-    return () => {
-      window.removeEventListener('stationReadyDeployed', handleStationStatusChange);
-    };
-  }, [username]);
+    previousStatusRef.current = myStation.status;
+  }, [username, stations]);
 };
