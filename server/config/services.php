@@ -34,5 +34,7 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
-
+    'discord' => [
+        'webhook' => env('DISCORD_WEBHOOK'),
+    ],
 ];

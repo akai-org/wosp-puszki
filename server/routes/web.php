@@ -74,11 +74,12 @@ Route::prefix('box')->group(function () {
     Route::post('findConfirm', function () {
         return redirect()->route('box.count', ['boxID' => request()->input('boxID')]);
     })->name('box.findConfirm')->middleware('auth');
-
+  
     Route::get('count/{boxID}', [CharityBoxController::class, 'getCount'])->name('box.count');
     Route::post('count/{boxID}', [CharityBoxController::class, 'postCount'])->name('box.count.post');
 
     Route::post('count/{boxID}/confirm', [CharityBoxController::class, 'confirm'])->name('box.count.confirm');
+
 
     Route::middleware('collectorcoordinator')->group(function () {
         Route::get('list/away', [CharityBoxController::class, 'getListAway'])->name('box.list.away');
@@ -105,7 +106,6 @@ Route::prefix('logs')->middleware('admin')->group(function () {
 
 // API
 Route::get('api', ['uses' => 'AmountDisplayController@displayApi']);
-
 Route::prefix('api')->middleware('admin')->group(function () {
     Route::prefix('box')->group(function () {
         Route::get('verify/list', [CharityBoxApiController::class, 'getVerifyList'])->name('api.box.verify.list');

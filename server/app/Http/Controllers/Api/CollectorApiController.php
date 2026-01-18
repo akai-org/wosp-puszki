@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api;
 
 use App\Collector;
+use App\Events\SpecialBoxIsCounted;
 use App\Http\Requests\Api\CollectorRequest;
 use App\Http\Resources\Api\CharityBoxResource;
 use App\Http\Resources\Api\CollectorResource;
@@ -250,6 +251,9 @@ final class CollectorApiController extends ApiController
             return Response::json(sprintf('Error: Charity Box for Collector wit identifier: %s not found', (string)$collectorIdentifier), 404);
         }
 
+        if ($box->is_special_box) {
+            SpecialBoxIsCounted::dispatch($request->user()->name, $box);
+        }
         return Response::json($box, 200);
     }
 }

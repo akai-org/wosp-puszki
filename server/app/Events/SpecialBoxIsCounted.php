@@ -2,18 +2,24 @@
 
 namespace App\Events;
 
+use App\CharityBox;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class HelpResolved
+class SpecialBoxIsCounted
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public string $userName;
+    public CharityBox $box;
 
-    public function __construct(string $userName)
+    /**
+     * Create a new event instance.
+     */
+    public function __construct(string $userName, CharityBox $box)
     {
         $this->userName = $userName;
+        $this->box = $box;
     }
 }

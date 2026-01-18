@@ -24,6 +24,7 @@ import TextArea from 'antd/lib/input/TextArea';
 import { JSX, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import s from './BoxDataForm.module.less';
+import { CallForHelpView } from '@components/CallForHelp';
 
 //indexes that are used for splitting array of inputs to match our design
 const moneySlice = {
@@ -188,6 +189,7 @@ export const DepositBoxForm = ({ boxId, editMode, autofill }: DepositBoxFormProp
         )}
       </Form>
       <CalculatorView />
+      <CallForHelpView />
     </>
   );
 };

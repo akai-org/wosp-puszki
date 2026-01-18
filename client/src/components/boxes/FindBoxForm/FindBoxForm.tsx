@@ -1,35 +1,36 @@
-import { FormButton, FormWrapper, FormInput, FormSelect } from '@/components';
-import { Typography, Space } from 'antd';
+import { FormButton, FormInput, FormSelect, FormWrapper } from '@/components';
+import { Space, Typography } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 import s from './FindBoxForm.module.less';
 import { useEffect, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import {
-  useBoxContext,
+  ACCEPT_BOX_PAGE_ROUTE,
+  APIManager,
   boxResponse,
+  createFullRoutePath,
+  fetcher,
+  FIND_BOX_BUSY_PAGE_ROUTE,
+  FIND_BOX_PAGE_ROUTE,
+  FormMessage,
+  getIDfromUsername,
+  ID_NUMBER_REQUIRED,
+  isFailedFetched,
+  NO_CONNECT_WITH_SERVER,
+  openNotification,
+  recognizeError,
   setStationAvailable,
   setStationUnavailable,
-  APIManager,
-  fetcher,
-  FormMessage,
-  ID_NUMBER_REQUIRED,
-  TYPE_OF_BOX_REQUIRED,
-  recognizeError,
-  isFailedFetched,
-  openNotification,
-  NO_CONNECT_WITH_SERVER,
-  useAuthContext,
   setStationUnknown,
-  getIDfromUsername,
-  createFullRoutePath,
   SETTLE_PROCESS_PATH,
-  ACCEPT_BOX_PAGE_ROUTE,
-  FIND_BOX_PAGE_ROUTE,
-  FIND_BOX_BUSY_PAGE_ROUTE,
+  TYPE_OF_BOX_REQUIRED,
+  useAuthContext,
+  useBoxContext,
 } from '@/utils';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'antd/es/form/Form';
 import { StationAvalibility } from './StationAvalibility';
+import { CallForHelpView } from '@components/CallForHelp';
 
 const { Text } = Typography;
 
@@ -182,6 +183,7 @@ export const FindBoxForm = () => {
         </FormButton>
       </Content>
       <StationAvalibility />
+      <CallForHelpView />
     </Content>
   );
 };

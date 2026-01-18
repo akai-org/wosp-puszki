@@ -1,8 +1,9 @@
-import { Typography, Space, Button } from 'antd';
-import { useAuthContext, getTopPermission, permissions } from '@/utils';
+import { Button, Space, Typography } from 'antd';
+import { getTopPermission, permissions, useAuthContext } from '@/utils';
 import { Spinner } from '@components/Layout/Spinner/Spinner';
 import s from './AcceptDataCard.module.less';
 import { ReactNode } from 'react';
+import { CallForHelpView } from '@components/CallForHelp';
 
 type AcceptData = {
   id_box: string;
@@ -59,6 +60,7 @@ export const AcceptDataCard = ({
         </Button>
       </Space>
       <Text className={s.errorText}>{error}</Text>
+      <CallForHelpView />
     </div>
   );
 };
