@@ -10,7 +10,6 @@ class LogsController extends Controller
         $this->middleware('collectorcoordinator');
     }
 
-
     public function getAll()
     {
         return view('logs.box.display')

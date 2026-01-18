@@ -20,7 +20,6 @@ test('as a superadmin I can see add user form with correct labels in order', fun
         'Typ użytkownika',
     ]);
 
-
     $response->assertStatus(200);
 });
 

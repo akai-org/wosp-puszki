@@ -17,6 +17,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CharityBoxApiController;
 use App\Http\Controllers\CharityBoxController;
 use App\Http\Controllers\CollectorController;
+use App\Http\Controllers\HelpController;
 use App\Http\Controllers\LogsController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;

@@ -194,7 +194,7 @@ class BoxOperator
         return $box;
     }
 
-    private function getBoxDataFromRequest(Request $request) : array
+    private function getBoxDataFromRequest(Request $request): array
     {
         $validator = Validator::make($request->all(), [
             // PLN

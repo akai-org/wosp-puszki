@@ -7,7 +7,7 @@
 #### Requirements
 
 -   PHP >= 8.3
-- Composer
+-   Composer
 -   Baza Postgres
 -   Node (tested 20.11.0 lts)
 
@@ -135,6 +135,14 @@ php artisan schedule:work
 OpenApi docummentation got described [here](./doc/Api/api.md)
 
 Process flos [is available here](./doc/Api/workflow.md)
+
+### Linter
+
+To clear all the code, use Laravel Pint
+
+```
+./vendor/bin/pint
+```
 
 ### Linter
 
