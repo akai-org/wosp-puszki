@@ -9,31 +9,31 @@ beforeEach(function () {
 });
 
 test('user adding is protected from volounteers', function () {
-    $response = $this->get('/liczymy/user/create');
+    $response = $this->get('/user/create');
 
     $response->assertStatus(302);
 });
 
 test('user list is protected from volounteers', function () {
-    $response = $this->get('/liczymy/user/list');
+    $response = $this->get('/user/list');
 
     $response->assertStatus(302);
 });
 
 test('logs are protected from volounteers', function () {
-    $response = $this->get('/liczymy/logs/all');
+    $response = $this->get('/logs/all');
 
     $response->assertStatus(302);
 });
 
 test('volounteer list is protected from volounteers', function () {
-    $response = $this->get('/liczymy/collector/list');
+    $response = $this->get('/collector/list');
 
     $response->assertStatus(302);
 });
 
 test('volounteer adding is protected from volounteers', function () {
-    $response = $this->get('/liczymy/collector/create');
+    $response = $this->get('/collector/create');
 
     $response->assertStatus(302);
 });

@@ -8,12 +8,11 @@ use App\Http\Requests\Api\CollectorRequest;
 use App\Http\Resources\Api\CharityBoxResource;
 use App\Http\Resources\Api\CollectorResource;
 use App\Lib\BoxOperator\BoxOperator;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
-use OpenApi\Annotations as OA;
 
 /**
  * @author kabix09
@@ -130,7 +129,8 @@ final class CollectorApiController extends ApiController
      * @param CollectorRequest $request
      * @return JsonResponse
      */
-    public function create(CollectorRequest $request) {
+    public function create(CollectorRequest $request)
+    {
         //Walidacja danych
         $request->validate([
             'collectorIdentifier' => 'required|alpha_num|between:1,255|unique:collectors,identifier',
@@ -140,11 +140,11 @@ final class CollectorApiController extends ApiController
         ]);
         //Sprawdzenie czy wolontariusza nie ma już w bazie (po ID)
         $collectorExists = Collector::where('identifier', '=', $request->input('collectorIdentifier'))->exists();
-        if($collectorExists) {
+        if ($collectorExists) {
             return new JsonResponse([
                 'status' => 'error',
                 'message' => 'Istnieje już wolontariusz o podanym numerze w systemie'
-            ], Response::HTTP_BAD_REQUEST);
+            ], 400);
         }
 
         //Dodanie wolontariusza
@@ -197,7 +197,7 @@ final class CollectorApiController extends ApiController
         $bo = new BoxOperator((string)$request->user()->id);
         try {
             $box = $bo->giveByCollectorIdentifier((string)$collectorIdentifier);
-            if(!is_null($request->input('additional_comment'))) {
+            if (!is_null($request->input('additional_comment'))) {
                 $box->additional_comment = $request->input('additional_comment');
                 $box->save();
             }

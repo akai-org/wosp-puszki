@@ -9,19 +9,19 @@ beforeEach(function () {
 });
 
 test('panel loads as superadmin', function () {
-    $response = $this->get('/liczymy');
+    $response = $this->get('/');
 
     $response->assertStatus(200);
 });
 
 test('create box loads as superadmin', function () {
-    $response = $this->get('/liczymy/box/create');
+    $response = $this->get('/box/create');
 
     $response->assertStatus(200);
 });
 
 test('logs loads as superadmin', function () {
-    $response = $this->get('/liczymy/logs/all');
+    $response = $this->get('/logs/all');
 
     $response->assertStatus(200);
 });

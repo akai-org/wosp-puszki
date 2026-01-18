@@ -15,8 +15,9 @@ import {
 import { Space, Spin } from 'antd';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import { FC } from 'react';
 import { Content } from 'antd/lib/layout/layout';
+import { FC, useEffect, useState } from 'react';
+import Paragraph from 'antd/lib/typography/Paragraph';
 
 interface Props {
   displayOnly?: boolean;
@@ -26,7 +27,6 @@ export const ShowBoxPage: FC<Props> = ({ displayOnly = false }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { refetch } = useUnverifiedBoxesQuery();
-
   const query = useGetBoxQuery(id as string);
   const queryData = query.data;
   const isQueryLoading = query.isLoading;
@@ -120,6 +120,16 @@ export const ShowBoxPage: FC<Props> = ({ displayOnly = false }) => {
       </Content>
     ) : (
       <Space direction="vertical">
+        <div>
+          <Paragraph style={{ fontWeight: 'bold', marginBottom: 0 }}>
+            Puszka przeliczona przez:
+          </Paragraph>
+          <Paragraph style={{ marginBottom: 0 }}>
+            {queryData?.first_counted_by_name} ({queryData?.first_counted_by_phone}){' '}
+            <br />
+            {queryData?.second_counted_by_name} ({queryData?.second_counted_by_phone})
+          </Paragraph>
+        </div>
         {queryData?.collector && (
           <div style={{ fontSize: '16px', marginBottom: '20px' }}>
             <strong>Wolontariusz: </strong> {queryData.collector.firstName}{' '}

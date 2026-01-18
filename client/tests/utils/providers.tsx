@@ -4,16 +4,18 @@ import { BrowserRouter } from 'react-router-dom';
 import {
   getBaseAuthContextValues,
   getBaseBoxContextValues,
+  getBaseCountedByContextValues,
   getBaseDepositContextValues,
 } from './basicMockupValues';
 import {
   AuthProviderConfig,
   BoxProviderConfig,
+  CountedByProviderConfig,
   DepositProviderConfig,
   Providers,
 } from './types';
 import { DepositContext } from '@/utils/Contexts/DepositContext';
-import { AuthContext, BoxContext } from '@/utils';
+import { AuthContext, BoxContext, CountedByContext } from '@/utils';
 
 export const BaseProviderFactory = ({ children }: { children: ReactNode }) => {
   const queryClient = new QueryClient();
@@ -26,25 +28,33 @@ export const BaseProviderFactory = ({ children }: { children: ReactNode }) => {
 
 export const AllRootProvidersFactory = (
   { children }: { children: ReactNode },
-  config = { authContextValues: getBaseAuthContextValues },
+  config = {
+    authContextValues: getBaseAuthContextValues,
+    countedByContextValues: getBaseCountedByContextValues,
+  },
 ) => {
   const baseProvider = BaseProviderFactory({ children });
-  return AuthProviderFactory(
-    {
-      children: baseProvider,
-    },
-    config,
+  return (
+    <CountedByContext.Provider value={config.countedByContextValues()}>
+      {AuthProviderFactory(
+        {
+          children: baseProvider,
+        },
+        config,
+      )}
+    </CountedByContext.Provider>
   );
 };
 
 export const SettleBoxRoutesProvidersFactory: Providers<
-  DepositProviderConfig & BoxProviderConfig & AuthProviderConfig
+  DepositProviderConfig & BoxProviderConfig & AuthProviderConfig & CountedByProviderConfig
 > = (
   { children }: { children: ReactNode },
   config = {
     depositContextValues: getBaseDepositContextValues,
     boxContextValues: getBaseBoxContextValues,
     authContextValues: getBaseAuthContextValues,
+    countedByContextValues: getBaseCountedByContextValues,
   },
 ) => {
   const rootProviders = AllRootProvidersFactory({ children }, config);

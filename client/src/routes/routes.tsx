@@ -1,15 +1,16 @@
 import type { RouteObject } from 'react-router-dom';
 import {
-  settleProcessRoute,
   adminRoute,
   boxesRoute,
   countedBoxesRoute,
+  settleProcessRoute,
 } from './nestedRoutes';
-import { LoginPage, HomePage, NotFoundPage } from '@/pages';
+import { HomePage, LoginPage, NotFoundPage } from '@/pages';
 import { MainLayout } from '@/components';
 import { DisplayPage } from '@pages/DisplayPage';
 import { ProtectedRoute } from '@components/ProtectedRoute/ProtectedRoute';
-import { LOGIN_ROUTE, NOT_FOUND_ROUTE, MAIN_ROUTE } from '@/utils';
+import { LOGIN_ROUTE, MAIN_ROUTE, NOT_FOUND_ROUTE } from '@/utils';
+import { countedByRoute } from '@/routes/nestedRoutes/countedByRoute';
 
 const rootRoutes: RouteObject[] = [
   {
@@ -41,6 +42,7 @@ export const routes: RouteObject[] = [
     element: <MainLayout />,
     children: [
       ...rootRoutes,
+      countedByRoute,
       countedBoxesRoute,
       adminRoute,
       boxesRoute,
