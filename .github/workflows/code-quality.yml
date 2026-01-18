@@ -1,0 +1,41 @@
+name: Code Quality
+
+on:
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  analysis:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, dom, curl, libxml, zip
+          coverage: none
+
+      - name: Install Dependencies
+        run: cd server && composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Run Laravel Pint (Dry Run)
+        run: ./vendor/bin/pint --test
+
+      - name: Run Larastan
+        run: ./vendor/bin/phpstan analyse
+
+      - name: Run Laravel Pint and Commit
+        uses: aglipanci/laravel-pint-action@latest
+        with:
+          verboseMode: true
+          testMode: false # This will actually fix the code
+
+      - name: Security Check
+        uses: symfonycorp/security-checker-action@v5
+
+      - name: PHP Insights
+        run: php artisan insights --no-interaction --min-quality=80 --min-complexity=90
