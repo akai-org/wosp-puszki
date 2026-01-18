@@ -1,10 +1,9 @@
-import { Layout } from 'antd';
-import React, { useState, useEffect } from 'react';
+import { Layout, Tooltip } from 'antd';
+import React, { useEffect, useState } from 'react';
 import s from '../Sidebar.module.less';
 import Logo from '@/assets/wosp.svg';
 import { SidebarItem } from '@components/Layout/Sidebar/SidebarItem/SidebarItem';
 import { SubNavLink } from '@/utils';
-import { Tooltip } from 'antd';
 import { InstructionsModal } from '@components/Modal/InstructionsModal/InstructionsModal';
 import { SidebarActions } from '../SidebarFooter/SidebarActions';
 import { SidebarUser } from '../SidebarFooter/SidebarUser';
@@ -35,7 +34,9 @@ export const Logged: React.FC<SidebarData> = ({
       if (!hideIntructions) {
         setIsInstructionsOpen(true);
       }
-    } catch (e) {}
+    } catch (e) {
+      console.error(e);
+    }
   }, []);
 
   const handleLogout = () => {

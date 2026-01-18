@@ -1,6 +1,3 @@
-// React
-import { useEffect } from 'react';
-
 // Utility functions
 import type { TableColumns } from '@/utils';
 import { CreateColumns, useGetLogsQuery } from '@/utils';
@@ -8,7 +5,7 @@ import { createDisplayableLogData } from '@/utils/Functions/createRefactorData';
 
 // Style and ant design
 import s from '../AdminPage.module.less';
-import { Typography, Space, Layout } from 'antd';
+import { Layout, Space, Typography } from 'antd';
 import { CustomTable } from '@/components/CustomTable/CustomTable';
 
 const { Title } = Typography;

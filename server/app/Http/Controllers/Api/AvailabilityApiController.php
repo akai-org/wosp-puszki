@@ -231,18 +231,18 @@ class AvailabilityApiController extends ApiController
     {
         $output = [];
         for ($i = 1; $i < 40; $i++) {
-            $st = Cache::get('station_' . $i . '_status');
+            $st = Cache::get('station_'.$i.'_status');
             if ($st === self::STATUS_READY || $st === self::STATUS_BUSY) {
-                $t = Cache::get('station_' . $i . '_timestamp');
-                if (time() - (int)$t > self::STALE_TIMEOUT_IN_SECONDS) {
+                $t = Cache::get('station_'.$i.'_timestamp');
+                if (time() - (int) $t > self::STALE_TIMEOUT_IN_SECONDS) {
                     $this->setStationStatus($i, self::STATUS_UNKNOWN);
                 }
             }
 
             $output[] = [
                 'station' => $i,
-                'status' => Cache::get('station_' . $i . '_status') ?? self::STATUS_UNKNOWN,
-                'time' => Cache::get('station_' . $i . '_timestamp'),
+                'status' => Cache::get('station_'.$i.'_status') ?? self::STATUS_UNKNOWN,
+                'time' => Cache::get('station_'.$i.'_timestamp'),
             ];
         }
 
@@ -251,8 +251,8 @@ class AvailabilityApiController extends ApiController
 
     private function setStationStatus(int $id, int $status): void
     {
-        Cache::set('station_' . $id . '_status', $status);
-        Cache::set('station_' . $id . '_timestamp', time());
+        Cache::set('station_'.$id.'_status', $status);
+        Cache::set('station_'.$id.'_timestamp', time());
     }
 
     /**
@@ -262,8 +262,8 @@ class AvailabilityApiController extends ApiController
     {
         return [
             'station' => $id,
-            'status' => Cache::get('station_' . $id . '_status'),
-            'time' => Cache::get('station_' . $id . '_timestamp'),
+            'status' => Cache::get('station_'.$id.'_status'),
+            'time' => Cache::get('station_'.$id.'_timestamp'),
         ];
     }
 }

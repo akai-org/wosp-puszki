@@ -3,6 +3,7 @@ import { Space, Typography } from 'antd';
 import s from './GiveBoxForm.module.less';
 import {
   APIManager,
+  boxResponse,
   BoxTypeFormInput,
   boxTypeFormSelectOptions,
   fetcher,
@@ -27,17 +28,17 @@ export const GiveBoxForm = () => {
   const [message, setMessage] = useState<FormMessage | undefined>();
   const [form] = useForm();
 
-  const mutation = useMutation({
+  const mutation = useMutation<boxResponse, unknown, boxFromHelp, unknown>({
     mutationFn: (boxForm: boxFromHelp) =>
       fetcher(APIManager.giveBoxURL(boxForm.id), {
         method: 'POST',
         body: { additional_comment: boxForm.text },
       }),
-    onError: (error) => {
+    onError: (error: unknown) => {
       console.log(error);
       setMessage({ type: 'error', content: recognizeError(error) });
     },
-    onSuccess: (data: any) => {
+    onSuccess: (data: { collectorIdentifier: string }) => {
       setMessage({
         type: 'success',
         content: `Pomyślnie wydano puszkę dla identyfikatora: ${data.collectorIdentifier}`,

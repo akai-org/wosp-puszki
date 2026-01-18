@@ -8,13 +8,13 @@ import {
   NO_CONNECT_WITH_SERVER,
   openNotification,
   permissions,
-  setStationUnavailable,
   SETTLE_PROCESS_PATH,
   sum,
   useAuthContext,
   useDepositContext,
   useFinishCounting,
   useGetBoxData,
+  useSetStationUnavailable,
   ZLOTY_AMOUNTS_KEYS,
 } from '@/utils';
 import { Button, Space, Typography } from 'antd';
@@ -45,7 +45,7 @@ export const SettleBoxPageCheckout = () => {
     useFinishCounting(boxIdentifier);
 
   // set station status to unavailable
-  setStationUnavailable();
+  useSetStationUnavailable();
 
   // when we get data, calculate the total value
   useEffect(() => {

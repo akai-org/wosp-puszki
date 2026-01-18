@@ -65,7 +65,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * @param array<string>|string $roles
+     * @param  array<string>|string  $roles
      */
     public function authorizeRoles(array|string $roles): bool
     {
@@ -81,7 +81,7 @@ class User extends Authenticatable
     /**
      * Check multiple roles
      *
-     * @param array<string> $roles
+     * @param  array<string>  $roles
      */
     public function hasAnyRole(array $roles): bool
     {

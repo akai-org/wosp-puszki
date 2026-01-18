@@ -19,13 +19,13 @@ import {
   NO_CONNECT_WITH_SERVER,
   openNotification,
   recognizeError,
-  setStationAvailable,
-  setStationUnavailable,
-  setStationUnknown,
   SETTLE_PROCESS_PATH,
   TYPE_OF_BOX_REQUIRED,
   useAuthContext,
   useBoxContext,
+  useSetStationAvailable,
+  useSetStationUnavailable,
+  useSetStationUnknown,
 } from '@/utils';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'antd/es/form/Form';
@@ -60,10 +60,12 @@ export const FindBoxForm = () => {
   const location = useLocation();
 
   if (location.pathname === `${SETTLE_PROCESS_PATH}/${FIND_BOX_PAGE_ROUTE}`) {
-    setStationAvailable();
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useSetStationAvailable();
   }
   if (location.pathname === `${SETTLE_PROCESS_PATH}/${FIND_BOX_BUSY_PAGE_ROUTE}`) {
-    setStationUnavailable();
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useSetStationUnavailable();
   }
 
   const mutation = useMutation<boxResponse, unknown, number | string, unknown>({
@@ -113,7 +115,7 @@ export const FindBoxForm = () => {
     isLoading: isLoadingBreak,
     isSuccess: isSuccessBreak,
     mutateAsync: mutateGoOnABreak,
-  } = setStationUnknown(username as string);
+  } = useSetStationUnknown(username as string);
 
   useEffect(() => {
     if (isErrorBreak && isFailedFetched(errorBreak))
