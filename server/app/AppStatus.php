@@ -5,6 +5,20 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Venturecraft\Revisionable\RevisionableTrait;
 
+/**
+ * @property string $id
+ * @property string $value
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AppStatus newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AppStatus newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AppStatus query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AppStatus whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AppStatus whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AppStatus whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AppStatus whereValue($value)
+ * @mixin \Eloquent
+ */
 class AppStatus extends Model
 {
 //    use \Venturecraft\Revisionable\RevisionableTrait {

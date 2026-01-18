@@ -27,6 +27,7 @@
         "venturecraft/revisionable": "1.*"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^3.6",
         "dbrekelmans/bdi": "^1.0",
         "mockery/mockery": "^1.6",
         "pestphp/pest": "^3.0",
