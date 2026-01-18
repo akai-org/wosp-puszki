@@ -52,7 +52,7 @@ export const CallForHelpView = () => {
       return <Spinner />;
     }
     if (helpCalled) {
-      return 'Nie potrzebuje już pomocy';
+      return 'Nie potrzebuję już pomocy';
     }
     return 'Zawołaj po pomoc';
   };
