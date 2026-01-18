@@ -6,9 +6,9 @@ use App\BoxEvent;
 use App\CharityBox;
 use App\Collector;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use Money\Currencies\ISOCurrencies;
@@ -19,7 +19,7 @@ class BoxOperator
 {
     private int $operatingUserId;
 
-    public function __construct(string $operatingUserId)
+    public function __construct(int $operatingUserId)
     {
         $this->operatingUserId = $operatingUserId;
     }
@@ -53,8 +53,6 @@ class BoxOperator
      */
     public function findLatestUncountedByCollectorIdentifier(string $identifier): CharityBox
     {
-        // Searching for the user
-        // Providing data for validation
         Validator::make(['identifier' => $identifier], [
             'identifier' => 'required|exists:collectors,identifier|alpha_num|between:1,255',
         ],
@@ -64,11 +62,10 @@ class BoxOperator
 
         $collector = Collector::where('identifier', '=', $identifier)->first();
 
-        // Puszki zbieracza
         $boxes = $collector->boxes()->orderBy('id', 'desc')->with('collector')->notCounted()->get();
 
         if (count($boxes) == 0) {
-            throw new \Exception('Wszystkie puszki wolontariusza '.$collector->display.' są rozliczone.');
+            throw new Exception('Wszystkie puszki wolontariusza '.$collector->display.' są rozliczone.');
         }
 
         $event = new BoxEvent;
@@ -85,13 +82,13 @@ class BoxOperator
     {
         $box = CharityBox::where('id', '=', $boxID)->first();
 
-        if ($box->isCounted) {
-            throw new \Exception('Puszka została już rozliczona, numer puszki: '.$box->id.'Wolontariusz: '.
+        if ($box->is_counted) {
+            throw new Exception('Puszka została już rozliczona, numer puszki: '.$box->id.'Wolontariusz: '.
                 $box->collectorIdentifier);
         }
 
         if ($request->user()->hasRole('volounteer') && $box->counting_user_id != null && $box->counting_user_id != $this->operatingUserId) {
-            throw new \Exception('Puszka jest już w trakcie liczenia. Proszę zgłosić to do koordynatora rozliczenia.');
+            throw new Exception('Puszka jest już w trakcie liczenia. Proszę zgłosić to do koordynatora rozliczenia.');
         }
 
         $event = new BoxEvent;
@@ -107,12 +104,13 @@ class BoxOperator
         return $box;
     }
 
-    public function updateBoxByBoxID(Request $request, int $boxID) : CharityBox
+
+    public function updateBoxByBoxID(Request $request, int $boxID): CharityBox
     {
         $box = CharityBox::where('id', '=', $boxID)->first();
 
         if ($box->is_confirmed) {
-            throw new \Exception('Nie można modyfikować zatwierdzonej puszki.');
+            throw new Exception('Nie można modyfikować zatwierdzonej puszki.');
         }
 
         $box->is_counted = true;
@@ -171,29 +169,11 @@ class BoxOperator
         return $box;
     }
 
-    public function confirmBoxByBoxID(int $boxID): CharityBox
-    {
-        $box = CharityBox::where('id', '=', $boxID)->first();
-
-        $box->is_counted = true;
-        $box->counting_user_id = $this->operatingUserId;
-
-        $box->time_counted = Carbon::now();
-
-        $box->save();
-
-        $box = $box->fresh()->load('collector');
-
-        $event = new BoxEvent;
-        $event->type = 'confirmed';
-        $event->box_id = $box->id;
-        $event->user_id = $this->operatingUserId;
-        $event->comment = '';
-        $event->save();
-
-        return $box;
-    }
-
+    /**
+     * @param Request $request
+     * @return array<string, mixed>
+     * @throws Exception
+     */
     private function getBoxDataFromRequest(Request $request): array
     {
         $validator = Validator::make($request->all(), [
@@ -229,7 +209,7 @@ class BoxOperator
         ]);
 
         if ($validator->fails()) {
-            throw new \Exception('Błąd walidacji puszki '.$validator->errors()->first());
+            throw new Exception('Błąd walidacji puszki '.$validator->errors()->first());
         }
 
         return array_merge(
@@ -241,7 +221,15 @@ class BoxOperator
 
     }
 
-    // Zlicz całość puszki
+    private function formatMoney(Money $money): string
+    {
+        $currencies = new ISOCurrencies();
+
+        $moneyFormatter = new DecimalMoneyFormatter($currencies);
+
+        return $moneyFormatter->format($money); // outputs 1.00 (decimal)
+    }
+
     private function getTotalPLN(Request $request): Money
     {
         $total = Money::PLN(0);
@@ -265,47 +253,45 @@ class BoxOperator
     }
 
     // Format money to string
-    private function formatMoney(Money $money): string
+
+    /**
+     * @param int $boxID
+     * @return CharityBox
+     */
+    public function confirmBoxByBoxID(int $boxID): CharityBox
     {
-        $currencies = new ISOCurrencies();
+        $box = CharityBox::where('id', '=', $boxID)->first();
 
-        $moneyFormatter = new DecimalMoneyFormatter($currencies);
+        $box->is_counted = true;
+        $box->counting_user_id = $this->operatingUserId;
 
-        return $moneyFormatter->format($money); // outputs 1.00 (decimal)
+        $box->time_counted = Carbon::now();
+
+        $box->save();
+
+        $box = $box->fresh()->load('collector');
+
+        $event = new BoxEvent();
+        $event->type = 'confirmed';
+        $event->box_id = $box->id;
+        $event->user_id = $this->operatingUserId;
+        $event->comment = '';
+        $event->save();
+
+        return $box;
     }
 
+    /**
+     * @return Collection<int, CharityBox>
+     */
     public function getAll(): Collection
     {
-        $boxes = DB::table('charity_boxes')->join('collectors', 'charity_boxes.collector_id', '=', 'collectors.id')
-            ->select(
-                'charity_boxes.id',
-                'charity_boxes.collector_id',
-                'charity_boxes.collectorIdentifier',
-                'charity_boxes.time_given',
-                'charity_boxes.time_counted',
-                'charity_boxes.time_confirmed',
-                'charity_boxes.amount_PLN',
-                'charity_boxes.amount_EUR',
-                'charity_boxes.amount_USD',
-                'charity_boxes.amount_GBP',
-                'charity_boxes.comment',
-                'collectors.firstName',
-                'collectors.lastName',
-                'collectors.phoneNumber',
-                'charity_boxes.first_counted_by_name',
-                'charity_boxes.first_counted_by_phone',
-                'charity_boxes.second_counted_by_name',
-                'charity_boxes.second_counted_by_phone',
-            )
-            // PostgreSQL orderBy sorts alphanumerically by default, we need to cast to numeric for proper sorting
-            ->orderByRaw('CAST("charity_boxes"."collectorIdentifier" AS NUMERIC)')
-            ->get();
-        // Cast from Illuminate\Support\Collection to Eloquent Collection
-        $boxes = new Collection($boxes);
-
-        return $boxes;
+        return CharityBox::with('collector')->orderByRaw('CAST("charity_boxes"."collectorIdentifier" AS NUMERIC)')->get();
     }
 
+    /**
+     * @return CharityBox
+     */
     public function lastChangedBox(): CharityBox
     {
         return CharityBox::with('collector')->orderBy('updated_at')->first();

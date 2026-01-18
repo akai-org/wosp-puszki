@@ -11,9 +11,11 @@ use App\Http\Requests\Api\UpdateCountingCharityBoxRequest;
 use App\Http\Resources\Api\CharityBoxResource;
 use App\Lib\BoxOperator\BoxOperator;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 /**
  * @author kabix09
@@ -65,6 +67,7 @@ final class CharityBoxApiController extends ApiController
      */
     public function index()
     {
+        // @phpstan-ignore larastan.relationExistence
         return new CharityBoxResource(CharityBox::with(['collector', 'revisionHistory'])->get());
     }
 
@@ -112,7 +115,7 @@ final class CharityBoxApiController extends ApiController
      *      )
      * )
      */
-    public function show(CharityBox $charityBox)
+    public function show(CharityBox $charityBox): CharityBoxResource
     {
         return new CharityBoxResource($charityBox
             ->load(['collector'])
@@ -176,15 +179,15 @@ final class CharityBoxApiController extends ApiController
      */
     public function update(UpdateCountingCharityBoxRequest $request, int $id)
     {
-        $bo = new BoxOperator((string) $request->user()->id);
+        $bo = new BoxOperator($request->user()->id);
 
         try {
             $box = $bo->updateBoxByBoxID($request, $id);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return new JsonResponse([
                 'error_message' => $e->getMessage(),
-                'status' => Response::HTTP_BAD_REQUEST,
-            ], Response::HTTP_BAD_REQUEST);
+                'status' => ResponseAlias::HTTP_BAD_REQUEST,
+            ], ResponseAlias::HTTP_BAD_REQUEST);
         }
 
         // Flash input in case user wants to go back
@@ -193,17 +196,10 @@ final class CharityBoxApiController extends ApiController
         return new CharityBoxResource($box);
     }
 
-    public function delete(int $id)
+    public function delete(int $id): void
     {
         // TODO: Implement delete() method.
     }
-
-    //     *      @OA\Parameter(
-    //     *          name="Authorization",
-    //     *          in="header",
-    //     *          description="Enter token in format (Basic base64(username:password))",
-    //     *          @OA\Schema(type="basic"),
-    //     *      ),
 
     /**
      * @OA\Get(
@@ -462,11 +458,11 @@ final class CharityBoxApiController extends ApiController
      */
     public function startCounting(Request $request, int $id)
     {
-        $bo = new BoxOperator((string) $request->user()->id);
+        $bo = new BoxOperator($request->user()->id);
 
         try {
             $box = $bo->startCountByBoxID($request, $id);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return new JsonResponse([
                 'error_message' => $e->getMessage(),
                 'status' => Response::HTTP_INTERNAL_SERVER_ERROR,
@@ -526,11 +522,11 @@ final class CharityBoxApiController extends ApiController
      */
     public function confirm(Request $request, int $id)
     {
-        $bo = new BoxOperator((string) $request->user()->id);
+        $bo = new BoxOperator($request->user()->id);
 
         try {
             $box = $bo->confirmBoxByBoxID($id);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return new JsonResponse([
                 'error_message' => 'ERROR',
                 'status' => Response::HTTP_INTERNAL_SERVER_ERROR,
@@ -588,17 +584,13 @@ final class CharityBoxApiController extends ApiController
      *      )
      * )
      */
-    public function verify(Request $request, int $id)
+    public function verify(Request $request, int $id): JsonResponse
     {
         $box = CharityBox::where('id', '=', $id)->first();
         $box->is_confirmed = true;
         $box->user_confirmed_id = $request->user()->id;
         $box->time_confirmed = Carbon::now();
         $box->save();
-
-        // Drukuj potwierdzenie?
-        // TODO
-        // Zapisujemy event do bazy
 
         $event = new BoxEvent;
         $event->type = 'verified';

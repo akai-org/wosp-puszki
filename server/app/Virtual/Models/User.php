@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Virtual\Models;
 
-use OpenApi\Annotations as OA;
-
 /**
  * @author kabix09
  *
@@ -48,20 +46,8 @@ final class User extends GenericModel
      *
      *     @OA\Items(type="object",ref="#/components/schemas/Role")
      * )
+     *
+     * @var array<string>
      */
     public array $roles;
-
-    // We don't want to show this data
-    //
-    //    /**
-    //     * @OA\Property(
-    //     *     title="Token",
-    //     *     description="",
-    //     *     type="string",
-    //     *     example=""
-    //     * )
-    //     *
-    //     * @var string
-    //     */
-    //    public string $remember_token;
 }

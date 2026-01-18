@@ -2,8 +2,14 @@
 
 namespace App;
 
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
+use Venturecraft\Revisionable\Revision;
 use Venturecraft\Revisionable\RevisionableTrait;
 
 /**
@@ -39,8 +45,8 @@ use Venturecraft\Revisionable\RevisionableTrait;
  * @property numeric $amount_USD
  * @property numeric $amount_GBP
  * @property string|null $comment
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property bool $is_special_box
  * @property string|null $metadata
  * @property string|null $additional_comment
@@ -48,16 +54,16 @@ use Venturecraft\Revisionable\RevisionableTrait;
  * @property string|null $first_counted_by_phone
  * @property string|null $second_counted_by_name
  * @property string|null $second_counted_by_phone
- * @property-read \App\Collector|null $collector
- * @property-read \App\User|null $countingUser
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\BoxEvent> $events
+ * @property-read Collector|null $collector
+ * @property-read User|null $countingUser
+ * @property-read Collection<int, BoxEvent> $events
  * @property-read int|null $events_count
  * @property-read mixed $display_id
  * @property-read mixed $original_counting_user_id
  * @property-read mixed $total_with_foreign
- * @property-read \App\User|null $givenToCollectorUser
- * @property-read \App\User|null $personConfirming
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Venturecraft\Revisionable\Revision> $revisionHistory
+ * @property-read User|null $givenToCollectorUser
+ * @property-read User|null $personConfirming
+ * @property-read Collection<int, Revision> $revisionHistory
  * @property-read int|null $revision_history_count
  * @method static Builder<static>|CharityBox confirmed()
  * @method static Builder<static>|CharityBox newModelQuery()
@@ -106,7 +112,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
  * @method static Builder<static>|CharityBox whereTimeGiven($value)
  * @method static Builder<static>|CharityBox whereUpdatedAt($value)
  * @method static Builder<static>|CharityBox whereUserConfirmedId($value)
- * @mixin \Eloquent
+ * @mixin Eloquent
  */
 class CharityBox extends Model
 {
@@ -120,7 +126,7 @@ class CharityBox extends Model
         'original_counting_user_id',
     ];
 
-    public function getOriginalCountingUserIdAttribute()
+    public function getOriginalCountingUserIdAttribute(): ?int
     {
         $history = $this->revisionHistory->where('key', 'counting_user_id')->sortBy('created_at')->first();
         if ($history) {
@@ -130,32 +136,47 @@ class CharityBox extends Model
         return $this->counting_user_id;
     }
 
-    public function collector()
+    /**
+     * @return BelongsTo<Collector, $this>
+     */
+    public function collector(): BelongsTo
     {
-        return $this->belongsTo('App\Collector');
+        return $this->belongsTo(Collector::class);
     }
 
-    public function givenToCollectorUser()
+    /**
+     * @return BelongsTo<User, $this>
+     */
+    public function givenToCollectorUser(): BelongsTo
     {
-        return $this->belongsTo('App\User', 'given_to_collector_user_id', 'id');
+        return $this->belongsTo(User::class, 'given_to_collector_user_id', 'id');
     }
 
-    public function countingUser()
+    /**
+     * @return BelongsTo<User, $this>
+     */
+    public function countingUser(): BelongsTo
     {
-        return $this->belongsTo('App\User', 'counting_user_id', 'id');
+        return $this->belongsTo(User::class, 'counting_user_id', 'id');
     }
 
-    public function personConfirming()
+    /**
+     * @return BelongsTo<User, $this>
+     */
+    public function personConfirming(): BelongsTo
     {
-        return $this->belongsTo('App\User', 'user_confirmed_id', 'id');
+        return $this->belongsTo(User::class, 'user_confirmed_id', 'id');
     }
 
-    public function events()
+    /**
+     * @return Builder<BoxEvent>|HasMany<BoxEvent, $this>|BoxEvent
+     */
+    public function events(): Builder|HasMany|BoxEvent
     {
-        return $this->hasMany('App\BoxEvent');
+        return $this->hasMany(BoxEvent::class);
     }
 
-    public function getTotalWithForeignAttribute()
+    public function getTotalWithForeignAttribute(): string
     {
         $totalWithForeign = array_sum([
             $this->amount_PLN,
@@ -167,11 +188,15 @@ class CharityBox extends Model
         return number_format($totalWithForeign, 2, ',', ' ');
     }
 
-    public function getDisplayIdAttribute()
+    public function getDisplayIdAttribute(): string
     {
         return ' (ID puszki w bazie: '.$this->id.')';
     }
 
+    /**
+     * @param Builder<CharityBox> $query
+     * @return Builder<CharityBox>
+     */
     public function scopeNotCounted(Builder $query): Builder
     {
         return $query
@@ -180,6 +205,10 @@ class CharityBox extends Model
             ->where('is_confirmed', '=', false);
     }
 
+    /**
+     * @param Builder<CharityBox> $query
+     * @return Builder<CharityBox>
+     */
     public function scopeUnconfirmed(Builder $query): Builder
     {
         return $query
@@ -188,6 +217,10 @@ class CharityBox extends Model
             ->where('is_confirmed', '=', false);
     }
 
+    /**
+     * @param Builder<CharityBox> $query
+     * @return Builder<CharityBox>
+     */
     public function scopeConfirmed(Builder $query): Builder
     {
         return $query

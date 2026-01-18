@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Virtual\Models;
 
 use App\Virtual\Triat\Timestampable;
-use OpenApi\Annotations as OA;
 
 abstract class GenericModel
 {
@@ -19,5 +18,6 @@ abstract class GenericModel
      *     example=1
      * )
      */
+    // @phpstan-ignore property.unused
     private int $id;
 }
