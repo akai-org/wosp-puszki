@@ -10,11 +10,13 @@ use App\Http\Requests\Api\CollectorRequest;
 use App\Http\Resources\Api\CharityBoxResource;
 use App\Http\Resources\Api\CollectorResource;
 use App\Lib\BoxOperator\BoxOperator;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 /**
  * @author kabix09
@@ -152,20 +154,20 @@ final class CollectorApiController extends ApiController
      */
     public function create(CollectorRequest $request)
     {
-        // Walidacja danych
+
         $request->validate([
             'collectorIdentifier' => 'required|alpha_num|between:1,255|unique:collectors,identifier',
             'firstName' => 'required|alpha|between:1,255',
             'lastName' => 'required|alpha|between:1,255',
             'phoneNumber' => 'nullable|alpha_num|between:9,16',
         ]);
-        // Sprawdzenie czy wolontariusza nie ma już w bazie (po ID)
+
         $collectorExists = Collector::where('identifier', '=', $request->input('collectorIdentifier'))->exists();
         if ($collectorExists) {
             return new JsonResponse([
                 'status' => 'error',
-                'message' => 'Istnieje już wolontariusz o podanym numerze w systemie',
-            ], 400);
+                'message' => 'Istnieje już wolontariusz o podanym numerze w systemie'
+            ], ResponseAlias::HTTP_BAD_REQUEST);
         }
 
         // Dodanie wolontariusza
@@ -220,15 +222,14 @@ final class CollectorApiController extends ApiController
      */
     public function createBoxForCollector(string $collectorIdentifier, Request $request)
     {
-        // $this->error($collectorIdentifier);
-        $bo = new BoxOperator((string) $request->user()->id);
+        $bo = new BoxOperator($request->user()->id);
         try {
-            $box = $bo->giveByCollectorIdentifier((string) $collectorIdentifier);
-            if (! is_null($request->input('additional_comment'))) {
+            $box = $bo->giveByCollectorIdentifier($collectorIdentifier);
+            if (!is_null($request->input('additional_comment'))) {
                 $box->additional_comment = $request->input('additional_comment');
                 $box->save();
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return Response::json([
                 'error' => $e->getMessage(),
             ], 400);
@@ -275,12 +276,12 @@ final class CollectorApiController extends ApiController
      */
     public function getCollectorLatUncountedBox(string $collectorIdentifier, Request $request)
     {
-        $bo = new BoxOperator((string) $request->user()->id);
+        $bo = new BoxOperator($request->user()->id);
 
         try {
-            $box = $bo->findLatestUncountedByCollectorIdentifier((string) $collectorIdentifier);
-        } catch (\Exception $e) {
-            return Response::json(sprintf('Error: Charity Box for Collector wit identifier: %s not found', (string) $collectorIdentifier), 404);
+            $box = $bo->findLatestUncountedByCollectorIdentifier($collectorIdentifier);
+        } catch (Exception) {
+            return Response::json(sprintf('Error: Charity Box for Collector wit identifier: %s not found', $collectorIdentifier), 404);
         }
 
         if ($box->is_special_box) {

@@ -87,6 +87,12 @@ After changing the models, run the following command to provide better IDE suppo
 php artisan ide-helper:models
 ```
 
+For the static code analysis run the following command:
+
+```
+./vendor/bin/phpstan analyse --memory-limit=2G
+```
+
 ### Events saved in the database
 
 | Nazwa eventu    | Opis eventu                                         |

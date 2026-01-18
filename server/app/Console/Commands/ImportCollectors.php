@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Collector;
 use Illuminate\Console\Command;
 use League\Csv\Reader;
+use Str;
 
 class ImportCollectors extends Command
 {
@@ -35,16 +36,16 @@ class ImportCollectors extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $file = storage_path('app/wolontariusze_utf8.csv');
 
         $this->info('import:'.$file);
         $contents = file_get_contents($file);
 
-        $reader = Reader::createFromString($contents);
+        $reader = Reader::createFromString((string)$contents);
         $reader->setDelimiter(';');
 
         $reader->setHeaderOffset(0);
@@ -58,9 +59,9 @@ class ImportCollectors extends Command
             $exploded = explode('/', $exploded);
             $collector->identifier = $exploded[0];
             $exploded = mb_split(' ', $record['fullName']);
-            $collector->firstName = $exploded[0];
-            $collector->lastName = end($exploded);
-            if ($record['phoneNumber'] != '') {
+            $collector->firstName = Str::before($record['fullName'], ' ');
+            $collector->lastName = Str::after($record['fullName'], ' ');
+            if ($record ['phoneNumber'] != '') {
                 $collector->phoneNumber = $record['phoneNumber'];
             }
             $i++;

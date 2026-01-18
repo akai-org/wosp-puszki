@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Collector;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -15,17 +18,16 @@ class CollectorController extends Controller
         $this->middleware('collectorcoordinator');
     }
 
-    public function getCreate()
+    public function getCreate(): Factory|View|\Illuminate\View\View
     {
         $this->middleware('admin');
 
         return view('collector.create');
     }
 
-    public function postCreate(Request $request)
+    public function postCreate(Request $request): RedirectResponse|Factory|View|\Illuminate\View\View
     {
         $this->middleware('admin');
-        // Walidacja danych
 
         $request->validate([
             'collectorIdentifier' => 'required|alpha_num|between:1,255',
@@ -33,13 +35,13 @@ class CollectorController extends Controller
             'lastName' => 'required|alpha|between:1,255',
             'phoneNumber' => 'nullable|alpha_num|between:9,16',
         ]);
-        // Sprawdzenie czy wolontariusza nie ma już w bazie (po ID)
+
         $collectorExists = Collector::where('identifier', '=', $request->input('collectorIdentifier'))->exists();
         if ($collectorExists) {
             return view('collector.create')->with('error', 'Istnieje już wolontariusz o podanym numerze w systemie');
         }
-        // Dodanie wolontariusza
-        $collector = new Collector;
+
+        $collector = new Collector();
         $collector->identifier = $request->input('collectorIdentifier');
         $collector->firstName = $request->input('firstName');
         $collector->lastName = $request->input('lastName');
@@ -53,13 +55,11 @@ class CollectorController extends Controller
             'Dodano wolontariusza '.$collector->show());
     }
 
-    // Wyświetlanie wszystkich wolontariuszy (dla Adminów i superadminów)
-    public function getList()
+    public function getList(): Factory|View|\Illuminate\View\View
     {
         $this->middleware('collectorcoordinator');
         $collectors = Collector::with('boxes')->get();
 
-        // Wnioskowanie statusu
         $status = [];
 
         foreach ($collectors as $collector) {
@@ -70,15 +70,12 @@ class CollectorController extends Controller
             $boxesConfirmed = $collector->boxes()->where('is_confirmed', '=', 1)->count();
 
             if ($boxesGiven === 0) {
-                // Brak puszek
                 $status[$collector->identifier]['color'] = '#FFFFFF';
                 $status[$collector->identifier]['message'] = 'Brak puszek';
             } elseif ($boxesGiven == $boxesConfirmed) {
-                // Wszystko rozliczone
                 $status[$collector->identifier]['color'] = '#82CA9D';
                 $status[$collector->identifier]['message'] = 'Rozliczony';
             } elseif ($boxesGiven == $boxesCounted) {
-                // Oczekuje na zatwierdzenie
                 $status[$collector->identifier]['color'] = '#FF8400';
                 $status[$collector->identifier]['message'] = 'Oczekuje na zatwierdzenie';
             } else {

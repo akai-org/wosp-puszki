@@ -1,12 +1,12 @@
-<?php
+<?php /** @noinspection PhpPropertyOnlyWrittenInspection */
 
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use OpenApi\Annotations as OA;
 use ReflectionClass;
+use ReflectionException;
 
 /**
  * @author kabix09
@@ -43,13 +43,15 @@ use ReflectionClass;
  */
 abstract class ApiController extends Controller
 {
+    // @phpstan-ignore property.onlyWritten, missingType.generics
     private ReflectionClass $proxyClass;
 
     /**
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function __construct(string $class)
     {
+        // @phpstan-ignore argument.type
         $this->proxyClass = new ReflectionClass($class);
     }
 }

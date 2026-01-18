@@ -24,13 +24,13 @@ class DisplayStats extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         // 5 biggest boxes
         $biggestBoxes = CharityBox::confirmed()
             ->orderBy('amount_PLN', 'desc')
             ->limit(5)
-            ->get('id', 'amount_PLN');
+            ->get(['id', 'amount_PLN']);
 
         // 5 last boxes with time of confirmation
         $lastBoxes = CharityBox::confirmed()
@@ -51,6 +51,6 @@ class DisplayStats extends Command
             'biggest_time_outside_boxes' => $biggestTimeOutsideBoxes,
         ];
 
-        $this->info(json_encode($statistics, JSON_PRETTY_PRINT));
+        $this->info((string)json_encode($statistics, JSON_PRETTY_PRINT));
     }
 }

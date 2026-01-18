@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Lib\Rates\RatesFetcher;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 use function App\totalCollected;
 use function App\totalCollectedArray;
@@ -18,29 +21,28 @@ class AmountDisplayController extends Controller
         $this->ratesFetcher = $fetcher;
     }
 
-    public function getRates()
+    public function getRates(): Factory|View|\Illuminate\View\View
     {
         return view('rates')->with('rates', $this->ratesFetcher->fetchRates());
     }
 
-    public function displayApi()
+    public function displayApi(): JsonResponse
     {
         $data = totalCollectedReal();
-
         return response()->json($data);
     }
 
-    public function getTotalRawPln()
+    public function getTotalRawPln(): string
     {
         return totalCollected();
     }
 
-    public function getTotalRawWithForeign()
+    public function getTotalRawWithForeign(): string
     {
         return totalCollectedWithForeign();
     }
 
-    public function displayRawJson()
+    public function displayRawJson(): JsonResponse
     {
         $data = totalCollectedArray();
 
