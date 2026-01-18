@@ -27,6 +27,10 @@
     fill: #93c01f !important;
 }
 
+#vertical-map .volunteer-ready-deployed {
+  fill: #9b59b6 !important;
+}
+
 #vertical-map .volunteer-unavailable {
     fill: #000 !important;
 }

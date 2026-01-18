@@ -7,6 +7,7 @@ use App\Http\Controllers\API\DataDumpController;
 use App\Http\Controllers\Api\HelpApiController;
 use App\Http\Controllers\Api\LogsApiController;
 use App\Http\Controllers\Api\UserApiController;
+use App\Http\Controllers\MovementController;
 use Illuminate\Http\Request;
 
 /*
@@ -81,8 +82,10 @@ Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], func
 
 Route::group(['as' => 'api.', 'middleware' => ['web']], function () {
     Route::get('/stations', [AvailabilityApiController::class, 'index']);
+    Route::get('/stations/all', [MovementController::class, 'getAllStations']);
     Route::get('/stations/status', [AvailabilityApiController::class, 'getStatusList']);
     Route::post('/stations/{id}/ready', [AvailabilityApiController::class, 'postReady']);
     Route::post('/stations/{id}/busy', [AvailabilityApiController::class, 'postBusy']);
     Route::post('/stations/{id}/unknown', [AvailabilityApiController::class, 'postUnknown']);
+    Route::post('/stations/{id}/ready-deployed', [MovementController::class, 'markStationReadyDeployed']);
 });

@@ -55,6 +55,7 @@ export const stationState = {
   unavailable: 0,
   available: 1,
   occupied: 2,
+  ready_deployed: 3,
 };
 
 export const stationsInitData: IStations[] = Array.from(Array(28)).map(

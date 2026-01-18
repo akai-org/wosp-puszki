@@ -35,7 +35,8 @@ export const VOLUNTEERS_LIST_PAGE_ROUTE = 'volunteers/list';
 export const ADD_VOLUNTEER_PAGE_ROUTE = 'volunteers/add';
 export const LOGS_PAGE_ROUTE = 'logs';
 
-// long paths for navigate
+export const STATIONS_MAP_ROUTE = 'stations-map';
+
 export const BOXES_PATH = `/${MAIN_ROUTE}/${BOXES_ROUTE}`;
 export const SETTLE_PROCESS_PATH = `${BOXES_PATH}/${SETTLE_PROCESS_ROUTE}`;
 export const ADMIN_PATH = `/${MAIN_ROUTE}/${ADMIN_ROUTE}`;
@@ -43,6 +44,7 @@ export const LOGIN_PATH = `/${MAIN_ROUTE}/${LOGIN_ROUTE}`;
 export const COUNTED_BOXES_PATH = `/${MAIN_ROUTE}/${COUNTED_BOXES_ROUTE}`;
 export const All_BOXES_PATH = `/${MAIN_ROUTE}/${BOXES_ROUTE}/${BOXES_LIST_PAGE_ROUTE}`;
 export const UNSETTLED_BOXES_PATH = `/${MAIN_ROUTE}/${BOXES_ROUTE}/${UNSETTLED_BOXES_LIST_PAGE_ROUTE}`;
+export const STATIONS_MAP_PATH = `/${MAIN_ROUTE}/${STATIONS_MAP_ROUTE}`;
 
 // Sidebar links names
 
@@ -50,3 +52,4 @@ export const ADMIN_ROUTE_NAME = 'Admin';
 export const BOXES_ROUTE_NAME = 'Puszki';
 export const MAIN_ROUTE_NAME = 'Strona Główna';
 export const COUNTED_BOXES_ROUTE_NAME = 'Przeliczone puszki';
+export const STATIONS_MAP_ROUTE_NAME = 'Mapa stanowisk';

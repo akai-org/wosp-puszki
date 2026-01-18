@@ -136,7 +136,8 @@ export type volunteerStatus = 'available' | 'occupied' | 'unavailable';
 export type volunteerStatusClass =
   | 'volunteer-available'
   | 'volunteer-occupied'
-  | 'volunteer-unavailable';
+  | 'volunteer-unavailable'
+  | 'volunteer-ready-deployed';
 
 export type currencies = 'pln' | 'eur' | 'gbp' | 'usd';
 
@@ -366,7 +367,7 @@ export interface Volunteer {
   lastName: string;
   phoneNumber?: string;
   created_at: number;
-  updated_at: string;
+  updated_at: number;
   boxes: Omit<boxResponse, 'collector'>[];
 }
 

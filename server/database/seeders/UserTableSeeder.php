@@ -21,6 +21,7 @@ class UserTableSeeder extends Seeder
         $roleAdmin = Role::where('name', '=', 'admin')->first();
         $roleVolounteer = Role::where('name', '=', 'volounteer')->first();
         $roleCollectorCoordinator = Role::where('name', '=', 'collectorcoordinator')->first();
+        $roleMovementController = Role::where('name', '=', 'movementcontroller')->first();
 
         // Dodawanie superadministratora
         $superadmin = new User;
@@ -40,6 +41,14 @@ class UserTableSeeder extends Seeder
         $collectorCoordinator->password = Hash::make('koordynacja');
         $collectorCoordinator->save();
         $collectorCoordinator->roles()->attach($roleCollectorCoordinator);
+
+        //Dodawanie kontrolera ruchu
+        $movementController = new User();
+        $movementController->name = 'movementcontroller';
+        $movementController->password = Hash::make('kontroler');
+        $movementController->save();
+        $movementController->roles()->attach($roleMovementController);
+
         // Dodawanie użytkownika
         // Generowanie 50 użytkowników
         for ($i = 1; $i <= 50; $i++) {

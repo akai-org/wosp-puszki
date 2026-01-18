@@ -23,7 +23,7 @@ export const ProtectedRoute = ({
   reversed,
   children,
   redirectTo = `/${MAIN_ROUTE}/${LOGIN_ROUTE}`,
-  permission = 'volounteer',
+  permission = 'movementcontroller',
 }: Props) => {
   const { credentials, roles } = useAuthContext();
   const { countedBy } = useCountedByContext();

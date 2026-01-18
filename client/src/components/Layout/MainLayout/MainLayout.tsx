@@ -1,8 +1,8 @@
 import { Layout } from 'antd';
 import { Outlet } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import s from './MainLayout.module.less';
 import { Sidebar } from '@components/Layout/Sidebar/Sidebar';
-import { useState } from 'react';
 import {
   getSidebarLinks,
   useAuthContext,
@@ -11,10 +11,17 @@ import {
 } from '@/utils';
 
 export const MainLayout = () => {
-  // const isLoggedIn = true;
   const [isLoggedIn, setLoggedState] = useState(false);
 
   const { username, credentials, deleteCredentials, roles } = useAuthContext();
+  useEffect(() => {
+    if (username !== null) {
+      setLoggedState(true);
+    } else {
+      setLoggedState(false);
+    }
+  }, [username]);
+  
   const { clearCountedBy } = useCountedByContext();
   if (username !== null && !isLoggedIn) {
     setLoggedState(true);
@@ -30,14 +37,14 @@ export const MainLayout = () => {
   const links = getSidebarLinks(roles);
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
+    <Layout className={s.layout}>
       <Sidebar
-        username={username}
         links={links}
-        credentials={credentials}
         show={show}
         toggleSidebar={toggleSidebar}
         deleteCredentials={clearSession}
+        username={username}
+        credentials={credentials}
       />
       <Layout.Content
         className={[
