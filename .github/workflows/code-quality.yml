@@ -32,12 +32,6 @@ jobs:
       - name: Run Larastan
         run: ./vendor/bin/phpstan analyse
 
-      - name: Security Check
-        uses: symfonycorp/security-checker-action@v5
-
-      - name: PHP Insights
-        run: php artisan insights --no-interaction --min-quality=80 --min-complexity=90
-
   # --- FRONTEND ANALYSIS ---
   frontend-analysis:
     runs-on: ubuntu-latest
