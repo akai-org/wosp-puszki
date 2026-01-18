@@ -54,7 +54,7 @@ export const CallForHelpView = () => {
     if (helpCalled) {
       return 'Nie potrzebuję już pomocy';
     }
-    return 'Zawołaj po pomoc';
+    return 'Zawołaj o pomoc';
   };
 
   return (
