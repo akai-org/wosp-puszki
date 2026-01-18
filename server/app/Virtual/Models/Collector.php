@@ -2,8 +2,6 @@
 
 namespace App\Virtual\Models;
 
-use OpenApi\Annotations as OA;
-
 /**
  * @author kabix09
  *
@@ -22,8 +20,6 @@ final class Collector extends GenericModel
      *     type="string",
      *     example="123"
      * )
-     *
-     * @var string
      */
     public string $identifier;
 
@@ -34,8 +30,6 @@ final class Collector extends GenericModel
      *     type="string",
      *     example="Jan"
      * )
-     *
-     * @var string
      */
     public string $first_name;
 
@@ -46,8 +40,6 @@ final class Collector extends GenericModel
      *     type="string",
      *     example="Kowalski"
      * )
-     *
-     * @var string
      */
     public string $last_name;
 
@@ -58,8 +50,6 @@ final class Collector extends GenericModel
      *     type="string",
      *     example="123456789"
      * )
-     *
-     * @var string
      */
     public string $phone_number;
 }

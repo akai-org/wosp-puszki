@@ -1,7 +1,5 @@
 <?php
 
-use App\CharityBox;
-use App\Collector;
 use App\Role;
 use App\User;
 use Illuminate\Testing\Fluent\AssertableJson;
@@ -15,13 +13,12 @@ beforeEach(function () {
 test('as a volounteer I can get exchange rates', function () {
     $this->actingAs($this->volounteer);
 
-    //Wchodzę na rates
+    // Wchodzę na rates
     $response = $this->get('api/currency/rates');
 
     $response->assertStatus(200);
 
-    $response->assertJson(fn (AssertableJson $json) =>
-    $json->whereType('rates', 'array')
+    $response->assertJson(fn (AssertableJson $json) => $json->whereType('rates', 'array')
         ->whereAllType([
             'rates.EUR' => 'double',
             'rates.USD' => 'double',

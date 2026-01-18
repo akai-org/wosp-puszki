@@ -39,6 +39,7 @@ export const EditBoxPage = () => {
         ? {
             amounts,
             comment: queryData?.comment || '',
+            additional_comment: queryData?.additional_comment || ''
           }
         : null,
     );

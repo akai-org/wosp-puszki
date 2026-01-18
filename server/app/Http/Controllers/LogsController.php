@@ -2,33 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 
 class LogsController extends Controller
 {
     public function __construct()
     {
-        //Zabezpieczamy autoryzacją (każdy zalogowany użytkownik ma dostęp)
         $this->middleware('auth');
-        //Tylko admini dodają zbieraczy (a lista powinna być zaimportowana wcześniej, żeby nie napierdalać tego ręcznie)
         $this->middleware('collectorcoordinator');
     }
 
-    //Wszystkie logi
-
-    public function getAll(){
-        return view('liczymy.logs.box.display')
+    public function getAll(): Factory|View|\Illuminate\View\View
+    {
+        return view('logs.box.display')
             ->with('ApiUrl', route('api.logs.list'))
             ->with('enableRefresh', true);
     }
 
-    //Logi puszki
-    public function getBox($boxID){
-        return view('liczymy.logs.box.display')
+    public function getBox(int $boxID): Factory|View|\Illuminate\View\View
+    {
+        return view('logs.box.display')
             ->with('ApiUrl', route('api.logs.box', ['boxID' => $boxID]))
             ->with('enableRefresh', false);
     }
-
-    //Logi użytkownika, powiązane z logami puszki
-
 }

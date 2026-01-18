@@ -1,34 +1,41 @@
 import { ContentColumns, FormButton } from '@/components';
 import { Modal } from '@/components/Modal/Modal';
 import {
-  BoxData,
-  useGetBoxQuery,
   AMOUNTS_KEYS,
-  fetcher,
   APIManager,
-  COUNTED_BOXES_PATH,
-  openNotification,
-  NO_CONNECT_WITH_SERVER,
+  BoxData,
   CANNOT_DOWNLOAD_DATA,
+  COUNTED_BOXES_PATH,
+  fetcher,
+  NO_CONNECT_WITH_SERVER,
+  openNotification,
+  useGetBoxQuery,
   useUnverifiedBoxesQuery,
 } from '@/utils';
-import { Space } from 'antd';
+import { Space, Spin } from 'antd';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import { FC, useEffect, useState } from 'react';
+import { Content } from 'antd/lib/layout/layout';
+import { FC } from 'react';
+import Paragraph from 'antd/lib/typography/Paragraph';
 
 interface Props {
   displayOnly?: boolean;
 }
+
 export const ShowBoxPage: FC<Props> = ({ displayOnly = false }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { refetch } = useUnverifiedBoxesQuery();
-  const [data, setData] = useState<BoxData | null>(null);
+  const query = useGetBoxQuery(id as string);
+  const queryData = query.data;
+  const isQueryLoading = query.isLoading;
 
-  const queryData = useGetBoxQuery(id as string).data;
+  const processedData: () => BoxData | null = () => {
+    if (!queryData) {
+      return null;
+    }
 
-  useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const amounts: any = {};
 
@@ -42,15 +49,15 @@ export const ShowBoxPage: FC<Props> = ({ displayOnly = false }) => {
         }
       });
     }
-    setData({
+
+    return {
       amounts,
       comment: queryData?.comment || '',
-    });
-    return () => {
-      setData(null);
+      additional_comment: queryData?.additional_comment || '',
     };
-  }, [queryData, queryData?.comment]);
+  };
 
+  const data = processedData();
   const verifyMutation = useMutation({
     mutationFn: () =>
       fetcher(`${APIManager.baseAPIRUrl}/charityBoxes/verified/${id}`, {
@@ -97,9 +104,40 @@ export const ShowBoxPage: FC<Props> = ({ displayOnly = false }) => {
     </FormButton>
   );
 
-  return (
-    <Modal title={'Zawartość puszki'}>
+  const modalContent =
+    isQueryLoading || !data ? (
+      <Content
+        style={{
+          minWidth: '50vw',
+          minHeight: '50vh',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          justifyItems: 'center',
+        }}
+      >
+        <Spin />
+      </Content>
+    ) : (
       <Space direction="vertical">
+        <div>
+          <Paragraph style={{ fontWeight: 'bold', marginBottom: 0 }}>
+            Puszka przeliczona przez:
+          </Paragraph>
+          <Paragraph style={{ marginBottom: 0 }}>
+            {queryData?.first_counted_by_name} ({queryData?.first_counted_by_phone}){' '}
+            <br />
+            {queryData?.second_counted_by_name} ({queryData?.second_counted_by_phone})
+          </Paragraph>
+        </div>
+        {queryData?.collector && (
+          <div style={{ fontSize: '16px', marginBottom: '20px' }}>
+            <strong>Wolontariusz: </strong> {queryData.collector.firstName}{' '}
+            {queryData.collector.lastName}
+            <br />
+            <strong>Kontakt: </strong> {queryData.collector.phoneNumber || 'Brak numeru'}
+          </div>
+        )}
         {data ? (
           <ContentColumns
             boxData={data}
@@ -119,6 +157,10 @@ export const ShowBoxPage: FC<Props> = ({ displayOnly = false }) => {
           {displayOnly ? null : actions}
         </Space>
       </Space>
+    );
+  return (
+    <Modal title={'Zawartość puszki'} key={id}>
+      {modalContent}
     </Modal>
   );
 };

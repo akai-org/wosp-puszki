@@ -2,9 +2,11 @@
 
 namespace App\Console\Commands;
 
-use function App\totalCollectedWithForeign;
-use Illuminate\Console\Command;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Console\Command;
+
+use function App\totalCollectedReal;
 
 class PostJson extends Command
 {
@@ -35,29 +37,20 @@ class PostJson extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @throws GuzzleException
      */
-    public function handle()
+    public function handle(): void
     {
-        $url = env('JSON_POST_URL');
-        $totalArr = \App\totalCollectedReal();
+        $url = config('services.json_post.url');
+        $totalArr = totalCollectedReal();
         $ch = curl_init();
-        $client = new Client();
+        $client = new Client;
 
         $r = $client->request('POST', $url, [
             'body' => json_encode($totalArr),
-            'verify' => false
+            'verify' => false,
         ]);
 
-
-        // in real life you should use something like:
-        // curl_setopt($ch, CURLOPT_POSTFIELDS,
-        //          http_build_query(array('postvar1' => 'value1')));
-
-        // receive server response ...
-
-
-        $this->info('Request success ' . $url);
-
+        $this->info('Request success '.$url);
     }
 }

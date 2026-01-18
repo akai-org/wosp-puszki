@@ -2,8 +2,6 @@
 
 namespace App\Virtual\Models;
 
-use OpenApi\Annotations as OA;
-
 /**
  * @author kabix09
  *
@@ -23,8 +21,6 @@ class Role extends GenericModel
      *     example="volunteer",
      *     enum={"volounteer", "admin", "superadmin"}
      * )
-     *
-     * @var string
      */
     public string $name;
 
@@ -35,8 +31,6 @@ class Role extends GenericModel
      *     type="string",
      *     example="Wolontariusz liczący",
      * )
-     *
-     * @var string
      */
     public string $description;
 }

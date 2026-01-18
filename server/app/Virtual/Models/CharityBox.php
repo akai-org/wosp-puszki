@@ -2,14 +2,13 @@
 
 namespace App\Virtual\Models;
 
-use App\Virtual\Triat\Timestampable;
 use Money\Money;
-use OpenApi\Annotations as OA;
 
 /**
  * @OA\Schema(
  *     title="CharityBox",
  *     description="CharityBox model",
+ *
  *     @OA\Xml(
  *         name="CharityBox"
  *     )
@@ -25,20 +24,8 @@ final class CharityBox extends GenericModel
      *     type="integer",
      *     example=299
      * )
-     *
-     * @var integer
      */
     public int $collectorIdentifier;
-
-     /**
-     * @OA\Property(
-     *     title="Collector",
-     *     description="Charty box collector user model"
-     * )
-     *
-     * @var Collector
-     */
-    private Collector $collector;
 
     /**
      * @OA\Property(
@@ -47,8 +34,6 @@ final class CharityBox extends GenericModel
      *     type="boolean",
      *     example=1
      * )
-     *
-     * @var boolean
      */
     public bool $is_given_to_collector;
 
@@ -82,8 +67,6 @@ final class CharityBox extends GenericModel
      *     type="boolean",
      *     example=0
      * )
-     *
-     * @var boolean
      */
     public bool $is_counted;
 
@@ -92,10 +75,8 @@ final class CharityBox extends GenericModel
      *     title="Counting User",
      *     description="Id of user counting charity box",
      * )
-     *
-     * @var User
      */
-    public user $counting_user_id;
+    public User $counting_user_id;
 
     /**
      * @OA\Property(
@@ -127,8 +108,6 @@ final class CharityBox extends GenericModel
      *     description="Id of user who confirmed charity box settlement",
      *     type="integer"
      * )
-     *
-     * @var User
      */
     public User $user_confirmed_id;
 
@@ -152,8 +131,6 @@ final class CharityBox extends GenericModel
      *     type="int64",
      *     example=120
      * )
-     *
-     * @var integer
      */
     public int $count_1gr;
 
@@ -164,8 +141,6 @@ final class CharityBox extends GenericModel
      *     type="int64",
      *     example=245
      * )
-     *
-     * @var integer
      */
     public int $count_2gr;
 
@@ -176,8 +151,6 @@ final class CharityBox extends GenericModel
      *     type="int64",
      *     example=300
      * )
-     *
-     * @var integer
      */
     public int $count_5gr;
 
@@ -188,8 +161,6 @@ final class CharityBox extends GenericModel
      *     type="int64",
      *     example=120
      * )
-     *
-     * @var integer
      */
     public int $count_10gr;
 
@@ -200,8 +171,6 @@ final class CharityBox extends GenericModel
      *     type="int64",
      *     example=80
      * )
-     *
-     * @var integer
      */
     public int $count_20gr;
 
@@ -212,8 +181,6 @@ final class CharityBox extends GenericModel
      *     type="int64",
      *     example=60
      * )
-     *
-     * @var integer
      */
     public int $count_50gr;
 
@@ -236,8 +203,6 @@ final class CharityBox extends GenericModel
      *     type="int64",
      *     example=60
      * )
-     *
-     * @var integer
      */
     public int $count_2zl;
 
@@ -248,8 +213,6 @@ final class CharityBox extends GenericModel
      *     type="int64",
      *     example=60
      * )
-     *
-     * @var integer
      */
     public int $count_5zl;
 
@@ -260,8 +223,6 @@ final class CharityBox extends GenericModel
      *     type="int64",
      *     example=60
      * )
-     *
-     * @var integer
      */
     public int $count_10zl;
 
@@ -272,8 +233,6 @@ final class CharityBox extends GenericModel
      *     type="int64",
      *     example=60
      * )
-     *
-     * @var integer
      */
     public int $count_20zl;
 
@@ -284,8 +243,6 @@ final class CharityBox extends GenericModel
      *     type="int64",
      *     example=60
      * )
-     *
-     * @var integer
      */
     public int $count_50zl;
 
@@ -296,8 +253,6 @@ final class CharityBox extends GenericModel
      *     type="int64",
      *     example=60
      * )
-     *
-     * @var integer
      */
     public int $count_100zl;
 
@@ -308,8 +263,6 @@ final class CharityBox extends GenericModel
      *     type="int64",
      *     example=60
      * )
-     *
-     * @var integer
      */
     public int $count_200zl;
 
@@ -320,8 +273,6 @@ final class CharityBox extends GenericModel
      *     type="int64",
      *     example=60
      * )
-     *
-     * @var integer
      */
     public int $count_500zl;
 
@@ -332,8 +283,6 @@ final class CharityBox extends GenericModel
      *     type="int64",
      *     example=60
      * )
-     *
-     * @var float
      */
     public float $amount_PLN;
 
@@ -344,8 +293,6 @@ final class CharityBox extends GenericModel
      *     type="int64",
      *     example=60
      * )
-     *
-     * @var Money
      */
     public Money $amount_EUR;
 
@@ -356,8 +303,6 @@ final class CharityBox extends GenericModel
      *     type="int64",
      *     example=60
      * )
-     *
-     * @var Money
      */
     public Money $amount_USD;
 
@@ -368,8 +313,6 @@ final class CharityBox extends GenericModel
      *     type="int64",
      *     example=60
      * )
-     *
-     * @var Money
      */
     public Money $amount_GBP;
 
@@ -380,8 +323,6 @@ final class CharityBox extends GenericModel
      *     type="string",
      *     example="Lorem ipsum"
      * )
-     *
-     * @var string
      */
     public string $comment;
 
@@ -392,8 +333,9 @@ final class CharityBox extends GenericModel
      *     type="bool",
      *     example=0
      * )
-     *
-     * @var boolean
      */
     public bool $is_special_box;
+
+    // @phpstan-ignore property.unused
+    private Collector $collector;
 }

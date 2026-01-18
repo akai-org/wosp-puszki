@@ -1,4 +1,15 @@
-.env
-vendor
+.git
 node_modules
+vendor
+public/build
+public/storage
+storage/*.key
+.env
+env
+.env.backup
+docker-compose.yml
 drivers
+bootstrap/cache/*.php
+storage/framework/views/*.php
+storage/framework/sessions/*
+storage/framework/cache/*

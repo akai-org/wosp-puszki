@@ -1,12 +1,10 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests\Api;
 
-use Gate;
 use Illuminate\Foundation\Http\FormRequest;
-use OpenApi\Annotations as OA;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @OA\Schema(
@@ -18,6 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
  *          "password",
  *          "role"
  *      },
+ *
  *      @OA\Property(
  *          property="userName",
  *          description="User name",
@@ -54,7 +53,7 @@ class UserRequest extends FormRequest
      */
     public function authorize()
     {
-        //abort_if(Gate::denies('admin') || Gate::denies('superadmin'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        // abort_if(Gate::denies('admin') || Gate::denies('superadmin'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return true;
     }

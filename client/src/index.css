@@ -1,30 +1,30 @@
 @import 'antd/dist/antd.css';
 
 @font-face {
-  font-family: 'Oxygen'; /*Can be any text*/
-  src: local('OxygenRegular'), url('./assets/fonts/Oxygen-Regular.ttf') format('truetype');
+    font-family: 'Oxygen'; /*Can be any text*/
+    src: local('OxygenRegular'), url('./assets/fonts/Oxygen-Regular.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Oswald-Bold'; /*Can be any text*/
-  src: local('Oswald-Bold'), url('./assets/fonts/Oswald-Bold.ttf') format('truetype');
+    font-family: 'Oswald-Bold'; /*Can be any text*/
+    src: local('Oswald-Bold'), url('./assets/fonts/Oswald-Bold.ttf') format('truetype');
 }
 
 :root {
-  font-family: Poppins, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
-  box-sizing: border-box;
-  background-color: #f0f2f5;
+    font-family: Poppins, Avenir, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    box-sizing: border-box;
+    background-color: #f0f2f5;
 }
 
 #vertical-map .volunteer-occupied {
-  fill: #e11e14 !important;
+    fill: #e11e14 !important;
 }
 
 #vertical-map .volunteer-available {
-  fill: #93c01f !important;
+    fill: #93c01f !important;
 }
 
 #vertical-map .volunteer-ready-deployed {
@@ -32,41 +32,56 @@
 }
 
 #vertical-map .volunteer-unavailable {
-  fill: #000 !important;
+    fill: #000 !important;
 }
 
 .boxesList .ant-table-thead .ant-table-cell {
-  font-size: smaller;
+    font-size: smaller;
 }
 
 @media (-webkit-device-pixel-ratio: 1.25) {
-  #rescale {
-    zoom: 0.8 !important;
-  }
+    #rescale {
+        zoom: 0.8 !important;
+    }
 }
 
 .give-color {
-  background-color: #bae1ff;
+    background-color: #bae1ff;
 }
+
 .found-color {
-  background: #ffaacc;
+    background: #ffaacc;
 }
+
 .startedCounting-color {
-  background-color: #ccaaff;
+    background-color: #ccaaff;
 }
+
 .endedCounting-color {
-  background-color: #ffaaee;
+    background-color: #ffaaee;
 }
+
 .confirmed-color {
-  background-color: #fff79a;
+    background-color: #fff79a;
 }
+
 .verified-color {
-  background-color: #82ca9d;
+    background-color: #82ca9d;
 }
+
 .modified-color {
-  background-color: #f7977a;
+    background-color: #f7977a;
 }
+
 .unverified-color {
-  background-color: black;
-  color: white;
+    background-color: black;
+    color: white;
+}
+
+.ant-layout-footer {
+    padding-bottom: 0 !important;
+}
+
+.ant-layout {
+    height: 100vh !important;
 }

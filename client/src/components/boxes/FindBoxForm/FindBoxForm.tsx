@@ -1,35 +1,36 @@
-import { FormButton, FormWrapper, FormInput, FormSelect } from '@/components';
-import { Typography, Space } from 'antd';
+import { FormButton, FormInput, FormSelect, FormWrapper } from '@/components';
+import { Space, Typography } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 import s from './FindBoxForm.module.less';
 import { useEffect, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import {
-  useBoxContext,
-  boxResponse,
-  setStationAvailable,
-  setStationUnavailable,
-  APIManager,
-  fetcher,
-  FormMessage,
-  ID_NUMBER_REQUIRED,
-  TYPE_OF_BOX_REQUIRED,
-  recognizeError,
-  isFailedFetched,
-  openNotification,
-  NO_CONNECT_WITH_SERVER,
-  useAuthContext,
-  setStationUnknown,
-  getIDfromUsername,
-  createFullRoutePath,
-  SETTLE_PROCESS_PATH,
   ACCEPT_BOX_PAGE_ROUTE,
-  FIND_BOX_PAGE_ROUTE,
+  APIManager,
+  boxResponse,
+  createFullRoutePath,
+  fetcher,
   FIND_BOX_BUSY_PAGE_ROUTE,
+  FIND_BOX_PAGE_ROUTE,
+  FormMessage,
+  getIDfromUsername,
+  ID_NUMBER_REQUIRED,
+  isFailedFetched,
+  NO_CONNECT_WITH_SERVER,
+  openNotification,
+  recognizeError,
+  SETTLE_PROCESS_PATH,
+  TYPE_OF_BOX_REQUIRED,
+  useAuthContext,
+  useBoxContext,
+  useSetStationAvailable,
+  useSetStationUnavailable,
+  useSetStationUnknown,
 } from '@/utils';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from 'antd/es/form/Form';
 import { StationAvalibility } from './StationAvalibility';
+import { CallForHelpView } from '@components/CallForHelp';
 
 const { Text } = Typography;
 
@@ -59,10 +60,12 @@ export const FindBoxForm = () => {
   const location = useLocation();
 
   if (location.pathname === `${SETTLE_PROCESS_PATH}/${FIND_BOX_PAGE_ROUTE}`) {
-    setStationAvailable();
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useSetStationAvailable();
   }
   if (location.pathname === `${SETTLE_PROCESS_PATH}/${FIND_BOX_BUSY_PAGE_ROUTE}`) {
-    setStationUnavailable();
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useSetStationUnavailable();
   }
 
   const mutation = useMutation<boxResponse, unknown, number | string, unknown>({
@@ -112,7 +115,7 @@ export const FindBoxForm = () => {
     isLoading: isLoadingBreak,
     isSuccess: isSuccessBreak,
     mutateAsync: mutateGoOnABreak,
-  } = setStationUnknown(username as string);
+  } = useSetStationUnknown(username as string);
 
   useEffect(() => {
     if (isErrorBreak && isFailedFetched(errorBreak))
@@ -182,6 +185,7 @@ export const FindBoxForm = () => {
         </FormButton>
       </Content>
       <StationAvalibility />
+      <CallForHelpView />
     </Content>
   );
 };

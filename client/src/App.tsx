@@ -6,8 +6,10 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import '@assets/fonts/Oswald-Bold.ttf';
 import {
   AuthContext,
-  useAuthContextValues,
+  CountedByContext,
   SidebarStateContext,
+  useAuthContextValues,
+  useCountedByContextValues,
   useSidebarStateValues,
   useStationNotifications,
 } from '@/utils';
@@ -35,14 +37,17 @@ function AppContent() {
 function App() {
   const authValues = useAuthContextValues();
   const sidebarValues = useSidebarStateValues();
+  const countedByValues = useCountedByContextValues();
 
   return (
     <AuthContext.Provider value={authValues}>
-      <SidebarStateContext.Provider value={sidebarValues}>
-        <QueryClientProvider client={queryClient}>
+      <CountedByContext.Provider value={countedByValues}>
+        <SidebarStateContext.Provider value={sidebarValues}>
+          <QueryClientProvider client={queryClient}>
           <AppContent />
-        </QueryClientProvider>
-      </SidebarStateContext.Provider>
+          </QueryClientProvider>
+        </SidebarStateContext.Provider>
+      </CountedByContext.Provider>
     </AuthContext.Provider>
   );
 }

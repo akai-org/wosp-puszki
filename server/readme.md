@@ -1,142 +1,110 @@
-# wosp-puszki
+# WOŚP Puszki Backend
 
 ## Setup
 
-### no-docker
+### Without docker
 
-#### wymagania
+#### Requirements
 
--   PHP >= 8.1
--   Baza Posggres
+-   PHP >= 8.3
+-   Composer
+-   Baza Postgres
 -   Node (tested 20.11.0 lts)
 
-#### instalacja
+#### Installation
 
 ```
-//kopiujemy plik .env.example do .env
-//uzupełniamy danymi plik .env, według komentarzy
+// Copy .env.example to .env file
+// Fill file .env, according to the comments
 
-//instalujemy zależności
-
+// Install dependencies
 composer install
 
-// Instalacja drivera do przeglądarki
+// Install driver browser
 vendor/bin/bdi detect drivers
 
-//generujemy nowy klucz, jeżeli to świeża instalacja
-
+// Generate app key (only for new instance)
 php artisan key:generate
 
-//Tworzymy strukturę bazy
-//Czysta baza
+// Create database structure
 php artisan migrate
 
-//Baza testowa (z wolo, adminem i superadminem)
+// Create test database (with wolo, adminem i superadminem)
 php artisan migrate --seed
 
-//Permissiony do storage
+// Add Storage permissions
 sudo chmod -R 755 storage/
 
+// Run websocket server
+php artisan reverb:start
 
-Usupełniamy kursy walut w pliku .env, odwiedzając
-http://localhost:8000/liczymy/rates i wklejając poniżej
-UWAGA, jeżeli nie są ustawione kursy, to STATIC_RATES musi być false
+// Run main server
+php artisan serve
 
-// Frontend:
+// Fill currencies in the .env fille by opening
+// http://localhost:8000/rates and pasting below
+// IMPORTANT: If static currencies are not set, STATIC_RATES needs to be false
+
+// Install frontend dependencies
 npm install
 
-// For dev work
+// Run frontend for dev work
 npm run dev
 
-// For prod
+// Run frontend for production
 npm run build
 ```
 
-### docker
+### Docker
 
-#### wymagania
+#### Requirements
 
--   docker-compose
+- docker-compose
 
 #### instalacja
 
--   uruchomić aplikację poleceniem:
+- Run app with the command:
 
 ```bash
 docker compose up
 ```
 
--   jeżeli to pierwsze uruchomienie na maszynie, można uruchomić skrypt `script/first_launch.sh`
-    lub ręcznie wykonać wybrane komendy z tego skryptu
+- If that's a first run, trigger `script/first_launch.sh` or manually trigger commands from the script
 
-## Testy
+## Tests
 
-Testy wymagają zainstalowania zgodnie z powyższą instrukcją.
-
+To trigger tests locally run
 `php artisan test`
-lub dla dockera `./script/run_tests.sh`
 
-Nowe testy dodajemy w folderze `tests/`.
+To trigger tests on docker run
+`./script/run_tests.sh`
 
 ## Dev guidelines
 
-Hard:
-
-Soft:
-
--   Używamy [gitmoji](https://gitmoji.dev/)
-
-### Wyłączanie autofill formularza w chrome
-```
-How to Disable and Clear AutoFill Info in your Browser
-In this article, we will tell you how to disable the autofill options in some of the most popular web browsers to prevent this information from being unintentionally saved or used in your browser.
-
-Google Chrome Instructions
-In Google Chrome, you will want to not only turn off autofill data, but also clear it. Instructions are listed below.
-
-Turning Off Autofill in Chrome
-
-Click the Chrome menu icon. (Three lines at top right of screen.)
-Click on Settings.
-At the bottom of the page, click “Show advanced Settings”
-In the Passwords and Forms section, uncheck “Enable Autofill to fill out web forms in a single click”
-Clearing Autofill Data in Chrome
-
-Click the Chrome menu icon. (Three lines at top right of screen.)
-Click on Tools.
-Select Clear browsing data.
-At the top, choose “the beginning of time” option to clear all saved data.
-Make sure that the “Clear saved Autofill form data” option is checked.
-Click Clear browsing data.
-```
-
-src: https://support.iclasspro.com/hc/en-us/articles/218569268-How-to-Disable-and-Clear-AutoFill-Info-in-your-Browser
-
-### Wydarzenia zapisywane do bazy (BoxEvent)
-
-| Nazwa eventu    | Opis eventu                                           |
-| --------------- | ----------------------------------------------------- |
-| give            | wydanie puszki wolontariuszowi                        |
-| found           | znalezienie puszki                                    |
-| startedCounting | rozpoczął rozliczenie puszki                          |
-| endedCounting   | zakończył liczenie (nie potwierdził jeszcze)          |
-| confirmed       | puszka została przeliczona i wysłana do potwierdzenia |
-| verified        | administrator zatwierdził                             |
-| modified        | administrator zmodyfikował                            |
-| unverified      | administrator od-zatwierdził                          |
-
-#### Przykładowy kod dodawania eventu
+After changing the models, run the following command to provide better IDE support
 
 ```
-//Zapisujemy event do bazy
-
-$event = new BoxEvent();
-$event->type = 'give';
-$event->box_id = $box->id;
-$event->user_id = $request->user()->id;
-$event->comment = 'Collector: ' . $collector->display;
-$event->save();
+php artisan ide-helper:models
 ```
+
+For the static code analysis run the following command:
+
+```
+./vendor/bin/phpstan analyse --memory-limit=2G
+```
+
+### Events saved in the database
+
+| Nazwa eventu    | Opis eventu                                         |
+|-----------------|-----------------------------------------------------|
+| give            | Giving box to the volunteer                         |
+| found           | Finding box                                         |
+| startedCounting | Started counting a box                              |
+| endedCounting   | Finishing counting a box (without confirmation)     |
+| confirmed       | Box has been counted and awaits for beind confirmed |
+| verified        | Administrator verified box                          |
+| modified        | Administrator modified box                          |
+| unverified      | Administrator unverified box                        |
 
 ### Websockets
 
@@ -152,27 +120,40 @@ Route::post('/stations/{id}/busy', [AvailabilityController::class, 'postBusy']);
 Route::post('/stations/{id}/unknown', [AvailabilityController::class, 'postUnknown']);
 ```
 
-### Import wolontariuszy
+### Import volunteers
 
-Należy pobrać plik `wolontariusze.csv` z systemu fundacji,
-a następnie zaimpoerować komendą `php artisan import:collectors`
+You need to download `wolontariusze.csv` file from the WOŚP foundation system,
+and import them using `php artisan import:collectors` command.
 
-### Pobieranie stanu eSkarbonki
+### Fetching eSkarbonka state
 
-Identyfikator eSkarbonki, której stan należy pobierać jest zapisany w pliku .env
-(klucz MONEYBOX_ID). Indentyfikator można określić na podstawie adresu URL skarbonki.
-Na przykład dla `https://eskarbonka.wosp.org.pl/he9yxj` identyfikatorem jest `he9yxj`.
+eSkarbonka ID needs to be set in the .env file (MONEYBOX_ID).
+The ID can be set based on the URL address eg. for the `https://eskarbonka.wosp.org.pl/he9yxj` the id is `he9yxj`.
 
-Aby okresowe pobieranie działało, należy stworzyć zadanie cron:
+To fetch it periodically, you need to trigger
 
 ```
-* * * * * cd /wosp-puszki && php artisan schedule:run >> /dev/null 2>&1
+php artisan schedule:work
 ```
-
-(więcej informacji: https://laravel.com/docs/9.x/scheduling#running-the-scheduler)
 
 ### API
 
-Dokumentacja OpenApi zastosowana w projekcie jak i zbiór endpointów opisane zostały [tutaj](./doc/Api/api.md)
+OpenApi docummentation got described [here](./doc/Api/api.md)
 
-Przepływ procesu [dostępny tu](./doc/Api/workflow.md)
+Process flos [is available here](./doc/Api/workflow.md)
+
+### Linter
+
+To clear all the code, use Laravel Pint
+
+```
+./vendor/bin/pint
+```
+
+### Linter
+
+To clear all the code, use Laravel Pint
+
+```
+./vendor/bin/pint
+```

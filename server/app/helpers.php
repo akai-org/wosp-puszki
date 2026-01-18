@@ -8,46 +8,45 @@ use App\Lib\Rates\RatesFetcher;
 use App\Lib\Rates\StaticRatesFetcher;
 use Illuminate\Support\Facades\Cache;
 
-// TODO jeżeli ten skrypt będzie refaktoryzowany, to te metode trzeba bedzie zastpic DI
-function resolveRatesFetcher(): RatesFetcher {
+function resolveRatesFetcher(): RatesFetcher
+{
     if (config('rates.static-rates')) {
-        return new StaticRatesFetcher();
+        return new StaticRatesFetcher;
     }
-    return new CurrentRatesFetcher();
+
+    return new CurrentRatesFetcher;
 }
 
-function totalCollected() {
+function totalCollected(): string
+{
     $data = totalCollectedArray();
+
     return number_format($data['amount_PLN'], 2, ',', ' ');
 }
 
-function totalCollectedArray() {
-    // Eskarbonka
-    $amount_PLN_eskarbonka = AppStatusManager::readStatusValue(AppStatusManager::MONEYBOX_VALUE, 0);
-    //Zliczamy rozliczone PLN z puszek
-    $amount_PLN = round(CharityBox::where('is_confirmed', '=', 1)->sum('amount_PLN'), 2);
-    $amount_PLN_unconfirmed = round(CharityBox::all()->sum('amount_PLN'),2);
+/**
+ * @return array<string, mixed>
+ */
+function totalCollectedArray(): array
+{
+    $amount_PLN_eskarbonka = AppStatusManager::readStatusValue(AppStatusManager::MONEYBOX_VALUE, '0');
+    $amount_PLN = round((float) CharityBox::where('is_confirmed', '=', 1)->sum('amount_PLN'), 2);
+    $amount_PLN_unconfirmed = round(CharityBox::all()->sum('amount_PLN'), 2);
 
-    //Zliczamy Inne waluty
-    //EUR
-    $amount_EUR = round(CharityBox::where('is_confirmed', '=', 1)->sum('amount_EUR'), 2);
-    //USD
-    $amount_USD = round(CharityBox::where('is_confirmed', '=', 1)->sum('amount_USD'), 2);
-    //GBP
-    $amount_GBP = round(CharityBox::where('is_confirmed', '=', 1)->sum('amount_GBP'), 2);
+    $amount_EUR = round((float) CharityBox::where('is_confirmed', '=', 1)->sum('amount_EUR'), 2);
+    $amount_USD = round((float) CharityBox::where('is_confirmed', '=', 1)->sum('amount_USD'), 2);
+    $amount_GBP = round((float) CharityBox::where('is_confirmed', '=', 1)->sum('amount_GBP'), 2);
 
-    //Pobieranie kursu
     $fetcher = resolveRatesFetcher();
     $rates = $fetcher->fetchRates();
 
-    //Policzenie sumy całości
     $total_PLN = array_sum(
         [
-            (float)$amount_PLN_eskarbonka,
+            (float) $amount_PLN_eskarbonka,
             round($amount_PLN, 2),
-            round($amount_USD*$rates['USD'], 2),
-            round($amount_EUR*$rates['EUR'], 2),
-            round($amount_GBP*$rates['GBP'], 2)
+            round($amount_USD * $rates['USD'], 2),
+            round($amount_EUR * $rates['EUR'], 2),
+            round($amount_GBP * $rates['GBP'], 2),
         ]
     );
 
@@ -55,43 +54,39 @@ function totalCollectedArray() {
 
     $data = [
         'amount_PLN' => $amount_PLN,
-        'amount_PLN_unconfirmed' => $amount_PLN_unconfirmed-$amount_PLN,
-        'amount_PLN_eskarbonka' => (float)$amount_PLN_eskarbonka,
+        'amount_PLN_unconfirmed' => $amount_PLN_unconfirmed - $amount_PLN,
+        'amount_PLN_eskarbonka' => (float) $amount_PLN_eskarbonka,
         'amount_EUR' => $amount_EUR,
         'amount_GBP' => $amount_GBP,
         'amount_USD' => $amount_USD,
         'rates' => $rates,
-        'amount_total_in_PLN' =>  round($total_PLN, 2),
+        'amount_total_in_PLN' => round($total_PLN, 2),
         'collectors_in_city' => $collectors_in_city,
-        'amount_allegro' => Cache::get('allegro_sum')
+        'amount_allegro' => Cache::get('allegro_sum'),
     ];
 
     return $data;
 }
 
-//Sup up all counted boxes
-function totalCollectedReal() {
-    $amount_PLN = CharityBox::where('is_counted', '=', 1)->sum('amount_PLN');
+/**
+ * @return array{amount_PLN: string, amount_EUR: string, amount_GBP: string, amount_USD: string, rates: float[], amount_total_in_PLN: string, collectors_in_city: int}
+ */
+function totalCollectedReal(): array
+{
+    $amount_PLN = (float) CharityBox::where('is_counted', '=', 1)->sum('amount_PLN');
+    $amount_EUR = (float) CharityBox::where('is_counted', '=', 1)->sum('amount_EUR');
+    $amount_USD = (float) CharityBox::where('is_counted', '=', 1)->sum('amount_USD');
+    $amount_GBP = (float) CharityBox::where('is_counted', '=', 1)->sum('amount_GBP');
 
-    //Zliczamy Inne waluty
-    //EUR
-    $amount_EUR = CharityBox::where('is_counted', '=', 1)->sum('amount_EUR');
-    //USD
-    $amount_USD = CharityBox::where('is_counted', '=', 1)->sum('amount_USD');
-    //GBP
-    $amount_GBP = CharityBox::where('is_counted', '=', 1)->sum('amount_GBP');
-
-    //Pobieranie kursu
     $fetcher = resolveRatesFetcher();
     $rates = $fetcher->fetchRates();
 
-    //Policzenie sumy całości
     $total_PLN = array_sum(
         [
             $amount_PLN,
-            $amount_USD*$rates['USD'],
-            $amount_EUR*$rates['EUR'],
-            $amount_GBP*$rates['GBP'],
+            $amount_USD * $rates['USD'],
+            $amount_EUR * $rates['EUR'],
+            $amount_GBP * $rates['GBP'],
         ]
     );
 
@@ -104,17 +99,20 @@ function totalCollectedReal() {
         'amount_USD' => wantedFormat($amount_USD),
         'rates' => $rates,
         'amount_total_in_PLN' => wantedFormat($total_PLN),
-        'collectors_in_city' => $collectors_in_city
+        'collectors_in_city' => $collectors_in_city,
     ];
 
     return $data;
 }
 
-function wantedFormat(float $amount) {
+function wantedFormat(float $amount): string
+{
     return number_format($amount, 2, ',', ' ');
 }
 
-function totalCollectedWithForeign() {
+function totalCollectedWithForeign(): string
+{
     $data = totalCollectedArray();
+
     return number_format($data['amount_total_in_PLN'], 2, ',', ' ');
 }

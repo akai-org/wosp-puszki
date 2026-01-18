@@ -14,6 +14,16 @@ return [
     |
     */
 
+    'allegro' => [
+        'client_id' => env('CLIENT_ID'),
+        'client_secret' => env('CLIENT_SECRET'),
+    ],
+
+    'external_post' => [
+        'json_url' => env('JSON_POST_URL'),
+        'raw_url' => env('RAW_POST_URL'),
+    ],
+
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),
@@ -35,4 +45,7 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'discord' => [
+        'webhook' => env('DISCORD_WEBHOOK'),
+    ],
 ];

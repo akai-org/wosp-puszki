@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
@@ -19,7 +20,7 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers{
+    use AuthenticatesUsers {
         logout as performLogout;
     }
 
@@ -28,7 +29,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/liczymy';
+    protected $redirectTo = 'main';
 
     /**
      * Create a new controller instance.
@@ -52,12 +53,10 @@ class LoginController extends Controller
         return 'name';
     }
 
-    public function logout(Request $request)
+    public function logout(Request $request): RedirectResponse
     {
         $this->performLogout($request);
+
         return redirect()->route('login');
     }
-
-
-
 }

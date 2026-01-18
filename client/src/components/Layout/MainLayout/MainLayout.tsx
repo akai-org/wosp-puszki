@@ -3,13 +3,17 @@ import { Outlet } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import s from './MainLayout.module.less';
 import { Sidebar } from '@components/Layout/Sidebar/Sidebar';
-import { getSidebarLinks, useAuthContext, useSidebarStateContext } from '@/utils';
+import {
+  getSidebarLinks,
+  useAuthContext,
+  useCountedByContext,
+  useSidebarStateContext,
+} from '@/utils';
 
 export const MainLayout = () => {
   const [isLoggedIn, setLoggedState] = useState(false);
 
   const { username, credentials, deleteCredentials, roles } = useAuthContext();
-
   useEffect(() => {
     if (username !== null) {
       setLoggedState(true);
@@ -17,6 +21,16 @@ export const MainLayout = () => {
       setLoggedState(false);
     }
   }, [username]);
+  
+  const { clearCountedBy } = useCountedByContext();
+  if (username !== null && !isLoggedIn) {
+    setLoggedState(true);
+  }
+
+  const clearSession = () => {
+    deleteCredentials();
+    clearCountedBy();
+  };
 
   const { show, toggleSidebar } = useSidebarStateContext();
 
@@ -28,7 +42,7 @@ export const MainLayout = () => {
         links={links}
         show={show}
         toggleSidebar={toggleSidebar}
-        deleteCredentials={deleteCredentials}
+        deleteCredentials={clearSession}
         username={username}
         credentials={credentials}
       />

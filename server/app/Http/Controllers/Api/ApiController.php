@@ -1,12 +1,14 @@
 <?php
 
+/** @noinspection PhpPropertyOnlyWrittenInspection */
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use OpenApi\Annotations as OA;
 use ReflectionClass;
+use ReflectionException;
 
 /**
  * @author kabix09
@@ -16,9 +18,11 @@ use ReflectionClass;
  *      version="3.0.0",
  *      title="WOSP API Documentation",
  *      description="WOSP API in Swagger OpenApi description",
+ *
  *      @OA\Contact(
  *          email="admin@admin.com"
  *      ),
+ *
  *      @OA\License(
  *          name="Apache 2.0",
  *          url="http://www.apache.org/licenses/LICENSE-2.0.html"
@@ -41,13 +45,15 @@ use ReflectionClass;
  */
 abstract class ApiController extends Controller
 {
+    // @phpstan-ignore property.onlyWritten, missingType.generics
     private ReflectionClass $proxyClass;
 
     /**
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function __construct(string $class)
     {
+        // @phpstan-ignore argument.type
         $this->proxyClass = new ReflectionClass($class);
     }
 }

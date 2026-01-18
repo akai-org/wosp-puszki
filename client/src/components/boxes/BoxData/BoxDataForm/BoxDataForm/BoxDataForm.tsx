@@ -1,29 +1,30 @@
-import { FormButton } from '@/components';
+import { DepositColumn, FormButton, InputNumberBox } from '@/components';
 import { CalculatorView } from '@/components/Calculator/CalculatorView';
 import {
-  APIManager,
   AmountsKeys,
+  APIManager,
   CHECKOUT_BOX_PAGE_ROUTE,
   COUNTED_BOXES_PATH,
-  FormMessage,
-  MONEY_VALUES,
-  SETTLE_PROCESS_PATH,
-  ZLOTY_AMOUNTS_KEYS,
   createFullRoutePath,
   fetcher,
+  FormMessage,
+  MONEY_VALUES,
   moneyValuesType,
   recognizeError,
+  SETTLE_PROCESS_PATH,
   sum,
+  useCountedByContext,
   useDepositContext,
+  useGetBoxQuery,
+  ZLOTY_AMOUNTS_KEYS,
 } from '@/utils';
 import { useMutation } from '@tanstack/react-query';
 import { Form, Space } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import { JSX, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { DepositColumn } from '@/components';
-import { InputNumberBox } from '@/components';
 import s from './BoxDataForm.module.less';
+import { CallForHelpView } from '@components/CallForHelp';
 
 //indexes that are used for splitting array of inputs to match our design
 const moneySlice = {
@@ -38,13 +39,32 @@ const moneySlice = {
 export interface DepositBoxFormProps {
   boxId: string;
   editMode?: boolean;
+  autofill?: boolean;
 }
 
-export const DepositBoxForm = ({ boxId, editMode }: DepositBoxFormProps) => {
+export const DepositBoxForm = ({ boxId, editMode, autofill }: DepositBoxFormProps) => {
+  const { countedBy } = useCountedByContext();
   const [message, setMessage] = useState<FormMessage | undefined>();
   const [total, setTotal] = useState(0);
   const { boxData, handleAmountsChange } = useDepositContext();
   const navigate = useNavigate();
+
+  const queryData = useGetBoxQuery(boxId as string).data;
+  const [canShow, setCanShow] = useState(false);
+
+  useEffect(() => {
+    if (!autofill) return;
+    if (canShow) return;
+    setTimeout(() => {
+      setCanShow(true);
+    }, 100);
+  }, [autofill, canShow]);
+
+  useEffect(() => {
+    if (autofill && canShow && queryData) {
+      boxData.additional_comment = queryData?.additional_comment;
+    }
+  }, [autofill, boxData, canShow, queryData]);
 
   useEffect(() => {
     setTotal(sum(boxData, ZLOTY_AMOUNTS_KEYS, MONEY_VALUES));
@@ -54,7 +74,12 @@ export const DepositBoxForm = ({ boxId, editMode }: DepositBoxFormProps) => {
     mutationFn: () =>
       fetcher(`${APIManager.baseAPIRUrl}/charityBoxes/${boxId}`, {
         method: 'PUT',
-        body: { comment: boxData.comment, ...boxData.amounts },
+        body: {
+          comment: boxData.comment,
+          additional_comment: boxData.additional_comment,
+          ...boxData.amounts,
+          ...countedBy,
+        },
       }),
     onSuccess: () =>
       navigate(
@@ -131,6 +156,20 @@ export const DepositBoxForm = ({ boxId, editMode }: DepositBoxFormProps) => {
                 ></TextArea>
               </Form.Item>
             </Space>
+            <Space className={s.other}>
+              Dodatkowe uwagi
+              <Form.Item style={{ marginBottom: 0 }}>
+                <TextArea
+                  className={s.textArea}
+                  value={boxData['additional_comment']}
+                  disabled={!editMode || mutation.isLoading}
+                  onChange={(e) => {
+                    const { value } = e.target;
+                    handleAmountsChange('additional_comment', value);
+                  }}
+                ></TextArea>
+              </Form.Item>
+            </Space>
           </DepositColumn>
         </Space>
         <Space
@@ -150,6 +189,7 @@ export const DepositBoxForm = ({ boxId, editMode }: DepositBoxFormProps) => {
         )}
       </Form>
       <CalculatorView />
+      <CallForHelpView />
     </>
   );
 };

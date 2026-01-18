@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Virtual\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Virtual\Models\CharityBox;
 
 /**
  * @author kabix09
@@ -12,6 +12,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @OA\Schema(
  *     title="Box Event Resource",
  *     description="Box Event resource",
+ *
  *     @OA\Xml(
  *         name="BoxEventResource"
  *     )
@@ -25,7 +26,8 @@ final class BoxEventResource
      *     description="Data wrapper"
      * )
      *
-     * @var \App\Virtual\Models\CharityBox[]
+     * @var CharityBox[]
      */
+    // @phpstan-ignore property.unused
     private $data;
 }

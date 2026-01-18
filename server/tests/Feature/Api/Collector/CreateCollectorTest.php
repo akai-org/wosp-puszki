@@ -44,7 +44,7 @@ test('a user can create a collector with valid data', function () {
 test('a user can NOT create a collector with a duplicate identifier', function () {
     $this->actingAs($this->collectorcoordinator);
 
-    $collector = new Collector();
+    $collector = new Collector;
     $collector->identifier = '123ABCD';
     $collector->firstName = 'Jane';
     $collector->lastName = 'Smith';

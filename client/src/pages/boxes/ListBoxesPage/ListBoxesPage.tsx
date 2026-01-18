@@ -16,7 +16,6 @@ const { Content } = Layout;
 
 export const ListBoxesPage = () => {
   const { data } = useGetAllBoxesQuery();
-
   // Ustawienia dla poszczególnych kolumn
   const columnsOptions: TableColumns[] = [
     {
@@ -86,8 +85,7 @@ export const ListBoxesPage = () => {
     },
     {
       titleName: 'Inne',
-      keyName: 'id',
-      beforeText: 'Puszka nr.',
+      keyName: 'comment',
       width: 175,
     },
     {
@@ -118,15 +116,15 @@ export const ListBoxesPage = () => {
 
   const mutation = useMutation({
     mutationFn: () =>
-      fetcher<Blob>(`${APIManager.baseAPIRUrl}/charityBoxes/csv`, { returnBlob: true }),
+      fetcher<Blob>(`${APIManager.baseAPIRUrl}/charityBoxes/xlsx`, { returnBlob: true }),
     onSuccess: (data) => {
       const url = window.URL.createObjectURL(new Blob([data]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute(
-        'download',
-        `charity_boxes${(Math.random() * 10000000000).toFixed(0)}.csv`,
-      );
+      const filename = `charity_boxes_${new Date()
+        .toLocaleString()
+        .replace(/[.:, ]/g, '_')}.xlsx`;
+      link.setAttribute('download', filename);
       document.body.appendChild(link);
       link.click();
     },

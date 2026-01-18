@@ -1,19 +1,19 @@
 import {
-  IDisplayPageContent,
-  IStations,
-  fetcher,
   APIManager,
-  isFailedFetched,
-  openNotification,
-  closeNotification,
-  NO_CONNECT_WITH_SERVER,
-  STATUS_CANT_BE_UPDATED,
-  MULTIPLE_STATUS_CANT_BE_UPDATED,
-  IBoxes,
-  LogDataType,
-  CANNOT_DOWNLOAD_DATA,
-  IUser,
   boxResponse,
+  CANNOT_DOWNLOAD_DATA,
+  closeNotification,
+  fetcher,
+  IBoxes,
+  IDisplayPageContent,
+  isFailedFetched,
+  IStations,
+  IUser,
+  LogDataType,
+  MULTIPLE_STATUS_CANT_BE_UPDATED,
+  NO_CONNECT_WITH_SERVER,
+  openNotification,
+  STATUS_CANT_BE_UPDATED,
   Volunteer,
 } from '@/utils';
 import { useQuery } from '@tanstack/react-query';
@@ -67,16 +67,18 @@ export const stationsInitData: IStations[] = Array.from(Array(28)).map(
 );
 
 export const useAmountsQuery = () =>
-  useQuery(
-    AMOUNTS_QUERY_KEY,
-    () => fetcher<IDisplayPageContent>(`${APIManager.baseAPIRUrl}/stats`),
-    { initialData: amountsInitData, refetchInterval: 3000, cacheTime: 3000 },
-  );
+  useQuery({
+    queryKey: AMOUNTS_QUERY_KEY,
+    queryFn: () => fetcher<IDisplayPageContent>(`${APIManager.baseAPIRUrl}/stats`),
+    initialData: amountsInitData,
+    refetchInterval: 3000,
+    cacheTime: 3000,
+  });
 
 export const useStationsQuery = () =>
-  useQuery(
-    STATIONS_QUERY_KEY,
-    () =>
+  useQuery({
+    queryKey: STATIONS_QUERY_KEY,
+    queryFn: () =>
       fetcher<IStations[]>(`${APIManager.baseAPIRUrl}/stations`)
         .then((data) => {
           closeNotification();
@@ -91,16 +93,18 @@ export const useStationsQuery = () =>
             );
           throw error;
         }),
-    { initialData: stationsInitData, refetchInterval: 3000, cacheTime: 3000 },
-  );
+    initialData: stationsInitData,
+    refetchInterval: 3000,
+    cacheTime: 3000,
+  });
 
 export const useSetStationAvailableQuery = (username: string | null | undefined) => {
   let id = '100';
   const slice = username?.slice(-2);
   if (username && slice && !isNaN(parseInt(slice))) id = slice;
-  return useQuery(
-    STATION_AVAILABLE_QUERY_KEY,
-    () =>
+  return useQuery({
+    queryKey: STATION_AVAILABLE_QUERY_KEY,
+    queryFn: () =>
       fetcher(`${APIManager.baseAPIRUrl}/stations/${id}/ready`, {
         method: 'POST',
         returnVoid: true,
@@ -114,17 +118,18 @@ export const useSetStationAvailableQuery = (username: string | null | undefined)
             openNotification('error', NO_CONNECT_WITH_SERVER, STATUS_CANT_BE_UPDATED);
           throw error;
         }),
-    { refetchInterval: THREE_MINUTES, cacheTime: THREE_MINUTES },
-  );
+    refetchInterval: THREE_MINUTES,
+    cacheTime: THREE_MINUTES,
+  });
 };
 
 export const useSetStationUnavailableQuery = (username: string | null | undefined) => {
   let id = '100';
   const slice = username?.slice(-2);
   if (username && slice && !isNaN(parseInt(slice))) id = slice;
-  return useQuery(
-    STATION_UNAVAILABLE_QUERY_KEY,
-    () =>
+  return useQuery({
+    queryKey: STATION_UNAVAILABLE_QUERY_KEY,
+    queryFn: () =>
       fetcher(`${APIManager.baseAPIRUrl}/stations/${id}/busy`, {
         method: 'POST',
         returnVoid: true,
@@ -138,84 +143,95 @@ export const useSetStationUnavailableQuery = (username: string | null | undefine
             openNotification('error', NO_CONNECT_WITH_SERVER, STATUS_CANT_BE_UPDATED);
           throw error;
         }),
-    { refetchInterval: THREE_MINUTES, cacheTime: THREE_MINUTES },
-  );
+    refetchInterval: THREE_MINUTES,
+    cacheTime: THREE_MINUTES,
+  });
 };
 
 export const useUnverifiedBoxesQuery = () =>
-  useQuery(
-    UNVERIFIED_BOXES_QUERY_KEY,
-    () =>
+  useQuery({
+    queryKey: UNVERIFIED_BOXES_QUERY_KEY,
+    queryFn: () =>
       fetcher<IBoxes[]>(`${APIManager.baseAPIRUrl}/charityBoxes/unverified`).catch(
         (error) => {
           openNotification('error', NO_CONNECT_WITH_SERVER, CANNOT_DOWNLOAD_DATA);
           throw error;
         },
       ),
-    { initialData: [], refetchInterval: 3000, cacheTime: 3000 },
-  );
+    initialData: [],
+    refetchInterval: 3000,
+    cacheTime: 3000,
+  });
 
 export const useVerifiedBoxesQuery = () =>
-  useQuery(
-    VERIFIED_BOXES_QUERY_KEY,
-    () =>
+  useQuery({
+    queryKey: VERIFIED_BOXES_QUERY_KEY,
+    queryFn: () =>
       fetcher<IBoxes[]>(`${APIManager.baseAPIRUrl}/charityBoxes/verified`).catch(
         (error) => {
           openNotification('error', NO_CONNECT_WITH_SERVER, CANNOT_DOWNLOAD_DATA);
           throw error;
         },
       ),
-    { initialData: [], refetchInterval: 3000, cacheTime: 3000 },
-  );
+    initialData: [],
+    refetchInterval: 3000,
+    cacheTime: 3000,
+  });
 
 export const useGetBoxQuery = (id: string) =>
-  useQuery(GET_BOX_QUERY_KEY, () =>
-    fetcher<IBoxes>(`${APIManager.baseAPIRUrl}/charityBoxes/${id}`).catch((error) => {
-      openNotification('error', NO_CONNECT_WITH_SERVER, CANNOT_DOWNLOAD_DATA);
-      throw error;
-    }),
-  );
+  useQuery({
+    queryKey: [id, ...GET_BOX_QUERY_KEY],
+    queryFn: () =>
+      fetcher<IBoxes>(`${APIManager.baseAPIRUrl}/charityBoxes/${id}`).catch((error) => {
+        openNotification('error', NO_CONNECT_WITH_SERVER, CANNOT_DOWNLOAD_DATA);
+        throw error;
+      }),
+  });
 
 export const useGetLogsQuery = () =>
-  useQuery(
-    GET_LOGS_QUERY_KEY,
-    () =>
+  useQuery({
+    queryKey: GET_LOGS_QUERY_KEY,
+    queryFn: () =>
       fetcher<LogDataType[]>(`${APIManager.baseAPIRUrl}/logs`).catch((error) => {
         openNotification('error', NO_CONNECT_WITH_SERVER, CANNOT_DOWNLOAD_DATA);
         throw error;
       }),
-    { initialData: [], refetchInterval: 3000, cacheTime: 3000 },
-  );
+    initialData: [],
+    refetchInterval: 3000,
+    cacheTime: 3000,
+  });
 
 export const useGetUsersQuery = () =>
-  useQuery(
-    GET_USERS_QUERY_KEY,
-    () =>
+  useQuery({
+    queryKey: GET_USERS_QUERY_KEY,
+    queryFn: () =>
       fetcher<IUser[]>(`${APIManager.baseAPIRUrl}/users`).catch((error) => {
         openNotification('error', NO_CONNECT_WITH_SERVER, CANNOT_DOWNLOAD_DATA);
         throw error;
       }),
-    { initialData: [] },
-  );
+    initialData: [],
+  });
 
 export const useGetAllBoxesQuery = () =>
-  useQuery(
-    GET_ALL_BOXES_QUERY_KEY,
-    () =>
+  useQuery({
+    queryKey: GET_ALL_BOXES_QUERY_KEY,
+    queryFn: () =>
       fetcher<boxResponse[]>(`${APIManager.baseAPIRUrl}/charityBoxes`).catch((error) => {
         openNotification('error', NO_CONNECT_WITH_SERVER, CANNOT_DOWNLOAD_DATA);
         throw error;
       }),
-    { initialData: [], refetchInterval: 3000, cacheTime: 3000 },
-  );
+    initialData: [],
+    refetchInterval: 3000,
+    cacheTime: 3000,
+  });
 
 export const useGetVolunteersQuery = () =>
-  useQuery(
-    GET_VOLUNTEERS_QUERY_KEY,
-    () =>
+  useQuery({
+    queryKey: GET_VOLUNTEERS_QUERY_KEY,
+    queryFn: () =>
       fetcher<Volunteer[]>(`${APIManager.baseAPIRUrl}/collectors`).catch((error) => {
         openNotification('error', NO_CONNECT_WITH_SERVER, CANNOT_DOWNLOAD_DATA);
         throw error;
       }),
-    { initialData: [] },
-  );
+    initialData: [],
+  });

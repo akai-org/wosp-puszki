@@ -1,23 +1,22 @@
 import { AcceptDataCard } from '@/components';
 import s from './AcceptDataPage.module.less';
-import { Space } from 'antd';
+import { Space, Typography } from 'antd';
 import {
   APIManager,
-  fetcher,
-  isFailedFetched,
-  setStationUnavailable,
-  openNotification,
-  NO_CONNECT_WITH_SERVER,
-  SETTLE_PROCESS_PATH,
   createFullRoutePath,
   DEPOSIT_BOX_PAGE_ROUTE,
-  useGetBoxData,
+  fetcher,
   getIsBoxAlreadySettlingError,
+  isFailedFetched,
+  NO_CONNECT_WITH_SERVER,
+  openNotification,
+  SETTLE_PROCESS_PATH,
+  useGetBoxData,
+  useSetStationUnavailable,
 } from '@/utils';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
-import { Typography } from 'antd';
 
 export const AcceptDataPage = () => {
   const navigate = useNavigate();
@@ -26,7 +25,7 @@ export const AcceptDataPage = () => {
   );
   const { collectorName, collectorIdentifier, boxIdentifier, isBoxSpecial } =
     useGetBoxData();
-  setStationUnavailable();
+  useSetStationUnavailable();
 
   const mutation = useMutation({
     mutationFn: () =>
