@@ -1,7 +1,5 @@
 <?php
 
-use App\User;
-
 test('homepage loads', function () {
     $response = $this->get('/');
 
@@ -9,7 +7,7 @@ test('homepage loads', function () {
 });
 
 test('panel fails to load without login', function () {
-    $response = $this->get('/liczymy');
+    $response = $this->get('/');
 
     $response->assertStatus(302);
 });

@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Collector;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class CollectorController extends Controller
 {
@@ -17,13 +17,15 @@ class CollectorController extends Controller
     }
 
     //Dodawanie zbieracza (formularz)
-    public function getCreate(){
+    public function getCreate()
+    {
         $this->middleware('admin');
-        return view('liczymy.collector.create');
+        return view('collector.create');
     }
 
     //Dodawanie zbieracza
-    public function postCreate(Request $request){
+    public function postCreate(Request $request)
+    {
         $this->middleware('admin');
         //Walidacja danych
 
@@ -35,8 +37,8 @@ class CollectorController extends Controller
         ]);
         //Sprawdzenie czy wolontariusza nie ma już w bazie (po ID)
         $collectorExists = Collector::where('identifier', '=', $request->input('collectorIdentifier'))->exists();
-        if($collectorExists) {
-            return view('liczymy.collector.create')->with('error', 'Istnieje już wolontariusz o podanym numerze w systemie');
+        if ($collectorExists) {
+            return view('collector.create')->with('error', 'Istnieje już wolontariusz o podanym numerze w systemie');
         }
         //Dodanie wolontariusza
         $collector = new Collector();
@@ -54,7 +56,8 @@ class CollectorController extends Controller
     }
 
     //Wyświetlanie wszystkich wolontariuszy (dla Adminów i superadminów)
-    public function getList(){
+    public function getList()
+    {
         $this->middleware('collectorcoordinator');
         $collectors = Collector::with('boxes')->get();
 
@@ -76,7 +79,7 @@ class CollectorController extends Controller
                 //Wszystko rozliczone
                 $status[$collector->identifier]['color'] = '#82CA9D';
                 $status[$collector->identifier]['message'] = 'Rozliczony';
-            } else if ($boxesGiven == $boxesCounted){
+            } else if ($boxesGiven == $boxesCounted) {
                 //Oczekuje na zatwierdzenie
                 $status[$collector->identifier]['color'] = '#FF8400';
                 $status[$collector->identifier]['message'] = 'Oczekuje na zatwierdzenie';
@@ -87,7 +90,7 @@ class CollectorController extends Controller
 
         }
 
-        return view('liczymy.collector.list')
+        return view('collector.list')
             ->with('collectors', $collectors)
             ->with('status', $status);
     }

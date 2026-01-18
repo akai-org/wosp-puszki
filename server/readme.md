@@ -42,7 +42,7 @@ php artisan reverb:start
 php artisan serve
 
 // Fill currencies in the .env fille by opening
-// http://localhost:8000/liczymy/rates and pasting below
+// http://localhost:8000/rates and pasting below
 // IMPORTANT: If static currencies are not set, STATIC_RATES needs to be false
 
 // Install frontend dependencies

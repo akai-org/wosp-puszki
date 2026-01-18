@@ -2,6 +2,10 @@ export const LOGIN_ROUTE = 'login';
 export const MAIN_ROUTE = 'liczymy';
 export const NOT_FOUND_ROUTE = '*';
 
+// Counted by section
+// main
+export const COUNTED_BY_ROUTE = 'countedBy';
+
 // Counted boxes section
 // main
 export const COUNTED_BOXES_ROUTE = 'countedBoxes';

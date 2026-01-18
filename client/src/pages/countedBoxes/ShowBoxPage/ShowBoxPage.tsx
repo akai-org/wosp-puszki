@@ -1,21 +1,22 @@
 import { ContentColumns, FormButton } from '@/components';
 import { Modal } from '@/components/Modal/Modal';
 import {
-  BoxData,
-  useGetBoxQuery,
   AMOUNTS_KEYS,
-  fetcher,
   APIManager,
-  COUNTED_BOXES_PATH,
-  openNotification,
-  NO_CONNECT_WITH_SERVER,
+  BoxData,
   CANNOT_DOWNLOAD_DATA,
+  COUNTED_BOXES_PATH,
+  fetcher,
+  NO_CONNECT_WITH_SERVER,
+  openNotification,
+  useGetBoxQuery,
   useUnverifiedBoxesQuery,
 } from '@/utils';
 import { Space } from 'antd';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { FC, useEffect, useState } from 'react';
+import Paragraph from 'antd/lib/typography/Paragraph';
 
 interface Props {
   displayOnly?: boolean;
@@ -25,7 +26,6 @@ export const ShowBoxPage: FC<Props> = ({ displayOnly = false }) => {
   const navigate = useNavigate();
   const { refetch } = useUnverifiedBoxesQuery();
   const [data, setData] = useState<BoxData | null>(null);
-
   const queryData = useGetBoxQuery(id as string).data;
 
   useEffect(() => {
@@ -45,7 +45,7 @@ export const ShowBoxPage: FC<Props> = ({ displayOnly = false }) => {
     setData({
       amounts,
       comment: queryData?.comment || '',
-      additional_comment: queryData?.additional_comment || ''
+      additional_comment: queryData?.additional_comment || '',
     });
     return () => {
       setData(null);
@@ -101,6 +101,16 @@ export const ShowBoxPage: FC<Props> = ({ displayOnly = false }) => {
   return (
     <Modal title={'Zawartość puszki'}>
       <Space direction="vertical">
+        <div>
+          <Paragraph style={{ fontWeight: 'bold', marginBottom: 0 }}>
+            Puszka przeliczona przez:
+          </Paragraph>
+          <Paragraph style={{ marginBottom: 0 }}>
+            {queryData?.first_counted_by_name} ({queryData?.first_counted_by_phone}){' '}
+            <br />
+            {queryData?.second_counted_by_name} ({queryData?.second_counted_by_phone})
+          </Paragraph>
+        </div>
         {queryData?.collector && (
           <div style={{ fontSize: '16px', marginBottom: '20px' }}>
             <strong>Wolontariusz: </strong> {queryData.collector.firstName}{' '}

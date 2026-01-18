@@ -1,13 +1,13 @@
-import { useContext, useState, createContext, useCallback } from 'react';
+import { createContext, useCallback, useContext, useState } from 'react';
 import {
-  STORAGE_CREDENTIALS,
-  STORAGE_USERNAME,
+  APIManager,
   fetcher,
   IAuthContext,
-  APIManager,
   IAuthResponse,
-  UserRole,
+  STORAGE_CREDENTIALS,
   STORAGE_USER_ROLES,
+  STORAGE_USERNAME,
+  UserRole,
 } from '@/utils';
 import { isUserRole } from '../typeGuards';
 

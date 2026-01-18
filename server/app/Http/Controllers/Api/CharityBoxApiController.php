@@ -10,10 +10,9 @@ use App\Http\Requests\Api\UpdateCountingCharityBoxRequest;
 use App\Http\Resources\Api\CharityBoxResource;
 use App\Lib\BoxOperator\BoxOperator;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use OpenApi\Annotations as OA;
 
 /**
  * @author kabix09
@@ -191,7 +190,7 @@ final class CharityBoxApiController extends ApiController
 //                ->with('error', 'Wszystkie puszki wolontariusza są rozliczone.');
 //        }
 //
-//        return view('liczymy.box.found')->with('box', $box);
+//        return view('box.found')->with('box', $box);
 //    }
 
     public function delete(int $id)
@@ -228,7 +227,7 @@ final class CharityBoxApiController extends ApiController
      *      )
      * )
      */
-    public function getUnverifiedList() : JsonResponse
+    public function getUnverifiedList(): JsonResponse
     {
         $boxesToConfirm = CharityBox::with('collector')
             ->unconfirmed()
