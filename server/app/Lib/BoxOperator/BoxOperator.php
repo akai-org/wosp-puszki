@@ -126,7 +126,7 @@ class BoxOperator
 
         $data = $this->getBoxDataFromRequest($request);
 
-        //Add money
+        // Add money
         $box->count_1gr = $data['count_1gr'];
         $box->count_2gr = $data['count_2gr'];
         $box->count_5gr = $data['count_5gr'];
@@ -150,6 +150,12 @@ class BoxOperator
         if (isset($data['additional_comment'])) {
             $box->additional_comment = $data['additional_comment'];
         }
+
+        // Add counted by data
+        $box->first_counted_by_name = $data['first_counted_by_name'];
+        $box->first_counted_by_phone = $data['first_counted_by_phone'];
+        $box->second_counted_by_name = $data['second_counted_by_name'];
+        $box->second_counted_by_phone = $data['second_counted_by_phone'];
 
         $box->time_counted = Carbon::now();
 
@@ -215,7 +221,13 @@ class BoxOperator
             'amount_USD' => 'required|numeric|between:0,10000',
             'amount_GBP' => 'required|numeric|between:0,10000',
             'comment' => '',
-            'additional_comment' => ''
+            'additional_comment' => '',
+
+            // Counted by data
+            'first_counted_by_name' => 'string|nullable|max:255',
+            'first_counted_by_phone' => 'string|nullable|max:12',
+            'second_counted_by_name' => 'string|nullable|max:255',
+            'second_counted_by_phone' => 'string|nullable|max:12',
         ]);
 
         if ($validator->fails()) {
@@ -281,7 +293,11 @@ class BoxOperator
                 'charity_boxes.comment',
                 'collectors.firstName',
                 'collectors.lastName',
-                'collectors.phoneNumber'
+                'collectors.phoneNumber',
+                'charity_boxes.first_counted_by_name',
+                'charity_boxes.first_counted_by_phone',
+                'charity_boxes.second_counted_by_name',
+                'charity_boxes.second_counted_by_phone',
             )
             // PostgreSQL orderBy sorts alphanumerically by default, we need to cast to numeric for proper sorting
             ->orderByRaw('CAST("charity_boxes"."collectorIdentifier" AS NUMERIC)')

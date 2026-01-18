@@ -3,16 +3,27 @@ import { Outlet } from 'react-router-dom';
 import s from './MainLayout.module.less';
 import { Sidebar } from '@components/Layout/Sidebar/Sidebar';
 import { useState } from 'react';
-import { getSidebarLinks, useAuthContext, useSidebarStateContext } from '@/utils';
+import {
+  getSidebarLinks,
+  useAuthContext,
+  useCountedByContext,
+  useSidebarStateContext,
+} from '@/utils';
 
 export const MainLayout = () => {
   // const isLoggedIn = true;
   const [isLoggedIn, setLoggedState] = useState(false);
 
   const { username, credentials, deleteCredentials, roles } = useAuthContext();
+  const { clearCountedBy } = useCountedByContext();
   if (username !== null && !isLoggedIn) {
     setLoggedState(true);
   }
+
+  const clearSession = () => {
+    deleteCredentials();
+    clearCountedBy();
+  };
 
   const { show, toggleSidebar } = useSidebarStateContext();
 
@@ -26,7 +37,7 @@ export const MainLayout = () => {
         credentials={credentials}
         show={show}
         toggleSidebar={toggleSidebar}
-        deleteCredentials={deleteCredentials}
+        deleteCredentials={clearSession}
       />
       <Layout.Content
         className={[
