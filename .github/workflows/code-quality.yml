@@ -24,7 +24,7 @@ jobs:
           coverage: none
 
       - name: Install Dependencies
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --ignore-platform-reqs
 
       - name: Run Laravel Pint (Dry Run)
         run: ./vendor/bin/pint --test
@@ -59,7 +59,7 @@ jobs:
         uses: actions/setup-node@v4
 
       - name: Install Dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile
 
       - name: Run ESLint (React Quality)
         run: yarn lint
