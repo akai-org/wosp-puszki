@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Virtual\Models;
@@ -17,8 +18,6 @@ abstract class GenericModel
      *     type="integer",
      *     example=1
      * )
-     *
-     * @var integer
      */
     private int $id;
 }

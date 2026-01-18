@@ -28,7 +28,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => ['auth.basic:,name']], function () {
     Route::get('health', function (Request $request) {
-        $roles = auth()->user()->roles()->get()->map(fn($role) => $role->name);
+        $roles = auth()->user()->roles()->get()->map(fn ($role) => $role->name);
+
         return response()->json(['user' => auth()->user()->name, 'roles' => $roles]);
     });
 });
@@ -63,7 +64,6 @@ Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], func
 
     });
 
-
     Route::post('charityBoxes/{id}/startCounting', [CharityBoxApiController::class, 'startCounting'])->name('api.box.count.start');
     Route::post('charityBoxes/{id}/finishCounting', [CharityBoxApiController::class, 'confirm'])->name('api.box.count.finish');
 
@@ -86,14 +86,14 @@ Route::group(['as' => 'api', 'middleware' => ['web', 'auth.basic:,name']], funct
     Route::apiResource('currency/rates', RatesApiController::class);
 });
 
-//API
-//Zwracamy dane z głównej strony w formie JSON
+// API
+// Zwracamy dane z głównej strony w formie JSON
 Route::get('/stats', ['uses' => 'AmountDisplayController@displayRawJson']);
 
 Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], function () {
-    //Zbieracze (collector)
+    // Zbieracze (collector)
 
-    //Lista wolontariuszy (dla administratorów)
+    // Lista wolontariuszy (dla administratorów)
     Route::get('collectors', [CollectorApiController::class, 'index'])->name('collector.list')->middleware('collectorcoordinator');
     Route::get('collectors/{id}', [CollectorApiController::class, 'show'])->name('collector.show')->middleware('collectorcoordinator');
     // Formularz dodawania wolontariusza

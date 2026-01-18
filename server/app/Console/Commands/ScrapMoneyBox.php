@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Lib\AppStatusManager;
+use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
@@ -29,7 +30,7 @@ class ScrapMoneyBox extends Command
      */
     protected $browsers = [
         'firefox' => 'Symfony\\Component\\Panther\\Client::createFirefoxClient',
-        'chrome' => 'Symfony\\Component\\Panther\\Client::createChromeClient'
+        'chrome' => 'Symfony\\Component\\Panther\\Client::createChromeClient',
     ];
 
     /**
@@ -51,9 +52,9 @@ class ScrapMoneyBox extends Command
     {
         Log::info('Moneybox scrape ran');
         $moneyboxId = config('wosp.moneybox.id');
-        $url = 'https://eskarbonka.wosp.org.pl/' . $moneyboxId;
+        $url = 'https://eskarbonka.wosp.org.pl/'.$moneyboxId;
 
-        $client = new \GuzzleHttp\Client(['verify' => false]);
+        $client = new Client(['verify' => false]);
         $result = $client->get($url);
 
         $matches = [];
@@ -62,16 +63,15 @@ class ScrapMoneyBox extends Command
         // Perform the regex match
         if (preg_match($pattern, $result->getBody()->getContents(), $matches)) {
             $data_count_start = $matches[1];
-            echo "The value of data-count_start is: " . $data_count_start;
+            echo 'The value of data-count_start is: '.$data_count_start;
         } else {
             Log::error('Could not fetch the moneybox value');
             $this->error('Could not fetch the moneybox value');
         }
-
         // Normalize the decimal point to full stop and not comma and remove spaces from inside
         $normalizedAmount = str_replace([',', ' '], ['.', ''], $data_count_start);
-        Log::info('Moneybox scrape got ' . $normalizedAmount);
-        $this->info('Moneybox scrape got ' . $normalizedAmount);
+        Log::info('Moneybox scrape got '.$normalizedAmount);
+        $this->info('Moneybox scrape got '.$normalizedAmount);
         AppStatusManager::saveStatusValue(AppStatusManager::MONEYBOX_VALUE, $normalizedAmount);
 
         Log::info('Moneybox scrape finished');

@@ -2,9 +2,8 @@
 
 namespace App\Console\Commands;
 
-use function App\totalCollectedWithForeign;
-use Illuminate\Console\Command;
 use GuzzleHttp\Client;
+use Illuminate\Console\Command;
 
 class PostJson extends Command
 {
@@ -42,13 +41,12 @@ class PostJson extends Command
         $url = env('JSON_POST_URL');
         $totalArr = \App\totalCollectedReal();
         $ch = curl_init();
-        $client = new Client();
+        $client = new Client;
 
         $r = $client->request('POST', $url, [
             'body' => json_encode($totalArr),
-            'verify' => false
+            'verify' => false,
         ]);
-
 
         // in real life you should use something like:
         // curl_setopt($ch, CURLOPT_POSTFIELDS,
@@ -56,8 +54,7 @@ class PostJson extends Command
 
         // receive server response ...
 
-
-        $this->info('Request success ' . $url);
+        $this->info('Request success '.$url);
 
     }
 }

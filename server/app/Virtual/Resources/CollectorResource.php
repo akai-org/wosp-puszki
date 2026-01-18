@@ -10,6 +10,7 @@ namespace App\Virtual\Resources;
  * @OA\Schema(
  *     title="Collector Resource",
  *     description="Collector resource",
+ *
  *     @OA\Xml(
  *         name="CollectorResource"
  *     )

@@ -1,9 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Virtual\Models;
 
-use Money\Money;
 use OpenApi\Annotations as OA;
 
 /**
@@ -12,6 +12,7 @@ use OpenApi\Annotations as OA;
  * @OA\Schema(
  *     title="BoxEvent",
  *     description="Box Event model",
+ *
  *     @OA\Xml(
  *         name="BoxEvent"
  *     )
@@ -28,7 +29,6 @@ final class BoxEvent extends GenericModel
      * )
      *
      * @example ['unverified', 'verified', 'give', 'found', startedCounting', 'updated', 'confirmed', give']
-     * @var string
      */
     public string $type;  // todo change to enum type
 
@@ -37,8 +37,6 @@ final class BoxEvent extends GenericModel
      *     title="Charity Box",
      *     description="Charty box given to volunteer"
      * )
-     *
-     * @var CharityBox
      */
     public CharityBox $box;
 
@@ -48,7 +46,6 @@ final class BoxEvent extends GenericModel
      *     description="User model"
      * )
      *
-     * @var User
      **/
     public User $user;
 
@@ -60,8 +57,6 @@ final class BoxEvent extends GenericModel
      *     example="Lorem ipsum"
      * )
      *
-     * @var string
      **/
     public string $comment;
-
 }

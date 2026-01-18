@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace App\Virtual\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
-
 /**
  * @author kabix09
  *
  * @OA\Schema(
  *     title="Box Event Resource",
  *     description="Box Event resource",
+ *
  *     @OA\Xml(
  *         name="BoxEventResource"
  *     )

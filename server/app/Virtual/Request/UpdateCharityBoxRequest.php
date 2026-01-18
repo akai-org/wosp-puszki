@@ -21,8 +21,6 @@ class UpdateCharityBoxRequest
      *     type="int64",
      *     example=120
      * )
-     *
-     * @var integer
      */
     public int $count_1gr;
 
@@ -33,8 +31,6 @@ class UpdateCharityBoxRequest
      *     type="int64",
      *     example=245
      * )
-     *
-     * @var integer
      */
     public int $count_2gr;
 
@@ -45,8 +41,6 @@ class UpdateCharityBoxRequest
      *     type="int64",
      *     example=300
      * )
-     *
-     * @var integer
      */
     public int $count_5gr;
 
@@ -57,8 +51,6 @@ class UpdateCharityBoxRequest
      *     type="int64",
      *     example=120
      * )
-     *
-     * @var integer
      */
     public int $count_10gr;
 
@@ -69,8 +61,6 @@ class UpdateCharityBoxRequest
      *     type="int64",
      *     example=80
      * )
-     *
-     * @var integer
      */
     public int $count_20gr;
 
@@ -81,8 +71,6 @@ class UpdateCharityBoxRequest
      *     type="int64",
      *     example=60
      * )
-     *
-     * @var integer
      */
     public int $count_50gr;
 
@@ -105,8 +93,6 @@ class UpdateCharityBoxRequest
      *     type="int64",
      *     example=60
      * )
-     *
-     * @var integer
      */
     public int $count_2zl;
 
@@ -117,8 +103,6 @@ class UpdateCharityBoxRequest
      *     type="int64",
      *     example=60
      * )
-     *
-     * @var integer
      */
     public int $count_5zl;
 
@@ -129,8 +113,6 @@ class UpdateCharityBoxRequest
      *     type="int64",
      *     example=60
      * )
-     *
-     * @var integer
      */
     public int $count_10zl;
 
@@ -141,8 +123,6 @@ class UpdateCharityBoxRequest
      *     type="int64",
      *     example=60
      * )
-     *
-     * @var integer
      */
     public int $count_20zl;
 
@@ -153,8 +133,6 @@ class UpdateCharityBoxRequest
      *     type="int64",
      *     example=60
      * )
-     *
-     * @var integer
      */
     public int $count_50zl;
 
@@ -165,8 +143,6 @@ class UpdateCharityBoxRequest
      *     type="int64",
      *     example=60
      * )
-     *
-     * @var integer
      */
     public int $count_100zl;
 
@@ -177,8 +153,6 @@ class UpdateCharityBoxRequest
      *     type="int64",
      *     example=60
      * )
-     *
-     * @var integer
      */
     public int $count_200zl;
 
@@ -189,11 +163,8 @@ class UpdateCharityBoxRequest
      *     type="int64",
      *     example=60
      * )
-     *
-     * @var integer
      */
     public int $count_500zl;
-
 
     /**
      * @OA\Property(
@@ -202,8 +173,6 @@ class UpdateCharityBoxRequest
      *     type="int64",
      *     example=60
      * )
-     *
-     * @var float
      */
     public float $amount_PLN;
 
@@ -214,8 +183,6 @@ class UpdateCharityBoxRequest
      *     type="int64",
      *     example=60
      * )
-     *
-     * @var float
      */
     public float $amount_EUR;
 
@@ -226,8 +193,6 @@ class UpdateCharityBoxRequest
      *     type="int64",
      *     example=60
      * )
-     *
-     * @var float
      */
     public float $amount_USD;
 
@@ -238,8 +203,6 @@ class UpdateCharityBoxRequest
      *     type="int64",
      *     example=60
      * )
-     *
-     * @var float
      */
     public float $amount_GBP;
 
@@ -250,8 +213,6 @@ class UpdateCharityBoxRequest
      *     type="string",
      *     example="Lorem ipsum"
      * )
-     *
-     * @var string
      */
     public string $comment;
 }

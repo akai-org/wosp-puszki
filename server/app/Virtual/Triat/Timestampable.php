@@ -37,11 +37,10 @@ trait Timestampable
      */
     public $updated_at;
 
-
     /**
      * Set createdAt
      *
-     * @param \DateTime $createdAt
+     * @param  \DateTime  $createdAt
      */
     public function setCreatedAt($createdAt)
     {
@@ -63,7 +62,7 @@ trait Timestampable
     /**
      * Set updatedAt
      *
-     * @param \DateTime $updatedAt
+     * @param  \DateTime  $updatedAt
      */
     public function setUpdatedAt($updatedAt)
     {

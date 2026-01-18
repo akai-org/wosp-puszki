@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Virtual\Request;
@@ -22,8 +23,6 @@ class BoxCharityBoxRequest
      *      format="int64",
      *      example="1"
      * )
-     *
-     * @var integer
      */
     public int $box_id = 0;
 }

@@ -12,6 +12,7 @@ use OpenApi\Annotations as OA;
  * @OA\Schema(
  *     title="User",
  *     description="User model",
+ *
  *     @OA\Xml(
  *         name="User"
  *     )
@@ -26,8 +27,6 @@ final class User extends GenericModel
      *     type="string",
      *     example="Jan"
      * )
-     *
-     * @var string
      */
     public string $name;
 
@@ -38,8 +37,6 @@ final class User extends GenericModel
      *     type="string",
      *     example="Lorem ipsum"
      * )
-     *
-     * @var string
      */
     public string $comment;
 
@@ -48,24 +45,23 @@ final class User extends GenericModel
      *     title="Roles",
      *     description="User roles list",
      *     type="array",
+     *
      *     @OA\Items(type="object",ref="#/components/schemas/Role")
      * )
-     *
-     * @var array
      */
     public array $roles;
 
-// We don't want to show this data
-//
-//    /**
-//     * @OA\Property(
-//     *     title="Token",
-//     *     description="",
-//     *     type="string",
-//     *     example=""
-//     * )
-//     *
-//     * @var string
-//     */
-//    public string $remember_token;
+    // We don't want to show this data
+    //
+    //    /**
+    //     * @OA\Property(
+    //     *     title="Token",
+    //     *     description="",
+    //     *     type="string",
+    //     *     example=""
+    //     * )
+    //     *
+    //     * @var string
+    //     */
+    //    public string $remember_token;
 }
