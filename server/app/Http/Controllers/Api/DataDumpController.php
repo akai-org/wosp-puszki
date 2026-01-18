@@ -64,7 +64,8 @@ class DataDumpController extends Controller
         }
         $headers = ['ID Wolo', 'Imię i Nazwisko', 'Numer telefonu', 'Godzina oddania', 'Godzina liczenia', 'Godzina potwierdzenia', 'Zebrane PLN', 'Zebrane EUR', 'Zebrane USD', 'Zebrane GBP', 'Inne'];
         $csvData = $bo->getAll()->map(function ($row) {
-            $collectorName = $row->collector->firstName . ' ' . $row->collector->lastName;
+            $collectorName = $row->collector->firstName.' '.$row->collector->lastName;
+
             return [
                 $row->collectorIdentifier,
                 $collectorName,
@@ -81,7 +82,7 @@ class DataDumpController extends Controller
         })->prepend($headers)->toArray();
         $date = Carbon::now();
         $csvFileName = $this->getFileName($date, 'csv');
-        $csvFile = Writer::createFromFileObject(new SplTempFileObject());
+        $csvFile = Writer::createFromFileObject(new SplTempFileObject);
         $csvFile->insertAll($csvData);
 
         $storagePath = 'charity_box_exports';
@@ -140,7 +141,7 @@ class DataDumpController extends Controller
         $data = $bo->getAll();
         $dataLen = count($data) + 1;
         $columnNames = ['ID Wolo', 'Imię i Nazwisko', 'Numer telefonu', 'Godzina oddania', 'Godzina liczenia', 'Godzina potwierdzenia', 'Zebrane PLN', 'Zebrane EUR', 'Zebrane USD', 'Zebrane GBP', 'Inne'];
-        $spreadsheet = new Spreadsheet();
+        $spreadsheet = new Spreadsheet;
         $activeWorksheet = $spreadsheet->getActiveSheet();
         $activeWorksheet->setTitle('Puszki');
 
@@ -185,7 +186,7 @@ class DataDumpController extends Controller
 
         $storagePath = 'charity_box_exports';
         $filePath = $storagePath.'/'.$xlsxFileName;
-        Storage::put($filePath, (string)$xlsxContent);
+        Storage::put($filePath, (string) $xlsxContent);
         // Cache last export date
         Cache::set('lastXlsxDump', $date);
 

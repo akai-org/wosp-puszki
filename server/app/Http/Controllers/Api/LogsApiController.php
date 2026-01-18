@@ -58,11 +58,11 @@ class LogsApiController extends ApiController
      */
     public function index()
     {
-        $logs = BoxEvent::with(['user','box'])
+        $logs = BoxEvent::with(['user', 'box'])
             ->orderBy('created_at', 'desc')
             ->limit(300)
             ->get([
-                'type', 'comment', 'created_at', 'user_id', 'box_id'
+                'type', 'comment', 'created_at', 'user_id', 'box_id',
             ]);
 
         return response()->json($logs);

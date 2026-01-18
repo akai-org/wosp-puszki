@@ -11,13 +11,12 @@
 |
 */
 
-use App\Http\Controllers\AmountDisplayController;
 use App\Http\Controllers\AllegroController;
+use App\Http\Controllers\AmountDisplayController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CharityBoxApiController;
 use App\Http\Controllers\CharityBoxController;
 use App\Http\Controllers\CollectorController;
-use App\Http\Controllers\HelpController;
 use App\Http\Controllers\LogsController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
@@ -80,7 +79,6 @@ Route::prefix('box')->group(function () {
     Route::post('count/{boxID}', [CharityBoxController::class, 'postCount'])->name('box.count.post');
 
     Route::post('count/{boxID}/confirm', [CharityBoxController::class, 'confirm'])->name('box.count.confirm');
-
 
     Route::middleware('collectorcoordinator')->group(function () {
         Route::get('list/away', [CharityBoxController::class, 'getListAway'])->name('box.list.away');

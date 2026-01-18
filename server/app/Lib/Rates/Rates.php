@@ -11,7 +11,9 @@ class Rates
     private const GBP_NAME = 'GBP';
 
     private float $gbp;
+
     private float $eur;
+
     private float $usd;
 
     public function __construct(float $usd, float $eur, float $gbp)

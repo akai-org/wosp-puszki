@@ -104,7 +104,6 @@ class BoxOperator
         return $box;
     }
 
-
     public function updateBoxByBoxID(Request $request, int $boxID): CharityBox
     {
         $box = CharityBox::where('id', '=', $boxID)->first();
@@ -170,8 +169,8 @@ class BoxOperator
     }
 
     /**
-     * @param Request $request
      * @return array<string, mixed>
+     *
      * @throws Exception
      */
     private function getBoxDataFromRequest(Request $request): array
@@ -223,7 +222,7 @@ class BoxOperator
 
     private function formatMoney(Money $money): string
     {
-        $currencies = new ISOCurrencies();
+        $currencies = new ISOCurrencies;
 
         $moneyFormatter = new DecimalMoneyFormatter($currencies);
 
@@ -254,10 +253,6 @@ class BoxOperator
 
     // Format money to string
 
-    /**
-     * @param int $boxID
-     * @return CharityBox
-     */
     public function confirmBoxByBoxID(int $boxID): CharityBox
     {
         $box = CharityBox::where('id', '=', $boxID)->first();
@@ -271,7 +266,7 @@ class BoxOperator
 
         $box = $box->fresh()->load('collector');
 
-        $event = new BoxEvent();
+        $event = new BoxEvent;
         $event->type = 'confirmed';
         $event->box_id = $box->id;
         $event->user_id = $this->operatingUserId;
@@ -289,9 +284,6 @@ class BoxOperator
         return CharityBox::with('collector')->orderByRaw('CAST("charity_boxes"."collectorIdentifier" AS NUMERIC)')->get();
     }
 
-    /**
-     * @return CharityBox
-     */
     public function lastChangedBox(): CharityBox
     {
         return CharityBox::with('collector')->orderBy('updated_at')->first();

@@ -28,6 +28,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
  * @property-read int|null $revision_history_count
  * @property-read Collection<int, Role> $roles
  * @property-read int|null $roles_count
+ *
  * @method static Builder<static>|User newModelQuery()
  * @method static Builder<static>|User newQuery()
  * @method static Builder<static>|User query()
@@ -38,6 +39,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
  * @method static Builder<static>|User wherePassword($value)
  * @method static Builder<static>|User whereRememberToken($value)
  * @method static Builder<static>|User whereUpdatedAt($value)
+ *
  * @mixin Eloquent
  */
 class User extends Authenticatable
@@ -64,7 +66,6 @@ class User extends Authenticatable
 
     /**
      * @param array<string>|string $roles
-     * @return bool
      */
     public function authorizeRoles(array|string $roles): bool
     {
@@ -81,22 +82,11 @@ class User extends Authenticatable
      * Check multiple roles
      *
      * @param array<string> $roles
-     * @return bool
      */
     public function hasAnyRole(array $roles): bool
     {
         return $this->roles()->whereIn('name', $roles)->first() !== null;
     }
-
-
-    /**
-     * @return BelongsToMany<Role, $this>
-     */
-    public function roles(): BelongsToMany
-    {
-        return $this->belongsToMany(Role::class);
-    }
-
 
     /**
      * @return BelongsToMany<Role, $this>
@@ -108,9 +98,6 @@ class User extends Authenticatable
 
     /**
      * Check one role
-     *
-     * @param  string  $role
-     * @return bool
      */
     public function hasRole(string $role): bool
     {

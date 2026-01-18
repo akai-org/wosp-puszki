@@ -41,8 +41,6 @@ trait Timestampable
 
     /**
      * Get createdAt
-     *
-     * @return DateTime
      */
     public function getCreatedAt(): DateTime
     {
@@ -52,7 +50,7 @@ trait Timestampable
     /**
      * Set createdAt
      *
-     * @param DateTime $createdAt
+     * @param  DateTime  $createdAt
      */
     public function setCreatedAt($createdAt): static
     {
@@ -63,8 +61,6 @@ trait Timestampable
 
     /**
      * Get updatedAt
-     *
-     * @return DateTime
      */
     public function getUpdatedAt(): DateTime
     {
@@ -74,7 +70,7 @@ trait Timestampable
     /**
      * Set updatedAt
      *
-     * @param DateTime $updatedAt
+     * @param  DateTime  $updatedAt
      */
     public function setUpdatedAt($updatedAt): static
     {

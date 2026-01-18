@@ -52,7 +52,7 @@ test('as a superadmin I can add a user', function () {
 });
 
 afterEach(function () {
-    if (!empty($this->addedUser)) {
+    if (! empty($this->addedUser)) {
         $this->addedUser->delete();
         $userId = $this->addedUser->id;
         DB::delete("DELETE FROM role_user where role_id = $this->superAdminRoleId  and user_id = $userId;");

@@ -11,7 +11,9 @@ class StaticRatesFetcher implements RatesFetcher
     private const GBP_RATES_CONFIG = 'rates.gbp';
 
     private float $usd;
+
     private float $eur;
+
     private float $gbp;
 
     public function __construct()

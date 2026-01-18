@@ -7,6 +7,7 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+
 use function App\totalCollectedReal;
 
 class BoxConfirmed implements ShouldBroadcast
@@ -30,8 +31,6 @@ class BoxConfirmed implements ShouldBroadcast
 
     /**
      * Get the channels the event should broadcast on.
-     *
-     * @return Channel
      */
     public function broadcastOn(): Channel
     {

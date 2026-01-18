@@ -14,6 +14,6 @@ class SpecialBoxIsCountedListener implements ShouldQueue
      */
     public function handle(SpecialBoxIsCounted $event): void
     {
-        (new WebhookNotifiable())->notify(new SpecialBoxIsCountedNotification($event->userName, $event->box));
+        (new WebhookNotifiable)->notify(new SpecialBoxIsCountedNotification($event->userName, $event->box));
     }
 }

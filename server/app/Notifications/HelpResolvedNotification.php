@@ -33,14 +33,14 @@ class HelpResolvedNotification extends Notification
     {
         return WebhookMessage::create()
             ->data(['username' => 'WOŚP Helper Bot',
-                'content' => "✅ Po problemie",
+                'content' => '✅ Po problemie',
                 'embeds' => [
                     [
                         'description' => "Użytkownik {$this->userName} już ciebie nie potrzebuje",
                         'color' => 7506394,
-                        'timestamp' => Carbon::now()->toIso8601String(),// Decimal color code (not Hex)
-                        'fields' => $this->getFields()
-                    ]
+                        'timestamp' => Carbon::now()->toIso8601String(), // Decimal color code (not Hex)
+                        'fields' => $this->getFields(),
+                    ],
                 ]])
             ->header('Content-Type', 'application/json');
     }
@@ -52,10 +52,11 @@ class HelpResolvedNotification extends Notification
                 [
                     'name' => 'Stanowisko',
                     'value' => $matches[1],
-                    'inline' => true
-                ]
+                    'inline' => true,
+                ],
             ];
         }
+
         return [];
     }
 }

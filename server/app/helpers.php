@@ -30,12 +30,12 @@ function totalCollected(): string
 function totalCollectedArray(): array
 {
     $amount_PLN_eskarbonka = AppStatusManager::readStatusValue(AppStatusManager::MONEYBOX_VALUE, '0');
-    $amount_PLN = round((float)CharityBox::where('is_confirmed', '=', 1)->sum('amount_PLN'), 2);
+    $amount_PLN = round((float) CharityBox::where('is_confirmed', '=', 1)->sum('amount_PLN'), 2);
     $amount_PLN_unconfirmed = round(CharityBox::all()->sum('amount_PLN'), 2);
 
-    $amount_EUR = round((float)CharityBox::where('is_confirmed', '=', 1)->sum('amount_EUR'), 2);
-    $amount_USD = round((float)CharityBox::where('is_confirmed', '=', 1)->sum('amount_USD'), 2);
-    $amount_GBP = round((float)CharityBox::where('is_confirmed', '=', 1)->sum('amount_GBP'), 2);
+    $amount_EUR = round((float) CharityBox::where('is_confirmed', '=', 1)->sum('amount_EUR'), 2);
+    $amount_USD = round((float) CharityBox::where('is_confirmed', '=', 1)->sum('amount_USD'), 2);
+    $amount_GBP = round((float) CharityBox::where('is_confirmed', '=', 1)->sum('amount_GBP'), 2);
 
     $fetcher = resolveRatesFetcher();
     $rates = $fetcher->fetchRates();
@@ -73,10 +73,10 @@ function totalCollectedArray(): array
  */
 function totalCollectedReal(): array
 {
-    $amount_PLN = (float)CharityBox::where('is_counted', '=', 1)->sum('amount_PLN');
-    $amount_EUR = (float)CharityBox::where('is_counted', '=', 1)->sum('amount_EUR');
-    $amount_USD = (float)CharityBox::where('is_counted', '=', 1)->sum('amount_USD');
-    $amount_GBP = (float)CharityBox::where('is_counted', '=', 1)->sum('amount_GBP');
+    $amount_PLN = (float) CharityBox::where('is_counted', '=', 1)->sum('amount_PLN');
+    $amount_EUR = (float) CharityBox::where('is_counted', '=', 1)->sum('amount_EUR');
+    $amount_USD = (float) CharityBox::where('is_counted', '=', 1)->sum('amount_USD');
+    $amount_GBP = (float) CharityBox::where('is_counted', '=', 1)->sum('amount_GBP');
 
     $fetcher = resolveRatesFetcher();
     $rates = $fetcher->fetchRates();

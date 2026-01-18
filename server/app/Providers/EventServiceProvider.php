@@ -22,14 +22,14 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\EventListener',
         ],
         HelpRequested::class => [
-            SendDiscordHelpRequest::class
+            SendDiscordHelpRequest::class,
         ],
         HelpResolved::class => [
-            SendDiscordHelpResolved::class
+            SendDiscordHelpResolved::class,
         ],
         SpecialBoxIsCounted::class => [
-            SpecialBoxIsCountedListener::class
-        ]
+            SpecialBoxIsCountedListener::class,
+        ],
     ];
 
     /**

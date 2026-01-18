@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+
 use function App\totalCollectedReal;
 
 class PostRaw extends Command
@@ -33,8 +34,6 @@ class PostRaw extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return void
      */
     public function handle(): void
     {
@@ -55,7 +54,7 @@ class PostRaw extends Command
 
         curl_close($ch);
 
-        $this->info((string)$server_output);
+        $this->info((string) $server_output);
 
     }
 }

@@ -11,7 +11,7 @@ class AllegroController extends Controller
     public function setAuthToken(Request $request): void
     {
         $code = $request->code;
-        $response = (string)$this->getAccessToken($code);
+        $response = (string) $this->getAccessToken($code);
         $access_token = json_decode($response)->access_token;
         $refresh_token = json_decode($response)->refresh_token;
         echo 'access_token = ', $access_token;
@@ -41,21 +41,20 @@ class AllegroController extends Controller
     }
 
     /**
-     * @param array<int, string> $headers
-     * @param string $content
-     * @return CurlHandle
+     * @param  array<int, string>  $headers
      */
     protected function getCurl(array $headers, string $content): CurlHandle
     {
         $ch = curl_init();
-        curl_setopt_array($ch, array(
-            CURLOPT_URL => "https://allegro.pl/auth/oauth/token",
+        curl_setopt_array($ch, [
+            CURLOPT_URL => 'https://allegro.pl/auth/oauth/token',
             CURLOPT_HTTPHEADER => $headers,
             CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_POST => true,
-            CURLOPT_POSTFIELDS => $content
-        ));
+            CURLOPT_POSTFIELDS => $content,
+        ]);
+
         return $ch;
     }
 }

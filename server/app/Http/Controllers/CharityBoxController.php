@@ -39,12 +39,12 @@ class CharityBoxController extends Controller
                 ->with('error', $e->getMessage());
         }
 
-        return view('box.create')->with('message', 'Wydano puszkę wolontariuszowi '.$box->collector->display.$box->display_id);
+        return view('box.create')->with('message', 'Wydano puszkę wolontariuszowi ' . $box->collector->display . $box->display_id);
     }
 
     public function getFind(): Factory|View|\Illuminate\View\View
     {
-        return view('liczymy.box.find');
+        return view('box.find');
     }
 
     public function postFind(Request $request): RedirectResponse|Factory|View|\Illuminate\View\View
@@ -89,7 +89,7 @@ class CharityBoxController extends Controller
         // Flash input in case user wants to go back
         $request->flash();
 
-        return view('liczymy.box.confirm')->with('box', $box);
+        return view('box.confirm')->with('box', $box);
     }
 
     public function confirm(Request $request, int $boxID): RedirectResponse
@@ -104,12 +104,12 @@ class CharityBoxController extends Controller
         }
 
         return redirect()->route('box.find')
-            ->with('message', 'Puszka wolontariusza '.$box->collector->display.' została przesłana do zatwierdzenia. ('.$box->amount_PLN.'zł)');
+            ->with('message', 'Puszka wolontariusza ' . $box->collector->display . ' została przesłana do zatwierdzenia. (' . $box->amount_PLN . 'zł)');
     }
 
     public function getVerifyList(): Factory|View|\Illuminate\View\View
     {
-        return view('liczymy.box.verifyList');
+        return view('box.verifyList');
     }
 
     public function getDisplay(int $boxID): Factory|View|\Illuminate\View\View
@@ -138,7 +138,7 @@ class CharityBoxController extends Controller
         $box->time_confirmed = Carbon::now();
         $box->save();
 
-        $event = new BoxEvent();
+        $event = new BoxEvent;
         $event->type = 'verified';
         $event->box_id = $box->id;
         $event->user_id = $request->user()->id;
@@ -147,7 +147,7 @@ class CharityBoxController extends Controller
 
         return json_encode(
             [
-                'message' => 'Puszka nr '.$box->id.' potwierdzona ('.$box->amount_PLN.'zł)',
+                'message' => 'Puszka nr ' . $box->id . ' potwierdzona (' . $box->amount_PLN . 'zł)',
                 'status' => 'success',
             ]
         );
@@ -188,6 +188,6 @@ class CharityBoxController extends Controller
             abort(404);
         }
 
-        return redirect()->route('box.verify.list')->with('message', 'Zapisano puszkę wolontariusza '.$box->collectorIdentifier.', ID w bazie:'.$box->id.' ('.$box->amount_PLN.'zł)');
+        return redirect()->route('box.verify.list')->with('message', 'Zapisano puszkę wolontariusza ' . $box->collectorIdentifier . ', ID w bazie:' . $box->id . ' (' . $box->amount_PLN . 'zł)');
     }
 }

@@ -23,6 +23,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
  * @property-read Collection<int, Revision> $revisionHistory
  * @property-read int|null $revision_history_count
  * @property-read User|null $user
+ *
  * @method static Builder<static>|BoxEvent newModelQuery()
  * @method static Builder<static>|BoxEvent newQuery()
  * @method static Builder<static>|BoxEvent query()
@@ -33,6 +34,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
  * @method static Builder<static>|BoxEvent whereType($value)
  * @method static Builder<static>|BoxEvent whereUpdatedAt($value)
  * @method static Builder<static>|BoxEvent whereUserId($value)
+ *
  * @mixin Eloquent
  */
 class BoxEvent extends Model

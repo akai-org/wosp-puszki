@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Console\Command;
+
 use function App\totalCollectedReal;
 
 class PostJson extends Command
@@ -36,7 +37,6 @@ class PostJson extends Command
     /**
      * Execute the console command.
      *
-     * @return void
      * @throws GuzzleException
      */
     public function handle(): void

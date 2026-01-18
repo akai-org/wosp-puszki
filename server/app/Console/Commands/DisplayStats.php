@@ -51,6 +51,6 @@ class DisplayStats extends Command
             'biggest_time_outside_boxes' => $biggestTimeOutsideBoxes,
         ];
 
-        $this->info((string)json_encode($statistics, JSON_PRETTY_PRINT));
+        $this->info((string) json_encode($statistics, JSON_PRETTY_PRINT));
     }
 }

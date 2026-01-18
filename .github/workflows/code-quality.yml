@@ -32,12 +32,6 @@ jobs:
       - name: Run Larastan
         run: ./vendor/bin/phpstan analyse
 
-      - name: Run Laravel Pint and Commit
-        uses: aglipanci/laravel-pint-action@latest
-        with:
-          verboseMode: true
-          testMode: false # This will actually fix the code
-
       - name: Security Check
         uses: symfonycorp/security-checker-action@v5
 
@@ -59,7 +53,7 @@ jobs:
         uses: actions/setup-node@v4
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Run ESLint (React Quality)
         run: yarn lint
