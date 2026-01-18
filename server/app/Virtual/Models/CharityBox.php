@@ -28,7 +28,6 @@ final class CharityBox extends GenericModel
     public int $collectorIdentifier;
 
     /**
-    /*
      * @OA\Property(
      *     title="Is Given To Collector",
      *     description="Flag whether charity box has been issued",

@@ -65,7 +65,7 @@ class BoxOperator
         $boxes = $collector->boxes()->orderBy('id', 'desc')->with('collector')->notCounted()->get();
 
         if (count($boxes) == 0) {
-            throw new \Exception('Wszystkie puszki wolontariusza '.$collector->display.' są rozliczone.');
+            throw new Exception('Wszystkie puszki wolontariusza '.$collector->display.' są rozliczone.');
         }
 
         $event = new BoxEvent;
@@ -83,7 +83,7 @@ class BoxOperator
         $box = CharityBox::where('id', '=', $boxID)->first();
 
         if ($box->is_counted) {
-            throw new \Exception('Puszka została już rozliczona, numer puszki: '.$box->id.'Wolontariusz: '.
+            throw new Exception('Puszka została już rozliczona, numer puszki: '.$box->id.'Wolontariusz: '.
                 $box->collectorIdentifier);
         }
 
