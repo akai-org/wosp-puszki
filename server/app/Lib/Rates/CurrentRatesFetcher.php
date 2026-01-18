@@ -24,7 +24,7 @@ class CurrentRatesFetcher implements RatesFetcher
 
     private function fetchApiRates(string $endpoint): float
     {
-        $result = json_decode(file_get_contents($endpoint), true);
+        $result = json_decode((string)file_get_contents($endpoint), true);
 
         return $result['rates'][0]['mid'];
     }

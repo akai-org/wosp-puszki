@@ -45,6 +45,9 @@ class HelpResolvedNotification extends Notification
             ->header('Content-Type', 'application/json');
     }
 
+    /**
+     * @return array<int, array<string, mixed>>
+     */
     private function getFields(): array
     {
         if (preg_match('/(\d{2})$/', $this->userName, $matches)) {
@@ -57,6 +60,6 @@ class HelpResolvedNotification extends Notification
             ];
         }
 
-        return [];
+        return [[]];
     }
 }

@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Api;
 use App\Events\HelpRequested;
 use App\Events\HelpResolved;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class HelpApiController extends Controller
 {
-    public function request(Request $request)
+    public function request(Request $request): JsonResponse
     {
         $userName = $request->user()->name;
 
@@ -18,7 +19,7 @@ class HelpApiController extends Controller
         return response()->json(['status' => 'Help requested']);
     }
 
-    public function resolve(Request $request)
+    public function resolve(Request $request): JsonResponse
     {
         $userName = $request->user()->name;
 

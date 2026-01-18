@@ -43,7 +43,7 @@ class SpecialBoxIsCountedNotification extends Notification
                 'content' => '⭐ Puszka specjalna pojawiła się w sztabie',
                 'embeds' => [
                     [
-                        'description' => "Użytkownik {$this->username} liczy puszkę wolontariusza {$this->box->collector()->identifier}",
+                        'description' => "Użytkownik {$this->username} liczy puszkę wolontariusza {$this->box->collector->identifier}",
                         'color' => 7506394,
                         'timestamp' => Carbon::now()->toIso8601String(), // Decimal color code (not Hex)
                         'fields' => $this->getFields(),
@@ -52,6 +52,9 @@ class SpecialBoxIsCountedNotification extends Notification
             ->header('Content-Type', 'application/json');
     }
 
+    /**
+     * @return array<int, array<string, mixed>>
+     */
     private function getFields(): array
     {
         if (preg_match('/(\d{2})$/', $this->username, $matches)) {
@@ -64,6 +67,6 @@ class SpecialBoxIsCountedNotification extends Notification
             ];
         }
 
-        return [];
+        return [[]];
     }
 }
