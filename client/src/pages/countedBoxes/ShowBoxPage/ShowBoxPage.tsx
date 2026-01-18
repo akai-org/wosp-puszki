@@ -12,23 +12,30 @@ import {
   useGetBoxQuery,
   useUnverifiedBoxesQuery,
 } from '@/utils';
-import { Space } from 'antd';
+import { Space, Spin } from 'antd';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
+import { Content } from 'antd/lib/layout/layout';
 import { FC, useEffect, useState } from 'react';
 import Paragraph from 'antd/lib/typography/Paragraph';
 
 interface Props {
   displayOnly?: boolean;
 }
+
 export const ShowBoxPage: FC<Props> = ({ displayOnly = false }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { refetch } = useUnverifiedBoxesQuery();
-  const [data, setData] = useState<BoxData | null>(null);
-  const queryData = useGetBoxQuery(id as string).data;
+  const query = useGetBoxQuery(id as string);
+  const queryData = query.data;
+  const isQueryLoading = query.isLoading;
 
-  useEffect(() => {
+  const processedData: () => BoxData | null = () => {
+    if (!queryData) {
+      return null;
+    }
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const amounts: any = {};
 
@@ -42,16 +49,15 @@ export const ShowBoxPage: FC<Props> = ({ displayOnly = false }) => {
         }
       });
     }
-    setData({
+
+    return {
       amounts,
       comment: queryData?.comment || '',
       additional_comment: queryData?.additional_comment || '',
-    });
-    return () => {
-      setData(null);
     };
-  }, [queryData, queryData?.comment]);
+  };
 
+  const data = processedData();
   const verifyMutation = useMutation({
     mutationFn: () =>
       fetcher(`${APIManager.baseAPIRUrl}/charityBoxes/verified/${id}`, {
@@ -98,8 +104,21 @@ export const ShowBoxPage: FC<Props> = ({ displayOnly = false }) => {
     </FormButton>
   );
 
-  return (
-    <Modal title={'Zawartość puszki'}>
+  const modalContent =
+    isQueryLoading || !data ? (
+      <Content
+        style={{
+          minWidth: '50vw',
+          minHeight: '50vh',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          justifyItems: 'center',
+        }}
+      >
+        <Spin />
+      </Content>
+    ) : (
       <Space direction="vertical">
         <div>
           <Paragraph style={{ fontWeight: 'bold', marginBottom: 0 }}>
@@ -138,6 +157,10 @@ export const ShowBoxPage: FC<Props> = ({ displayOnly = false }) => {
           {displayOnly ? null : actions}
         </Space>
       </Space>
+    );
+  return (
+    <Modal title={'Zawartość puszki'} key={id}>
+      {modalContent}
     </Modal>
   );
 };
