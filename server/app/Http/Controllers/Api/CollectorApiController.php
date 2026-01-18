@@ -166,7 +166,7 @@ final class CollectorApiController extends ApiController
         if ($collectorExists) {
             return new JsonResponse([
                 'status' => 'error',
-                'message' => 'Istnieje już wolontariusz o podanym numerze w systemie'
+                'message' => 'Istnieje już wolontariusz o podanym numerze w systemie',
             ], ResponseAlias::HTTP_BAD_REQUEST);
         }
 
@@ -225,7 +225,7 @@ final class CollectorApiController extends ApiController
         $bo = new BoxOperator($request->user()->id);
         try {
             $box = $bo->giveByCollectorIdentifier($collectorIdentifier);
-            if (!is_null($request->input('additional_comment'))) {
+            if (! is_null($request->input('additional_comment'))) {
                 $box->additional_comment = $request->input('additional_comment');
                 $box->save();
             }
@@ -287,6 +287,7 @@ final class CollectorApiController extends ApiController
         if ($box->is_special_box) {
             SpecialBoxIsCounted::dispatch($request->user()->name, $box);
         }
+
         return Response::json($box, 200);
     }
 }

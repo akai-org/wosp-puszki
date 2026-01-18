@@ -47,7 +47,6 @@ class ScrapMoneyBox extends Command
     /**
      * Execute the console command.
      *
-     * @return void
      * @throws GuzzleException
      */
     public function handle(): void
@@ -59,19 +58,19 @@ class ScrapMoneyBox extends Command
         $client = new Client(['verify' => false]);
         $result = $client->get($url);
 
-
         $matches = [];
         $pattern = '/data-count_start="(\d+)"/';
 
         // Perform the regex match
-        if (!preg_match($pattern, $result->getBody()->getContents(), $matches)) {
+        if (! preg_match($pattern, $result->getBody()->getContents(), $matches)) {
             Log::error('Could not fetch the moneybox value');
             $this->error('Could not fetch the moneybox value');
+
             return;
         }
 
         $data_count_start = $matches[1];
-        echo "The value of data-count_start is: " . $data_count_start;
+        echo 'The value of data-count_start is: '.$data_count_start;
 
         // Normalize the decimal point to full stop and not comma and remove spaces from inside
         $normalizedAmount = str_replace([',', ' '], ['.', ''], $data_count_start);

@@ -2,11 +2,11 @@ import { Space } from 'antd';
 import s from './DepositBoxPage.module.less';
 import { DepositBoxForm } from '@/components';
 import {
-  setStationUnavailable,
-  useGetBoxData,
-  useAuthContext,
-  permissions,
   getTopPermission,
+  permissions,
+  useAuthContext,
+  useGetBoxData,
+  useSetStationUnavailable,
 } from '@/utils';
 import { Content } from 'antd/lib/layout/layout';
 import Title from 'antd/lib/typography/Title';
@@ -15,7 +15,7 @@ export const DepositBoxPage = () => {
   const { boxIdentifier, collectorName, collectorIdentifier } = useGetBoxData();
   const { roles } = useAuthContext();
 
-  setStationUnavailable();
+  useSetStationUnavailable();
 
   const topPermission = getTopPermission(roles);
   const isPermitted =
@@ -28,7 +28,7 @@ export const DepositBoxPage = () => {
           Rozliczenie puszki wolontariusza {collectorName} ( {collectorIdentifier} ){' '}
           {isPermitted && ` ( ID puszki w bazie: ${boxIdentifier} )`}
         </Title>
-        <DepositBoxForm boxId={boxIdentifier} autofill/>
+        <DepositBoxForm boxId={boxIdentifier} autofill />
       </Content>
     </Space>
   );

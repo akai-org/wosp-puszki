@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Modal, Button, Typography, Steps, Checkbox, Image, Row, Col } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Button, Checkbox, Col, Image, Modal, Row, Steps, Typography } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import s from './InstructionsModal.module.less';
 
-const { Title, Paragraph, Text } = Typography;
+const { Title, Paragraph } = Typography;
 
 const INSTRUCTION_STEPS = [
   {
@@ -52,7 +52,9 @@ export const InstructionsModal = ({ isOpen, onClose }: InstructionsModalProps) =
       if (hide) {
         return true;
       }
-    } catch {}
+    } catch (e) {
+      console.error(e);
+    }
     return false;
   });
 

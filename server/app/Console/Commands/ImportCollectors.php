@@ -35,8 +35,6 @@ class ImportCollectors extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return void
      */
     public function handle(): void
     {
@@ -45,7 +43,7 @@ class ImportCollectors extends Command
         $this->info('import:'.$file);
         $contents = file_get_contents($file);
 
-        $reader = Reader::createFromString((string)$contents);
+        $reader = Reader::createFromString((string) $contents);
         $reader->setDelimiter(';');
 
         $reader->setHeaderOffset(0);
@@ -61,7 +59,7 @@ class ImportCollectors extends Command
             $exploded = mb_split(' ', $record['fullName']);
             $collector->firstName = Str::before($record['fullName'], ' ');
             $collector->lastName = Str::after($record['fullName'], ' ');
-            if ($record ['phoneNumber'] != '') {
+            if ($record['phoneNumber'] != '') {
                 $collector->phoneNumber = $record['phoneNumber'];
             }
             $i++;

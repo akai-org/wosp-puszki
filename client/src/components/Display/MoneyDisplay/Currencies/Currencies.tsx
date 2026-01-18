@@ -1,5 +1,4 @@
 import collected from '@assets/collected-text.svg';
-import eskarbonka from '@assets/eskarbonka.svg';
 import { Space, Typography } from 'antd';
 import s from './Currencies.module.less';
 import { currencies, parseMoney, useAmountsQuery } from '@/utils';

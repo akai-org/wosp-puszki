@@ -33,18 +33,21 @@ class HelpRequestedNotification extends Notification
     {
         return WebhookMessage::create()
             ->data(['username' => 'WOŚP Helper Bot',
-                'content' => "🚨 **Nowa prośba o pomoc!**",
+                'content' => '🚨 **Nowa prośba o pomoc!**',
                 'embeds' => [
                     [
                         'description' => "Użytkownik {$this->userName} woła o pomoc!",
                         'color' => 7506394,
-                        'timestamp' => Carbon::now()->toIso8601String(),// Decimal color code (not Hex)
-                        'fields' => $this->getFields()
-                    ]
+                        'timestamp' => Carbon::now()->toIso8601String(), // Decimal color code (not Hex)
+                        'fields' => $this->getFields(),
+                    ],
                 ]])
             ->header('Content-Type', 'application/json');
     }
 
+    /**
+     * @return array<int, array<string, mixed>>
+     */
     private function getFields(): array
     {
         if (preg_match('/(\d{2})$/', $this->userName, $matches)) {
@@ -52,10 +55,11 @@ class HelpRequestedNotification extends Notification
                 [
                     'name' => 'Stanowisko',
                     'value' => $matches[1],
-                    'inline' => true
-                ]
+                    'inline' => true,
+                ],
             ];
         }
+
         return [];
     }
 }

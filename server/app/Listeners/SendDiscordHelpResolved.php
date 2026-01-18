@@ -14,6 +14,6 @@ class SendDiscordHelpResolved implements ShouldQueue
      */
     public function handle(HelpResolved $event): void
     {
-        (new WebhookNotifiable())->notify(new HelpResolvedNotification($event->userName));
+        (new WebhookNotifiable)->notify(new HelpResolvedNotification($event->userName));
     }
 }

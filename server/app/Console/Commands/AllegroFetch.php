@@ -15,12 +15,14 @@ class AllegroFetch extends Command
      * @var string
      */
     private static $url = 'https://api.allegro.pl/sale/offers?sellingMode.format=AUCTION&limit=1000';
+
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
     protected $signature = 'allegro:fetch';
+
     /**
      * The console command description.
      *
@@ -40,8 +42,6 @@ class AllegroFetch extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return void
      */
     public function handle(): void
     {
@@ -80,7 +80,7 @@ class AllegroFetch extends Command
         $info = curl_getinfo($ch);
         $sum = 0;
         if ($info['http_code'] == 200) {
-            $decodedRequest = json_decode((string)$result, true);
+            $decodedRequest = json_decode((string) $result, true);
             var_dump(count($decodedRequest['offers']));
             foreach ($decodedRequest['offers'] as $offer) {
                 if ($offer['saleInfo']['biddersCount'] == 0) {
@@ -92,10 +92,10 @@ class AllegroFetch extends Command
         }
         Log::info('Fetched allegro: '.$sum);
         Cache::put('allegro_sum', $sum, 3600);
-        $this->info('' . $sum);
+        $this->info(''.$sum);
     }
 
-    function TokenRefresh(string $token): string
+    public function TokenRefresh(string $token): string
     {
         $client_id = config('services.allegro.client_id');
         $client_secret = config('services.allegro.client_secret');
@@ -111,14 +111,12 @@ class AllegroFetch extends Command
             exit("Something went wrong: $resultCode | $tokenResult");
         }
 
-        return json_decode((string)$tokenResult)->access_token;
+        return json_decode((string) $tokenResult)->access_token;
     }
 
     /**
-     * @param array<int, string> $headers
-     * @param string $url
-     * @param string|null $content
-     * @return CurlHandle
+     * @param  array<int, string>  $headers
+     * @param  string|null  $content
      */
     protected function getCurl(array $headers, string $url, $content = null): CurlHandle
     {

@@ -14,8 +14,8 @@ class SpecialBoxIsCountedNotification extends Notification
     use Queueable;
 
     private string $username;
-    private CharityBox $box;
 
+    private CharityBox $box;
 
     /**
      * Create a new notification instance.
@@ -40,18 +40,21 @@ class SpecialBoxIsCountedNotification extends Notification
     {
         return WebhookMessage::create()
             ->data(['username' => 'WOŚP Helper Bot',
-                'content' => "⭐ Puszka specjalna pojawiła się w sztabie",
+                'content' => '⭐ Puszka specjalna pojawiła się w sztabie',
                 'embeds' => [
                     [
-                        'description' => "Użytkownik {$this->username} liczy puszkę wolontariusza {$this->box->collector()->identifier}",
+                        'description' => "Użytkownik {$this->username} liczy puszkę wolontariusza {$this->box->collector->identifier}",
                         'color' => 7506394,
-                        'timestamp' => Carbon::now()->toIso8601String(),// Decimal color code (not Hex)
-                        'fields' => $this->getFields()
-                    ]
+                        'timestamp' => Carbon::now()->toIso8601String(), // Decimal color code (not Hex)
+                        'fields' => $this->getFields(),
+                    ],
                 ]])
             ->header('Content-Type', 'application/json');
     }
 
+    /**
+     * @return array<int, array<string, mixed>>
+     */
     private function getFields(): array
     {
         if (preg_match('/(\d{2})$/', $this->username, $matches)) {
@@ -59,10 +62,11 @@ class SpecialBoxIsCountedNotification extends Notification
                 [
                     'name' => 'Stanowisko',
                     'value' => $matches[1],
-                    'inline' => true
-                ]
+                    'inline' => true,
+                ],
             ];
         }
-        return [];
+
+        return [[]];
     }
 }

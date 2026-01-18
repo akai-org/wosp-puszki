@@ -65,6 +65,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
  * @property-read User|null $personConfirming
  * @property-read Collection<int, Revision> $revisionHistory
  * @property-read int|null $revision_history_count
+ *
  * @method static Builder<static>|CharityBox confirmed()
  * @method static Builder<static>|CharityBox newModelQuery()
  * @method static Builder<static>|CharityBox newQuery()
@@ -112,6 +113,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
  * @method static Builder<static>|CharityBox whereTimeGiven($value)
  * @method static Builder<static>|CharityBox whereUpdatedAt($value)
  * @method static Builder<static>|CharityBox whereUserConfirmedId($value)
+ *
  * @mixin Eloquent
  */
 class CharityBox extends Model
@@ -130,7 +132,7 @@ class CharityBox extends Model
     {
         $history = $this->revisionHistory->where('key', 'counting_user_id')->sortBy('created_at')->first();
         if ($history) {
-            return (int)$history->new_value;
+            return (int) $history->new_value;
         }
 
         return $this->counting_user_id;
@@ -194,7 +196,7 @@ class CharityBox extends Model
     }
 
     /**
-     * @param Builder<CharityBox> $query
+     * @param  Builder<CharityBox>  $query
      * @return Builder<CharityBox>
      */
     public function scopeNotCounted(Builder $query): Builder
@@ -206,7 +208,7 @@ class CharityBox extends Model
     }
 
     /**
-     * @param Builder<CharityBox> $query
+     * @param  Builder<CharityBox>  $query
      * @return Builder<CharityBox>
      */
     public function scopeUnconfirmed(Builder $query): Builder
@@ -218,7 +220,7 @@ class CharityBox extends Model
     }
 
     /**
-     * @param Builder<CharityBox> $query
+     * @param  Builder<CharityBox>  $query
      * @return Builder<CharityBox>
      */
     public function scopeConfirmed(Builder $query): Builder

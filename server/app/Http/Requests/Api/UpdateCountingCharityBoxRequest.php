@@ -14,7 +14,7 @@ class UpdateCountingCharityBoxRequest extends BoxCharityBoxRequest
     public function rules()
     {
         return array_merge(
-        // parent::rules(), dont merge - we dont need box_id
+            // parent::rules(), dont merge - we dont need box_id
             [],
             [
                 'count_1gr' => 'required|integer|between:0,15000',

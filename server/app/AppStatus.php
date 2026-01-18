@@ -13,6 +13,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
  * @property string $value
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @method static Builder<static>|AppStatus newModelQuery()
  * @method static Builder<static>|AppStatus newQuery()
  * @method static Builder<static>|AppStatus query()
@@ -20,6 +21,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
  * @method static Builder<static>|AppStatus whereId($value)
  * @method static Builder<static>|AppStatus whereUpdatedAt($value)
  * @method static Builder<static>|AppStatus whereValue($value)
+ *
  * @mixin Eloquent
  */
 class AppStatus extends Model

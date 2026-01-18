@@ -3,7 +3,6 @@
 use App\Http\Controllers\Api\AvailabilityApiController;
 use App\Http\Controllers\Api\CharityBoxApiController;
 use App\Http\Controllers\Api\CollectorApiController;
-use App\Http\Controllers\Api\CountedBoxApiController;
 use App\Http\Controllers\API\DataDumpController;
 use App\Http\Controllers\Api\HelpApiController;
 use App\Http\Controllers\Api\LogsApiController;
@@ -27,7 +26,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => ['auth.basic:,name']], function () {
     Route::get('health', function (Request $request) {
-        $roles = auth()->user()->roles()->get()->map(fn($role) => $role->name);
+        $roles = auth()->user()->roles()->get()->map(fn ($role) => $role->name);
 
         return response()->json(['user' => auth()->user()->name, 'roles' => $roles]);
     });
@@ -40,7 +39,6 @@ Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], func
 });
 
 Route::group(['as' => 'api.', 'middleware' => ['web', 'auth.basic:,name']], function () {
-
 
     Route::post('charityBoxes/{id}/verify', [CharityBoxApiController::class, 'verify'])->name('api.box.verify')->middleware('collectorcoordinator');
 

@@ -24,6 +24,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
  * @property-read mixed $display
  * @property-read Collection<int, Revision> $revisionHistory
  * @property-read int|null $revision_history_count
+ *
  * @method static Builder<static>|Collector newModelQuery()
  * @method static Builder<static>|Collector newQuery()
  * @method static Builder<static>|Collector query()
@@ -34,6 +35,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
  * @method static Builder<static>|Collector whereLastName($value)
  * @method static Builder<static>|Collector wherePhoneNumber($value)
  * @method static Builder<static>|Collector whereUpdatedAt($value)
+ *
  * @mixin Eloquent
  */
 class Collector extends Model

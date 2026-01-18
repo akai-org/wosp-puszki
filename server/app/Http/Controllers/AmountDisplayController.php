@@ -6,7 +6,7 @@ use App\Lib\Rates\RatesFetcher;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Storage;
+
 use function App\totalCollected;
 use function App\totalCollectedArray;
 use function App\totalCollectedReal;
@@ -29,6 +29,7 @@ class AmountDisplayController extends Controller
     public function displayApi(): JsonResponse
     {
         $data = totalCollectedReal();
+
         return response()->json($data);
     }
 

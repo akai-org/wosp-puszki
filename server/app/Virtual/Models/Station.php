@@ -44,8 +44,6 @@ final class Station
      *     type="datetime",
      *     example="2023-12-06 12:38:42"
      * )
-     *
-     * @var DateTime|null
      */
     public ?DateTime $time;
 }

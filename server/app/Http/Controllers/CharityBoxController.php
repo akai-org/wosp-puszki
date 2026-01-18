@@ -44,7 +44,7 @@ class CharityBoxController extends Controller
 
     public function getFind(): Factory|View|\Illuminate\View\View
     {
-        return view('liczymy.box.find');
+        return view('box.find');
     }
 
     public function postFind(Request $request): RedirectResponse|Factory|View|\Illuminate\View\View
@@ -89,7 +89,7 @@ class CharityBoxController extends Controller
         // Flash input in case user wants to go back
         $request->flash();
 
-        return view('liczymy.box.confirm')->with('box', $box);
+        return view('box.confirm')->with('box', $box);
     }
 
     public function confirm(Request $request, int $boxID): RedirectResponse
@@ -109,7 +109,7 @@ class CharityBoxController extends Controller
 
     public function getVerifyList(): Factory|View|\Illuminate\View\View
     {
-        return view('liczymy.box.verifyList');
+        return view('box.verifyList');
     }
 
     public function getDisplay(int $boxID): Factory|View|\Illuminate\View\View
@@ -123,7 +123,7 @@ class CharityBoxController extends Controller
     {
         $box = CharityBox::where('id', '=', $boxID)->first();
 
-        if ($box->is_given_to_collector && $box->is_counted && !$box->is_confirmed) {
+        if ($box->is_given_to_collector && $box->is_counted && ! $box->is_confirmed) {
             return view('box.verify')->with('box', $box);
         } else {
             return redirect()->route('main')->with('error', 'Puszka nie może być potwierdzona');
@@ -138,7 +138,7 @@ class CharityBoxController extends Controller
         $box->time_confirmed = Carbon::now();
         $box->save();
 
-        $event = new BoxEvent();
+        $event = new BoxEvent;
         $event->type = 'verified';
         $event->box_id = $box->id;
         $event->user_id = $request->user()->id;

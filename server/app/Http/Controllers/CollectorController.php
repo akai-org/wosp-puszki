@@ -41,7 +41,7 @@ class CollectorController extends Controller
             return view('collector.create')->with('error', 'Istnieje już wolontariusz o podanym numerze w systemie');
         }
 
-        $collector = new Collector();
+        $collector = new Collector;
         $collector->identifier = $request->input('collectorIdentifier');
         $collector->firstName = $request->input('firstName');
         $collector->lastName = $request->input('lastName');

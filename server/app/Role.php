@@ -21,6 +21,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
  * @property-read int|null $revision_history_count
  * @property-read Collection<int, User> $users
  * @property-read int|null $users_count
+ *
  * @method static Builder<static>|Role newModelQuery()
  * @method static Builder<static>|Role newQuery()
  * @method static Builder<static>|Role query()
@@ -29,6 +30,7 @@ use Venturecraft\Revisionable\RevisionableTrait;
  * @method static Builder<static>|Role whereId($value)
  * @method static Builder<static>|Role whereName($value)
  * @method static Builder<static>|Role whereUpdatedAt($value)
+ *
  * @mixin Eloquent
  */
 class Role extends Model

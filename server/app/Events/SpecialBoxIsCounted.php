@@ -12,6 +12,7 @@ class SpecialBoxIsCounted
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public string $userName;
+
     public CharityBox $box;
 
     /**

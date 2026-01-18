@@ -1,21 +1,24 @@
 import { useMutation } from '@tanstack/react-query';
-import { useAuthContext } from '../Contexts';
-import { useSetStationAvailableQuery, useSetStationUnavailableQuery } from '../queries';
-import { APIManager } from '../Classes';
-import { fetcher } from '../fetcher';
-import { getIDfromUsername } from '../Functions';
+import {
+  APIManager,
+  fetcher,
+  getIDfromUsername,
+  useAuthContext,
+  useSetStationAvailableQuery,
+  useSetStationUnavailableQuery,
+} from '@/utils';
 
-export function setStationAvailable() {
+export function useSetStationAvailable() {
   const { username } = useAuthContext();
   useSetStationAvailableQuery(username);
 }
 
-export function setStationUnavailable() {
+export function useSetStationUnavailable() {
   const { username } = useAuthContext();
   useSetStationUnavailableQuery(username);
 }
 
-export function setStationUnknown(username: string) {
+export function useSetStationUnknown(username: string) {
   const id = getIDfromUsername(username);
 
   const { error, isError, isLoading, isSuccess, mutateAsync } = useMutation({

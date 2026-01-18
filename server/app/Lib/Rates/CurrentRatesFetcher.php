@@ -22,13 +22,9 @@ class CurrentRatesFetcher implements RatesFetcher
         return (new Rates($usd, $eur, $gbp))->toArray();
     }
 
-    /**
-     * @param string $endpoint
-     * @return float
-     */
     private function fetchApiRates(string $endpoint): float
     {
-        $result = json_decode(file_get_contents($endpoint), true);
+        $result = json_decode((string) file_get_contents($endpoint), true);
 
         return $result['rates'][0]['mid'];
     }

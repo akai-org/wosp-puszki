@@ -9,7 +9,6 @@ use Illuminate\Http\JsonResponse;
 class CharityBoxResource extends JsonResponse
 {
     /**
-     * @param string $request
      * @return array<string, mixed>
      */
     public function toArray(string $request): array
