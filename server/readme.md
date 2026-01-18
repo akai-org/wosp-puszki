@@ -6,9 +6,9 @@
 
 #### wymagania
 
--   PHP >= 8.3
--   Baza Posggres
--   Node (tested 20.11.0 lts)
+- PHP >= 8.3
+- Baza Posggres
+- Node (tested 20.11.0 lts)
 
 #### instalacja
 
@@ -42,7 +42,7 @@ php artisan reverb:start
 
 
 Usupełniamy kursy walut w pliku .env, odwiedzając
-http://localhost:8000/liczymy/rates i wklejając poniżej
+http://localhost:8000/rates i wklejając poniżej
 UWAGA, jeżeli nie są ustawione kursy, to STATIC_RATES musi być false
 
 // Frontend:
@@ -59,18 +59,18 @@ npm run build
 
 #### wymagania
 
--   docker-compose
+- docker-compose
 
 #### instalacja
 
--   uruchomić aplikację poleceniem:
+- uruchomić aplikację poleceniem:
 
 ```bash
 docker compose up
 ```
 
--   jeżeli to pierwsze uruchomienie na maszynie, można uruchomić skrypt `script/first_launch.sh`
-    lub ręcznie wykonać wybrane komendy z tego skryptu
+- jeżeli to pierwsze uruchomienie na maszynie, można uruchomić skrypt `script/first_launch.sh`
+  lub ręcznie wykonać wybrane komendy z tego skryptu
 
 ## Testy
 
@@ -87,9 +87,10 @@ Hard:
 
 Soft:
 
--   Używamy [gitmoji](https://gitmoji.dev/)
+- Używamy [gitmoji](https://gitmoji.dev/)
 
 ### Wyłączanie autofill formularza w chrome
+
 ```
 How to Disable and Clear AutoFill Info in your Browser
 In this article, we will tell you how to disable the autofill options in some of the most popular web browsers to prevent this information from being unintentionally saved or used in your browser.
@@ -118,7 +119,7 @@ src: https://support.iclasspro.com/hc/en-us/articles/218569268-How-to-Disable-an
 ### Wydarzenia zapisywane do bazy (BoxEvent)
 
 | Nazwa eventu    | Opis eventu                                           |
-| --------------- | ----------------------------------------------------- |
+|-----------------|-------------------------------------------------------|
 | give            | wydanie puszki wolontariuszowi                        |
 | found           | znalezienie puszki                                    |
 | startedCounting | rozpoczął rozliczenie puszki                          |

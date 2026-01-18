@@ -147,7 +147,9 @@ class BoxOperator
         $box->amount_USD = $data['amount_USD'];
         $box->amount_GBP = $data['amount_GBP'];
         $box->comment = $data['comment'];
-        $box->additional_comment = $data['additional_comment'];
+        if (isset($data['additional_comment'])) {
+            $box->additional_comment = $data['additional_comment'];
+        }
 
         // Add counted by data
         $box->first_counted_by_name = $data['first_counted_by_name'];
