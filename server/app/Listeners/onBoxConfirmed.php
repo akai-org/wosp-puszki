@@ -19,6 +19,7 @@ class onBoxConfirmed
     /**
      * Handle the event.
      *
+     * @param BoxConfirmed $event
      * @return void
      */
     public function handle(BoxConfirmed $event)

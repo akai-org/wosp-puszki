@@ -112,6 +112,5 @@ Route::prefix('api')->middleware('admin')->group(function () {
         Route::get('verify/list', [CharityBoxApiController::class, 'getVerifyList'])->name('api.box.verify.list');
         Route::get('verified', [CharityBoxApiController::class, 'getVerifiedBoxes'])->name('api.box.verified');
         Route::post('unverify', [CharityBoxApiController::class, 'postUnVerify'])->name('api.box.unverify');
-
     });
 });
