@@ -5,6 +5,7 @@
   justify-content: center;
   min-height: 100vh;
   padding: 20px;
+  padding-bottom: 100px;
   position: relative;
 }
 
@@ -19,6 +20,13 @@
     width: 100%;
     height: auto;
     max-height: 80vh;
+  }
+}
+
+@media (max-width: 768px) {
+  .mapContainer svg {
+    width: 100vw;
+    max-height: none;
   }
 }
 
@@ -84,4 +92,3 @@
     opacity: 0.8;
   }
 }
-
