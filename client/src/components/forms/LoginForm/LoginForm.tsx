@@ -1,10 +1,10 @@
 import {
   PASSWORD_REQUIRED,
+  recognizeError,
   useAuthContext,
   USERNAME_REQUIRED,
-  recognizeError,
 } from '@/utils';
-import { FormButton, FormWrapper, FormInput } from '@/components';
+import { FormButton, FormInput, FormWrapper } from '@/components';
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 

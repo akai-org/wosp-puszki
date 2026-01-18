@@ -4,6 +4,7 @@ import {
   permissions,
   useAuthContextValues,
   useBoxContextValues,
+  useCountedByContextValues,
 } from '@/utils';
 import { useDepositContext } from '@/utils/Contexts/DepositContext';
 
@@ -139,6 +140,12 @@ export type volunteerStatusClass =
 
 export type currencies = 'pln' | 'eur' | 'gbp' | 'usd';
 
+export interface ICountedByContext {
+  setCountedBy: (countedBy: CountedBy) => void;
+  clearCountedBy: () => void;
+  countedBy: CountedBy | null;
+}
+
 export interface IAuthContext {
   createCredentials: (username: string, password: string) => Promise<void>;
   deleteCredentials: () => void;
@@ -146,7 +153,6 @@ export interface IAuthContext {
   username: string | null;
   roles: UserRole[];
 }
-
 export interface ISidebarStateContext {
   show: boolean;
   toggleSidebar: () => void;
@@ -294,6 +300,10 @@ export interface IBoxes {
   additional_comment: string;
   is_special_box: number;
   original_counting_user_id?: number;
+  first_counted_by_name?: string;
+  first_counted_by_phone?: string;
+  second_counted_by_name?: string;
+  second_counted_by_phone?: string;
 }
 
 export interface DisplayableData {
@@ -337,6 +347,8 @@ export type UseAuthContextValues = typeof useAuthContextValues;
 
 export type UseBoxContextValues = typeof useBoxContextValues;
 
+export type UseCountedByContextValues = typeof useCountedByContextValues;
+
 export type UseDepositContextValues = typeof useDepositContext;
 
 export type moneyValuesType = typeof MONEY_VALUES;
@@ -356,6 +368,13 @@ export interface Volunteer {
   created_at: number;
   updated_at: string;
   boxes: Omit<boxResponse, 'collector'>[];
+}
+
+export interface CountedBy {
+  first_counted_by_name: string;
+  first_counted_by_phone: string;
+  second_counted_by_name: string;
+  second_counted_by_phone: string;
 }
 
 export type UserRole = keyof typeof permissions;

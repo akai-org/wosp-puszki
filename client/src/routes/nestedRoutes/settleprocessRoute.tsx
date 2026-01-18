@@ -1,10 +1,4 @@
-import {
-  AcceptDataPage,
-  DepositBoxPage,
-  FindBoxPage,
-  SettleBoxPage,
-  SettleBoxPageCheckout,
-} from '@/pages';
+import { AcceptDataPage, DepositBoxPage, FindBoxPage, SettleBoxPage, SettleBoxPageCheckout, } from '@/pages';
 import { RouteObject } from 'react-router-dom';
 import {
   ACCEPT_BOX_PAGE_ROUTE,
@@ -12,8 +6,8 @@ import {
   BOXES_PATH,
   CHECKOUT_BOX_PAGE_ROUTE,
   DEPOSIT_BOX_PAGE_ROUTE,
-  FIND_BOX_PAGE_ROUTE,
   FIND_BOX_BUSY_PAGE_ROUTE,
+  FIND_BOX_PAGE_ROUTE,
   SETTLE_PROCESS_PATH,
   SettleProcessProvider,
   UNSETTLED_BOXES_PATH,
@@ -52,10 +46,6 @@ const SettleProcessRoute = () => {
   const { username } = useAuthContext();
   const lastTwoCharacters = username?.slice(-2);
   const isAdmin = isNaN(parseInt(lastTwoCharacters as string));
-  const links = [
-    { url: BOXES_PATH, label: 'Wydaj puszkę' },
-    { url: SETTLE_PROCESS_PATH, label: 'Rozlicz puszkę' },
-  ];
   if (isAdmin) {
     links.push({ url: All_BOXES_PATH, label: 'Wszystkie puszki' });
     links.push({
@@ -75,6 +65,7 @@ const SettleProcessRoute = () => {
             DEPOSIT_BOX_PAGE_ROUTE,
             CHECKOUT_BOX_PAGE_ROUTE,
           ]}
+          showFooter={true}
           links={[
             {
               url: BOXES_PATH,

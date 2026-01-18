@@ -7,12 +7,14 @@ interface Props {
   excludingLinks?: string[];
   links: SubNavLink[];
   prefix?: string;
+  showFooter?: boolean;
 }
 
 export const InnerLayoutManager: FC<Props> = ({
   excludingLinks = [],
   links,
   prefix = '',
+  showFooter = false,
 }) => {
   const location = useLocation();
   const { username } = useAuthContext();
@@ -26,5 +28,7 @@ export const InnerLayoutManager: FC<Props> = ({
     modifiedLinks = modifiedLinks.filter((link) => link.label !== 'Wydaj puszkę');
   }
 
-  return <InnerLayout links={modifiedLinks} hideNavbar={hideNavbar} />;
+  return (
+    <InnerLayout links={modifiedLinks} hideNavbar={hideNavbar} showFooter={showFooter} />
+  );
 };
