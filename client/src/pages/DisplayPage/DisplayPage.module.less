@@ -1,21 +1,19 @@
-@import './src/less/variables';
-
 @money-container-width: 59%;
 
 .innerWrapper {
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.3) url('/background.png');
   background-blend-mode: darken;
-  background-position: center;
-  background-repeat: no-repeat;
+  background: rgba(0, 0, 0, 0.6) url('/background.png') no-repeat center;
   background-size: cover;
   position: relative;
+
   & > div[class='ant-space-item'] {
     &:first-of-type {
       width: calc(60% - 1.25rem);
       height: 100vh;
     }
+
     &:last-of-type {
       width: 40%;
     }
@@ -27,16 +25,4 @@
   width: 100vw;
   height: 100vh;
   position: relative;
-}
-
-.waves {
-  width: calc(60% - 1.5rem);
-  background-image: url('/waves.svg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: top;
-  z-index: 0;
-  position: absolute;
-  bottom: 0;
-  height: 38%;
 }
