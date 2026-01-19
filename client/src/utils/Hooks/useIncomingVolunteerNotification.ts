@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
-import { useAuthContext, getIDfromUsername, openNotification } from '@/utils';
+import { getIDfromUsername, openNotification, useAuthContext } from '@/utils';
 import { useMovementControllerStations } from '@/pages/MovementControllerPage/hooks/useMovementControllerStations';
 
-export const useStationNotifications = () => {
+export const useIncomingVolunteerNotification = () => {
   const { username } = useAuthContext();
   const { data: stations } = useMovementControllerStations();
   const previousStatusRef = useRef<number | null>(null);

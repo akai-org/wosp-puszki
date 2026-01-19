@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetcher, APIManager, IStations } from '@/utils';
+import { APIManager, fetcher, IStations } from '@/utils';
 
 export const useMovementControllerStations = () => {
   return useQuery<IStations[]>({
@@ -8,4 +8,3 @@ export const useMovementControllerStations = () => {
     refetchInterval: 5000,
   });
 };
-

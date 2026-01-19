@@ -8,6 +8,7 @@ import {
   fetcher,
   getIsBoxAlreadySettlingError,
   isFailedFetched,
+  NetworkError,
   NO_CONNECT_WITH_SERVER,
   openNotification,
   SETTLE_PROCESS_PATH,
@@ -41,7 +42,7 @@ export const AcceptDataPage = () => {
         setSettlingErrorMessage(settlingError);
       }
       if (isFailedFetched(error)) openNotification('error', NO_CONNECT_WITH_SERVER);
-      else {
+      else if (!(error instanceof NetworkError)) {
         setSettlingErrorMessage('Nieznany błąd');
       }
     },

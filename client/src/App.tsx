@@ -11,7 +11,6 @@ import {
   useAuthContextValues,
   useCountedByContextValues,
   useSidebarStateValues,
-  useStationNotifications,
 } from '@/utils';
 
 const router = createBrowserRouter(routes, { basename: '/' });
@@ -24,8 +23,6 @@ export const queryClient = new QueryClient({
 });
 
 function AppContent() {
-  useStationNotifications();
-
   return (
     <>
       <RouterProvider router={router} fallbackElement={<Spin />} />
@@ -44,7 +41,7 @@ function App() {
       <CountedByContext.Provider value={countedByValues}>
         <SidebarStateContext.Provider value={sidebarValues}>
           <QueryClientProvider client={queryClient}>
-          <AppContent />
+            <AppContent />
           </QueryClientProvider>
         </SidebarStateContext.Provider>
       </CountedByContext.Provider>
