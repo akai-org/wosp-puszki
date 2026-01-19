@@ -3,8 +3,8 @@ import {
   adminRoute,
   boxesRoute,
   countedBoxesRoute,
-  stationsMapRoute,
   settleProcessRoute,
+  stationsRoute,
 } from './nestedRoutes';
 import { HomePage, LoginPage, NotFoundPage } from '@/pages';
 import { MainLayout } from '@/components';
@@ -48,7 +48,7 @@ export const routes: RouteObject[] = [
       adminRoute,
       boxesRoute,
       settleProcessRoute,
-      stationsMapRoute,
+      stationsRoute,
     ],
   },
 ];
