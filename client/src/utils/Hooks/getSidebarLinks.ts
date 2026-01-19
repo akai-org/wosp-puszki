@@ -1,18 +1,20 @@
 import {
-  SETTLE_PROCESS_PATH,
   ADMIN_PATH,
-  COUNTED_BOXES_PATH,
-  MAIN_ROUTE_NAME,
-  COUNTED_BOXES_ROUTE_NAME,
   ADMIN_ROUTE_NAME,
   BOXES_ROUTE_NAME,
+  COUNTED_BOXES_PATH,
+  COUNTED_BOXES_ROUTE_NAME,
+  filterLinksByPermission,
+  getTopPermission,
+  MAIN_ROUTE_NAME,
+  NavLink,
+  permissions,
+  SETTLE_PROCESS_PATH,
   STATIONS_MAP_PATH,
   STATIONS_MAP_ROUTE_NAME,
-  permissions,
+  UserRole,
   VOLUNTEERS_LIST_PAGE_ROUTE,
-} from '../Constants';
-import { NavLink, UserRole } from '../types';
-import { filterLinksByPermission, getTopPermission } from '../Functions';
+} from '@/utils';
 
 export const getSidebarLinks = (roles: UserRole[]) => {
   const topPermission = getTopPermission(roles);
