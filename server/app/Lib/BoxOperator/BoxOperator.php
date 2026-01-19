@@ -42,7 +42,7 @@ class BoxOperator
         $event->type = 'give';
         $event->box_id = $box->id;
         $event->user_id = $this->operatingUserId;
-        $event->comment = 'Collector: '.$collector->display;
+        $event->comment = 'Collector: ' . $collector->display;
         $event->save();
 
         return $box;
@@ -65,14 +65,14 @@ class BoxOperator
         $boxes = $collector->boxes()->orderBy('id', 'desc')->with('collector')->notCounted()->get();
 
         if (count($boxes) == 0) {
-            throw new Exception('Wszystkie puszki wolontariusza '.$collector->display.' są rozliczone.');
+            throw new Exception('Wszystkie puszki wolontariusza ' . $collector->display . ' są rozliczone.');
         }
 
         $event = new BoxEvent;
         $event->type = 'found';
         $event->box_id = $boxes[0]->id;
         $event->user_id = $this->operatingUserId;
-        $event->comment = 'Collector: '.$collector->display;
+        $event->comment = 'Collector: ' . $collector->display;
         $event->save();
 
         return $boxes[0]->load('collector');
@@ -83,7 +83,7 @@ class BoxOperator
         $box = CharityBox::where('id', '=', $boxID)->first();
 
         if ($box->is_counted) {
-            throw new Exception('Puszka została już rozliczona, numer puszki: '.$box->id.'Wolontariusz: '.
+            throw new Exception('Puszka została już rozliczona, numer puszki: ' . $box->id . 'Wolontariusz: ' .
                 $box->collectorIdentifier);
         }
 
@@ -95,7 +95,7 @@ class BoxOperator
         $event->type = 'startedCounting';
         $event->box_id = $box->id;
         $event->user_id = $this->operatingUserId;
-        $event->comment = 'Collector: '.$box->collector->display;
+        $event->comment = 'Collector: ' . $box->collector->display;
         $event->save();
 
         $box->counting_user_id = $this->operatingUserId;
@@ -147,10 +147,12 @@ class BoxOperator
         }
 
         // Add counted by data
-        $box->first_counted_by_name = $data['first_counted_by_name'];
-        $box->first_counted_by_phone = $data['first_counted_by_phone'];
-        $box->second_counted_by_name = $data['second_counted_by_name'];
-        $box->second_counted_by_phone = $data['second_counted_by_phone'];
+        if (isset($data['first_counted_by_name'], $data['first_counted_by_phone'], $data['second_counted_by_name'], $data['second_counted_by_phone'])) {
+            $box->first_counted_by_name = $data['first_counted_by_name'];
+            $box->first_counted_by_phone = $data['first_counted_by_phone'];
+            $box->second_counted_by_name = $data['second_counted_by_name'];
+            $box->second_counted_by_phone = $data['second_counted_by_phone'];
+        }
 
         $box->time_counted = Carbon::now();
 
@@ -208,7 +210,7 @@ class BoxOperator
         ]);
 
         if ($validator->fails()) {
-            throw new Exception('Błąd walidacji puszki '.$validator->errors()->first());
+            throw new Exception('Błąd walidacji puszki ' . $validator->errors()->first());
         }
 
         return array_merge(

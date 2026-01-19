@@ -28,7 +28,7 @@
 }
 
 #vertical-map .volunteer-ready-deployed {
-  fill: #9b59b6 !important;
+    fill: #9b59b6 !important;
 }
 
 #vertical-map .volunteer-unavailable {
@@ -80,8 +80,4 @@
 
 .ant-layout-footer {
     padding-bottom: 0 !important;
-}
-
-.ant-layout {
-    height: 100vh !important;
 }
