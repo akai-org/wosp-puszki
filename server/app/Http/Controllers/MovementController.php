@@ -71,7 +71,7 @@ class MovementController extends Controller
         try {
             $stations = [];
 
-            for ($i = 1; $i <= 28; $i++) {
+            for ($i = 1; $i <= 31; $i++) {
                 $status = Cache::get("station_{$i}_status", 0);
                 $timestamp = Cache::get("station_{$i}_timestamp", null);
 
