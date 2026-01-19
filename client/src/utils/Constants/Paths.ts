@@ -35,7 +35,7 @@ export const VOLUNTEERS_LIST_PAGE_ROUTE = 'volunteers/list';
 export const ADD_VOLUNTEER_PAGE_ROUTE = 'volunteers/add';
 export const LOGS_PAGE_ROUTE = 'logs';
 
-export const STATIONS_MAP_ROUTE = 'stations-map';
+export const STATIONS_MAP_ROUTE = 'stations';
 
 export const BOXES_PATH = `/${MAIN_ROUTE}/${BOXES_ROUTE}`;
 export const SETTLE_PROCESS_PATH = `${BOXES_PATH}/${SETTLE_PROCESS_ROUTE}`;
@@ -52,4 +52,4 @@ export const ADMIN_ROUTE_NAME = 'Admin';
 export const BOXES_ROUTE_NAME = 'Puszki';
 export const MAIN_ROUTE_NAME = 'Strona Główna';
 export const COUNTED_BOXES_ROUTE_NAME = 'Przeliczone puszki';
-export const STATIONS_MAP_ROUTE_NAME = 'Mapa stanowisk';
+export const STATIONS_ROUTE_NAME = 'Stanowiska';

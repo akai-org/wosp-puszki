@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { getIDfromUsername, openNotification, useAuthContext } from '@/utils';
-import { useMovementControllerStations } from '@/pages/MovementControllerPage/hooks/useMovementControllerStations';
+import { useMovementControllerStations } from '@utils/Hooks/useMovementControllerStations';
 
 export const useIncomingVolunteerNotification = () => {
   const { username } = useAuthContext();

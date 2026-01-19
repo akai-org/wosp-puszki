@@ -1,12 +1,12 @@
 import type { RouteObject } from 'react-router-dom';
-import { StationsMapPage } from '@/pages/MovementControllerPage';
+import { StationsPage } from '@pages/StationsPage';
 import { ProtectedRoute } from '@components/ProtectedRoute/ProtectedRoute';
 
 export const stationsMapRoute: RouteObject = {
-  path: 'stations-map',
+  path: 'stations',
   element: (
     <ProtectedRoute permission="movementcontroller">
-      <StationsMapPage />
+      <StationsPage />
     </ProtectedRoute>
   ),
 };

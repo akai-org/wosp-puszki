@@ -11,7 +11,7 @@ import {
   permissions,
   SETTLE_PROCESS_PATH,
   STATIONS_MAP_PATH,
-  STATIONS_MAP_ROUTE_NAME,
+  STATIONS_ROUTE_NAME,
   UserRole,
   VOLUNTEERS_LIST_PAGE_ROUTE,
 } from '@/utils';
@@ -36,7 +36,7 @@ export const getSidebarLinks = (roles: UserRole[]) => {
     },
     { label: BOXES_ROUTE_NAME, url: SETTLE_PROCESS_PATH, permission: 'volounteer' },
     {
-      label: STATIONS_MAP_ROUTE_NAME,
+      label: STATIONS_ROUTE_NAME,
       url: STATIONS_MAP_PATH,
       permission: 'movementcontroller',
     },

@@ -1,13 +1,13 @@
-import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ReactComponent as MapVertical } from '@assets/map_vertical.svg';
-import s from './StationsMapPage.module.less';
+import s from './StationsPage.module.less';
 import { stationState } from '@/utils';
-import { useMovementControllerStations } from './hooks/useMovementControllerStations';
-import { useSetStationReadyDeployed } from './hooks/useSetStationReadyDeployed';
+import { useMovementControllerStations } from '@utils/Hooks/useMovementControllerStations';
+import { useSetStationReadyDeployed } from '@utils/Hooks/useSetStationReadyDeployed';
 import { Button } from 'antd';
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 
-export const StationsMapPage = () => {
+export const StationsPage = () => {
   const { data: stationsData, isLoading } = useMovementControllerStations();
   const { mutate: setReadyDeployed, isLoading: isMutating } =
     useSetStationReadyDeployed();
@@ -57,7 +57,7 @@ export const StationsMapPage = () => {
 
       if (!stationNumber || isNaN(stationNumber)) return;
 
-    const station = stations.find((s) => s.station === stationNumber);
+      const station = stations.find((s) => s.station === stationNumber);
 
       if (station && station.status === stationState.available) {
         setSelectedStation(stationNumber);
