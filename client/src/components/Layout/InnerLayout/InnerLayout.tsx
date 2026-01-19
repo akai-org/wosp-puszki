@@ -1,7 +1,12 @@
 import { Outlet } from 'react-router-dom';
 import { Layout } from 'antd';
 import s from './InnerLayout.module.less';
-import { filterLinksByPermission, SubNavLink, useAuthContext, useCountedByContext, } from '@/utils';
+import {
+  filterLinksByPermission,
+  SubNavLink,
+  useAuthContext,
+  useCountedByContext,
+} from '@/utils';
 import { FC } from 'react';
 import { Navbar } from '../Navbar/Navbar';
 import { Footer } from '@components/Layout/Footer/Footer';

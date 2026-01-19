@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Checkbox, Col, Image, Modal, Row, Steps, Typography } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import s from './InstructionsModal.module.less';
+import { getTopPermission, permissions, useAuthContext } from '@/utils';
 
 const { Title, Paragraph } = Typography;
 
@@ -44,6 +45,8 @@ interface InstructionsModalProps {
 }
 
 export const InstructionsModal = ({ isOpen, onClose }: InstructionsModalProps) => {
+  const { roles } = useAuthContext();
+  const role = getTopPermission(roles) ?? 5;
   const [currentStep, setCurrentStep] = useState(0);
 
   const [dontShowOnLogin, setDontShowOnLogin] = useState<boolean>(() => {
@@ -139,19 +142,23 @@ export const InstructionsModal = ({ isOpen, onClose }: InstructionsModalProps) =
                 {currentStep !== INSTRUCTION_STEPS.length - 1 && <RightOutlined />}
               </Button>
             </div>
-            <Checkbox
-              checked={dontShowOnLogin}
-              onChange={(e) => {
-                setDontShowOnLogin(e.target.checked);
-                if (e.target.checked) {
-                  localStorage.setItem('HIDE_INSTRUCTIONS_ON_LOGIN', '1');
-                } else {
-                  localStorage.removeItem('HIDE_INSTRUCTIONS_ON_LOGIN');
-                }
-              }}
-            >
-              Nie pokazuj ponownie
-            </Checkbox>
+            {role <= permissions['collectorcoordinator'] ? (
+              <Checkbox
+                checked={dontShowOnLogin}
+                onChange={(e) => {
+                  setDontShowOnLogin(e.target.checked);
+                  if (e.target.checked) {
+                    localStorage.setItem('HIDE_INSTRUCTIONS_ON_LOGIN', '1');
+                  } else {
+                    localStorage.removeItem('HIDE_INSTRUCTIONS_ON_LOGIN');
+                  }
+                }}
+              >
+                Nie pokazuj ponownie
+              </Checkbox>
+            ) : (
+              <></>
+            )}
           </div>
         </Col>
       </Row>
