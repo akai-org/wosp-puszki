@@ -1,5 +1,5 @@
-import { StationsMap } from '@components/stations/StationsMap/StationsMap';
+import { StationsController } from '@components/stations/StationsController/StationsController';
 
 export const StationsPage = () => {
-  return <StationsMap />;
+  return <StationsController />;
 };

@@ -13,6 +13,8 @@ export class APIManager {
     `${this.baseAPIRUrl}/collectors/${volunteerId}/box/latestUncounted`;
   static setStationReadyDeployedURL = (stationId: number) =>
     `${this.baseAPIRUrl}/stations/${stationId}/ready-deployed`;
+  static setStationReadyURL = (stationId: number) =>
+    `${this.baseAPIRUrl}/stations/${stationId}/ready`;
   static helpRequestUrl = `${this.baseAPIRUrl}/help/request`;
   static helpResolveUrl = `${this.baseAPIRUrl}/help/resolve`;
 }
