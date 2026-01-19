@@ -46,6 +46,7 @@ const SettleProcessRoute = () => {
   const { username } = useAuthContext();
   const lastTwoCharacters = username?.slice(-2);
   const isAdmin = isNaN(parseInt(lastTwoCharacters as string));
+  const links = [];
   if (isAdmin) {
     links.push({ url: All_BOXES_PATH, label: 'Wszystkie puszki' });
     links.push({
