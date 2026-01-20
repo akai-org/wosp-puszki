@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Illuminate\Support\Facades\Notification;
+use Illuminate\Notifications\Notification;
 
 class WebhookNotifiable
 {
