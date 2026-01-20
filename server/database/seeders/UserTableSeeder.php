@@ -42,8 +42,8 @@ class UserTableSeeder extends Seeder
         $collectorCoordinator->save();
         $collectorCoordinator->roles()->attach($roleCollectorCoordinator);
 
-        //Dodawanie kontrolera ruchu
-        $movementController = new User();
+        // Dodawanie kontrolera ruchu
+        $movementController = new User;
         $movementController->name = 'movementcontroller';
         $movementController->password = Hash::make('kontroler');
         $movementController->save();

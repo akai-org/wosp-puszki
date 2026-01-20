@@ -11,8 +11,7 @@ class MovementController extends Controller
     /**
      * Mark station as ready_deployed
      *
-     * @param Request $request
-     * @param int $stationId
+     * @param  int  $stationId
      * @return \Illuminate\Http\JsonResponse
      */
     public function markStationReadyDeployed(Request $request, $stationId)
@@ -24,7 +23,7 @@ class MovementController extends Controller
                 return response()->json([
                     'success' => false,
                     'message' => 'Station is not in ready status',
-                    'current_status' => $currentStatus
+                    'current_status' => $currentStatus,
                 ], 400);
             }
 
@@ -56,7 +55,7 @@ class MovementController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Error updating station status',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
@@ -86,8 +85,8 @@ class MovementController extends Controller
 
                 $stations[] = [
                     'station' => $i,
-                    'status' => (int)$status,
-                    'time' => $timestamp
+                    'status' => (int) $status,
+                    'time' => $timestamp,
                 ];
             }
 
@@ -97,7 +96,7 @@ class MovementController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Error fetching stations',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }

@@ -34,6 +34,7 @@ export const baseDepositContextValues = {
   cleanAmounts: vi.fn(),
   boxData: {
     comment: '',
+    additional_comment: '',
     amounts: {
       count_1gr: 0,
       count_2gr: 0,

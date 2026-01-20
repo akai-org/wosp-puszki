@@ -36,8 +36,8 @@ class RoleTableSeeder extends Seeder
         $roleVolounteer->description = 'Wolontariusz liczący';
         $roleVolounteer->save();
 
-        //Kontroler ruchu - zarządzanie mapą stanowisk
-        $roleMovementController = new Role();
+        // Kontroler ruchu - zarządzanie mapą stanowisk
+        $roleMovementController = new Role;
         $roleMovementController->name = 'movementcontroller';
         $roleMovementController->description = 'Kontroler ruchu';
         $roleMovementController->save();

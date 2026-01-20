@@ -10,7 +10,7 @@ import {
   useCountedByContext,
   UserRole,
 } from '@/utils';
-import _ from 'lodash';
+import { isEmpty } from 'lodash';
 
 interface Props {
   reversed?: boolean;
@@ -35,7 +35,7 @@ export const ProtectedRoute = ({
     if (shouldRedirect || !isProperPermission) {
       return <Navigate to={redirectTo} replace />;
     }
-    if (_.isEmpty(countedBy) && topPermission >= permissions['volounteer']) {
+    if (isEmpty(countedBy) && topPermission >= permissions['volounteer']) {
       return <Navigate to={`/${MAIN_ROUTE}/${COUNTED_BY_ROUTE}`} replace />;
     }
     return children;

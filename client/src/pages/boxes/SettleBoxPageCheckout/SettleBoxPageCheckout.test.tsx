@@ -1,22 +1,23 @@
 import {
-  APIManager,
   AmountsKeys,
+  APIManager,
+  createFullRoutePath,
   DEPOSIT_BOX_PAGE_ROUTE,
   MONEY_AMOUNTS_VALUES,
   MONEY_VALUES,
   SETTLE_PROCESS_PATH,
-  ZLOTY_AMOUNTS_KEYS,
-  createFullRoutePath,
   sum,
+  ZLOTY_AMOUNTS_KEYS,
 } from '@/utils';
 import { screen, waitFor } from '@testing-library/react';
 import {
   baseAuthContextValues,
   baseBoxContextValues,
+  baseCountedByContextValues,
   baseDepositContextValues,
 } from '@tests/utils/basicMockupValues';
-import { SettleBoxProvidersWrapper, renderWithWrapper } from '@tests/utils/wrappers';
-import { SettleBoxPageCheckout } from './SettleBoxPageCheckout';
+import { renderWithWrapper, SettleBoxProvidersWrapper } from '@tests/utils/wrappers';
+import { SettleBoxPageCheckout } from '@/pages';
 import { mockEndpoint } from '@tests/utils/MSWSetup';
 import { act } from 'react-dom/test-utils';
 
@@ -42,7 +43,7 @@ const testData = {
     amount_GBP: 1,
   },
   comment: '',
-  additional_comment: ''
+  additional_comment: '',
 };
 
 beforeEach(() => {
@@ -55,6 +56,7 @@ beforeEach(() => {
       }),
       boxContextValues: () => ({ ...baseBoxContextValues }),
       authContextValues: () => ({ ...baseAuthContextValues }),
+      countedByContextValues: () => ({ ...baseCountedByContextValues }),
     }),
   );
 });

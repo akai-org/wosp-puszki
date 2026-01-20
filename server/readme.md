@@ -6,10 +6,10 @@
 
 #### Requirements
 
--   PHP >= 8.3
--   Composer
--   Baza Postgres
--   Node (tested 20.11.0 lts)
+- PHP >= 8.3
+- Composer
+- Baza Postgres
+- Node (tested 20.11.0 lts)
 
 #### Installation
 
@@ -93,6 +93,12 @@ For the static code analysis run the following command:
 ./vendor/bin/phpstan analyse --memory-limit=2G
 ```
 
+To clear all the code, use Laravel Pint
+
+```
+./vendor/bin/pint
+```
+
 ### Events saved in the database
 
 | Nazwa eventu    | Opis eventu                                         |
@@ -141,19 +147,3 @@ php artisan schedule:work
 OpenApi docummentation got described [here](./doc/Api/api.md)
 
 Process flos [is available here](./doc/Api/workflow.md)
-
-### Linter
-
-To clear all the code, use Laravel Pint
-
-```
-./vendor/bin/pint
-```
-
-### Linter
-
-To clear all the code, use Laravel Pint
-
-```
-./vendor/bin/pint
-```
