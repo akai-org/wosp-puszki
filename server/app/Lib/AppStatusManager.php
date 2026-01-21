@@ -15,7 +15,7 @@ class AppStatusManager
      *
      * @var string
      */
-    public const MONEYBOX_VALUE = 'moneybox.value';
+    public const string MONEYBOX_VALUE = 'moneybox.value';
 
     /**
      * Reads a value stored with the given key in the database
