@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use CurlHandle;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
@@ -25,9 +26,10 @@ class AllegroController extends Controller
         $client_id = config('services.allegro.client_id');
         $client_secret = config('services.allegro.client_secret');
         $authorization = base64_encode($client_id.':'.$client_secret);
+        $app_url = config('app.url');
         $authorization_code = urlencode($authorization_code);
         $headers = ["Authorization: Basic {$authorization}", 'Content-Type: application/x-www-form-urlencoded'];
-        $content = "grant_type=authorization_code&code={$authorization_code}&redirect_uri=http://localhost:8000/allegro";
+        $content = "grant_type=authorization_code&code={$authorization_code}&redirect_uri=$app_url/allegro";
         $ch = $this->getCurl($headers, $content);
         $tokenResult = curl_exec($ch);
         $resultCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -56,5 +58,13 @@ class AllegroController extends Controller
         ]);
 
         return $ch;
+    }
+
+    public function initAllegro(): RedirectResponse
+    {
+        $client_id = config('services.allegro.client_id');
+        $app_url = config('app.url');
+
+        return redirect("https://allegro.pl/auth/oauth/authorize?response_type=code&client_id=$client_id&redirect_uri=$app_url/allegro");
     }
 }

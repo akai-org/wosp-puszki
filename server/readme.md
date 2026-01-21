@@ -131,10 +131,12 @@ Route::post('/stations/{id}/unknown', [AvailabilityController::class, 'postUnkno
 You need to download `wolontariusze.csv` file from the WOŚP foundation system,
 and import them using `php artisan import:collectors` command.
 
-### Fetching eSkarbonka state
+### Fetching eSkarbonka and allegro state
 
 eSkarbonka ID needs to be set in the .env file (MONEYBOX_ID).
 The ID can be set based on the URL address eg. for the `https://eskarbonka.wosp.org.pl/he9yxj` the id is `he9yxj`.
+
+Allegro fetches auction amount. Before triggering the following command visit `/allegro/init` to generate oAuth token.
 
 To fetch it periodically, you need to trigger
 

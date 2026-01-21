@@ -26,6 +26,7 @@ Route::get('/raw', [AmountDisplayController::class, 'getTotalRawWithForeign'])->
 Route::get('/raw/pln', ['as' => 'display.raw.pln', 'uses' => 'AmountDisplayController@getTotalRawPln']);
 Route::get('/raw/all', ['as' => 'display.raw.all', 'uses' => 'AmountDisplayController@getTotalRawWithForeign']);
 Route::get('/allegro', [AllegroController::class, 'setAuthToken']);
+Route::get('/allegro/init', [AllegroController::class, 'initAllegro']);
 
 // Log in
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
