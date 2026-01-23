@@ -47,5 +47,6 @@ return [
 
     'discord' => [
         'webhook' => env('DISCORD_WEBHOOK'),
+        'it_webhook' => env('DISCORD_IT_WEBHOOK'),
     ],
 ];
