@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import {Button, Checkbox, Col, Image, Modal, Row, Steps, Typography} from 'antd';
-import {LeftOutlined, RightOutlined} from '@ant-design/icons';
+import React, { useEffect, useState } from 'react';
+import { Button, Checkbox, Col, Image, Modal, Row, Steps, Typography } from 'antd';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import s from './InstructionsModal.module.less';
-import {getTopPermission, permissions, useAuthContext} from '@/utils';
+import { getTopPermission, permissions, useAuthContext } from '@/utils';
 
 const { Title, Paragraph } = Typography;
 
