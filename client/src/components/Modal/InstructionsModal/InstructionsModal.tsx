@@ -1,12 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Checkbox, Col, Image, Modal, Row, Steps, Typography } from 'antd';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import React, {useEffect, useState} from 'react';
+import {Button, Checkbox, Col, Image, Modal, Row, Steps, Typography} from 'antd';
+import {LeftOutlined, RightOutlined} from '@ant-design/icons';
 import s from './InstructionsModal.module.less';
-import { getTopPermission, permissions, useAuthContext } from '@/utils';
+import {getTopPermission, permissions, useAuthContext} from '@/utils';
 
 const { Title, Paragraph } = Typography;
 
 const INSTRUCTION_STEPS = [
+  {
+    title: 'Uzupełnienie danych',
+    description:
+      'Zanim przejdziesz dalej uzupełnij imiona, nazwiska oraz numery telefonów osób liczących. Dane te zawsze możesz zmienić później.',
+    imageSrc: '/instructions/instruction-00-fill-data.png',
+  },
   {
     title: 'Rozpoczęcie rozliczania',
     description:
@@ -16,26 +22,32 @@ const INSTRUCTION_STEPS = [
   {
     title: 'Identyfikacja puszki',
     description:
-      'Wpisz numer identyfikatora z puszki wolontariusza. Upewnij się, że numer jest poprawny, a następnie kliknij czerwony przycisk "Wyszukaj puszkę".',
+      'Wpisz numer identyfikatora z puszki wolontariusza. Upewnij się, że numer jest poprawny, a następnie kliknij czerwony przycisk "Wyszukaj puszkę". Jeżeli puszka zaczyna się od liter "PF" zaznacz, że jest to puszka firmowa.',
     imageSrc: '/instructions/instruction-02-find.png',
   },
   {
     title: 'Weryfikacja danych',
     description:
-      'Sprawdź, czy dane wolontariusza zgadzają się z identyfikatorem. Jeśli puszka nie jest uszkodzona, kliknij "Potwierdzam Zgodność z danymi rzeczywistymi".',
+      'Sprawdź, czy dane wolontariusza zgadzają się z identyfikatorem. Jeśli puszka nie jest uszkodzona, kliknij "Potwierdzam Zgodność z danymi rzeczywistymi". W przeciwnym przypadku wezwij pomoc.',
     imageSrc: '/instructions/instruction-03-verify.png',
+  },
+  {
+    title: 'Wezwanie pomocy',
+    description:
+      'W przypadku potrzeby wezwania pomocy, naciśnij przycisk "Pomoc" w prawym dolnym rogu. Wyświetli on dodatkowy przycisk "Wezwij pomoc".',
+    imageSrc: '/instructions/instruction-04-help.png',
   },
   {
     title: 'Liczenie pieniędzy',
     description:
       'Wpisz ilość poszczególnych nominałów w formularzu. Waluty obce wpisz w kolumnie po prawej stronie. Gdy skończysz, kliknij przycisk "Rozlicz Puszkę".',
-    imageSrc: '/instructions/instruction-04-counting.png',
+    imageSrc: '/instructions/instruction-05-counting.png',
   },
   {
     title: 'Zatwierdzenie',
     description:
-      'Sprawdź, czy suma końcowa zgadza się z przeliczoną gotówką. Jeśli wszystko jest poprawne, kliknij zielony przycisk "Potwierdź rozliczenie puszki".',
-    imageSrc: '/instructions/instruction-05-summary.png',
+      'Sprawdź, czy suma końcowa zgadza się z przeliczoną gotówką. Jeśli wszystko jest poprawne, kliknij zielony przycisk "Potwierdź rozliczenie puszki". Dopiero wtedy dane zostaną zapisane.',
+    imageSrc: '/instructions/instruction-06-summary.png',
   },
 ];
 

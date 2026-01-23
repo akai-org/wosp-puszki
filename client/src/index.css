@@ -81,3 +81,7 @@
 .ant-layout-footer {
     padding-bottom: 0 !important;
 }
+
+.ant-steps-item {
+    width: 85px;
+}

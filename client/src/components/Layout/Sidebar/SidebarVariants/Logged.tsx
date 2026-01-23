@@ -3,11 +3,12 @@ import React, { useEffect, useState } from 'react';
 import s from '../Sidebar.module.less';
 import Logo from '@/assets/wosp.svg';
 import { SidebarItem } from '@components/Layout/Sidebar/SidebarItem/SidebarItem';
-import { SubNavLink } from '@/utils';
+import { MAIN_ROUTE, SubNavLink } from '@/utils';
 import { InstructionsModal } from '@components/Modal/InstructionsModal/InstructionsModal';
 import { SidebarActions } from '../SidebarFooter/SidebarActions';
 import { SidebarUser } from '../SidebarFooter/SidebarUser';
 import { SidebarInstructions } from '../SidebarFooter/SidebarInstructions';
+import { useNavigate } from 'react-router-dom';
 
 const { Header, Footer } = Layout;
 
@@ -27,6 +28,7 @@ export const Logged: React.FC<SidebarData> = ({
   deleteCredentials,
 }) => {
   const [isInstructionsOpen, setIsInstructionsOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     try {
@@ -41,6 +43,7 @@ export const Logged: React.FC<SidebarData> = ({
 
   const handleLogout = () => {
     deleteCredentials();
+    navigate(`/${MAIN_ROUTE}`);
   };
 
   return (
