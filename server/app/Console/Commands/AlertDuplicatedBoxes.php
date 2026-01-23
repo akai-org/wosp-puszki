@@ -28,7 +28,7 @@ class AlertDuplicatedBoxes extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $lastRun = Cache::get('alert:duplicatedBoxes:last_run', Carbon::now()->startOfCentury());
         $now = Carbon::now();
