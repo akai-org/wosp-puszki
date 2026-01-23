@@ -30,6 +30,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('allegro:fetch')
             ->everyTwoMinutes();
         $schedule->command('backup:run')->everyFifteenMinutes();
+        $schedule->command('alert:duplicatedBoxes')->everyFiveMinutes();
     }
 
     /**

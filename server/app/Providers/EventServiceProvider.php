@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Events\DuplicateBoxFound;
 use App\Events\HelpRequested;
 use App\Events\HelpResolved;
 use App\Events\SpecialBoxIsCounted;
+use App\Listeners\DuplicateBoxFoundListener;
 use App\Listeners\SendDiscordHelpRequest;
 use App\Listeners\SendDiscordHelpResolved;
 use App\Listeners\SpecialBoxIsCountedListener;
@@ -29,6 +31,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         SpecialBoxIsCounted::class => [
             SpecialBoxIsCountedListener::class,
+        ],
+        DuplicateBoxFound::class => [
+            DuplicateBoxFoundListener::class,
         ],
     ];
 
