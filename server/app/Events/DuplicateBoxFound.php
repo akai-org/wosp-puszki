@@ -19,10 +19,8 @@ class DuplicateBoxFound
      */
     public Collection $givenBoxes;
 
-
     /**
-     * @param string $collectorIdentifier
-     * @param Collection<int, CharityBox> $givenBoxes
+     * @param  Collection<int, CharityBox>  $givenBoxes
      */
     public function __construct(string $collectorIdentifier, Collection $givenBoxes)
     {

@@ -34,7 +34,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         DuplicateBoxFound::class => [
             DuplicateBoxFoundListener::class,
-        ]
+        ],
     ];
 
     /**

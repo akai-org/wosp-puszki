@@ -23,8 +23,8 @@ class DuplicateBoxFoundNotification extends Notification
 
     /**
      * Create a new notification instance.
-     * @param string $collectorIdentifier
-     * @param Collection<int, CharityBox> $givenBoxes
+     *
+     * @param  Collection<int, CharityBox>  $givenBoxes
      */
     public function __construct(string $collectorIdentifier, Collection $givenBoxes)
     {
@@ -67,9 +67,8 @@ class DuplicateBoxFoundNotification extends Notification
             return [
                 'name' => 'Godzina wydania',
                 'value' => $box->time_given,
-                'inline'=> true
+                'inline' => true,
             ];
         })->toArray();
     }
-
 }

@@ -32,7 +32,7 @@ class AlertDuplicatedBoxes extends Command
     {
         $lastRun = Cache::get('alert:duplicatedBoxes:last_run', Carbon::now()->startOfCentury());
         $now = Carbon::now();
-        $this->info("Checking for duplicates created after: " . $lastRun->toDateTimeString());
+        $this->info('Checking for duplicates created after: '.$lastRun->toDateTimeString());
 
         $duplicateGroups = DB::table('charity_boxes')
             ->select(['collectorIdentifier', DB::raw('COUNT(*) as count'), DB::raw('MAX(created_at) as latest_creation')])
@@ -45,10 +45,11 @@ class AlertDuplicatedBoxes extends Command
         if ($duplicateGroups->isEmpty()) {
             $this->info('No new duplicates found.');
             Cache::put('alert:duplicatedBoxes:last_run', $now);
+
             return;
         }
 
-        $this->error('Duplicates found: ' . $duplicateGroups->count());
+        $this->error('Duplicates found: '.$duplicateGroups->count());
 
         $duplicateGroups->each(function ($group) {
             $givenBoxes = CharityBox::where('collectorIdentifier', $group->collectorIdentifier)->where('is_counted', false)->get();
