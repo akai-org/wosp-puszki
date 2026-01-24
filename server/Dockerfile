@@ -5,7 +5,8 @@ ENV WEB_DOCUMENT_INDEX=index.php
 
 USER root
 
-RUN apk add postgresql-client chromium chromium-chromedriver
+RUN apk add postgresql18-client --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main
+RUN apk add chromium chromium-chromedriver
 
 ENV CHROME_BIN=/usr/bin/chromium-browser \
     CHROME_DRIVER=/usr/bin/chromedriver
