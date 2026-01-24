@@ -60,6 +60,6 @@ class HelpResolvedNotification extends Notification
             ];
         }
 
-        return [[]];
+        return [];
     }
 }
