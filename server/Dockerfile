@@ -12,7 +12,7 @@ ENV CHROME_BIN=/usr/bin/chromium-browser \
 
 WORKDIR /app
 
-COPY . .
+COPY --chown=application:application . .
 
 # Install PHP dependencies
 RUN composer install --optimize-autoloader
@@ -22,9 +22,6 @@ RUN apk add --no-cache nodejs npm
 RUN npm install
 
 RUN npm run build
-
-# Fix permissions
-RUN chown -R application:application /app
 
 # Copy entrypoint
 COPY docker/entrypoint.sh /opt/docker/provision/entrypoint.d/99-entrypoint.sh
