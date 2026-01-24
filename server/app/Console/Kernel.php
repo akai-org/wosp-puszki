@@ -25,8 +25,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         Log::info('Schedule ran');
-//        $schedule->command('scrap:moneybox')
-//            ->everyTwoMinutes();
+        $schedule->command('scrap:moneybox')
+            ->everyTwoMinutes();
         $schedule->command('allegro:fetch')
             ->everyTwoMinutes();
         $schedule->command('backup:run')->everyFifteenMinutes();
