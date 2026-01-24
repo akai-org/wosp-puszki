@@ -48,20 +48,6 @@ services:
       - logs_storage:/app/storage/logs
     command: [ 'php', 'artisan', 'schedule:work', '--verbose' ]
 
-  reverb:
-    build:
-      context: ./server
-      dockerfile: Dockerfile
-    env_file:
-      - .env.laravel
-    depends_on:
-      - db
-    restart: unless-stopped
-    volumes:
-      - app_storage:/app/storage/app
-      - logs_storage:/app/storage/logs
-    command: [ 'php', 'artisan', 'reverb:start' ]
-
   db:
     image: postgres:18
     env_file:
