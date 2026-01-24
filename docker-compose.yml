@@ -64,10 +64,8 @@ services:
 
   db:
     image: postgres:18
-    environment:
-      - POSTGRES_DB=${DB_DATABASE:-postgres}
-      - POSTGRES_USER=${DB_USERNAME:-postgres}
-      - POSTGRES_PASSWORD=${DB_PASSWORD:-root_password}
+    env_file:
+      - .env.postgres
     volumes:
       - postgres_data:/var/lib/postgresql
     expose:

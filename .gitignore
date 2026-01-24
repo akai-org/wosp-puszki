@@ -12,3 +12,4 @@
 /drivers
 node_modules
 .env.laravel
+.env.postgres
